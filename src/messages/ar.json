@@ -1,0 +1,2816 @@
+{
+  "notFound": {
+    "title": "الصفحة غير موجودة",
+    "subtitle": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    "home": "العودة إلى الرئيسية",
+    "browse": "تصفّح الإعلانات"
+  },
+  "common": {
+    "siteName": "autobladi.ma",
+    "tagline": "سوق السيارات الأول في المغرب",
+    "loading": "جاري التحميل...",
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "back": "رجوع"
+  },
+  "auth": {
+    "social": {
+      "or": "أو",
+      "google": "المتابعة بجوجل",
+      "facebook": "المتابعة بفيسبوك",
+      "error": "تعذّر تسجيل الدخول الاجتماعي"
+    },
+    "signIn": {
+      "title": "مرحباً بعودتك",
+      "subtitle": "سجّل دخولك لإدارة إعلاناتك ورسائلك",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "you@autobladi.ma",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "••••••••",
+      "submit": "تسجيل الدخول",
+      "submitting": "جاري تسجيل الدخول...",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "noAccount": "ليس لديك حساب؟",
+      "createAccount": "أنشئ حساباً جديداً",
+      "errorInvalid": "بريد إلكتروني أو كلمة مرور غير صحيحين",
+      "errorGeneric": "تعذّر تسجيل الدخول. حاول مرة أخرى."
+    },
+    "signUp": {
+      "title": "أنشئ حسابك",
+      "subtitle": "انضم إلى autobladi.ma وابدأ بيع وشراء السيارات",
+      "fullName": "الاسم الكامل",
+      "fullNamePlaceholder": "محمد العلوي",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "you@autobladi.ma",
+      "phone": "رقم الهاتف",
+      "phonePlaceholder": "+212 6 00 00 00 00",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "8 أحرف على الأقل",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "terms": "أوافق على الشروط والأحكام وسياسة الخصوصية",
+      "submit": "إنشاء الحساب",
+      "submitting": "جاري إنشاء الحساب...",
+      "hasAccount": "لديك حساب بالفعل؟",
+      "signIn": "تسجيل الدخول",
+      "successTitle": "تحقّق من بريدك الإلكتروني",
+      "successMessage": "أرسلنا رابط تأكيد إلى {email}. افتحه لتفعيل حسابك.",
+      "errorEmailExists": "هذا البريد مسجّل بالفعل",
+      "errorGeneric": "تعذّر إنشاء الحساب. حاول مرة أخرى."
+    },
+    "forgotPassword": {
+      "title": "نسيت كلمة المرور؟",
+      "subtitle": "أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة التعيين",
+      "email": "البريد الإلكتروني",
+      "submit": "إرسال رابط إعادة التعيين",
+      "submitting": "جاري الإرسال...",
+      "backToSignIn": "العودة إلى تسجيل الدخول",
+      "successTitle": "تم الإرسال",
+      "successMessage": "إن كان البريد {email} مسجّلاً لدينا، ستصلك رسالة بتعليمات إعادة التعيين."
+    },
+    "resetPassword": {
+      "title": "اختر كلمة مرور جديدة",
+      "subtitle": "اكتب كلمة المرور الجديدة لحسابك",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "submit": "تحديث كلمة المرور",
+      "submitting": "جاري التحديث...",
+      "successTitle": "تم تحديث كلمة المرور",
+      "successMessage": "يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة",
+      "errorInvalidLink": "الرابط غير صالح أو منتهي الصلاحية"
+    }
+  },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "fullNameRequired": "الاسم الكامل مطلوب",
+    "invalidEmail": "بريد إلكتروني غير صالح",
+    "phoneRequired": "رقم الهاتف مطلوب",
+    "passwordTooShort": "كلمة المرور يجب أن تكون 8 أحرف على الأقل",
+    "passwordMismatch": "كلمتا المرور غير متطابقتين",
+    "termsRequired": "يجب الموافقة على الشروط والأحكام"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "annonces": "السيارات",
+    "byBrand": "حسب الماركة",
+    "byCategory": "حسب الفئة",
+    "byCity": "حسب المدينة",
+    "professionnels": "التجار المحترفون",
+    "estimation": "تقدير الثمن",
+    "compare": "المقارنة",
+    "blog": "المدونة",
+    "contact": "اتصل بنا",
+    "postAd": "نشر إعلان",
+    "favorites": "المفضلة",
+    "messages": "الرسائل",
+    "menu": "القائمة",
+    "search": "ابحث عن سيارتك...",
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة"
+  },
+  "userMenu": {
+    "dashboard": "لوحة التحكم",
+    "myAnnonces": "إعلاناتي",
+    "favorites": "المفضلة",
+    "messages": "الرسائل",
+    "account": "حسابي",
+    "adminPanel": "لوحة الأدمن",
+    "signOut": "تسجيل الخروج"
+  },
+  "topBar": {
+    "help": "المساعدة",
+    "forPros": "للمحترفين"
+  },
+  "subscription": {
+    "upgrade": {
+      "metaTitle": "ترقية الحساب إلى Pro",
+      "heroTitle": "حوّل حسابك إلى صفحة احترافية لبيع سياراتك",
+      "heroSubtitle": "كل ما تحتاجه لإدارة صفحتك الاحترافية لبيع السيارات على autobladi.ma",
+      "featuresTitle": "ما تحصل عليه",
+      "features": {
+        "showroomTitle": "صفحة احترافية مخصّصة",
+        "showroomDesc": "لوغو، غلاف، وصف، ساعات عمل وموقع",
+        "unlimitedTitle": "إعلانات بلا حدود",
+        "unlimitedDesc": "انشر كل سياراتك بدون قيود",
+        "badgeTitle": "شارة Pro مميّزة",
+        "badgeDesc": "تظهر على صفحتك وعلى كل إعلاناتك",
+        "statsTitle": "إحصائيات متقدّمة",
+        "statsDesc": "مشاهدات، رسائل، مصادر الزوار"
+      },
+      "plansTitle": "اختر الباقة المناسبة",
+      "plansSubtitle": "الدفع بتحويل بنكي وموافقة يدوية",
+      "selectPlan": "اختر هذه الباقة",
+      "perDays": "/ {days} يوم",
+      "maxAnnonces": "{count} إعلان",
+      "popular": "الأكثر اختياراً",
+      "free": "مجّاني",
+      "tagline": "كل ما تحتاجه لعرض احترافي",
+      "includes": "تشمل الباقة",
+      "currentPlan": "باقتك الحالية",
+      "discountBadge": "-{percent}%",
+      "save": "وفّر {percent}%",
+      "noPlans": "لا توجد باقات متاحة حالياً",
+      "noPlansDesc": "تواصل معنا لإنشاء باقة مخصّصة",
+      "pendingTitle": "طلبك قيد المراجعة",
+      "pendingDesc": "أرسلتَ طلب اشتراك بتاريخ {date}",
+      "viewStatus": "عرض حالة الطلب"
+    },
+    "payment": {
+      "metaTitle": "إكمال طلب الاشتراك",
+      "back": "العودة للباقات",
+      "title": "إكمال طلب الاشتراك",
+      "subtitle": "حوّل المبلغ ثم أرسل صورة الوصل",
+      "summaryTitle": "ملخّص الباقة",
+      "summaryAmount": "المبلغ المستحق",
+      "bankTitle": "معلومات التحويل البنكي",
+      "bankName": "البنك",
+      "rib": "RIB",
+      "beneficiary": "المستفيد",
+      "amount": "المبلغ",
+      "currency": "DH",
+      "ribNote": "اذكر إيميلك أو رقم هاتفك في خانة المرجع لتسريع المعالجة.",
+      "copy": "نسخ",
+      "copied": "تم النسخ",
+      "formTitle": "إرسال وصل التحويل",
+      "receipt": "وصل التحويل",
+      "receiptHelp": "صورة أو PDF — حتى 10MB",
+      "bankReference": "رقم المرجع البنكي",
+      "optional": "(اختياري)",
+      "bankReferencePlaceholder": "مثال: TRF-2026-0001",
+      "notes": "ملاحظات (اختياري)",
+      "notesPlaceholder": "أي معلومات إضافية...",
+      "submit": "إرسال للمراجعة",
+      "submitting": "جاري الإرسال...",
+      "successTitle": "تم استلام طلبك",
+      "successDesc": "ستتم المراجعة خلال 24 ساعة",
+      "errorTitle": "تعذّر الإرسال",
+      "secureNotice": "الدفع آمن ويدوي عبر تحويل بنكي. تأكّد من معلومات الحساب قبل التحويل.",
+      "planNotFound": "الباقة غير موجودة أو غير نشطة",
+      "missingBankSettings": "معلومات الحساب البنكي غير مكتملة. تواصل مع الإدارة.",
+      "alreadyPending": "لديك طلب قيد المراجعة بالفعل"
+    },
+    "status": {
+      "metaTitle": "الاشتراك",
+      "currentTitle": "الاشتراك الحالي",
+      "noActiveTitle": "لا يوجد اشتراك نشط",
+      "noActiveDesc": "لم تشترك بعد في أي باقة",
+      "planLabel": "الباقة",
+      "startedAt": "تاريخ البدء",
+      "expiresAt": "تاريخ الانتهاء",
+      "daysLeft": "{days} يوم متبقّ",
+      "expiredOn": "انتهى بتاريخ {date}",
+      "expiringSoon": "ينتهي قريباً — جدّد لتفادي توقّف صفحتك",
+      "renew": "تجديد الاشتراك",
+      "historyTitle": "سجلّ الطلبات",
+      "historyEmpty": "لا توجد طلبات سابقة",
+      "amount": "المبلغ",
+      "bankRef": "المرجع البنكي",
+      "tablePlan": "الباقة",
+      "tableSubmitted": "تاريخ الإرسال",
+      "tableStatus": "الحالة",
+      "tableAmount": "المبلغ"
+    },
+    "requestStatus": {
+      "pending": "قيد المراجعة",
+      "approved": "موافَق",
+      "rejected": "مرفوض"
+    }
+  },
+  "verification": {
+    "title": "تأكيد هوية التاجر المحترف",
+    "subtitle": "وثائق رسمية لتفعيل شارة \"موثّق\" على صفحتك وإعلاناتك",
+    "notPro": {
+      "title": "هذه الميزة للحسابات المهنية فقط",
+      "desc": "ابدأ الترقية للحصول على الميزات الكاملة",
+      "cta": "ترقية الحساب"
+    },
+    "stepper": {
+      "info": "المعلومات",
+      "documents": "الوثائق",
+      "review": "المراجعة",
+      "approved": "الموافقة"
+    },
+    "infoNotice": "بياناتك مشفّرة وتُستعمل فقط للتحقّق. لا تُعرض على العموم.",
+    "reviewTimeline": "ستتم مراجعة طلبك خلال 24-48 ساعة عمل.",
+    "status": {
+      "verifiedTitle": "حسابك موثّق ✓",
+      "verifiedDesc": "شارة \"موثّق\" تظهر على صفحتك وعلى كل إعلاناتك.",
+      "verifiedAt": "تاريخ التحقق: {date}",
+      "pendingTitle": "طلبك قيد المراجعة",
+      "pendingDesc": "أُرسل الطلب بتاريخ {date} — سنُعلمك بمجرد المراجعة.",
+      "rejectedTitle": "تم رفض الطلب",
+      "rejectedReason": "السبب: {reason}",
+      "rejectedDesc": "يمكنك إعادة الإرسال بعد تصحيح الملاحظات.",
+      "resubmit": "إعادة الإرسال"
+    },
+    "form": {
+      "companyName": "اسم الشركة / التاجر المحترف",
+      "companyPlaceholder": "مثال: Auto Casa SARL",
+      "managerName": "اسم المسير",
+      "managerPlaceholder": "الاسم الكامل لصاحب القرار",
+      "rcNumber": "رقم السجل التجاري (RC)",
+      "rcPlaceholder": "أرقام فقط",
+      "professionalPhone": "الهاتف المهني",
+      "phonePlaceholder": "+212 5 22 00 00 00",
+      "address": "عنوان التاجر المحترف الكامل",
+      "addressPlaceholder": "الشارع، المدينة، الرمز البريدي",
+      "rcDocument": "مستخرج السجل التجاري",
+      "rcDocumentHelp": "ملف PDF أو صورة، حدّ أقصى 10MB",
+      "idCard": "بطاقة تعريف المسير",
+      "idCardHelp": "PDF يحوي وجه وظهر البطاقة، أو صورة واحدة",
+      "submit": "إرسال الطلب",
+      "submitting": "جاري الإرسال...",
+      "successTitle": "تم استلام طلبك",
+      "successDesc": "ستصلك نتيجة المراجعة قريباً",
+      "errorTitle": "تعذّر إرسال الطلب",
+      "uploadFailed": "فشل رفع الملف",
+      "fileTypeError": "نوع الملف غير مدعوم (PDF/JPG/PNG فقط)",
+      "fileTooLarge": "الملف أكبر من 10MB",
+      "selectFile": "اختر ملفاً أو اسحبه هنا",
+      "uploaded": "تم الرفع ✓",
+      "uploading": "جاري الرفع...",
+      "remove": "إزالة"
+    },
+    "badge": {
+      "label": "موثّق",
+      "tooltip": "تم التحقق من هويته من قبل autobladi.ma"
+    }
+  },
+  "professionnels": {
+    "metaTitle": "تجّار السيارات المحترفون في المغرب",
+    "metaDescription": "اكتشف أبرز تجّار السيارات المحترفين في المغرب — التقييمات، السيارات المتوفرة، ومعلومات التواصل.",
+    "detail": {
+      "verified": "موثّق",
+      "carsAvailable": "سيارات متوفّرة",
+      "rating": "متوسّط التقييم",
+      "reviews": "آراء العملاء",
+      "since": "منذ",
+      "phone": "الهاتف",
+      "email": "البريد",
+      "whatsapp": "واتساب",
+      "whatsappAction": "أرسل رسالة",
+      "directions": "الاتجاهات",
+      "filterAll": "الكل",
+      "filterNew": "جديدة",
+      "filterUsed": "مستعملة",
+      "proCtaTitle": "هل تدير تاجراً محترفاً للسيارات؟",
+      "proCtaText": "أنشئ واجهتك الاحترافية على autobladi.ma واعرض مخزونك كاملاً أمام آلاف المشترين كل شهر.",
+      "proCtaButton": "كن شريكاً"
+    },
+    "list": {
+      "title": "اكتشف أبرز تجّار السيارات المحترفين في المغرب",
+      "subtitle": "تجّار محترفون موثّقون مع تقييمات حقيقية من العملاء",
+      "search": "ابحث عن تاجر محترف...",
+      "filters": "الفلاتر",
+      "filterCity": "المدينة",
+      "filterMinRating": "التقييم الأدنى",
+      "filterAnyRating": "كل التقييمات",
+      "minStars": "{stars}+ نجوم",
+      "sortMostCars": "الأكثر سيارات",
+      "sortBestRating": "الأفضل تقييماً",
+      "sortNewest": "الأحدث",
+      "resultsCount": "{count} تاجر محترف",
+      "carsCount": "{count} سيارة",
+      "reviewsCount": "{count} تقييم",
+      "visit": "زيارة التاجر المحترف",
+      "empty": "لا توجد تجار محترفون تطابق البحث",
+      "emptyDesc": "جرّب تعديل الفلاتر أو المسح"
+    },
+    "tabs": {
+      "cars": "السيارات",
+      "about": "حول التاجر المحترف",
+      "reviews": "التقييمات",
+      "stats": "الإحصائيات"
+    },
+    "about": {
+      "description": "وصف التاجر المحترف",
+      "noDescription": "لم يضف التاجر المحترف وصفاً بعد.",
+      "hours": "ساعات العمل",
+      "address": "العنوان",
+      "contact": "التواصل",
+      "location": "الموقع",
+      "noHours": "ساعات العمل غير محدّدة",
+      "noLocation": "الموقع غير محدّد",
+      "closed": "مغلق",
+      "days": {
+        "monday": "الإثنين",
+        "tuesday": "الثلاثاء",
+        "wednesday": "الأربعاء",
+        "thursday": "الخميس",
+        "friday": "الجمعة",
+        "saturday": "السبت",
+        "sunday": "الأحد"
+      }
+    },
+    "reviews": {
+      "title": "تقييمات العملاء",
+      "averageRating": "متوسط التقييم",
+      "addYour": "أضف تقييمك",
+      "yourRating": "تقييمك",
+      "yourComment": "تعليقك (اختياري)",
+      "commentPlaceholder": "شارك تجربتك مع التاجر المحترف...",
+      "submit": "نشر التقييم",
+      "submitting": "جاري النشر...",
+      "loginRequired": "سجّل دخولاً للتقييم",
+      "alreadyReviewed": "لقد قيّمت هذا التاجر المحترف من قبل",
+      "successTitle": "شكراً لتقييمك",
+      "successDesc": "ساعدت غيرك من المشترين",
+      "error": "تعذّر نشر التقييم",
+      "empty": "لا توجد تقييمات بعد",
+      "emptyDesc": "كن أول من يقيّم هذا التاجر المحترف"
+    },
+    "stats": {
+      "memberSince": "عضو منذ {date}",
+      "carsActive": "{count} سيارة نشطة",
+      "totalSales": "مبيعات مقدّرة",
+      "responseRate": "معدّل الرد",
+      "comingSoon": "إحصائيات تفصيلية قريباً"
+    },
+    "sidebar": {
+      "contactCta": "تواصل مع التاجر المحترف",
+      "follow": "تابع التاجر المحترف",
+      "callNow": "اتصال",
+      "whatsapp": "واتساب",
+      "website": "الموقع",
+      "email": "البريد",
+      "verifiedBadge": "تاجر محترف موثّق من autobladi.ma"
+    },
+    "similar": {
+      "title": "تجار محترفون مشابهة",
+      "empty": "لا توجد تجار محترفون مشابهة"
+    },
+    "notFound": {
+      "title": "التاجر المحترف غير موجود",
+      "desc": "ربما تم حذفه أو لم يفعّل بعد",
+      "back": "كل التجار المحترفين"
+    }
+  },
+  "showroom": {
+    "title": "إدارة الصفحة",
+    "subtitle": "حدّث معلومات صفحتك وتابع نشاطها",
+    "publicLink": "عرض الصفحة العامة",
+    "tabs": {
+      "info": "معلومات التاجر المحترف",
+      "reviews": "التقييمات",
+      "stats": "الإحصائيات",
+      "annonces": "الإعلانات النشطة"
+    },
+    "info": {
+      "title": "معلومات التاجر المحترف",
+      "name": "اسم التاجر المحترف",
+      "slug": "المعرّف في الرابط",
+      "slugHelp": "يظهر في رابط التاجر المحترف: /professionnel/{slug}",
+      "logo": "اللوغو",
+      "uploadLogo": "تغيير اللوغو",
+      "logoHint": "مربّع · يُفضّل PNG شفّاف · 400×400 بكسل",
+      "cover": "صورة الغلاف",
+      "uploadCover": "تغيير الغلاف",
+      "coverHint": "أفقي بنسبة 3:1 · يُفضّل 1500×500 بكسل · بحد أقصى 5 ميغابايت",
+      "uploading": "جاري الرفع...",
+      "description": "وصف التاجر المحترف",
+      "descriptionPlaceholder": "تعريف بالتاجر المحترف، التخصّصات، سنوات الخبرة...",
+      "aiGenerate": "توليد بالذكاء الاصطناعي",
+      "address": "العنوان",
+      "city": "المدينة",
+      "secteur": "القطاع",
+      "secteurPlaceholder": "اختر القطاع",
+      "location": "الموقع",
+      "lat": "Latitude",
+      "lng": "Longitude",
+      "pickFromMaps": "افتح Google Maps لاختيار الإحداثيات",
+      "useMyLocation": "استخدام موقعي الحالي",
+      "locating": "جارٍ تحديد الموقع…",
+      "geoSuccess": "تم تحديد موقعك",
+      "geoError": "تعذّر الحصول على الموقع",
+      "geoUnsupported": "متصفّحك لا يدعم تحديد الموقع",
+      "pasteLabel": "ألصق رابط Google Maps",
+      "pasteHelp": "ألصق رابط الخريطة أو إحداثيات «lat, lng» — سيتم استخراجها تلقائياً.",
+      "pasteSuccess": "تم استخراج الإحداثيات",
+      "manualCoords": "إدخال الإحداثيات يدوياً",
+      "phone": "الهاتف",
+      "whatsapp": "WhatsApp",
+      "email": "البريد الإلكتروني",
+      "website": "الموقع الإلكتروني",
+      "facebook": "فيسبوك",
+      "instagram": "إنستغرام",
+      "youtube": "يوتيوب",
+      "tiktok": "تيك توك",
+      "linkedin": "لينكدإن",
+      "save": "حفظ التغييرات",
+      "saving": "جاري الحفظ...",
+      "savedTitle": "تم الحفظ",
+      "savedDesc": "تم تحديث معلومات التاجر المحترف",
+      "errorTitle": "تعذّر الحفظ"
+    },
+    "hours": {
+      "title": "ساعات العمل",
+      "subtitle": "حدّد أيام وأوقات العمل",
+      "open": "مفتوح",
+      "closed": "مغلق",
+      "from": "من",
+      "to": "إلى"
+    },
+    "reviewsTab": {
+      "title": "التقييمات الواردة",
+      "empty": "لم تتلقّ تقييمات بعد",
+      "comingSoon": "خيارات الرد والتبليغ قريباً"
+    },
+    "statsTab": {
+      "title": "إحصائيات التاجر المحترف",
+      "pageViews": "مشاهدات الصفحة",
+      "annonceViews": "مشاهدات الإعلانات",
+      "messages": "الرسائل الواردة",
+      "totalCars": "إجمالي السيارات",
+      "activeCars": "سيارات نشطة",
+      "comingSoon": "رسم الزيارات اليومية قريباً"
+    },
+    "annoncesTab": {
+      "title": "الإعلانات النشطة",
+      "manageHere": "إدارة الإعلانات",
+      "goToAnnonces": "اذهب لإدارة الإعلانات →"
+    },
+    "notReady": {
+      "title": "صفحتك لم تُفعّل بعد",
+      "desc": "بعد موافقة الأدمن على اشتراكك ستظهر لوحة إدارة الصفحة هنا.",
+      "upgradeCta": "الترقية إلى حساب محترف"
+    }
+  },
+  "dashboard": {
+    "menu": "القائمة",
+    "openSidebar": "فتح القائمة الجانبية",
+    "nav": {
+      "home": "لوحة التحكم",
+      "annonces": "إعلاناتي",
+      "ajouter": "إضافة إعلان",
+      "favoris": "المفضلة",
+      "messages": "الرسائل",
+      "compte": "حسابي",
+      "upgrade": "الترقية إلى حساب محترف",
+      "showroom": "إدارة الصفحة",
+      "abonnement": "اشتراكي",
+      "verification": "التحقق",
+      "adminPanel": "لوحة الأدمن",
+      "signOut": "تسجيل الخروج",
+      "viewSite": "عرض الموقع"
+    },
+    "badge": {
+      "gratuit": "مجاني",
+      "pro": "محترف",
+      "admin": "مدير",
+      "verified": "موثّق"
+    },
+    "home": {
+      "welcome": "مرحباً، {name}",
+      "welcomeAnon": "مرحباً بك",
+      "subtitle": "نظرة عامة على نشاطك",
+      "stats": {
+        "totalAnnonces": "إجمالي الإعلانات",
+        "activeAnnonces": "إعلانات نشطة",
+        "views": "إجمالي المشاهدات",
+        "messages": "رسائل غير مقروءة",
+        "favorites": "أضافوك للمفضلة"
+      },
+      "chart": {
+        "title": "أكثر إعلاناتك مشاهدة",
+        "subtitle": "ترتيب الإعلانات حسب عدد المشاهدات",
+        "viewsLabel": "مشاهدات",
+        "empty": "لا توجد بيانات بعد. انشر إعلاناً لترى الإحصائيات."
+      },
+      "alerts": {
+        "title": "تنبيهات",
+        "expiring": "{count} إعلان ينتهي خلال 5 أيام",
+        "renew": "تجديد",
+        "notVerified": "حسابك المهني لم يُوثَّق بعد",
+        "verifyNow": "ابدأ التحقق",
+        "noAlerts": "لا توجد تنبيهات حالياً ✓"
+      },
+      "recent": {
+        "annoncesTitle": "آخر إعلاناتك",
+        "messagesTitle": "آخر الرسائل",
+        "empty": "لا يوجد عناصر بعد",
+        "viewAll": "عرض الكل"
+      }
+    },
+    "annoncesPage": {
+      "title": "إعلاناتي",
+      "subtitle": "إدارة وتعديل إعلاناتك",
+      "addNew": "إضافة إعلان جديد",
+      "empty": "لم تنشر أي إعلان بعد",
+      "emptyDesc": "ابدأ بنشر إعلانك الأول ليصل إلى آلاف المشترين",
+      "columns": {
+        "annonce": "الإعلان",
+        "price": "السعر",
+        "status": "الحالة",
+        "views": "مشاهدات",
+        "published": "النشر",
+        "actions": "إجراءات"
+      },
+      "status": {
+        "active": "نشط",
+        "pending": "قيد المراجعة",
+        "rejected": "مرفوض",
+        "expired": "منتهي",
+        "sold": "مباع",
+        "draft": "مسودة"
+      },
+      "actions": {
+        "view": "معاينة",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "markSold": "تحديد كمباع",
+        "renew": "تجديد",
+        "boost": "رفع للأعلى",
+        "feature": "إعلان مميّز",
+        "unfeature": "إلغاء التمييز",
+        "featureProOnly": "إعلان مميّز (للمحترفين)"
+      },
+      "deleteConfirmTitle": "حذف الإعلان؟",
+      "deleteConfirmDesc": "هذا الإجراء نهائي ولا يمكن التراجع عنه.",
+      "cancel": "إلغاء",
+      "confirmDelete": "نعم، احذف",
+      "toast": {
+        "deleted": "تم حذف الإعلان",
+        "sold": "تم تحديد الإعلان كمباع",
+        "renewed": "تم تجديد الإعلان",
+        "boostUnavailable": "ميزة الرفع للأعلى متوفرة قريباً",
+        "featured": "تم تمييز الإعلان",
+        "unfeatured": "تم إلغاء تمييز الإعلان",
+        "error": "حدث خطأ، حاول مرة أخرى"
+      }
+    },
+    "favorisPage": {
+      "title": "إعلاناتي المفضلة",
+      "subtitle": "السيارات التي حفظتها للرجوع إليها",
+      "empty": "لا توجد إعلانات في المفضلة",
+      "emptyDesc": "تصفّح الإعلانات وأضف ما يعجبك للرجوع إليه لاحقاً",
+      "browse": "تصفّح الإعلانات",
+      "remove": "إزالة من المفضلة",
+      "removed": "تمت الإزالة من المفضلة"
+    },
+    "abonnementPage": {
+      "title": "اشتراكي",
+      "subtitle": "باقتك الحالية وتاريخ انتهائها وسجلّ مدفوعاتك"
+    },
+    "comptePage": {
+      "title": "إعدادات الحساب",
+      "subtitle": "تحديث بياناتك الشخصية",
+      "personal": "البيانات الشخصية",
+      "avatar": "الصورة الشخصية",
+      "uploadAvatar": "تغيير الصورة",
+      "uploading": "جاري الرفع...",
+      "fullName": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "emailHelp": "البريد الإلكتروني مرتبط بحسابك ولا يمكن تغييره من هنا",
+      "phone": "رقم الهاتف",
+      "whatsapp": "WhatsApp (اختياري)",
+      "city": "المدينة",
+      "save": "حفظ التغييرات",
+      "saving": "جاري الحفظ...",
+      "savedTitle": "تم الحفظ",
+      "savedDesc": "تم تحديث بياناتك",
+      "security": "الأمان",
+      "changePassword": "تغيير كلمة المرور",
+      "danger": "منطقة الخطر",
+      "dangerDesc": "إجراءات لا يمكن التراجع عنها",
+      "deleteAccount": "حذف الحساب",
+      "deleteDialogTitle": "حذف الحساب نهائياً",
+      "deleteWarning": "ستفقد كل إعلاناتك ورسائلك ومفضلاتك. لا يمكن التراجع.",
+      "deleteConfirmInput": "اكتب DELETE للتأكيد",
+      "deleteCancel": "إلغاء",
+      "deleteConfirm": "نعم، احذف نهائياً",
+      "deleted": "تم حذف الحساب",
+      "deleteError": "تعذّر حذف الحساب — تواصل مع الدعم"
+    },
+    "modifier": {
+      "title": "تعديل الإعلان",
+      "subtitle": "بعد التعديل سيعود الإعلان لقائمة الانتظار للمراجعة",
+      "notFound": "الإعلان غير موجود أو ليس ملكاً لك"
+    },
+    "comingSoon": {
+      "title": "قريباً",
+      "desc": "هذه الميزة قيد التطوير، ترقّبها في التحديثات المقبلة.",
+      "back": "العودة للوحة التحكم"
+    }
+  },
+  "estimation": {
+    "metaTitle": "تقدير ثمن السيارة مجاناً",
+    "metaDescription": "تقدير فوري ومجاني لسعر سيارتك في السوق المغربية بالذكاء الاصطناعي Gemini.",
+    "hero": {
+      "badge": "تقدير فوري بالذكاء الاصطناعي",
+      "title": "اعرف القيمة الحقيقية لسيارتك",
+      "subtitle": "تقدير مجاني وفوري لسيارتك في السوق المغربية باستخدام الذكاء الاصطناعي",
+      "trustFree": "مجّاني 100%",
+      "trustInstant": "نتيجة في ثوانٍ",
+      "trustLocal": "أسعار السوق المغربي"
+    },
+    "steps": {
+      "title": "كيف يعمل التقدير؟",
+      "subtitle": "ثلاث خطوات بسيطة للحصول على سعر سيارتك",
+      "s1Title": "أدخل بيانات سيارتك",
+      "s1Desc": "الماركة، الموديل، السنة، الكيلومتراج، الوقود، الحالة وتاريخ الحوادث.",
+      "s2Title": "يحلّل الذكاء الاصطناعي",
+      "s2Desc": "نقارن مواصفاتك بأسعار السوق المغربية الحالية لحساب قيمة عادلة.",
+      "s3Title": "احصل على السعر فوراً",
+      "s3Desc": "مجال سعري تقديري مع شرح موجز عن السوق — مجاناً وبدون تسجيل."
+    },
+    "form": {
+      "title": "بيانات السيارة",
+      "subtitle": "املأ الحقول التالية لتحصل على تقدير دقيق",
+      "brand": "الماركة",
+      "model": "الموديل",
+      "year": "سنة الصنع",
+      "mileage": "الكيلومتراج",
+      "mileagePlaceholder": "بالكيلومتر",
+      "fuelType": "نوع الوقود",
+      "condition": "الحالة",
+      "accident": "هل سبق لها التعرّض لحادث سير؟",
+      "accidentNo": "لا، خالية من الحوادث",
+      "accidentNoHint": "لم تتعرّض لأي حادث",
+      "accidentYes": "نعم، سبق لها حادث",
+      "accidentYesHint": "تعرّضت لحادث وتمّ إصلاحها",
+      "submit": "احصل على التقدير",
+      "submitting": "جاري تحليل السوق...",
+      "selectPlaceholder": "اختر",
+      "selectBrandFirst": "اختر الماركة أولاً",
+      "noResults": "لا توجد نتائج",
+      "conditions": {
+        "neuf": "جديدة",
+        "excellent": "ممتازة",
+        "very_good": "جيدة جداً",
+        "good": "جيدة",
+        "fair": "متوسطة"
+      }
+    },
+    "validation": {
+      "required": "الحقل مطلوب",
+      "year": "أدخل سنة صحيحة",
+      "mileage": "أدخل كيلومتراج صحيح"
+    },
+    "loading": {
+      "title": "جاري تحليل السوق...",
+      "subtitle": "نُقدّر سعر سيارتك في السوق المغربية"
+    },
+    "placeholder": {
+      "title": "نتيجة التقدير",
+      "subtitle": "املأ النموذج للحصول على تقدير فوري لسيارتك"
+    },
+    "result": {
+      "title": "القيمة المقدّرة لسيارتك",
+      "poweredBy": "تقدير بالذكاء الاصطناعي",
+      "rangeLabel": "نطاق السعر",
+      "averageLabel": "متوسط",
+      "currency": "DH",
+      "reasoningLabel": "الشرح",
+      "marketLabel": "سياق السوق",
+      "publishCta": "نشر سيارتي للبيع",
+      "againCta": "تقدير سيارة أخرى",
+      "saveCta": "احفظ النتيجة",
+      "savedToast": "تم حفظ التقدير في حسابك",
+      "loginToSave": "سجّل دخولاً لحفظ التقديرات"
+    },
+    "errors": {
+      "generic": "تعذّر الحصول على التقدير، حاول مرة أخرى",
+      "rateLimited": "كثرة الطلبات. حاول مجدّداً بعد قليل"
+    },
+    "disclaimer": "هذا التقدير مبني على بيانات السوق ولا يعتبر تقديراً رسمياً. القيمة الفعلية قد تختلف باختلاف الحالة الفعلية للسيارة.",
+    "faq": {
+      "title": "أسئلة شائعة حول تقدير سعر السيارة",
+      "q1": "هل تقدير سعر السيارة مجاني؟",
+      "a1": "نعم، تقدير سعر سيارتك على autobladi.ma مجاني تماماً وفوري، دون أي تسجيل.",
+      "q2": "كيف يُحسب سعر السيارة المستعملة في المغرب؟",
+      "a2": "نحلّل الماركة والموديل وسنة الصنع والكيلومتراج والحالة وتاريخ الحوادث، ونقارنها بأسعار السوق المغربية الحالية باستخدام الذكاء الاصطناعي.",
+      "q3": "ما مدى دقّة التقدير؟",
+      "a3": "يعطيك التقدير مجالاً سعرياً واقعياً يُسترشد به؛ القيمة الفعلية قد تختلف حسب الحالة الفعلية للسيارة ونتيجة التفاوض.",
+      "q4": "هل يمكنني بيع سيارتي بعد الحصول على التقدير؟",
+      "a4": "نعم، يمكنك نشر إعلان لبيع سيارتك مباشرةً بالسعر المقترح من صفحة التقدير."
+    },
+    "why": {
+      "title": "لماذا تستخدم تقدير autobladi",
+      "subtitle": "ثلاث ميزات تجعل تقديرنا الأول في المغرب",
+      "freeTitle": "مجاني تماماً",
+      "freeDesc": "بدون اشتراك أو تسجيل، استعمل الخدمة كما تشاء",
+      "instantTitle": "نتيجة فورية بالـ AI",
+      "instantDesc": "Gemini يحلّل آلاف نقاط البيانات في ثوانٍ",
+      "localTitle": "مبني على السوق المغربية",
+      "localDesc": "أسعار متماشية مع السوق الحالية وبالدرهم المغربي"
+    }
+  },
+  "adminPanel": {
+    "openMenu": "فتح القائمة",
+    "viewSite": "عرض الموقع",
+    "signOut": "تسجيل الخروج",
+    "editProfile": "تعديل ملفي الشخصي",
+    "cacheClear": "مسح الذاكرة المؤقتة",
+    "cacheClearing": "جارٍ المسح...",
+    "cacheCleared": "تم مسح الذاكرة المؤقتة وتحديث الموقع",
+    "cacheError": "تعذّر مسح الذاكرة المؤقتة",
+    "accountPage": {
+      "title": "ملفي الشخصي",
+      "subtitle": "عدّل صورتك ومعلوماتك الشخصية"
+    },
+    "groups": {
+      "manage": "إدارة عامة",
+      "annonces": "الإعلانات",
+      "professionnels": "التجار المحترفون والتحقق",
+      "subscriptions": "الاشتراكات",
+      "users": "المستخدمون",
+      "communication": "التواصل",
+      "blog": "المدوّنة",
+      "ads": "الإعلانات التجارية",
+      "sections": "الأقسام",
+      "settings": "الإعدادات"
+    },
+    "nav": {
+      "dashboard": "لوحة التحكم",
+      "brands": "الماركات",
+      "models": "الموديلات",
+      "cities": "المدن",
+      "allAnnonces": "كل الإعلانات",
+      "pendingAnnonces": "إعلانات قيد المراجعة",
+      "featuredAnnonces": "الإعلانات المميّزة",
+      "reports": "البلاغات",
+      "verification": "طلبات التحقق",
+      "allProfessionnels": "كل التجار المحترفين",
+      "reviews": "التقييمات",
+      "plans": "الباقات",
+      "pendingSubs": "اشتراكات قيد المراجعة",
+      "subsHistory": "سجل الاشتراكات",
+      "usersList": "قائمة المستخدمين",
+      "contact": "رسائل التواصل",
+      "newsletter": "مشتركو النشرة",
+      "blogCategories": "تصنيفات المدونة",
+      "blogPosts": "المقالات",
+      "blogComments": "التعليقات",
+      "adPlacements": "مواقع الإعلانات",
+      "ads": "الإعلانات التجارية",
+      "homeSections": "أقسام الصفحة الرئيسية",
+      "pages": "الصفحات",
+      "generalSettings": "إعدادات عامة",
+      "settingsLogo": "اللوغو والـ Favicon",
+      "settingsDuration": "مدة الإعلانات",
+      "settingsRib": "RIB البنكي",
+      "settingsSeo": "SEO",
+      "settingsEmail": "الإيميلات",
+      "settingsSocial": "تسجيل الدخول الاجتماعي",
+      "settingsWatermark": "العلامة المائية"
+    },
+    "dashboard": {
+      "title": "لوحة تحكم الأدمن",
+      "subtitle": "نظرة عامة على نشاط autobladi.ma",
+      "stats": {
+        "users": "إجمالي المستخدمين",
+        "newUsersMonth": "+{count} هذا الشهر",
+        "totalAnnonces": "إجمالي الإعلانات",
+        "activeAnnonces": "إعلانات نشطة",
+        "pendingAnnonces": "إعلانات قيد المراجعة",
+        "professionnels": "التجار المحترفون",
+        "pendingVerification": "تحقق قيد المراجعة",
+        "pendingSubs": "اشتراكات معلّقة",
+        "pendingReports": "بلاغات معلّقة"
+      },
+      "needsAttention": "تحتاج اهتمامك",
+      "noAttention": "كل شيء على ما يرام ✓",
+      "review": "مراجعة"
+    },
+    "annoncesQueue": {
+      "title": "إعلانات قيد المراجعة",
+      "subtitle": "راجع الإعلانات قبل نشرها للعموم",
+      "columns": {
+        "annonce": "الإعلان",
+        "seller": "البائع",
+        "price": "السعر",
+        "submitted": "تاريخ الإرسال",
+        "actions": "إجراءات"
+      },
+      "empty": "لا توجد إعلانات قيد المراجعة",
+      "approve": "موافقة",
+      "reject": "رفض",
+      "preview": "معاينة",
+      "rejectDialogTitle": "رفض الإعلان",
+      "rejectReason": "سبب الرفض",
+      "rejectReasonPlaceholder": "وضّح للبائع سبب الرفض...",
+      "cancel": "إلغاء",
+      "confirmReject": "تأكيد الرفض",
+      "toast": {
+        "approved": "تم نشر الإعلان",
+        "rejected": "تم رفض الإعلان",
+        "error": "حدث خطأ"
+      }
+    },
+    "allAnnoncesPage": {
+      "title": "كل الإعلانات",
+      "subtitle": "إدارة ومراجعة وإبراز جميع إعلانات الموقع",
+      "search": "ابحث بالعنوان أو العلامة أو البائع...",
+      "featuredOnly": "المميّزة فقط",
+      "count": "{count} إعلان",
+      "empty": "لا توجد إعلانات",
+      "noResults": "لا يوجد إعلان يطابق بحثك",
+      "statusTabs": {
+        "all": "الكل",
+        "active": "نشطة",
+        "pending": "قيد المراجعة",
+        "rejected": "مرفوضة",
+        "sold": "مُباعة",
+        "expired": "منتهية",
+        "draft": "مسودات"
+      },
+      "statusLabels": {
+        "active": "نشط",
+        "pending": "قيد المراجعة",
+        "rejected": "مرفوض",
+        "sold": "مُباع",
+        "expired": "منتهٍ",
+        "draft": "مسودة"
+      },
+      "columns": {
+        "annonce": "الإعلان",
+        "seller": "البائع",
+        "price": "السعر",
+        "status": "الحالة",
+        "views": "المشاهدات",
+        "date": "التاريخ",
+        "actions": "إجراءات"
+      },
+      "preview": "معاينة",
+      "feature": "إبراز",
+      "unfeature": "إلغاء الإبراز",
+      "publish": "نشر",
+      "reject": "رفض",
+      "markSold": "تحديد كمُباع",
+      "markExpired": "تحديد كمنتهٍ",
+      "delete": "حذف",
+      "deleteConfirm": "هل تريد حذف الإعلان «{title}» نهائياً؟",
+      "rejectDialogTitle": "رفض الإعلان",
+      "rejectReason": "سبب الرفض",
+      "rejectReasonPlaceholder": "وضّح للبائع سبب الرفض...",
+      "toast": {
+        "published": "تم نشر الإعلان",
+        "rejected": "تم رفض الإعلان",
+        "featured": "تم إبراز الإعلان",
+        "unfeatured": "تم إلغاء الإبراز",
+        "markedSold": "تم تحديده كمُباع",
+        "markedExpired": "تم تحديده كمنتهٍ",
+        "deleted": "تم حذف الإعلان",
+        "error": "حدث خطأ"
+      }
+    },
+    "featuredPage": {
+      "title": "الإعلانات المميّزة",
+      "subtitle": "الإعلانات المُبرَزة في الصفحة الرئيسية وفي صدارة النتائج",
+      "hint": "استعمل النجمة لإزالة إعلان من المميّزة. لإبراز إعلان، فعّل النجمة من صفحة «كل الإعلانات».",
+      "empty": "لا توجد إعلانات مميّزة",
+      "emptyDesc": "فعّل النجمة على أي إعلان ليظهر هنا",
+      "count": "{count} إعلان مميّز"
+    },
+    "reportsPage": {
+      "title": "البلاغات",
+      "subtitle": "عالج الإعلانات المُبلّغ عنها من طرف المستخدمين",
+      "empty": "لا توجد بلاغات",
+      "emptyDesc": "ستظهر هنا الإعلانات التي يبلّغ عنها المستخدمون",
+      "noResults": "لا توجد بلاغات في هذه الفئة",
+      "count": "{count} بلاغ",
+      "statusTabs": {
+        "all": "الكل",
+        "pending": "قيد المعالجة",
+        "approved": "تمت معالجتها",
+        "rejected": "مرفوضة"
+      },
+      "statusLabels": {
+        "pending": "قيد المعالجة",
+        "approved": "تمت المعالجة",
+        "rejected": "مرفوض"
+      },
+      "annonceStatus": {
+        "draft": "مسودة",
+        "pending": "قيد المراجعة",
+        "active": "نشط",
+        "sold": "مُباع",
+        "rejected": "محذوف",
+        "expired": "منتهٍ"
+      },
+      "columns": {
+        "annonce": "الإعلان",
+        "reporter": "المُبلِّغ",
+        "reason": "السبب",
+        "description": "التفاصيل",
+        "status": "الحالة",
+        "date": "التاريخ",
+        "actions": "إجراءات"
+      },
+      "anonymous": "مجهول",
+      "noAnnonce": "إعلان محذوف",
+      "preview": "معاينة",
+      "resolve": "تحديد كمُعالَج",
+      "dismiss": "رفض البلاغ",
+      "takedown": "سحب الإعلان",
+      "takedownConfirm": "هل تريد سحب الإعلان «{title}» وتحديد البلاغ كمُعالَج؟",
+      "toast": {
+        "resolved": "تمت معالجة البلاغ",
+        "dismissed": "تم رفض البلاغ",
+        "takendown": "تم سحب الإعلان",
+        "error": "حدث خطأ"
+      }
+    },
+    "professionnelsPage": {
+      "title": "التجار المحترفون",
+      "subtitle": "إدارة التجار المحترفون ومدى ظهورها على الموقع",
+      "search": "ابحث بالاسم أو المالك...",
+      "showInactive": "تضمين غير النشطة",
+      "count": "{count} تاجر محترف",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "empty": "لا توجد تجار محترفون",
+      "emptyDesc": "ستظهر هنا التجار المحترفون التي ينشئها أصحاب الحسابات الاحترافية",
+      "noResults": "لا يوجد تاجر محترف يطابق بحثك",
+      "columns": {
+        "name": "التاجر المحترف",
+        "city": "المدينة",
+        "owner": "المالك",
+        "rating": "التقييم",
+        "annonces": "الإعلانات",
+        "status": "الحالة",
+        "created": "تاريخ الإنشاء",
+        "actions": "إجراءات"
+      },
+      "preview": "عرض الصفحة",
+      "activate": "تفعيل",
+      "deactivate": "تعطيل",
+      "delete": "حذف",
+      "deleteConfirm": "هل تريد حذف التاجر المحترف «{name}» نهائياً؟",
+      "toast": {
+        "activated": "تم تفعيل التاجر المحترف",
+        "deactivated": "تم تعطيل التاجر المحترف",
+        "deleted": "تم حذف التاجر المحترف",
+        "error": "حدث خطأ"
+      }
+    },
+    "contactPage": {
+      "title": "رسائل التواصل",
+      "subtitle": "الطلبات المُرسلة عبر نموذج التواصل",
+      "tabs": {
+        "all": "الكل",
+        "unread": "غير مقروءة",
+        "read": "مقروءة"
+      },
+      "empty": "لا توجد رسائل",
+      "emptyDesc": "ستظهر هنا الرسائل التي يرسلها الزوار",
+      "noResults": "لا توجد رسائل في هذه الفئة",
+      "reply": "رد",
+      "markRead": "تحديد كمقروء",
+      "markUnread": "تحديد كغير مقروء",
+      "readState": "مقروء",
+      "toast": {
+        "markedRead": "تم تحديد الرسالة كمقروءة",
+        "markedUnread": "تم تحديد الرسالة كغير مقروءة",
+        "error": "حدث خطأ"
+      }
+    },
+    "newsletterPage": {
+      "title": "النشرة البريدية",
+      "subtitle": "اكتب وأرسل حملة إلى المشتركين",
+      "stats": {
+        "subscribers": "المشتركون",
+        "unsubscribed": "غير المشتركين",
+        "total": "إجمالي الحسابات"
+      },
+      "compose": "إنشاء الحملة",
+      "composeDesc": "ستُضاف أحدث الإعلانات النشطة تلقائياً.",
+      "heading": "العنوان",
+      "headingPlaceholder": "مثال: جديد هذا الأسبوع",
+      "introText": "نص المقدمة",
+      "introTextPlaceholder": "بعض الكلمات لتقديم هذا العدد...",
+      "itemCount": "عدد الإعلانات المُضمّنة",
+      "itemCountHelp": "بين 0 و12 من أحدث الإعلانات النشطة.",
+      "willSendTo": "سيُرسَل إلى {count} مشترك",
+      "send": "إرسال الحملة",
+      "sending": "جارٍ الإرسال...",
+      "confirmSend": "هل تريد إرسال هذه النشرة إلى {count} مشترك؟",
+      "subscribers": "المشتركون",
+      "copyEmails": "نسخ البُرُد الإلكترونية",
+      "searchSubscribers": "ابحث عن مشترك...",
+      "noSubscribers": "لا يوجد مشتركون",
+      "noResults": "لا يوجد مشترك مطابق",
+      "columns": {
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "joined": "تاريخ الاشتراك"
+      },
+      "toast": {
+        "sent": "تم إرسال الحملة: {sent} ناجح، {failed} فاشل",
+        "invalid": "أدخل عنواناً ونصاً",
+        "noSubscribers": "لا يوجد مشتركون للإرسال إليهم",
+        "error": "حدث خطأ",
+        "copied": "تم نسخ {count} بريد إلكتروني",
+        "copyError": "تعذّر النسخ"
+      }
+    },
+    "socialLoginPage": {
+      "title": "تسجيل الدخول الاجتماعي",
+      "subtitle": "فعّل وأدِر تسجيل الدخول عبر فيسبوك وجوجل",
+      "facebook": "تسجيل الدخول بفيسبوك",
+      "google": "تسجيل الدخول بجوجل",
+      "visibility": "حالة الظهور",
+      "fbClientId": "Facebook Client Id",
+      "fbSecret": "Facebook App Secret",
+      "googleClientId": "Google Client Id",
+      "googleSecret": "Google Secret",
+      "redirectUrl": "رابط إعادة التوجيه",
+      "update": "تحديث",
+      "saving": "جارٍ الحفظ...",
+      "saved": "تم حفظ إعدادات تسجيل الدخول الاجتماعي",
+      "error": "حدث خطأ",
+      "supabaseNote": "⚠️ مفتاح التفعيل يُظهر/يُخفي الأزرار في صفحة الدخول. لكي يعمل تسجيل الدخول فعلياً، يجب تفعيل المزوّد (Google/Facebook) وإدخال نفس المفاتيح في إعدادات Authentication داخل لوحة Supabase."
+    },
+    "plansPage": {
+      "title": "صيغ الاشتراك",
+      "subtitle": "إدارة عروض الاشتراك الاحترافي للبائعين",
+      "addPlan": "صيغة جديدة",
+      "empty": "لا توجد صيغ",
+      "emptyDesc": "أنشئ أوّل صيغة اشتراك احترافي",
+      "count": "{count} صيغة",
+      "active": "نشطة",
+      "inactive": "غير نشطة",
+      "currency": "د.م.",
+      "durationDays": "{days} يوم",
+      "maxAnnonces": "حتى {count} إعلان",
+      "discountBadge": "خصم {percent}%",
+      "freeDefault": "الباقة المجانية الافتراضية",
+      "popularTag": "الأكثر طلباً",
+      "activate": "تفعيل",
+      "deactivate": "تعطيل",
+      "delete": "حذف",
+      "deleteConfirm": "هل تريد حذف الصيغة «{name}» نهائياً؟",
+      "form": {
+        "edit": "تعديل الصيغة",
+        "name": "الاسم (بالفرنسية)",
+        "namePlaceholder": "مثال: Pro",
+        "nameAr": "الاسم (بالعربية)",
+        "nameArPlaceholder": "مثال: احترافي",
+        "tagline": "وصف مختصر (بالفرنسية)",
+        "taglinePlaceholder": "Tout pour une vitrine professionnelle",
+        "taglineAr": "وصف مختصر (بالعربية)",
+        "taglineArPlaceholder": "كل ما تحتاجه لعرض احترافي",
+        "price": "ثمن الباقة (د.م.)",
+        "priceHelp": "ما يدفعه المستخدم فعلاً",
+        "originalPrice": "الثمن الأصلي (د.م.)",
+        "originalPriceHelp": "قبل التخفيض — اتركه 0 إن لم يوجد تخفيض",
+        "autoDiscount": "نسبة التخفيض المحسوبة تلقائياً: ‎-{percent}%",
+        "duration": "المدة (أيام)",
+        "maxAnnonces": "أقصى عدد للإعلانات",
+        "maxAnnoncesHelp": "عدد الإعلانات النشطة المسموح بها",
+        "featuresFr": "المميزات (بالفرنسية)",
+        "featuresAr": "المميزات (بالعربية)",
+        "featuresHelp": "ميزة واحدة في كل سطر",
+        "featuresPlaceholder": "Badge vérifié\nAnnonces en avant\nSupport prioritaire",
+        "featuresArPlaceholder": "شارة موثّق\nإعلانات مميّزة\nدعم ذو أولوية",
+        "popular": "الأكثر طلباً",
+        "popularHelp": "تظهر عليها شارة «الأكثر اختياراً»",
+        "active": "صيغة نشطة",
+        "save": "حفظ",
+        "saving": "جارٍ الحفظ...",
+        "cancel": "إلغاء"
+      },
+      "toast": {
+        "created": "تم إنشاء الصيغة",
+        "updated": "تم تحديث الصيغة",
+        "deleted": "تم حذف الصيغة",
+        "activated": "تم تفعيل الصيغة",
+        "deactivated": "تم تعطيل الصيغة",
+        "inUse": "الصيغة مستعملة في اشتراكات — يتعذّر حذفها",
+        "error": "حدث خطأ"
+      }
+    },
+    "ribSettings": {
+      "title": "المعلومات البنكية",
+      "subtitle": "الـ RIB الذي يظهر للبائعين لدفع الاشتراكات",
+      "hint": "تظهر هذه المعلومات في صفحة دفع الاشتراك. بدون RIB يرى البائعون «المعلومات البنكية غير مكتملة».",
+      "bankName": "اسم البنك",
+      "bankNamePlaceholder": "مثال: التجاري وفا بنك",
+      "rib": "RIB",
+      "ribPlaceholder": "007 780 0001234567890123 45",
+      "ribHint": "رقم الحساب البنكي (24 رقماً)",
+      "beneficiary": "المستفيد",
+      "beneficiaryPlaceholder": "مثال: autobladi.ma SARL",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ...",
+      "toast": {
+        "saved": "تم حفظ المعلومات البنكية",
+        "error": "حدث خطأ"
+      }
+    },
+    "subsHistoryPage": {
+      "title": "سجلّ الاشتراكات",
+      "subtitle": "جميع طلبات الاشتراك وحالتها",
+      "empty": "لا توجد اشتراكات",
+      "emptyDesc": "ستظهر هنا طلبات الاشتراك",
+      "noResults": "لا توجد اشتراكات في هذه الفئة",
+      "count": "{count} طلب",
+      "statusTabs": {
+        "all": "الكل",
+        "pending": "قيد المراجعة",
+        "approved": "مُفعّلة",
+        "rejected": "مرفوضة"
+      },
+      "statusLabels": {
+        "pending": "قيد المراجعة",
+        "approved": "مُفعّل",
+        "rejected": "مرفوض"
+      },
+      "columns": {
+        "user": "المستخدم",
+        "plan": "الباقة",
+        "amount": "المبلغ",
+        "status": "الحالة",
+        "period": "المدة",
+        "date": "تاريخ الطلب"
+      }
+    },
+    "verificationQueue": {
+      "title": "طلبات التحقّق",
+      "subtitle": "تحقّق من وثائق التجار المحترفون قبل منح شارة \"موثّق\"",
+      "columns": {
+        "user": "المستخدم",
+        "company": "الشركة",
+        "rc": "السجل التجاري",
+        "documents": "الوثائق",
+        "submitted": "الإرسال",
+        "actions": "إجراءات"
+      },
+      "viewRc": "عرض RC",
+      "viewIdCard": "عرض البطاقة",
+      "loadingPreview": "جاري...",
+      "approve": "موافقة",
+      "reject": "رفض",
+      "rejectDialogTitle": "رفض طلب التحقق",
+      "rejectReason": "سبب الرفض",
+      "empty": "لا توجد طلبات قيد المراجعة",
+      "toast": {
+        "approved": "تم اعتماد التاجر المحترف كموثّق",
+        "rejected": "تم رفض الطلب",
+        "error": "حدث خطأ",
+        "linkError": "تعذّر توليد رابط المعاينة"
+      }
+    },
+    "sectionsPage": {
+      "title": "أقسام الصفحة الرئيسية",
+      "subtitle": "أظهِر أو أخفِ وأعد ترتيب أقسام الصفحة الرئيسية",
+      "hint": "تُطبّق التغييرات على الصفحة الرئيسية بعد الحفظ. شريط البحث واللافتات الإعلانية تبقى ثابتة.",
+      "count": "{visible} من {total} أقسام ظاهرة",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ...",
+      "visible": "ظاهر",
+      "hidden": "مخفي",
+      "show": "إظهار",
+      "hide": "إخفاء",
+      "moveUp": "تحريك للأعلى",
+      "moveDown": "تحريك للأسفل",
+      "toast": {
+        "saved": "تم تحديث الأقسام",
+        "error": "حدث خطأ"
+      },
+      "labels": {
+        "featured": "سيارات مميّزة",
+        "brands": "الماركات",
+        "latest": "أحدث الإعلانات",
+        "why": "لماذا autobladi.ma",
+        "dealers": "أفضل الوكلاء",
+        "estimation": "تقدير الثمن",
+        "blog": "المدونة",
+        "newsletter": "النشرة البريدية"
+      }
+    },
+    "pagesPage": {
+      "title": "صفحات الموقع",
+      "subtitle": "أنشئ وعدّل الصفحات التحريرية (من نحن، شروط الاستخدام، الخصوصية…)",
+      "newPage": "صفحة جديدة",
+      "editTitle": "تعديل الصفحة",
+      "empty": "لا توجد صفحات",
+      "emptyDesc": "أنشئ أول صفحة محتوى.",
+      "statusPublished": "منشورة",
+      "statusDraft": "مسودّة",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "publish": "نشر",
+      "unpublish": "إلغاء النشر",
+      "deleteConfirm": "حذف الصفحة «{title}»؟ لا يمكن التراجع عن هذا الإجراء.",
+      "columns": {
+        "title": "العنوان",
+        "slug": "الرابط",
+        "status": "الحالة",
+        "footer": "التذييل",
+        "order": "الترتيب",
+        "actions": "إجراءات"
+      },
+      "toast": {
+        "created": "تم إنشاء الصفحة",
+        "updated": "تم تحديث الصفحة",
+        "deleted": "تم حذف الصفحة",
+        "published": "تم نشر الصفحة",
+        "unpublished": "تم إلغاء نشر الصفحة",
+        "slugTaken": "هذا الرابط مستعمل مسبقاً",
+        "error": "حدث خطأ"
+      },
+      "form": {
+        "back": "العودة إلى الصفحات",
+        "save": "حفظ",
+        "saving": "جارٍ الحفظ...",
+        "titleFr": "العنوان (بالفرنسية)",
+        "titleFrPlaceholder": "À propos",
+        "titleAr": "العنوان (بالعربية)",
+        "titleArPlaceholder": "من نحن",
+        "slug": "الرابط (slug)",
+        "slugHelp": "عنوان الصفحة: ‎/p/votre-lien‎ — أحرف صغيرة وأرقام وشُرَط.",
+        "contentFr": "المحتوى (بالفرنسية)",
+        "contentAr": "المحتوى (بالعربية)",
+        "contentPlaceholder": "اكتب المحتوى بصيغة Markdown...",
+        "write": "كتابة",
+        "preview": "معاينة",
+        "markdownHelp": "Markdown مدعوم: العناوين، الخط العريض، القوائم، الروابط، الجداول.",
+        "systemNote": "صفحة وظيفية — لا يمكن تعديل محتواها هنا. تشير إلى:",
+        "published": "منشورة",
+        "showInFooter": "إظهار في التذييل",
+        "orderIndex": "الترتيب",
+        "orderIndexHelp": "الأصغر يظهر أولاً."
+      }
+    },
+    "blogCommentsPage": {
+      "title": "تعليقات المدونة",
+      "subtitle": "وافق على تعليقات القرّاء أو احذفها",
+      "search": "ابحث في التعليقات...",
+      "statusTabs": {
+        "all": "الكل",
+        "pending": "قيد الانتظار",
+        "approved": "موافق عليها"
+      },
+      "empty": "لا توجد تعليقات",
+      "emptyDesc": "ستظهر هنا تعليقات القرّاء.",
+      "noResults": "لا يوجد تعليق يطابق بحثك",
+      "reply": "ردّ",
+      "onPost": "على:",
+      "approve": "موافقة",
+      "hide": "إخفاء",
+      "delete": "حذف",
+      "deleteConfirm": "هل تريد حذف هذا التعليق نهائياً؟",
+      "toast": {
+        "approved": "تمت الموافقة على التعليق",
+        "hidden": "تم إخفاء التعليق",
+        "deleted": "تم حذف التعليق",
+        "error": "حدث خطأ"
+      }
+    },
+    "blogPostsPage": {
+      "title": "مقالات المدونة",
+      "subtitle": "اكتب وانشر مقالات المدونة",
+      "search": "ابحث عن مقال...",
+      "newPost": "مقال جديد",
+      "editTitle": "تعديل المقال",
+      "empty": "لا توجد مقالات",
+      "emptyDesc": "اكتب أول مقال في مدونتك.",
+      "noResults": "لا يوجد مقال يطابق بحثك",
+      "statusTabs": {
+        "all": "الكل",
+        "published": "منشورة",
+        "draft": "مسودّات"
+      },
+      "columns": {
+        "post": "المقال",
+        "category": "التصنيف",
+        "status": "الحالة",
+        "stats": "إحصائيات",
+        "date": "التاريخ",
+        "actions": "إجراءات"
+      },
+      "edit": "تعديل",
+      "delete": "حذف",
+      "publish": "نشر",
+      "unpublish": "إلغاء النشر",
+      "deleteConfirm": "حذف المقال «{title}»؟ لا يمكن التراجع عن هذا الإجراء.",
+      "toast": {
+        "created": "تم إنشاء المقال",
+        "updated": "تم تحديث المقال",
+        "deleted": "تم حذف المقال",
+        "published": "تم نشر المقال",
+        "unpublished": "تم إلغاء نشر المقال",
+        "slugTaken": "هذا الـ slug مستعمل مسبقاً",
+        "error": "حدث خطأ"
+      },
+      "form": {
+        "back": "العودة إلى المقالات",
+        "published": "منشور",
+        "save": "حفظ",
+        "saving": "جارٍ الحفظ...",
+        "langAr": "العربية",
+        "langFr": "الفرنسية",
+        "langArHint": "المحتوى الأساسي (إجباري)",
+        "langFrHint": "ترجمة فرنسية (اختيارية)",
+        "title": "العنوان",
+        "titlePlaceholder": "عنوان المقال",
+        "slug": "Slug",
+        "slugHelp": "المعرّف في الرابط — أحرف صغيرة وأرقام وشُرَط. يُولَّد من العنوان الفرنسي.",
+        "excerpt": "المقتطف",
+        "excerptHelp": "ملخّص قصير يظهر في القوائم ومحركات البحث.",
+        "excerptPlaceholder": "ملخّص في جملة أو جملتين...",
+        "content": "المحتوى",
+        "write": "كتابة",
+        "preview": "معاينة",
+        "contentPlaceholder": "اكتب مقالك بصيغة Markdown...",
+        "markdownHelp": "Markdown مدعوم: العناوين، الخط العريض، القوائم، الروابط، الجداول، الشيفرة.",
+        "insertImage": "إدراج صورة",
+        "cover": "صورة الغلاف",
+        "coverHint": "المقاس الموصى به: 1200×630 بكسل (نسبة 16:9). يُفضَّل أن لا يقل العرض عن 1200 بكسل لتفادي الضبابية.",
+        "noCover": "لا توجد صورة",
+        "uploadCover": "تحميل",
+        "uploading": "جارٍ الرفع...",
+        "removeCover": "حذف الصورة",
+        "category": "التصنيف",
+        "noCategory": "— بدون تصنيف —",
+        "tags": "الكلمات المفتاحية",
+        "tagsHelp": "مفصولة بفواصل.",
+        "tagsPlaceholder": "سيارة, مستعملة, نصائح",
+        "imageUploaded": "تم تحميل الصورة ✓",
+        "imageInserted": "تم إدراج الصورة ✓"
+      }
+    },
+    "blogCategoriesPage": {
+      "title": "تصنيفات المدونة",
+      "subtitle": "نظّم المقالات حسب الموضوع",
+      "search": "ابحث عن تصنيف...",
+      "addManual": "إضافة تصنيف",
+      "count": "{count} تصنيف",
+      "empty": "لا توجد تصنيفات",
+      "emptyDesc": "أنشئ أول تصنيف للمقالات.",
+      "noResults": "لا يوجد تصنيف يطابق بحثك",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "deleteConfirm": "حذف التصنيف «{name}»؟ لن تُحذف المقالات المرتبطة به.",
+      "columns": {
+        "nameAr": "الاسم (ع)",
+        "nameFr": "الاسم (fr)",
+        "slug": "Slug",
+        "posts": "المقالات",
+        "order": "الترتيب",
+        "actions": "إجراءات"
+      },
+      "toast": {
+        "created": "تم إنشاء التصنيف",
+        "updated": "تم تحديث التصنيف",
+        "deleted": "تم حذف التصنيف",
+        "slugTaken": "هذا الـ slug مستعمل مسبقاً",
+        "error": "حدث خطأ"
+      },
+      "form": {
+        "edit": "تعديل التصنيف",
+        "nameAr": "الاسم (بالعربية)",
+        "nameArPlaceholder": "أخبار السيارات",
+        "nameFr": "الاسم (بالفرنسية)",
+        "nameFrPlaceholder": "Actualités auto",
+        "slug": "Slug",
+        "slugHelp": "المعرّف في الرابط — أحرف صغيرة وأرقام وشُرَط.",
+        "slugPlaceholder": "actualites-auto",
+        "orderIndex": "ترتيب العرض",
+        "orderIndexHelp": "الأصغر يظهر أولاً.",
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "saving": "جارٍ الحفظ..."
+      }
+    },
+    "reviewsPage": {
+      "title": "تقييمات الوكلاء",
+      "subtitle": "راقب التقييمات المسيئة أو غير اللائقة واحذفها",
+      "ratingTabs": {
+        "all": "الكل"
+      },
+      "search": "ابحث بالوكيل أو الكاتب أو النص...",
+      "count": "{count} تقييم",
+      "empty": "لا توجد تقييمات",
+      "emptyDesc": "ستظهر هنا التقييمات التي يتركها المستخدمون.",
+      "noResults": "لا يوجد تقييم يطابق بحثك",
+      "noComment": "بدون تعليق",
+      "columns": {
+        "dealer": "الوكيل",
+        "author": "الكاتب",
+        "rating": "التقييم",
+        "comment": "التعليق",
+        "date": "التاريخ",
+        "actions": "إجراءات"
+      },
+      "delete": "حذف التقييم",
+      "deleteConfirm": "هل تريد حذف هذا التقييم نهائياً؟",
+      "toast": {
+        "deleted": "تم حذف التقييم",
+        "error": "حدث خطأ"
+      }
+    },
+    "subscriptionsQueue": {
+      "title": "اشتراكات قيد المراجعة",
+      "subtitle": "تحقّق من وصل التحويل البنكي قبل التفعيل",
+      "columns": {
+        "user": "المستخدم",
+        "plan": "الباقة",
+        "amount": "المبلغ",
+        "bankRef": "المرجع",
+        "receipt": "الوصل",
+        "submitted": "الإرسال",
+        "actions": "إجراءات"
+      },
+      "viewReceipt": "عرض الوصل",
+      "approve": "تفعيل",
+      "reject": "رفض",
+      "rejectDialogTitle": "رفض طلب الاشتراك",
+      "rejectReason": "السبب",
+      "empty": "لا توجد اشتراكات قيد المراجعة",
+      "toast": {
+        "approved": "تم تفعيل الاشتراك",
+        "rejected": "تم رفض الطلب",
+        "error": "حدث خطأ",
+        "linkError": "تعذّر توليد رابط المعاينة"
+      }
+    },
+    "usersPage": {
+      "title": "المستخدمون",
+      "subtitle": "إدارة الحسابات والصلاحيات",
+      "search": "ابحث بالاسم أو البريد أو الهاتف...",
+      "filterAll": "الكل",
+      "filterPro": "محترف",
+      "filterAdmin": "أدمن",
+      "filterGratuit": "مجاني",
+      "columns": {
+        "user": "المستخدم",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتف",
+        "whatsapp": "واتساب",
+        "type": "النوع",
+        "verified": "موثّق",
+        "joined": "التسجيل",
+        "actions": "إجراءات"
+      },
+      "you": "أنت",
+      "edit": "تعديل",
+      "promote": "ترقية لأدمن",
+      "demote": "إلغاء الأدمن",
+      "downgrade": "تخفيض إلى مجاني",
+      "confirmPromote": "ترقية هذا المستخدم لأدمن؟",
+      "confirmDemote": "إلغاء صلاحيات الأدمن؟",
+      "confirmDowngrade": "تخفيض الحساب إلى مجاني؟",
+      "toast": {
+        "promoted": "تمت الترقية",
+        "demoted": "تم الإلغاء",
+        "downgraded": "تم التخفيض",
+        "updated": "تم تحديث المستخدم",
+        "error": "حدث خطأ",
+        "cantSelf": "لا يمكنك تعديل صلاحياتك بنفسك"
+      },
+      "export": {
+        "button": "تصدير (Excel)",
+        "sheet": "المستخدمون",
+        "name": "الاسم",
+        "phone": "الهاتف",
+        "email": "البريد الإلكتروني",
+        "done": "تم تصدير {count} مستخدم",
+        "empty": "لا يوجد مستخدمون للتصدير",
+        "failed": "فشل التصدير"
+      },
+      "editForm": {
+        "title": "تعديل المستخدم",
+        "email": "البريد الإلكتروني",
+        "fullName": "الاسم الكامل",
+        "phone": "الهاتف",
+        "whatsapp": "واتساب",
+        "city": "المدينة",
+        "accountType": "نوع الحساب",
+        "typeGratuit": "مجاني",
+        "typePro": "محترف",
+        "typeAdmin": "أدمن",
+        "verified": "حساب موثّق",
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "saving": "جارٍ الحفظ..."
+      },
+      "empty": "لا يوجد مستخدمون",
+      "noResults": "لا يوجد مستخدم يطابق بحثك"
+    },
+    "citiesPage": {
+      "title": "إدارة المدن",
+      "subtitle": "أضف المدن يدوياً أو ارفع ملف JSON بقائمة كاملة",
+      "addManual": "إضافة مدينة جديدة",
+      "uploadJson": "رفع ملف JSON",
+      "search": "ابحث عن مدينة...",
+      "columns": {
+        "nameAr": "الاسم بالعربية",
+        "nameFr": "الاسم بالفرنسية",
+        "slug": "المعرّف",
+        "region": "الجهة",
+        "actions": "إجراءات"
+      },
+      "form": {
+        "nameAr": "الاسم بالعربية",
+        "nameArPlaceholder": "مثال: الدار البيضاء",
+        "nameFr": "الاسم بالفرنسية",
+        "nameFrPlaceholder": "Exemple: Casablanca",
+        "slug": "المعرّف في الرابط",
+        "slugPlaceholder": "casablanca",
+        "slugHelp": "يُولَّد تلقائياً من الاسم الفرنسي إذا تُرك فارغاً",
+        "region": "الجهة (اختياري)",
+        "regionPlaceholder": "Casablanca-Settat",
+        "save": "حفظ",
+        "saving": "جاري الحفظ...",
+        "cancel": "إلغاء",
+        "edit": "تعديل المدينة"
+      },
+      "upload": {
+        "title": "رفع ملف JSON",
+        "subtitle": "ارفع ملفاً بصيغة JSON يحتوي على مصفوفة من المدن",
+        "dropOrClick": "اضغط أو اسحب ملفاً .json هنا",
+        "format": "الصيغة المتوقّعة:",
+        "example": "[\n  {\n    \"name_ar\": \"الدار البيضاء\",\n    \"name_fr\": \"Casablanca\",\n    \"slug\": \"casablanca\",\n    \"region\": \"Casablanca-Settat\"\n  }\n]",
+        "preview": "معاينة ({count})",
+        "import": "استيراد",
+        "importing": "جاري الاستيراد...",
+        "summary": "تمّ استيراد {imported} مدينة جديدة، تم تحديث {updated}.",
+        "invalidFile": "ملف غير صالح. يجب أن يكون JSON بمصفوفة من المدن.",
+        "invalidEntry": "العنصر #{index} غير صالح: {reason}"
+      },
+      "deleteConfirm": "حذف المدينة \"{name}\"؟ لا يمكن التراجع.",
+      "toast": {
+        "created": "تمت إضافة المدينة",
+        "updated": "تم التحديث",
+        "deleted": "تم الحذف",
+        "error": "حدث خطأ"
+      },
+      "empty": "لا توجد مدن بعد",
+      "emptyDesc": "أضف أول مدينة يدوياً أو ارفع ملف JSON",
+      "count": "{count} مدينة",
+      "secteursCount": "{count} قطاع",
+      "secteurs": {
+        "title": "قطاعات {city}",
+        "addSecteur": "إضافة قطاع",
+        "empty": "لا توجد قطاعات لهذه المدينة",
+        "emptyDesc": "أضف قطاعات مثل: عين السبع، المعاريف، الحي الحسني...",
+        "columns": {
+          "nameAr": "الاسم بالعربية",
+          "nameFr": "الاسم بالفرنسية",
+          "slug": "المعرّف",
+          "actions": "إجراءات"
+        },
+        "form": {
+          "nameAr": "الاسم بالعربية",
+          "nameArPlaceholder": "مثال: عين السبع",
+          "nameFr": "الاسم بالفرنسية",
+          "nameFrPlaceholder": "Exemple : Aïn Sebaâ",
+          "slug": "المعرّف",
+          "slugPlaceholder": "ain-sebaa",
+          "slugHelp": "يُولَّد تلقائياً من الاسم الفرنسي",
+          "save": "حفظ",
+          "saving": "جاري الحفظ...",
+          "cancel": "إلغاء",
+          "edit": "تعديل القطاع",
+          "new": "قطاع جديد"
+        },
+        "deleteConfirm": "حذف القطاع \"{name}\"؟",
+        "toast": {
+          "created": "تمت إضافة القطاع",
+          "updated": "تم التحديث",
+          "deleted": "تم الحذف",
+          "slugTaken": "هذا المعرّف مستعمل في نفس المدينة",
+          "error": "حدث خطأ"
+        }
+      }
+    },
+    "brandsPage": {
+      "title": "إدارة الماركات",
+      "subtitle": "أضف ماركات السيارات يدوياً أو ارفع ملف JSON بقائمة كاملة",
+      "addManual": "إضافة ماركة جديدة",
+      "uploadJson": "رفع ملف JSON",
+      "search": "ابحث عن ماركة...",
+      "columns": {
+        "logo": "اللوغو",
+        "name": "الاسم",
+        "slug": "المعرّف",
+        "order": "الترتيب",
+        "active": "الحالة",
+        "actions": "إجراءات"
+      },
+      "form": {
+        "name": "اسم الماركة",
+        "namePlaceholder": "مثال: BMW",
+        "slug": "المعرّف في الرابط",
+        "slugPlaceholder": "bmw",
+        "slugHelp": "يُولَّد تلقائياً من الاسم إذا تُرك فارغاً",
+        "logoUrl": "رابط اللوغو (اختياري)",
+        "logoUrlPlaceholder": "https://...",
+        "logoUrlHelp": "رابط مباشر لصورة الـ logo (PNG/SVG/WebP)",
+        "orderIndex": "ترتيب العرض",
+        "orderIndexHelp": "الأرقام الأصغر تظهر أولاً",
+        "isActive": "نشطة",
+        "isActiveHelp": "الماركات غير النشطة لا تظهر في الفلاتر",
+        "save": "حفظ",
+        "saving": "جاري الحفظ...",
+        "cancel": "إلغاء",
+        "edit": "تعديل الماركة"
+      },
+      "upload": {
+        "title": "رفع ملف JSON",
+        "subtitle": "ارفع ملفاً بصيغة JSON يحتوي على مصفوفة من الماركات",
+        "dropOrClick": "اضغط أو اسحب ملفاً .json هنا",
+        "format": "الصيغة المتوقّعة:",
+        "example": "[\n  {\n    \"name\": \"BMW\",\n    \"slug\": \"bmw\",\n    \"logo_url\": \"https://example.com/bmw.png\",\n    \"order_index\": 1,\n    \"is_active\": true\n  }\n]",
+        "preview": "معاينة ({count})",
+        "import": "استيراد",
+        "importing": "جاري الاستيراد...",
+        "summary": "تمّ استيراد {imported} ماركة جديدة، تم تحديث {updated}.",
+        "invalidFile": "ملف غير صالح. يجب أن يكون JSON بمصفوفة من الماركات.",
+        "invalidEntry": "العنصر #{index} غير صالح: {reason}"
+      },
+      "toggle": {
+        "activate": "تفعيل",
+        "deactivate": "تعطيل",
+        "activated": "تم التفعيل",
+        "deactivated": "تم التعطيل"
+      },
+      "status": {
+        "active": "نشطة",
+        "inactive": "معطّلة"
+      },
+      "deleteConfirm": "حذف الماركة \"{name}\"؟ لا يمكن التراجع.",
+      "toast": {
+        "created": "تمت إضافة الماركة",
+        "updated": "تم التحديث",
+        "deleted": "تم الحذف",
+        "error": "حدث خطأ",
+        "inUse": "الماركة مستعملة في موديلات أو إعلانات — لا يمكن حذفها"
+      },
+      "empty": "لا توجد ماركات بعد",
+      "emptyDesc": "أضف أول ماركة يدوياً أو ارفع ملف JSON",
+      "count": "{count} ماركة"
+    },
+    "modelsPage": {
+      "title": "إدارة الموديلات",
+      "subtitle": "أضف موديلات السيارات يدوياً أو ارفع ملف JSON مرتبط بالماركات",
+      "addManual": "إضافة موديل جديد",
+      "uploadJson": "رفع ملف JSON",
+      "search": "ابحث عن موديل...",
+      "filterAllBrands": "كل الماركات",
+      "columns": {
+        "brand": "الماركة",
+        "name": "الموديل",
+        "slug": "المعرّف",
+        "active": "الحالة",
+        "actions": "إجراءات"
+      },
+      "form": {
+        "brand": "الماركة",
+        "brandPlaceholder": "اختر الماركة",
+        "noBrands": "لا توجد ماركات — أضف ماركة أولاً من /admin/brands",
+        "name": "اسم الموديل",
+        "namePlaceholder": "مثال: Serie 3",
+        "slug": "المعرّف في الرابط",
+        "slugPlaceholder": "serie-3",
+        "slugHelp": "يُولَّد تلقائياً من الاسم. يجب أن يكون فريداً ضمن نفس الماركة.",
+        "isActive": "نشط",
+        "isActiveHelp": "الموديلات غير النشطة لا تظهر في الفلاتر",
+        "save": "حفظ",
+        "saving": "جاري الحفظ...",
+        "cancel": "إلغاء",
+        "edit": "تعديل الموديل"
+      },
+      "upload": {
+        "title": "رفع ملف JSON",
+        "subtitle": "يجب أن يحتوي كل عنصر على brand_slug للربط بالماركة الموجودة",
+        "dropOrClick": "اضغط أو اسحب ملفاً .json هنا",
+        "format": "الصيغة المتوقّعة:",
+        "example": "[\n  {\n    \"brand_slug\": \"bmw\",\n    \"name\": \"Serie 3\",\n    \"slug\": \"serie-3\",\n    \"is_active\": true\n  },\n  {\n    \"brand_slug\": \"renault\",\n    \"name\": \"Clio\"\n  }\n]",
+        "preview": "معاينة ({count})",
+        "import": "استيراد",
+        "importing": "جاري الاستيراد...",
+        "summary": "تمّ استيراد {imported} موديل جديد، تم تحديث {updated}. الماركات المجهولة: {skipped}.",
+        "invalidFile": "ملف غير صالح. يجب أن يكون JSON بمصفوفة من الموديلات.",
+        "invalidEntry": "العنصر #{index} غير صالح: {reason}"
+      },
+      "toggle": {
+        "activate": "تفعيل",
+        "deactivate": "تعطيل",
+        "activated": "تم التفعيل",
+        "deactivated": "تم التعطيل"
+      },
+      "status": {
+        "active": "نشط",
+        "inactive": "معطّل"
+      },
+      "deleteConfirm": "حذف الموديل \"{name}\"؟ لا يمكن التراجع.",
+      "toast": {
+        "created": "تمت إضافة الموديل",
+        "updated": "تم التحديث",
+        "deleted": "تم الحذف",
+        "error": "حدث خطأ",
+        "inUse": "الموديل مستعمل في إعلانات — لا يمكن حذفه",
+        "slugTaken": "هذا المعرّف مستعمل لنفس الماركة",
+        "brandNotFound": "الماركة غير موجودة"
+      },
+      "empty": "لا توجد موديلات بعد",
+      "emptyDesc": "أضف أول موديل يدوياً أو ارفع ملف JSON",
+      "emptyNoBrands": "أضف ماركة أولاً قبل إنشاء الموديلات",
+      "count": "{count} موديل"
+    },
+    "categoriesPage": {
+      "title": "إدارة الفئات",
+      "subtitle": "أضف فئات السيارات (سيدان، SUV، إلخ) يدوياً أو ارفع ملف JSON",
+      "addManual": "إضافة فئة جديدة",
+      "uploadJson": "رفع ملف JSON",
+      "search": "ابحث عن فئة...",
+      "columns": {
+        "icon": "الصورة",
+        "nameAr": "الاسم بالعربية",
+        "nameFr": "الاسم بالفرنسية",
+        "slug": "المعرّف",
+        "order": "الترتيب",
+        "actions": "إجراءات"
+      },
+      "form": {
+        "nameAr": "الاسم بالعربية",
+        "nameArPlaceholder": "مثال: سيدان",
+        "nameFr": "الاسم بالفرنسية",
+        "nameFrPlaceholder": "Exemple : Berline",
+        "slug": "المعرّف في الرابط",
+        "slugPlaceholder": "berline",
+        "slugHelp": "يُولَّد تلقائياً من الاسم الفرنسي إذا تُرك فارغاً",
+        "icon": "الصورة (اختياري)",
+        "iconPlaceholder": "https://...",
+        "iconHelp": "ارفع صورة بالزر أعلاه أو الصق رابطاً مباشراً (JPG, PNG, WebP)",
+        "orderIndex": "ترتيب العرض",
+        "orderIndexHelp": "الأرقام الأصغر تظهر أولاً في الموقع",
+        "save": "حفظ",
+        "saving": "جاري الحفظ...",
+        "cancel": "إلغاء",
+        "edit": "تعديل الفئة"
+      },
+      "upload": {
+        "title": "رفع ملف JSON",
+        "subtitle": "ارفع ملف JSON يحتوي على مصفوفة من الفئات",
+        "dropOrClick": "اضغط أو اسحب ملفاً .json هنا",
+        "format": "الصيغة المتوقّعة:",
+        "example": "[\n  {\n    \"name_ar\": \"سيدان\",\n    \"name_fr\": \"Berline\",\n    \"slug\": \"berline\",\n    \"icon\": \"Car\",\n    \"order_index\": 1\n  }\n]",
+        "preview": "معاينة ({count})",
+        "import": "استيراد",
+        "importing": "جاري الاستيراد...",
+        "summary": "تمّ استيراد {imported} فئة جديدة، تم تحديث {updated}.",
+        "invalidFile": "ملف غير صالح. يجب أن يكون JSON بمصفوفة من الفئات.",
+        "invalidEntry": "العنصر #{index} غير صالح: {reason}"
+      },
+      "deleteConfirm": "حذف الفئة \"{name}\"؟ لا يمكن التراجع.",
+      "toast": {
+        "created": "تمت إضافة الفئة",
+        "updated": "تم التحديث",
+        "deleted": "تم الحذف",
+        "error": "حدث خطأ",
+        "slugTaken": "هذا المعرّف مستعمل",
+        "inUse": "الفئة مستعملة في إعلانات — لا يمكن حذفها"
+      },
+      "empty": "لا توجد فئات بعد",
+      "emptyDesc": "أضف أول فئة يدوياً أو ارفع ملف JSON",
+      "count": "{count} فئة"
+    },
+    "adsPage": {
+      "title": "الإعلانات التجارية",
+      "subtitle": "أضف وأدر الإعلانات التجارية على الموقع",
+      "addAd": "إضافة إعلان",
+      "search": "ابحث عن إعلان...",
+      "filterAll": "الكل",
+      "filterActive": "نشطة",
+      "filterInactive": "موقوفة",
+      "columns": {
+        "image": "الصورة",
+        "title": "العنوان",
+        "placement": "الموقع",
+        "dates": "الفترة",
+        "status": "الحالة",
+        "stats": "إحصائيات",
+        "actions": "إجراءات"
+      },
+      "status": {
+        "active": "نشط",
+        "inactive": "موقوف",
+        "scheduled": "مجدوَل",
+        "expired": "منتهي"
+      },
+      "stats": {
+        "clicks": "{count} نقرة",
+        "impressions": "{count} ظهور",
+        "ctr": "CTR {rate}%"
+      },
+      "overview": {
+        "totalImpressions": "إجمالي الظهور",
+        "totalClicks": "إجمالي النقرات",
+        "ctr": "معدّل النقر (CTR)",
+        "activeAds": "إعلانات نشطة",
+        "byPlacement": "الأداء حسب المكان",
+        "placement": "المكان",
+        "ads": "إعلانات",
+        "impressions": "الظهور",
+        "clicks": "النقرات"
+      },
+      "form": {
+        "title": "عنوان الإعلان",
+        "titlePlaceholder": "مثال: إعلان سيارة BMW",
+        "placement": "موقع الإعلان",
+        "placementPlaceholder": "اختر الموقع",
+        "image": "صورة الإعلان",
+        "imageHelp": "JPG، PNG، GIF — حتى 5MB",
+        "imageUpload": "رفع صورة",
+        "imageUploading": "جاري الرفع...",
+        "imagePreview": "معاينة الصورة",
+        "linkUrl": "رابط النقر (اختياري)",
+        "linkUrlPlaceholder": "https://...",
+        "startsAt": "تاريخ البدء (اختياري)",
+        "endsAt": "تاريخ الانتهاء (اختياري)",
+        "isActive": "نشط الآن",
+        "save": "حفظ",
+        "saving": "جاري الحفظ...",
+        "cancel": "إلغاء",
+        "edit": "تعديل الإعلان",
+        "new": "إعلان جديد"
+      },
+      "deleteConfirm": "حذف الإعلان \"{title}\"؟ لا يمكن التراجع.",
+      "toast": {
+        "created": "تمت إضافة الإعلان",
+        "updated": "تم التحديث",
+        "deleted": "تم الحذف",
+        "toggled": "تم تغيير الحالة",
+        "error": "حدث خطأ",
+        "uploadFailed": "فشل رفع الصورة"
+      },
+      "empty": "لا توجد إعلانات بعد",
+      "emptyDesc": "أضف أول إعلان تجاري لبدء تحقيق الإيرادات",
+      "count": "{count} إعلان"
+    },
+    "placementsPage": {
+      "title": "مواقع الإعلانات",
+      "subtitle": "اضبط مقاسات ووصف كل موقع إعلاني في الموقع",
+      "columns": {
+        "slug": "المعرّف",
+        "name": "الموقع",
+        "size": "المقاس (px)",
+        "description": "الوصف",
+        "adsCount": "إعلانات",
+        "actions": "إجراءات"
+      },
+      "form": {
+        "name": "اسم الموقع",
+        "namePlaceholder": "مثال: Home — Top",
+        "slug": "المعرّف",
+        "width": "العرض (px)",
+        "height": "الارتفاع (px)",
+        "description": "وصف (اختياري)",
+        "descriptionPlaceholder": "مثال: بانر فوق الصفحة الرئيسية",
+        "save": "حفظ",
+        "saving": "جاري الحفظ...",
+        "cancel": "إلغاء",
+        "edit": "تعديل الموقع"
+      },
+      "toast": {
+        "updated": "تم تحديث المقاس",
+        "shown": "تم إظهار الموضع في الموقع",
+        "hidden": "تم إخفاء الموضع من الموقع",
+        "error": "حدث خطأ"
+      },
+      "hide": "إخفاء من الموقع",
+      "show": "إظهار في الموقع",
+      "hiddenBadge": "مخفي",
+      "sizePreview": "{width} × {height} px",
+      "noAds": "—",
+      "count": "{count} موقع"
+    },
+    "comingSoon": {
+      "title": "قريباً",
+      "desc": "هذه الميزة قيد التطوير ضمن لوحة الأدمن.",
+      "back": "العودة"
+    },
+    "seoPage": {
+      "title": "إعدادات SEO",
+      "subtitle": "تحقّق من ملكية الموقع لدى محركات البحث وراقب أدوات الفهرسة.",
+      "verifyTitle": "التحقّق من ملكية الموقع",
+      "verifyHelp": "الصق رموز التحقّق ليتم إدراجها تلقائياً في رأس صفحات الموقع. لا تحتاج لرفع أي ملف.",
+      "googleLabel": "رمز Google Search Console",
+      "googleHelp": "من Google Search Console اختر طريقة «وسم HTML»، وانسخ قيمة الـ content فقط.",
+      "bingLabel": "رمز Bing Webmaster",
+      "bingHelp": "من أدوات مشرفي المواقع في Bing، انسخ قيمة msvalidate.01.",
+      "save": "حفظ",
+      "saving": "جاري الحفظ…",
+      "saved": "تم حفظ الإعدادات",
+      "saveError": "تعذّر الحفظ",
+      "consolesTitle": "أدوات مشرفي المواقع",
+      "consolesHelp": "افتح لوحات التحكّم لإرسال خريطة الموقع ومتابعة أداء الفهرسة.",
+      "indexNowTitle": "IndexNow (فهرسة فورية)",
+      "indexNowDesc": "عند نشر أو تحديث إعلان أو مقال، يتم إخطار محركات البحث فوراً لتسريع الفهرسة.",
+      "indexNowOn": "مُفعّل",
+      "indexNowOff": "غير مُفعّل — أضف INDEXNOW_KEY في متغيّرات البيئة",
+      "sitemapTitle": "خريطة الموقع",
+      "sitemapDesc": "تُحدّث تلقائياً وتشمل كل الصفحات النشطة بنسختيها العربية والفرنسية.",
+      "robotsTitle": "robots.txt",
+      "robotsDesc": "قواعد زحف محركات البحث ورابط خريطة الموقع.",
+      "rssTitle": "تغذية RSS",
+      "rssDesc": "آخر مقالات المدوّنة بصيغة RSS."
+    }
+  },
+  "admin": {
+    "settings": {
+      "pageTitle": "إعدادات الموقع",
+      "pageSubtitle": "تخصيص النصوص والقيم العامة لـ autobladi.ma",
+      "logo": "شعار الموقع",
+      "logoHelp": "يظهر في ترويسة الموقع. يمكنك تحديد شعار مختلف لكل لغة. يُفضّل PNG شفّاف، بحد أقصى 2 ميغابايت.",
+      "logoAr": "الشعار (النسخة العربية)",
+      "logoFr": "الشعار (النسخة الفرنسية)",
+      "favicon": "أيقونة الموقع (Favicon)",
+      "faviconHelp": "أيقونة صغيرة تظهر في تبويب المتصفّح. يُفضّل PNG مربّع (512×512)، بحد أقصى 2 ميغابايت.",
+      "noLogo": "لا يوجد شعار",
+      "uploadLogo": "تحميل شعار",
+      "removeLogo": "حذف الشعار",
+      "uploading": "جارٍ الرفع...",
+      "logoUploaded": "تم تحميل الشعار ✓",
+      "bank": "المعلومات البنكية",
+      "bankName": "اسم البنك",
+      "bankNamePlaceholder": "مثال: التجاري وفا بنك",
+      "beneficiary": "المستفيد",
+      "beneficiaryPlaceholder": "مثال: autobladi.ma SARL",
+      "save": "حفظ التغييرات",
+      "saving": "جاري الحفظ...",
+      "successTitle": "تم الحفظ",
+      "successDesc": "تم تحديث الإعدادات",
+      "errorTitle": "تعذّر الحفظ",
+      "errorAuth": "صلاحيات الأدمن مطلوبة",
+      "watermark": "العلامة المائية",
+      "watermarkText": "نص العلامة المائية",
+      "watermarkHelp": "النص الذي يظهر مكرراً على صور الإعلانات (مثال: autobladi.ma)",
+      "duration": "مدة بقاء الإعلان",
+      "durationDays": "عدد الأيام",
+      "durationHelp": "يبقى الإعلان منشوراً هذه المدة قبل أن ينتهي تلقائياً. حدّد مدة مختلفة حسب نوع الحساب.",
+      "durationGratuit": "الحسابات المجانية (أيام)",
+      "durationGratuitHelp": "مدة إعلانات المستخدمين العاديين",
+      "durationPro": "الحسابات المحترفة (أيام)",
+      "durationProHelp": "مدة إعلانات الحسابات المحترفة",
+      "graceDays": "مهلة بعد انتهاء الاشتراك (أيام)",
+      "graceDaysHelp": "عدد الأيام التي يبقى فيها المحترف نشطاً بعد انتهاء اشتراكه قبل إيقاف الخدمة. يُرسَل له تذكير بالبريد كل يوم خلال هذه المهلة. اجعلها 0 للإيقاف فوراً.",
+      "annonceLimit": "حد الإعلانات",
+      "freeMaxAnnonces": "أقصى عدد للإعلانات — الحسابات المجانية",
+      "freeMaxAnnoncesHelp": "أقصى عدد من الإعلانات النشطة لحساب مجاني. أما الحسابات المحترفة فيُحدَّد الحد من خلال باقة اشتراكها.",
+      "aiProvider": "الذكاء الاصطناعي",
+      "aiProviderLabel": "النموذج المستعمل للتقدير والوصف",
+      "aiProviderHelp": "اختر المزوّد المُفعَّل لتقدير الأسعار وتوليد الأوصاف. أدخل مفتاح API الخاص به أدناه.",
+      "aiGemini": "Google Gemini",
+      "aiOpenai": "ChatGPT (OpenAI)",
+      "aiQwen": "Qwen (Alibaba)",
+      "aiGeminiKey": "مفتاح API لـ Gemini",
+      "aiOpenaiKey": "مفتاح API لـ OpenAI",
+      "aiKeyHelp": "يُحفظ بشكل آمن ولا يظهر للعموم. اتركه فارغًا للإبقاء على المفتاح المحفوظ.",
+      "aiKeySaved": "مفتاح محفوظ — اتركه فارغًا للإبقاء عليه",
+      "aiModel": "نموذج OpenAI",
+      "aiModelHelp": "اختياري. الافتراضي gpt-4o-mini.",
+      "aiQwenKey": "مفتاح API لـ Qwen",
+      "aiQwenKeyHelp": "مفتاح DashScope من qwen.ai. يُحفظ بشكل آمن. اتركه فارغًا للإبقاء على المفتاح المحفوظ.",
+      "aiQwenModel": "نموذج Qwen",
+      "aiQwenModelHelp": "اختياري. الافتراضي qwen-plus (أو qwen-turbo / qwen-max).",
+      "contact": "بيانات الاتصال",
+      "contactEmail": "البريد الإلكتروني",
+      "contactPhone": "الهاتف",
+      "rib": "RIB للتحويل البنكي",
+      "ribHelp": "يظهر للمشتركين بعد طلب الاشتراك"
+    }
+  },
+  "ajouter": {
+    "pageTitle": "نشر إعلان جديد",
+    "pageSubtitle": "أربع خطوات بسيطة لنشر سيارتك",
+    "steps": {
+      "vehicle": "معلومات السيارة",
+      "description": "الوصف والسعر",
+      "photos": "الصور",
+      "review": "مراجعة ونشر"
+    },
+    "previous": "السابق",
+    "next": "التالي",
+    "publish": "نشر الإعلان",
+    "publishing": "جاري النشر...",
+    "update": "تحديث الإعلان",
+    "updating": "جارٍ التحديث...",
+    "step1": {
+      "title": "أخبرنا عن سيارتك",
+      "subtitle": "هذه المعلومات تساعد المشترين في العثور على إعلانك",
+      "condition": "النوع",
+      "conditionUsed": "مستعمل",
+      "conditionNew": "جديد",
+      "brand": "الماركة",
+      "model": "الموديل",
+      "city": "المدينة",
+      "secteur": "الحي / القطاع",
+      "secteurPlaceholder": "كل الأحياء",
+      "year": "سنة الصنع",
+      "mileage": "الكيلومتراج",
+      "mileagePlaceholder": "بالكيلومتر",
+      "fuelType": "نوع الوقود",
+      "transmission": "ناقل الحركة",
+      "transmissionManual": "عادي",
+      "transmissionAuto": "أوتوماتيك",
+      "doors": "عدد الأبواب",
+      "seats": "عدد المقاعد",
+      "color": "اللون",
+      "colorPlaceholder": "أبيض، أسود، فضي...",
+      "enginePower": "قوة المحرك (CV)",
+      "engineSize": "حجم المحرك",
+      "engineSizePlaceholder": "1.6L, 2.0L...",
+      "origine": "أصل السيارة",
+      "firstOwner": "مالك أول",
+      "accidentFree": "خالٍ من الحوادث",
+      "optionsTitle": "الخيارات المتوفرة"
+    },
+    "step2": {
+      "title": "الوصف والسعر",
+      "subtitle": "اكتب وصفاً جذاباً وحدّد سعراً مناسباً",
+      "carTitle": "عنوان الإعلان",
+      "titleHint": "تم توليده تلقائياً، يمكنك تعديله",
+      "description": "الوصف",
+      "descriptionPlaceholder": "وصف مفصّل: الحالة العامة، التجهيزات، سجل الصيانة...",
+      "aiGenerate": "توليد وصف بالذكاء الاصطناعي",
+      "aiGenerating": "جاري التوليد...",
+      "aiError": "تعذّر التوليد، حاول مرة أخرى",
+      "price": "السعر (DH)",
+      "negotiable": "قابل للتفاوض",
+      "contactPhone": "هاتف للتواصل",
+      "contactWhatsapp": "WhatsApp (اختياري)",
+      "proBadge": "ميزة للمحترفين",
+      "videoUrl": "رابط فيديو (اختياري)",
+      "videoUrlHint": "ألصق رابط فيديو من يوتيوب أو فيسبوك أو تيك توك — سيظهر داخل صفحة الإعلان."
+    },
+    "step3": {
+      "title": "أضف صور السيارة",
+      "subtitle": "بين 3 و 15 صورة. ستضاف العلامة المائية تلقائياً.",
+      "dropTitle": "اسحب الصور هنا أو اضغط للتصفّح",
+      "dropHint": "JPG / PNG حتى 10MB لكل صورة",
+      "tip": "نصيحة: استعمل إضاءة طبيعية وصوّر من زوايا مختلفة (أمام، خلف، داخل، محرّك).",
+      "setMain": "تعيين كصورة رئيسية",
+      "isMain": "صورة رئيسية",
+      "remove": "حذف",
+      "uploading": "جاري الرفع...",
+      "tooSmall": "يلزم 3 صور على الأقل",
+      "tooLarge": "حدّ أقصى 15 صورة",
+      "fileTooLarge": "الملف أكبر من 10MB",
+      "invalidType": "نوع غير مدعوم (JPG/PNG فقط)"
+    },
+    "step4": {
+      "title": "مراجعة قبل النشر",
+      "subtitle": "تأكّد من المعلومات قبل الإرسال",
+      "vehicleInfo": "معلومات السيارة",
+      "descPrice": "الوصف والسعر",
+      "imagesCount": "{count} صور",
+      "previewTitle": "معاينة كما ستظهر",
+      "acceptTerms": "أوافق على شروط النشر وأقرّ بأن المعلومات صحيحة",
+      "successTitle": "تم استلام إعلانك",
+      "successDesc": "إعلانك قيد المراجعة، سيتم نشره خلال 24 ساعة.",
+      "errorGeneric": "تعذّر النشر، حاول مرة أخرى",
+      "limitReached": "لقد بلغت الحد الأقصى لعدد إعلاناتك. اشترك في باقة محترف أو احذف إعلاناً موجوداً."
+    },
+    "validation": {
+      "selectOption": "اختر خياراً",
+      "minImages": "أضف 3 صور على الأقل",
+      "termsRequired": "يجب الموافقة على الشروط",
+      "tooShort": "النص قصير جداً",
+      "invalidPrice": "أدخل سعراً صحيحاً",
+      "invalidYear": "أدخل سنة صحيحة",
+      "invalidUrl": "أدخل رابطاً صحيحاً"
+    },
+    "options": {
+      "climatisation": "تكييف",
+      "gps": "نظام GPS",
+      "camera": "كاميرا خلفية",
+      "toit_ouvrant": "سقف متحرّك",
+      "cuir": "مقاعد جلد",
+      "abs": "ABS",
+      "esp": "ESP",
+      "airbags": "وسائد هوائية",
+      "jantes_alu": "جنوط ألمنيوم",
+      "bluetooth": "Bluetooth",
+      "usb": "USB",
+      "cruise": "Cruise control",
+      "park_sensors": "حسّاسات ركن",
+      "auto_lights": "أضواء تلقائية",
+      "heated_seats": "مقاعد مدفّأة"
+    }
+  },
+  "annonceDetail": {
+    "viewCount": "{count} مشاهدة",
+    "publishedRelative": "نُشر {when}",
+    "negotiable": "قابل للتفاوض",
+    "viewAllPhotos": "عرض كل الصور ({count})",
+    "imageCounter": "{current} / {total}",
+    "closeLightbox": "إغلاق",
+    "previousImage": "السابقة",
+    "nextImage": "التالية",
+    "tabs": {
+      "description": "الوصف",
+      "specs": "المواصفات",
+      "options": "الخيارات",
+      "history": "التاريخ"
+    },
+    "specs": {
+      "title": "المواصفات التقنية",
+      "power": "القوة",
+      "displacement": "سعة المحرك",
+      "bodyType": "نوع الهيكل",
+      "origine": "الأصل",
+      "doors": "عدد الأبواب",
+      "seats": "عدد المقاعد",
+      "color": "اللون"
+    },
+    "details": {
+      "vehicleInfo": "معلومات السيارة",
+      "equipments": "التجهيزات والخيارات",
+      "brand": "العلامة التجارية",
+      "model": "الموديل"
+    },
+    "video": {
+      "title": "فيديو السيارة"
+    },
+    "keySpecs": {
+      "year": "السنة",
+      "mileage": "الكيلومتراج",
+      "fuel": "الوقود",
+      "transmission": "ناقل الحركة",
+      "doors": "الأبواب",
+      "color": "اللون"
+    },
+    "history": {
+      "title": "تاريخ السيارة",
+      "firstOwner": "مالك أول",
+      "accidentFree": "بدون حوادث",
+      "condition": "الحالة",
+      "conditionNew": "جديدة",
+      "conditionUsed": "مستعملة",
+      "yes": "نعم",
+      "no": "لا"
+    },
+    "noDescription": "لا يوجد وصف لهذا الإعلان.",
+    "noOptions": "لم يحدّد البائع أي خيارات.",
+    "seller": {
+      "title": "البائع",
+      "memberSince": "عضو منذ {date}",
+      "otherAnnonces": "{count, plural, =0 {لا توجد إعلانات أخرى} one {إعلان آخر} other {{count} إعلانات أخرى}}",
+      "pro": "محترف",
+      "verified": "موثّق",
+      "viewProfile": "زيارة الصفحة",
+      "viewShowroom": "زيارة التاجر المحترف"
+    },
+    "contact": {
+      "call": "اتصال",
+      "whatsapp": "واتساب",
+      "message": "إرسال رسالة",
+      "report": "تبليغ",
+      "favorite": "إضافة للمفضلة",
+      "favoriteAdded": "أُضيف إلى المفضلة",
+      "favoriteRemoved": "أُزيل من المفضلة",
+      "favoriteError": "تعذّر تحديث المفضلة",
+      "compare": "أضف للمقارنة",
+      "share": "مشاركة",
+      "loginRequired": "يلزم تسجيل الدخول",
+      "revealPhone": "إظهار رقم الهاتف",
+      "callNow": "اتصل الآن"
+    },
+    "message": {
+      "title": "إرسال رسالة للبائع",
+      "subtitle": "ابدأ محادثة مع البائع. سيتم حفظ الرسالة في صندوقك.",
+      "content": "اكتب رسالتك",
+      "placeholder": "مرحباً، أنا مهتمّ بسيارتك. هل ما زالت متوفرة؟",
+      "send": "إرسال",
+      "sending": "جاري الإرسال...",
+      "successTitle": "تم إرسال الرسالة",
+      "successDesc": "يمكنك متابعة المحادثة من صندوق الرسائل.",
+      "errorAuth": "يجب تسجيل الدخول لإرسال رسالة",
+      "errorGeneric": "تعذّر إرسال الرسالة، حاول مرة أخرى.",
+      "loginCta": "تسجيل الدخول"
+    },
+    "report": {
+      "title": "تبليغ عن هذا الإعلان",
+      "subtitle": "ساعدنا في حماية المجتمع بالإبلاغ عن المحتوى المشبوه.",
+      "reason": "سبب التبليغ",
+      "description": "تفاصيل إضافية (اختياري)",
+      "reasons": {
+        "fake": "إعلان وهمي",
+        "scam": "احتيال",
+        "wrong_category": "في الفئة الخاطئة",
+        "sold": "السيارة بيعت",
+        "inappropriate": "محتوى غير لائق",
+        "other": "آخر"
+      },
+      "submit": "إرسال البلاغ",
+      "submitting": "جاري الإرسال...",
+      "successTitle": "تم استلام البلاغ",
+      "successDesc": "شكراً لمساعدتك. سيراجع الفريق الإعلان قريباً.",
+      "errorGeneric": "تعذّر إرسال البلاغ، حاول لاحقاً."
+    },
+    "share": {
+      "title": "مشاركة الإعلان",
+      "whatsapp": "واتساب",
+      "facebook": "فيسبوك",
+      "copyLink": "نسخ الرابط",
+      "linkCopied": "تم نسخ الرابط",
+      "shareText": "شاهد هذه السيارة على autobladi.ma"
+    },
+    "safety": {
+      "title": "نصائح قبل الشراء",
+      "tip1": "افحص السيارة شخصياً قبل الدفع.",
+      "tip2": "تأكّد من صحة كل الوثائق (الكارت الرمادي، الضرائب...).",
+      "tip3": "لا تدفع أي مقدّم قبل المعاينة على الواقع.",
+      "tip4": "اطلب فحصاً تقنياً مستقلاً عند الحاجة."
+    },
+    "map": {
+      "title": "الموقع التقريبي",
+      "desc": "تظهر المدينة فقط لحماية خصوصية البائع.",
+      "noCity": "لم يحدّد البائع المدينة."
+    },
+    "similar": {
+      "title": "سيارات مشابهة قد تعجبك",
+      "empty": "لم نعثر على سيارات مشابهة."
+    },
+    "notFound": {
+      "title": "الإعلان غير متوفر",
+      "desc": "ربما حُذف هذا الإعلان أو لم يعد متاحاً.",
+      "back": "تصفّح الإعلانات"
+    }
+  },
+  "landing": {
+    "breadcrumbHome": "الرئيسية",
+    "breadcrumbCars": "السيارات",
+    "brandTitle": "سيارات {brand} للبيع في المغرب",
+    "cityTitle": "سيارات {brand} للبيع بـ{city}",
+    "brandIntro": "تصفّح أحدث إعلانات سيارات {brand} للبيع في المغرب — مستعملة وجديدة، بأسعار محدّثة وصور وتفاصيل كاملة. قارن العروض وتواصل مباشرةً مع البائعين على autobladi.ma.",
+    "cityIntro": "أحدث إعلانات سيارات {brand} للبيع في {city} — مستعملة وجديدة بأسعار محدّثة. تواصل مباشرةً مع البائعين في {city} على autobladi.ma.",
+    "count": "{count} نتيجة",
+    "viewAll": "عرض كل النتائج",
+    "citiesHeading": "سيارات {brand} حسب المدينة",
+    "backToBrand": "كل سيارات {brand}",
+    "faqTitle": "أسئلة شائعة",
+    "emptyTitle": "لا توجد إعلانات بعد",
+    "emptyDesc": "كن أول من يضيف إعلاناً، أو تصفّح كل السيارات.",
+    "faq": {
+      "q1": "كم يبلغ سعر سيارات {brand} في المغرب؟",
+      "a1": "تختلف أسعار سيارات {brand} حسب الموديل والسنة والكيلومتراج والحالة. تصفّح الإعلانات أعلاه لمعرفة الأسعار الحالية، أو استعمل أداة التقدير المجانية على autobladi.ma.",
+      "q2": "أين أجد سيارات {brand} للبيع في المغرب؟",
+      "a2": "تجد على autobladi.ma إعلانات سيارات {brand} من أصحاب الحسابات والتجار المحترفين في مختلف المدن المغربية، مع صور وتفاصيل وتواصل مباشر.",
+      "q3": "هل يمكنني بيع سيارتي {brand} على autobladi؟",
+      "a3": "نعم، يمكنك نشر إعلان لبيع سيارتك {brand} مجاناً، مع إمكانية تقدير سعرها أولاً بالذكاء الاصطناعي."
+    },
+    "metaTitleBrand": "سيارات {brand} للبيع في المغرب — أسعار وإعلانات",
+    "metaDescBrand": "تصفّح إعلانات سيارات {brand} للبيع في المغرب: مستعملة وجديدة بكل المدن، أسعار محدّثة وصور وتواصل مباشر مع البائعين على autobladi.ma.",
+    "metaTitleCity": "سيارات {brand} للبيع بـ{city} — أسعار وإعلانات",
+    "metaDescCity": "إعلانات سيارات {brand} للبيع في {city}: مستعملة وجديدة بأسعار محدّثة وصور وتواصل مباشر مع البائعين في {city} على autobladi.ma.",
+    "cityHubTitle": "سيارات للبيع في {city}",
+    "cityHubIntro": "تصفّح أحدث إعلانات السيارات للبيع في {city} — مستعملة وجديدة من كل الماركات، بأسعار محدّثة وصور وتواصل مباشر مع البائعين في {city} على autobladi.ma.",
+    "brandsInCityHeading": "الماركات المتوفّرة في {city}",
+    "metaTitleCityHub": "سيارات للبيع في {city} — إعلانات مستعملة وجديدة",
+    "metaDescCityHub": "تصفّح إعلانات السيارات للبيع في {city}: مستعملة وجديدة من كل الماركات بأسعار محدّثة وصور وتواصل مباشر على autobladi.ma.",
+    "cityFaq": {
+      "q1": "أين أجد سيارات للبيع في {city}؟",
+      "a1": "تجد على autobladi.ma إعلانات سيارات للبيع في {city} من الأفراد والتجار المحترفين، مع صور وأسعار وتواصل مباشر.",
+      "q2": "كم تبلغ أسعار السيارات المستعملة في {city}؟",
+      "a2": "تختلف الأسعار حسب الماركة والموديل والسنة والحالة. تصفّح الإعلانات أعلاه لمعرفة الأسعار الحالية في {city}، أو استعمل أداة التقدير المجانية.",
+      "q3": "هل يمكنني بيع سيارتي في {city} على autobladi؟",
+      "a3": "نعم، يمكنك نشر إعلان مجاني لبيع سيارتك في {city}، مع إمكانية تقدير سعرها أولاً بالذكاء الاصطناعي."
+    }
+  },
+  "annonces": {
+    "metaTitle": "سيارات للبيع بالمغرب — إعلانات سيارات جديدة ومستعملة",
+    "metaDescription": "تصفّح آلاف إعلانات السيارات للبيع في المغرب: مستعملة وجديدة في كل المدن، بأسعار محدّثة وصور وتفاصيل. ابحث حسب الماركة والمدينة والسعر على autobladi.ma.",
+    "browseByBrand": "تصفّح حسب الماركة",
+    "browseByCity": "تصفّح حسب المدينة",
+    "pageTitle": "السيارات المعروضة",
+    "pageSubtitle": "تصفّح آلاف السيارات في المغرب",
+    "resultsCount": "{count} سيارة",
+    "saveSearch": "احفظ البحث",
+    "saveSearchToast": "احفظ هذا البحث في حسابك. الميزة قريباً.",
+    "filters": "الفلاتر",
+    "openFilters": "فتح الفلاتر",
+    "applyFilters": "تطبيق",
+    "clearFilters": "مسح الفلاتر",
+    "searchPlaceholder": "ابحث...",
+    "fields": {
+      "condition": "النوع",
+      "conditionUsed": "مستعمل",
+      "conditionNew": "جديد",
+      "brand": "الماركة",
+      "model": "الموديل",
+      "city": "المدينة",
+      "price": "السعر (DH)",
+      "year": "سنة الصنع",
+      "mileage": "الكيلومتراج",
+      "fuel": "نوع الوقود",
+      "transmission": "ناقل الحركة",
+      "transmissionManual": "عادي",
+      "transmissionAuto": "أوتوماتيك",
+      "color": "اللون",
+      "doors": "عدد الأبواب",
+      "options": "الخيارات",
+      "verifiedOnly": "تجار محترفون موثّقة فقط",
+      "from": "من",
+      "to": "إلى"
+    },
+    "options": {
+      "climatisation": "تكييف",
+      "gps": "GPS",
+      "camera": "كاميرا",
+      "toit_ouvrant": "سقف متحرّك",
+      "abs": "ABS",
+      "esp": "ESP",
+      "bluetooth": "Bluetooth",
+      "cuir": "مقاعد جلد"
+    },
+    "fuel": {
+      "essence": "بنزين",
+      "diesel": "ديزل",
+      "hybrid": "هايبرد",
+      "electric": "كهربائي",
+      "lpg": "غاز"
+    },
+    "sort": {
+      "label": "ترتيب حسب",
+      "newest": "الأحدث",
+      "priceAsc": "السعر تصاعدياً",
+      "priceDesc": "السعر تنازلياً",
+      "mileageAsc": "الأقل كيلومتراً"
+    },
+    "view": {
+      "grid": "شبكة",
+      "list": "قائمة"
+    },
+    "empty": {
+      "title": "لا توجد نتائج",
+      "desc": "جرّب تعديل الفلاتر أو مسحها لرؤية مزيد من السيارات"
+    },
+    "page": "صفحة {page} من {total}",
+    "previous": "السابق",
+    "next": "التالي"
+  },
+  "home": {
+    "hero": {
+      "title": "ابحث عن سيارة الأحلام",
+      "subtitle": "ابحث، قارن، واختر سيارتك الآن!",
+      "tabAll": "الكل",
+      "noResults": "لا توجد نتيجة",
+      "found": "لقد وجدنا <strong>{count}</strong> إعلاناً لك",
+      "liveCount": "{count} إعلان متاح الآن",
+      "trust": "بائعون موثوقون · شراء بكل أمان",
+      "tabUsed": "مستعمل",
+      "tabNew": "جديد",
+      "brand": "الماركة",
+      "anyBrand": "كل الماركات",
+      "model": "الموديل",
+      "anyModel": "كل الموديلات",
+      "city": "المدينة",
+      "anyCity": "كل المدن",
+      "minPrice": "السعر من",
+      "maxPrice": "السعر إلى",
+      "searchNow": "ابحث الآن",
+      "advancedSearch": "بحث متقدم",
+      "statsCars": "إعلان",
+      "statsDealers": "تاجر محترف",
+      "statsCities": "مدينة"
+    },
+    "featured": {
+      "title": "سيارات مميّزة",
+      "subtitle": "أفضل العروض المختارة من بائعين موثوقين",
+      "viewAll": "عرض الكل",
+      "empty": "لا توجد سيارات مميّزة في الوقت الحالي"
+    },
+    "brands": {
+      "title": "تصفّح حسب الماركة",
+      "subtitle": "اختر ماركتك المفضّلة من أشهر الماركات في المغرب"
+    },
+    "latest": {
+      "title": "أحدث الإعلانات",
+      "subtitle": "آخر السيارات المضافة على الموقع",
+      "viewAll": "كل الإعلانات",
+      "empty": "لا توجد إعلانات بعد"
+    },
+    "why": {
+      "title": "لماذا تختار autobladi.ma؟",
+      "subtitle": "كل ما تحتاجه لشراء أو بيع سيارتك بكل ثقة في جميع أنحاء المغرب.",
+      "verifiedDealersTitle": "بائعون موثوقون",
+      "verifiedDealersDesc": "وكلاء وحسابات محترفة مُصادق عليها من فريقنا لمعاملات آمنة.",
+      "realPhotosTitle": "صور حقيقية",
+      "realPhotosDesc": "علامة مائية تحمي كل إعلان وتضمن صوراً حقيقية غير مسروقة.",
+      "directContactTitle": "تواصل مباشر وآمن",
+      "directContactDesc": "تحدّث مع البائع عبر الرسائل المدمجة أو الهاتف أو واتساب.",
+      "estimationTitle": "تقدير بالذكاء الاصطناعي",
+      "estimationDesc": "اعرف القيمة العادلة لأي سيارة في ثوانٍ ومجاناً.",
+      "compareTitle": "مقارنة ذكية",
+      "compareDesc": "قارن حتى 4 سيارات جنباً إلى جنب: الثمن، الكيلومترات والتجهيزات.",
+      "searchTitle": "بحث متقدّم",
+      "searchDesc": "صفِّ حسب الماركة، الموديل، المدينة، الميزانية وعشرات المعايير."
+    },
+    "topDealers": {
+      "title": "أبرز التجار المحترفين",
+      "subtitle": "التجار المحترفون الأكثر تقييماً في الموقع",
+      "visit": "زيارة التاجر المحترف",
+      "carsCount": "{count} سيارة",
+      "reviews": "{count} تقييم",
+      "empty": "لا توجد تجار محترفون بعد"
+    },
+    "estimationCta": {
+      "title": "هل تريد بيع سيارتك؟",
+      "subtitle": "احصل على تقدير مجاني فوري لسعر سيارتك بناءً على بيانات السوق المغربي",
+      "cta": "احصل على تقدير"
+    },
+    "blog": {
+      "title": "آخر المقالات",
+      "subtitle": "نصائح، أخبار وتجارب من عالم السيارات",
+      "viewAll": "كل المقالات",
+      "empty": "لا توجد مقالات بعد"
+    },
+    "newsletter": {
+      "title": "اشترك في النشرة",
+      "subtitle": "آخر العروض والإعلانات الجديدة مباشرة في بريدك",
+      "placeholder": "بريدك الإلكتروني",
+      "subscribe": "اشترك"
+    },
+    "adPlaceholder": "مساحة إعلانية",
+    "badges": {
+      "featured": "مميّز",
+      "verified": "موثّق",
+      "new": "جديد",
+      "conditionNew": "جديدة",
+      "conditionUsed": "مستعملة"
+    }
+  },
+  "footer": {
+    "tagline": "السوق المغربي الأول للسيارات. اشترِ، بِع، قارن وقدّر السعر في مكان واحد.",
+    "explore": "استكشف",
+    "exploreItems": {
+      "all": "كل الإعلانات",
+      "popular": "السيارات الأكثر طلباً",
+      "featured": "إعلانات مميّزة",
+      "dealers": "التجار المحترفون",
+      "estimation": "تقدير الثمن"
+    },
+    "company": "الشركة",
+    "companyItems": {
+      "about": "من نحن",
+      "contact": "اتصل بنا",
+      "terms": "شروط الاستخدام",
+      "privacy": "سياسة الخصوصية",
+      "publicite": "Publicité"
+    },
+    "contact": "تواصل",
+    "phone": "+212 5 22 00 00 00",
+    "email": "contact@autobladi.ma",
+    "address": "الدار البيضاء، المغرب",
+    "newsletter": "اشترك في النشرة",
+    "newsletterDesc": "أحدث الإعلانات والعروض مباشرة في بريدك",
+    "newsletterPlaceholder": "بريدك الإلكتروني",
+    "subscribe": "اشترك",
+    "rights": "جميع الحقوق محفوظة",
+    "follow": "تابعنا"
+  },
+  "compare": {
+    "metaTitle": "مقارنة السيارات — autobladi.ma",
+    "metaDescription": "قارن بين عدة سيارات جنباً إلى جنب: الثمن، الكيلومترات، المحرك والمزيد.",
+    "pageTitle": "مقارنة السيارات",
+    "pageSubtitle": "قارن حتى 4 سيارات جنباً إلى جنب قبل اتخاذ قرارك.",
+    "addToCompare": "قارن",
+    "inCompare": "مضافة للمقارنة",
+    "added": "أُضيفت للمقارنة",
+    "removed": "أُزيلت من المقارنة",
+    "maxReached": "يمكنك مقارنة {max} سيارات كحد أقصى",
+    "count": "{count} سيارة مختارة",
+    "clearAll": "مسح الكل",
+    "remove": "إزالة",
+    "vehicle": "السيارة",
+    "browseCars": "تصفّح الإعلانات",
+    "yes": "نعم",
+    "no": "لا",
+    "empty": {
+      "title": "لا توجد سيارات للمقارنة",
+      "desc": "أضف سيارات إلى المقارنة من الإعلانات لتقارنها هنا."
+    },
+    "rows": {
+      "price": "الثمن",
+      "brand": "الماركة",
+      "model": "الموديل",
+      "year": "السنة",
+      "mileage": "الكيلومترات",
+      "fuel": "الوقود",
+      "transmission": "ناقل الحركة",
+      "condition": "الحالة",
+      "color": "اللون",
+      "doors": "الأبواب",
+      "seats": "المقاعد",
+      "power": "القوة",
+      "displacement": "سعة المحرك",
+      "origine": "الأصل",
+      "city": "المدينة",
+      "firstOwner": "اليد الأولى",
+      "accidentFree": "بدون حوادث"
+    }
+  },
+  "contactPage": {
+    "metaTitle": "اتصل بنا — autobladi.ma",
+    "metaDescription": "هل لديك سؤال أو اقتراح أو مشكلة؟ تواصل مع فريق autobladi.ma.",
+    "hero": {
+      "eyebrow": "اتصل بنا",
+      "title": "تواصل معنا",
+      "subtitle": "سؤال أو ملاحظة أو تحتاج مساعدة؟ فريقنا يجيبك في أقرب وقت."
+    },
+    "info": {
+      "title": "معلومات التواصل",
+      "emailLabel": "البريد الإلكتروني",
+      "phoneLabel": "الهاتف",
+      "hoursLabel": "أوقات العمل",
+      "hoursValue": "الإثنين – الجمعة: 9:00 – 18:00",
+      "addressLabel": "العنوان",
+      "addressValue": "الدار البيضاء، المغرب"
+    },
+    "form": {
+      "title": "أرسل لنا رسالة",
+      "subtitle": "املأ النموذج أدناه وسنردّ عليك عبر البريد الإلكتروني.",
+      "name": "الاسم الكامل",
+      "namePlaceholder": "اسمك",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "you@example.com",
+      "phone": "الهاتف (اختياري)",
+      "phonePlaceholder": "06 12 34 56 78",
+      "subject": "الموضوع (اختياري)",
+      "subjectPlaceholder": "موضوع رسالتك",
+      "message": "الرسالة",
+      "messagePlaceholder": "اكتب رسالتك...",
+      "submit": "إرسال الرسالة",
+      "submitting": "جارٍ الإرسال...",
+      "successTitle": "تم إرسال الرسالة!",
+      "successDesc": "شكراً لتواصلك معنا. سنردّ عليك قريباً.",
+      "sendAnother": "إرسال رسالة أخرى",
+      "errorTitle": "خطأ",
+      "errorDesc": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+      "rateLimited": "محاولات كثيرة. أعد المحاولة بعد دقيقة."
+    },
+    "validation": {
+      "nameRequired": "يرجى إدخال اسمك",
+      "emailInvalid": "بريد إلكتروني غير صالح",
+      "messageTooShort": "يجب أن تحتوي الرسالة على 10 أحرف على الأقل"
+    }
+  },
+  "publicite": {
+    "metaTitle": "أعلن على autobladi.ma",
+    "metaDescription": "صل إلى آلاف المشترين المهتمّين بشراء السيارات في المغرب — حلول إعلانية مرنة على autobladi.ma.",
+    "hero": {
+      "eyebrow": "حلول إعلانية",
+      "title": "أعلن أمام جمهور يبحث فعلاً عن السيارات",
+      "subtitle": "آلاف المغاربة يزورون autobladi.ma يومياً للبحث عن سيارتهم القادمة. ضع علامتك التجارية في طريقهم.",
+      "cta": "تواصل معنا"
+    },
+    "audience": {
+      "title": "جمهورنا",
+      "subtitle": "أرقام شهرية تقريبية بناءً على آخر تحديث",
+      "visitsLabel": "زيارة شهرياً",
+      "visitsValue": "+250K",
+      "annoncesLabel": "إعلان نشط",
+      "annoncesValue": "+10K",
+      "dealersLabel": "تاجر محترف موثّق",
+      "dealersValue": "+300",
+      "citiesLabel": "مدينة مغطّاة",
+      "citiesValue": "+40"
+    },
+    "placements": {
+      "title": "أين يمكن أن يظهر إعلانك",
+      "subtitle": "اختر من بين 15 موقعاً استراتيجياً عبر الصفحة الرئيسية، صفحات السيارات والتجار المحترفون، والمدونة",
+      "items": {
+        "home": "الصفحة الرئيسية",
+        "homeDesc": "أعلى ووسط وأسفل الصفحة — أعلى ظهور ممكن",
+        "listings": "صفحات الإعلانات",
+        "listingsDesc": "في الفلاتر، بين السيارات، أو فوق النتائج",
+        "annonce": "صفحات تفاصيل السيارة",
+        "annonceDesc": "بجانب معلومات البائع وفوق وأسفل المحتوى",
+        "professionnel": "صفحات التجار المحترفون",
+        "professionnelDesc": "أمام مستخدمين قاب قوسين من الشراء",
+        "blog": "المدونة",
+        "blogDesc": "محتوى السيارات، نصائح وأخبار السوق",
+        "footer": "الفوتر",
+        "footerDesc": "حضور دائم في كل صفحات الموقع"
+      }
+    },
+    "why": {
+      "title": "لماذا تُعلن معنا",
+      "subtitle": "ثلاث ميزات تجعل من autobladi.ma القناة الأمثل للوصول لمشتري السيارات في المغرب",
+      "audienceTitle": "جمهور مستهدف",
+      "audienceDesc": "كل زائر مهتم فعلاً بشراء أو بيع سيارة — لا مشاهدات ضائعة",
+      "localTitle": "تغطية وطنية",
+      "localDesc": "زوار من كل المدن المغربية الكبرى — الدار البيضاء، الرباط، مراكش، طنجة...",
+      "transparentTitle": "نتائج شفافة",
+      "transparentDesc": "تقارير شهرية حول المشاهدات والنقرات، بدون مفاجآت"
+    },
+    "form": {
+      "title": "أرسل لنا تفاصيل حملتك",
+      "subtitle": "نرد عادةً خلال 24 ساعة عمل",
+      "name": "الاسم الكامل",
+      "namePlaceholder": "محمد العلوي",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "you@company.com",
+      "phone": "الهاتف",
+      "phonePlaceholder": "+212 6 00 00 00 00",
+      "company": "الشركة (اختياري)",
+      "companyPlaceholder": "اسم شركتك",
+      "message": "رسالتك",
+      "messagePlaceholder": "أخبرنا عن منتجك، الجمهور المستهدف، الميزانية التقريبية...",
+      "submit": "إرسال الطلب",
+      "submitting": "جاري الإرسال...",
+      "successTitle": "تم استلام طلبك",
+      "successDesc": "سنتواصل معك قريباً لمناقشة التفاصيل",
+      "errorTitle": "تعذّر الإرسال",
+      "errorDesc": "حاول مرة أخرى أو تواصل معنا مباشرة عبر البريد الإلكتروني"
+    },
+    "contact": {
+      "title": "أو تواصل معنا مباشرة",
+      "email": "contact@autobladi.ma",
+      "phone": "+212 5 22 00 00 00"
+    },
+    "validation": {
+      "nameRequired": "الاسم مطلوب",
+      "emailInvalid": "بريد إلكتروني غير صالح",
+      "messageRequired": "اكتب رسالتك من فضلك",
+      "messageTooShort": "الرسالة قصيرة جداً (10 أحرف على الأقل)"
+    }
+  },
+  "ads": {
+    "placeholder": "مساحة إعلانية",
+    "label": "إعلان"
+  },
+  "blog": {
+    "metaTitle": "مدونة autobladi — أخبار ونصائح السيارات في المغرب",
+    "metaDescription": "آخر أخبار السيارات، نصائح الشراء والصيانة، ومراجعات السيارات في السوق المغربية.",
+    "hero": {
+      "eyebrow": "المدونة",
+      "title": "أخبار ونصائح السيارات في المغرب",
+      "subtitle": "اكتشف أحدث المقالات والنصائح من خبراء السوق المغربية"
+    },
+    "filters": {
+      "all": "الكل",
+      "searchPlaceholder": "ابحث في المدونة...",
+      "search": "بحث"
+    },
+    "card": {
+      "readMore": "اقرأ المزيد",
+      "readingTime": "{minutes} د. قراءة",
+      "by": "بقلم {name}"
+    },
+    "featured": {
+      "label": "مقال مميّز"
+    },
+    "list": {
+      "title": "أحدث المقالات",
+      "count": "{count} مقال",
+      "empty": "لا توجد مقالات بعد",
+      "emptyDesc": "ستجد هنا مقالاتنا قريباً — تحقّق لاحقاً!",
+      "categoryEmpty": "لا توجد مقالات في هذه الفئة بعد"
+    },
+    "pagination": {
+      "previous": "السابق",
+      "next": "التالي",
+      "page": "صفحة {page} من {total}"
+    },
+    "detail": {
+      "publishedOn": "نُشر في {date}",
+      "viewsCount": "{count} مشاهدة",
+      "readingTime": "{minutes} د. قراءة",
+      "by": "بقلم",
+      "tags": "الوسوم",
+      "noContent": "لا يوجد محتوى لهذا المقال.",
+      "notFound": {
+        "title": "المقال غير موجود",
+        "desc": "ربما تم حذفه أو لم يُنشر بعد.",
+        "back": "العودة للمدونة"
+      }
+    },
+    "share": {
+      "title": "شارك المقال",
+      "whatsapp": "واتساب",
+      "facebook": "فيسبوك",
+      "twitter": "تويتر",
+      "copyLink": "نسخ الرابط",
+      "linkCopied": "تم نسخ الرابط ✓"
+    },
+    "author": {
+      "title": "عن الكاتب",
+      "defaultBio": "كاتب في مدونة autobladi.ma"
+    },
+    "related": {
+      "title": "مقالات ذات صلة",
+      "empty": "لا توجد مقالات مشابهة"
+    },
+    "sidebar": {
+      "categories": "الفئات",
+      "categoriesCount": "{count}",
+      "latest": "أحدث المقالات",
+      "newsletter": {
+        "title": "اشترك في النشرة",
+        "desc": "أحدث المقالات في بريدك",
+        "placeholder": "بريدك الإلكتروني",
+        "subscribe": "اشترك"
+      }
+    },
+    "comments": {
+      "title": "التعليقات",
+      "count": "{count, plural, =0 {لا توجد تعليقات} one {تعليق واحد} other {{count} تعليقات}}",
+      "loginRequired": "سجّل دخولاً للتعليق",
+      "loginCta": "تسجيل الدخول",
+      "form": {
+        "placeholder": "اكتب تعليقك...",
+        "submit": "نشر التعليق",
+        "submitting": "جاري النشر...",
+        "replyTo": "ردّاً على {name}",
+        "cancelReply": "إلغاء الرد",
+        "successTitle": "تم استلام تعليقك",
+        "successDesc": "سيظهر بعد مراجعة فريق الإدارة.",
+        "errorTitle": "تعذّر نشر التعليق",
+        "tooShort": "تعليقك قصير جداً",
+        "tooLong": "تعليقك طويل جداً"
+      },
+      "actions": {
+        "reply": "رد",
+        "like": "إعجاب"
+      },
+      "empty": "كن أول من يعلّق على هذا المقال",
+      "sort": {
+        "newest": "الأحدث",
+        "oldest": "الأقدم"
+      },
+      "pending": "تعليقك قيد المراجعة"
+    },
+    "category": {
+      "metaTitle": "{name} — مدونة autobladi",
+      "title": "مقالات في {name}",
+      "back": "كل المقالات"
+    },
+    "rss": {
+      "title": "تابع المقالات عبر RSS"
+    }
+  },
+  "messagesPage": {
+    "title": "الرسائل",
+    "search": "ابحث عن محادثة...",
+    "you": "أنت",
+    "annonceRef": "بخصوص هذا الإعلان",
+    "newMessage": "{name}: {content}",
+    "list": {
+      "empty": "لا توجد محادثات",
+      "emptyDesc": "ستظهر هنا محادثاتك مع البائعين والمشترين.",
+      "browse": "تصفّح الإعلانات"
+    },
+    "chat": {
+      "back": "رجوع",
+      "selectConversation": "اختر محادثة",
+      "selectDesc": "اختر محادثة لعرض الرسائل."
+    },
+    "input": {
+      "placeholder": "اكتب رسالتك...",
+      "send": "إرسال",
+      "hint": "Enter للإرسال · Shift+Enter لسطر جديد"
+    },
+    "errors": {
+      "send": "تعذّر إرسال الرسالة"
+    }
+  }
+}

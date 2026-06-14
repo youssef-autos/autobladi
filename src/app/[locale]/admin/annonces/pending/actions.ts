@@ -1,0 +1,125 @@
+"use server"
+
+import { revalidatePath } from "next/cache"
+import { z } from "zod"
+
+import { createClient } from "@/lib/supabase/server"
+import { getRecipientById } from "@/lib/email/recipients"
+import {
+  sendAnnonceApprovedEmail,
+  sendAnnonceRejectedEmail,
+} from "@/lib/email/send"
+import { pingIndexNow } from "@/lib/seo/indexnow"
+
+export type ModResult = { ok: true } | { ok: false; error: string }
+
+async function adminClient() {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return null
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("account_type")
+    .eq("id", user.id)
+    .maybeSingle<{ account_type: string }>()
+  if (profile?.account_type !== "admin") return null
+  return { supabase, adminId: user.id }
+}
+
+const idSchema = z.uuid()
+
+export async function approveAnnonce(input: unknown): Promise<ModResult> {
+  const parsed = idSchema.safeParse(input)
+  if (!parsed.success) return { ok: false, error: "invalid_id" }
+  const ctx = await adminClient()
+  if (!ctx) return { ok: false, error: "forbidden" }
+
+  // Read the annonce first so we have title+slug+user_id for the email.
+  const { data: annonce } = await ctx.supabase
+    .from("annonces")
+    .select("id, title, slug, user_id")
+    .eq("id", parsed.data)
+    .maybeSingle<{
+      id: string
+      title: string
+      slug: string
+      user_id: string
+    }>()
+
+  const { error } = await ctx.supabase
+    .from("annonces")
+    .update({
+      status: "active",
+      published_at: new Date().toISOString(),
+      rejection_reason: null,
+    } as never)
+    .eq("id", parsed.data)
+  if (error) return { ok: false, error: error.message }
+
+  // Best-effort email + instant-indexing ping — failures don't roll back.
+  if (annonce) {
+    await pingIndexNow([`/annonces/${annonce.slug}`])
+    const recipient = await getRecipientById(annonce.user_id)
+    if (recipient) {
+      void sendAnnonceApprovedEmail({
+        to: recipient.email,
+        name: recipient.name,
+        annonceTitle: annonce.title,
+        annonceSlug: annonce.slug,
+        lang: recipient.lang,
+      })
+    }
+  }
+
+  revalidatePath("/admin/annonces/pending")
+  revalidatePath("/admin")
+  revalidatePath("/annonces")
+  return { ok: true }
+}
+
+const rejectSchema = z.object({
+  id: z.uuid(),
+  reason: z.string().min(3).max(500),
+})
+
+export async function rejectAnnonce(input: unknown): Promise<ModResult> {
+  const parsed = rejectSchema.safeParse(input)
+  if (!parsed.success) return { ok: false, error: "invalid_input" }
+  const ctx = await adminClient()
+  if (!ctx) return { ok: false, error: "forbidden" }
+
+  const { data: annonce } = await ctx.supabase
+    .from("annonces")
+    .select("id, title, user_id")
+    .eq("id", parsed.data.id)
+    .maybeSingle<{ id: string; title: string; user_id: string }>()
+
+  const { error } = await ctx.supabase
+    .from("annonces")
+    .update({
+      status: "rejected",
+      rejection_reason: parsed.data.reason,
+    } as never)
+    .eq("id", parsed.data.id)
+  if (error) return { ok: false, error: error.message }
+
+  if (annonce) {
+    const recipient = await getRecipientById(annonce.user_id)
+    if (recipient) {
+      void sendAnnonceRejectedEmail({
+        to: recipient.email,
+        name: recipient.name,
+        annonceTitle: annonce.title,
+        annonceId: annonce.id,
+        reason: parsed.data.reason,
+        lang: recipient.lang,
+      })
+    }
+  }
+
+  revalidatePath("/admin/annonces/pending")
+  revalidatePath("/admin")
+  return { ok: true }
+}

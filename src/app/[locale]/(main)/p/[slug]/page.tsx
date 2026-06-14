@@ -1,0 +1,60 @@
+import type { Metadata } from "next"
+import { notFound } from "next/navigation"
+import { setRequestLocale } from "next-intl/server"
+
+import { BlogContent } from "@/components/blog/BlogContent"
+import { Container } from "@/components/ui/Container"
+import { GoldAccent } from "@/components/ui/GoldAccent"
+import { getPageBySlug } from "@/lib/queries/pages"
+import { localeAlternates } from "@/lib/seo/alternates"
+
+export const dynamic = "force-dynamic"
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>
+}): Promise<Metadata> {
+  const { locale, slug } = await params
+  const page = await getPageBySlug(slug)
+  if (!page) return {}
+  const title = locale === "ar" ? page.title_ar : page.title_fr
+  return {
+    title: `${title} — autobladi.ma`,
+    alternates: localeAlternates(locale, `/p/${slug}`),
+  }
+}
+
+export default async function ContentPageView({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>
+}) {
+  const { locale, slug } = await params
+  setRequestLocale(locale)
+  const page = await getPageBySlug(slug)
+  if (!page) notFound()
+
+  const isAr = locale === "ar"
+  const title = isAr ? page.title_ar : page.title_fr
+  const content = (isAr ? page.content_ar : page.content_fr) ?? ""
+
+  return (
+    <article className="py-10 md:py-16">
+      <Container className="max-w-3xl">
+        <header className="mb-8 space-y-3">
+          <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground">
+            {title}
+          </h1>
+          <GoldAccent />
+        </header>
+
+        {content.trim() ? (
+          <BlogContent content={content} injectAdAfterWords={null} />
+        ) : (
+          <p className="text-muted-foreground">—</p>
+        )}
+      </Container>
+    </article>
+  )
+}

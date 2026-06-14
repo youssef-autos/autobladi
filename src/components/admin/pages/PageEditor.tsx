@@ -1,0 +1,308 @@
+"use client"
+
+import { useState, useTransition } from "react"
+import { ArrowLeft, Eye, Pencil } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { toast } from "sonner"
+
+import { createPage, updatePage } from "@/app/[locale]/admin/pages/actions"
+import { MarkdownPreview } from "@/components/admin/blog/posts/MarkdownPreview"
+import { MoroccanButton } from "@/components/ui/MoroccanButton"
+import { Link, useRouter } from "@/i18n/navigation"
+import { slugify } from "@/lib/validations/page"
+import type { Tables } from "@/types/database.types"
+
+type Props = {
+  mode: "create" | "edit"
+  initial?: Tables<"pages"> | null
+}
+
+export function PageEditor({ mode, initial }: Props) {
+  const t = useTranslations("adminPanel.pagesPage")
+  const tForm = useTranslations("adminPanel.pagesPage.form")
+  const router = useRouter()
+  const [pending, startTransition] = useTransition()
+
+  const [slug, setSlug] = useState(initial?.slug ?? "")
+  const [slugTouched, setSlugTouched] = useState(mode === "edit")
+  const [titleFr, setTitleFr] = useState(initial?.title_fr ?? "")
+  const [titleAr, setTitleAr] = useState(initial?.title_ar ?? "")
+  const [contentFr, setContentFr] = useState(initial?.content_fr ?? "")
+  const [contentAr, setContentAr] = useState(initial?.content_ar ?? "")
+  const [isPublished, setIsPublished] = useState(initial?.is_published ?? true)
+  const [showInFooter, setShowInFooter] = useState(initial?.show_in_footer ?? true)
+  const [orderIndex, setOrderIndex] = useState(initial?.order_index ?? 0)
+
+  const isEdit = mode === "edit"
+
+  function onTitleFrChange(v: string) {
+    setTitleFr(v)
+    if (!slugTouched) setSlug(slugify(v))
+  }
+
+  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const payload = {
+      slug: slug.trim() || slugify(titleFr),
+      title_fr: titleFr.trim(),
+      title_ar: titleAr.trim(),
+      content_fr: contentFr.trim() ? contentFr : null,
+      content_ar: contentAr.trim() ? contentAr : null,
+      is_published: isPublished,
+      show_in_footer: showInFooter,
+      order_index: orderIndex,
+    }
+    startTransition(async () => {
+      const res = isEdit
+        ? await updatePage({ ...payload, id: initial!.id })
+        : await createPage(payload)
+      if (!res.ok) {
+        toast.error(
+          res.error === "slug_taken" ? t("toast.slugTaken") : t("toast.error"),
+        )
+        return
+      }
+      toast.success(isEdit ? t("toast.updated") : t("toast.created"))
+      router.push("/admin/pages")
+      router.refresh()
+    })
+  }
+
+  return (
+    <form onSubmit={onSubmit} className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <Link
+          href="/admin/pages"
+          className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeft className="size-4 rtl:rotate-180" />
+          {tForm("back")}
+        </Link>
+        <MoroccanButton type="submit" size="sm" loading={pending}>
+          {pending ? tForm("saving") : tForm("save")}
+        </MoroccanButton>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
+        <div className="space-y-5 min-w-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Field label={tForm("titleFr")}>
+              <input
+                type="text"
+                value={titleFr}
+                onChange={(e) => onTitleFrChange(e.target.value)}
+                placeholder={tForm("titleFrPlaceholder")}
+                required
+                maxLength={160}
+                className={inputCls}
+              />
+            </Field>
+            <Field label={tForm("titleAr")}>
+              <input
+                type="text"
+                value={titleAr}
+                onChange={(e) => setTitleAr(e.target.value)}
+                placeholder={tForm("titleArPlaceholder")}
+                dir="rtl"
+                required
+                maxLength={160}
+                className={inputCls}
+              />
+            </Field>
+          </div>
+
+          <Field label={tForm("slug")} hint={tForm("slugHelp")}>
+            <input
+              type="text"
+              value={slug}
+              onChange={(e) => {
+                setSlugTouched(true)
+                setSlug(e.target.value)
+              }}
+              placeholder="a-propos"
+              pattern="^[a-z0-9-]+$"
+              required
+              className={`${inputCls} font-mono`}
+            />
+          </Field>
+
+          <ContentEditor
+            label={tForm("contentFr")}
+            value={contentFr}
+            onChange={setContentFr}
+            placeholder={tForm("contentPlaceholder")}
+            writeLabel={tForm("write")}
+            previewLabel={tForm("preview")}
+          />
+
+          <ContentEditor
+            label={tForm("contentAr")}
+            value={contentAr}
+            onChange={setContentAr}
+            placeholder={tForm("contentPlaceholder")}
+            writeLabel={tForm("write")}
+            previewLabel={tForm("preview")}
+            rtl
+          />
+        </div>
+
+        {/* Sidebar */}
+        <aside className="space-y-4">
+          <div className="rounded-2xl border border-border bg-card p-4 space-y-4">
+            <Toggle
+              label={tForm("published")}
+              checked={isPublished}
+              onChange={setIsPublished}
+            />
+            <Toggle
+              label={tForm("showInFooter")}
+              checked={showInFooter}
+              onChange={setShowInFooter}
+            />
+            <Field label={tForm("orderIndex")} hint={tForm("orderIndexHelp")}>
+              <input
+                type="number"
+                value={orderIndex}
+                onChange={(e) => setOrderIndex(Number(e.target.value) || 0)}
+                min={0}
+                max={9999}
+                className={inputCls}
+              />
+            </Field>
+          </div>
+          <p className="text-xs text-muted-foreground px-1">{tForm("markdownHelp")}</p>
+        </aside>
+      </div>
+    </form>
+  )
+}
+
+function ContentEditor({
+  label,
+  value,
+  onChange,
+  placeholder,
+  writeLabel,
+  previewLabel,
+  rtl,
+}: {
+  label: string
+  value: string
+  onChange: (v: string) => void
+  placeholder: string
+  writeLabel: string
+  previewLabel: string
+  rtl?: boolean
+}) {
+  const [tab, setTab] = useState<"write" | "preview">("write")
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-sm font-medium text-foreground">{label}</span>
+        <div className="flex items-center gap-1">
+          <TabButton
+            active={tab === "write"}
+            onClick={() => setTab("write")}
+            icon={Pencil}
+            label={writeLabel}
+          />
+          <TabButton
+            active={tab === "preview"}
+            onClick={() => setTab("preview")}
+            icon={Eye}
+            label={previewLabel}
+          />
+        </div>
+      </div>
+      {tab === "write" ? (
+        <textarea
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          dir={rtl ? "rtl" : "ltr"}
+          rows={12}
+          className={`${inputCls} h-auto py-3 font-mono text-[13px] leading-relaxed resize-y`}
+        />
+      ) : (
+        <div
+          className="rounded-xl border border-border bg-card p-5 min-h-[200px]"
+          dir={rtl ? "rtl" : "ltr"}
+        >
+          <MarkdownPreview content={value} />
+        </div>
+      )}
+    </div>
+  )
+}
+
+const inputCls =
+  "w-full h-11 px-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40 focus:border-moroccan-gold-500/60"
+
+function Field({
+  label,
+  hint,
+  children,
+}: {
+  label: string
+  hint?: string
+  children: React.ReactNode
+}) {
+  return (
+    <label className="block space-y-1.5">
+      <span className="text-sm font-medium text-foreground">{label}</span>
+      {children}
+      {hint && <span className="block text-xs text-muted-foreground">{hint}</span>}
+    </label>
+  )
+}
+
+function Toggle({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string
+  checked: boolean
+  onChange: (v: boolean) => void
+}) {
+  return (
+    <label className="flex items-center justify-between gap-3 cursor-pointer select-none">
+      <span className="text-sm font-medium text-foreground">{label}</span>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+        className="size-4 accent-moroccan-mint-500"
+      />
+    </label>
+  )
+}
+
+function TabButton({
+  active,
+  onClick,
+  icon: Icon,
+  label,
+}: {
+  active: boolean
+  onClick: () => void
+  icon: React.ComponentType<{ className?: string }>
+  label: string
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={
+        "inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg text-xs font-medium transition-colors " +
+        (active
+          ? "bg-moroccan-red-50 text-moroccan-red-600"
+          : "text-muted-foreground hover:bg-moroccan-sand-50")
+      }
+    >
+      <Icon className="size-3.5" />
+      {label}
+    </button>
+  )
+}

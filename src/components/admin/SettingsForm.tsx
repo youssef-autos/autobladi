@@ -1,0 +1,485 @@
+"use client"
+
+import { useRef, useState, useTransition } from "react"
+import {
+  Banknote,
+  Clock,
+  Files,
+  Globe,
+  ImageIcon,
+  Loader2,
+  Mail,
+  Save,
+  Sparkles,
+  Stamp,
+  Upload,
+  X,
+} from "lucide-react"
+import { useTranslations } from "next-intl"
+import { toast } from "sonner"
+
+import {
+  saveSettings,
+  type SettingsInput,
+} from "@/app/[locale]/admin/parametres/actions"
+import { uploadSiteLogo } from "@/app/[locale]/admin/parametres/upload-action"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+
+type Props = {
+  initial: SettingsInput
+  geminiKeySet: boolean
+  openaiKeySet: boolean
+  qwenKeySet: boolean
+}
+
+export function SettingsForm({
+  initial,
+  geminiKeySet,
+  openaiKeySet,
+  qwenKeySet,
+}: Props) {
+  const t = useTranslations("admin.settings")
+  const [values, setValues] = useState<SettingsInput>(initial)
+  const [pending, startTransition] = useTransition()
+
+  function update<K extends keyof SettingsInput>(key: K, value: SettingsInput[K]) {
+    setValues((prev) => ({ ...prev, [key]: value }))
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    startTransition(async () => {
+      const result = await saveSettings(values)
+      if (!result.ok) {
+        toast.error(t("errorTitle"), {
+          description: result.error === "forbidden" ? t("errorAuth") : result.error,
+        })
+        return
+      }
+      toast.success(t("successTitle"), { description: t("successDesc") })
+    })
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Logos (per language) */}
+      <Section title={t("logo")} icon={ImageIcon}>
+        <p className="text-xs text-muted-foreground mb-4">{t("logoHelp")}</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <LogoUploader
+            label={t("logoAr")}
+            value={values.site_logo_url_ar}
+            onChange={(url) => update("site_logo_url_ar", url)}
+          />
+          <LogoUploader
+            label={t("logoFr")}
+            value={values.site_logo_url_fr}
+            onChange={(url) => update("site_logo_url_fr", url)}
+          />
+        </div>
+      </Section>
+
+      {/* Favicon */}
+      <Section title={t("favicon")} icon={Globe}>
+        <p className="text-xs text-muted-foreground mb-4">{t("faviconHelp")}</p>
+        <LogoUploader
+          label={t("favicon")}
+          value={values.site_favicon_url}
+          onChange={(url) => update("site_favicon_url", url)}
+        />
+      </Section>
+
+      {/* Watermark */}
+      <Section title={t("watermark")} icon={Stamp}>
+        <Field id="wm" label={t("watermarkText")} help={t("watermarkHelp")}>
+          <Input
+            id="wm"
+            value={values.watermark_text}
+            onChange={(e) => update("watermark_text", e.target.value)}
+            className="h-11 rounded-xl"
+            maxLength={100}
+            required
+          />
+        </Field>
+      </Section>
+
+      {/* Annonce duration — split by account type */}
+      <Section title={t("duration")} icon={Clock}>
+        <p className="text-xs text-muted-foreground -mt-1">{t("durationHelp")}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Field
+            id="duration"
+            label={t("durationGratuit")}
+            help={t("durationGratuitHelp")}
+          >
+            <Input
+              id="duration"
+              type="number"
+              inputMode="numeric"
+              min={1}
+              max={365}
+              value={values.annonce_duration_days}
+              onChange={(e) =>
+                update("annonce_duration_days", Number(e.target.value) || 60)
+              }
+              className="h-11 rounded-xl max-w-[200px]"
+              required
+            />
+          </Field>
+          <Field
+            id="duration_pro"
+            label={t("durationPro")}
+            help={t("durationProHelp")}
+          >
+            <Input
+              id="duration_pro"
+              type="number"
+              inputMode="numeric"
+              min={1}
+              max={365}
+              value={values.annonce_duration_days_pro}
+              onChange={(e) =>
+                update("annonce_duration_days_pro", Number(e.target.value) || 90)
+              }
+              className="h-11 rounded-xl max-w-[200px]"
+              required
+            />
+          </Field>
+        </div>
+        <div className="mt-2 border-t border-border/60 pt-4">
+          <Field
+            id="grace_days"
+            label={t("graceDays")}
+            help={t("graceDaysHelp")}
+          >
+            <Input
+              id="grace_days"
+              type="number"
+              inputMode="numeric"
+              min={0}
+              max={90}
+              value={values.subscription_grace_days}
+              onChange={(e) =>
+                update("subscription_grace_days", Number(e.target.value) || 0)
+              }
+              className="h-11 rounded-xl max-w-[200px]"
+              required
+            />
+          </Field>
+        </div>
+      </Section>
+
+      {/* Annonce limit — free accounts */}
+      <Section title={t("annonceLimit")} icon={Files}>
+        <Field
+          id="free_max"
+          label={t("freeMaxAnnonces")}
+          help={t("freeMaxAnnoncesHelp")}
+        >
+          <Input
+            id="free_max"
+            type="number"
+            inputMode="numeric"
+            min={0}
+            max={1000}
+            value={values.free_max_annonces}
+            onChange={(e) =>
+              update("free_max_annonces", Number(e.target.value) || 0)
+            }
+            className="h-11 rounded-xl max-w-[200px]"
+            required
+          />
+        </Field>
+      </Section>
+
+      {/* AI provider for estimation + description generation */}
+      <Section title={t("aiProvider")} icon={Sparkles}>
+        <p className="text-xs text-muted-foreground -mt-1">{t("aiProviderHelp")}</p>
+        <Field id="ai_provider" label={t("aiProviderLabel")}>
+          <select
+            id="ai_provider"
+            value={values.ai_provider}
+            onChange={(e) => {
+              const v = e.target.value
+              update(
+                "ai_provider",
+                v === "openai" || v === "qwen" ? v : "gemini",
+              )
+            }}
+            className="h-11 w-full max-w-[280px] rounded-xl border border-border bg-background px-3 text-sm"
+          >
+            <option value="gemini">{t("aiGemini")}</option>
+            <option value="openai">{t("aiOpenai")}</option>
+            <option value="qwen">{t("aiQwen")}</option>
+          </select>
+        </Field>
+
+        <div className="mt-2 border-t border-border/60 pt-4 grid grid-cols-1 gap-4">
+          <Field id="ai_gemini_key" label={t("aiGeminiKey")} help={t("aiKeyHelp")}>
+            <Input
+              id="ai_gemini_key"
+              type="password"
+              autoComplete="off"
+              value={values.ai_gemini_key}
+              onChange={(e) => update("ai_gemini_key", e.target.value)}
+              placeholder={geminiKeySet ? t("aiKeySaved") : "AIza…"}
+              maxLength={500}
+              className="h-11 rounded-xl font-mono"
+            />
+          </Field>
+
+          <Field id="ai_openai_key" label={t("aiOpenaiKey")} help={t("aiKeyHelp")}>
+            <Input
+              id="ai_openai_key"
+              type="password"
+              autoComplete="off"
+              value={values.ai_openai_key}
+              onChange={(e) => update("ai_openai_key", e.target.value)}
+              placeholder={openaiKeySet ? t("aiKeySaved") : "sk-…"}
+              maxLength={500}
+              className="h-11 rounded-xl font-mono"
+            />
+          </Field>
+
+          <Field id="ai_openai_model" label={t("aiModel")} help={t("aiModelHelp")}>
+            <Input
+              id="ai_openai_model"
+              value={values.ai_openai_model}
+              onChange={(e) => update("ai_openai_model", e.target.value)}
+              placeholder="gpt-4o-mini"
+              maxLength={100}
+              className="h-11 rounded-xl font-mono max-w-[280px]"
+            />
+          </Field>
+
+          <Field id="ai_qwen_key" label={t("aiQwenKey")} help={t("aiQwenKeyHelp")}>
+            <Input
+              id="ai_qwen_key"
+              type="password"
+              autoComplete="off"
+              value={values.ai_qwen_key}
+              onChange={(e) => update("ai_qwen_key", e.target.value)}
+              placeholder={qwenKeySet ? t("aiKeySaved") : "sk-…"}
+              maxLength={500}
+              className="h-11 rounded-xl font-mono"
+            />
+          </Field>
+
+          <Field id="ai_qwen_model" label={t("aiQwenModel")} help={t("aiQwenModelHelp")}>
+            <Input
+              id="ai_qwen_model"
+              value={values.ai_qwen_model}
+              onChange={(e) => update("ai_qwen_model", e.target.value)}
+              placeholder="qwen-plus"
+              maxLength={100}
+              className="h-11 rounded-xl font-mono max-w-[280px]"
+            />
+          </Field>
+        </div>
+      </Section>
+
+      {/* Bank details */}
+      <Section title={t("bank")} icon={Banknote}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Field id="bank_name" label={t("bankName")}>
+            <Input
+              id="bank_name"
+              value={values.bank_name}
+              onChange={(e) => update("bank_name", e.target.value)}
+              placeholder={t("bankNamePlaceholder")}
+              maxLength={100}
+              className="h-11 rounded-xl"
+            />
+          </Field>
+          <Field id="beneficiary" label={t("beneficiary")}>
+            <Input
+              id="beneficiary"
+              value={values.bank_beneficiary}
+              onChange={(e) => update("bank_beneficiary", e.target.value)}
+              placeholder={t("beneficiaryPlaceholder")}
+              maxLength={100}
+              className="h-11 rounded-xl"
+            />
+          </Field>
+        </div>
+        <Field id="rib" label={t("rib")} help={t("ribHelp")}>
+          <Textarea
+            id="rib"
+            value={values.rib}
+            onChange={(e) => update("rib", e.target.value)}
+            rows={2}
+            maxLength={200}
+            className="rounded-xl font-mono"
+          />
+        </Field>
+      </Section>
+
+      {/* Contact */}
+      <Section title={t("contact")} icon={Mail}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Field id="email" label={t("contactEmail")}>
+            <Input
+              id="email"
+              type="email"
+              value={values.contact_email}
+              onChange={(e) => update("contact_email", e.target.value)}
+              className="h-11 rounded-xl"
+            />
+          </Field>
+          <Field id="phone" label={t("contactPhone")}>
+            <Input
+              id="phone"
+              type="tel"
+              value={values.contact_phone}
+              onChange={(e) => update("contact_phone", e.target.value)}
+              className="h-11 rounded-xl"
+            />
+          </Field>
+        </div>
+      </Section>
+
+      <div className="pt-4 border-t border-border">
+        <button
+          type="submit"
+          disabled={pending}
+          className="inline-flex items-center gap-2 h-11 px-6 rounded-xl bg-moroccan-gradient text-white text-sm font-semibold shadow-moroccan hover:brightness-105 transition-all disabled:opacity-60"
+        >
+          <Save className="size-4" aria-hidden="true" />
+          {pending ? t("saving") : t("save")}
+        </button>
+      </div>
+    </form>
+  )
+}
+
+/** A single logo upload slot (used once per language). */
+function LogoUploader({
+  label,
+  value,
+  onChange,
+}: {
+  label: string
+  value: string
+  onChange: (url: string) => void
+}) {
+  const t = useTranslations("admin.settings")
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [uploading, setUploading] = useState(false)
+
+  async function handleUpload(file: File) {
+    setUploading(true)
+    try {
+      const fd = new FormData()
+      fd.append("file", file)
+      const res = await uploadSiteLogo(fd)
+      if (!res.ok) {
+        toast.error(res.error)
+        return
+      }
+      onChange(res.url)
+      toast.success(t("logoUploaded"))
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  return (
+    <div className="space-y-2">
+      <Label className="text-xs font-medium text-foreground">{label}</Label>
+      <span className="flex h-20 w-full max-w-[180px] items-center justify-center overflow-hidden rounded-xl border border-border bg-moroccan-sand-50">
+        {value ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={value}
+            alt={label}
+            className="max-h-full max-w-full object-contain"
+          />
+        ) : (
+          <span className="text-xs text-muted-foreground">{t("noLogo")}</span>
+        )}
+      </span>
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          disabled={uploading}
+          onClick={() => inputRef.current?.click()}
+          className="inline-flex items-center gap-2 h-9 px-3 rounded-xl border border-dashed border-moroccan-gold-500/60 bg-moroccan-gold-50/40 text-xs font-medium text-moroccan-gold-700 hover:bg-moroccan-gold-50 disabled:opacity-60"
+        >
+          {uploading ? (
+            <Loader2 className="size-3.5 animate-spin" />
+          ) : (
+            <Upload className="size-3.5" />
+          )}
+          {uploading ? t("uploading") : t("uploadLogo")}
+        </button>
+        {value && (
+          <button
+            type="button"
+            onClick={() => onChange("")}
+            className="size-9 inline-flex items-center justify-center rounded-xl border border-border text-muted-foreground hover:bg-moroccan-red-50 hover:text-moroccan-red-600"
+            aria-label={t("removeLogo")}
+          >
+            <X className="size-4" />
+          </button>
+        )}
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+          className="sr-only"
+          onChange={(e) => {
+            const file = e.target.files?.[0]
+            if (file) void handleUpload(file)
+            e.target.value = ""
+          }}
+        />
+      </div>
+    </div>
+  )
+}
+
+function Section({
+  title,
+  icon: Icon,
+  children,
+}: {
+  title: string
+  icon: React.ComponentType<{ className?: string }>
+  children: React.ReactNode
+}) {
+  return (
+    <section className="rounded-2xl border border-border bg-card p-6 shadow-card space-y-4">
+      <h2 className="flex items-center gap-2.5 font-semibold text-foreground">
+        <span className="inline-flex size-8 items-center justify-center rounded-lg bg-moroccan-sand-50 text-moroccan-red-500">
+          <Icon className="size-4" />
+        </span>
+        {title}
+      </h2>
+      {children}
+    </section>
+  )
+}
+
+function Field({
+  id,
+  label,
+  help,
+  children,
+}: {
+  id: string
+  label: string
+  help?: string
+  children: React.ReactNode
+}) {
+  return (
+    <div className="space-y-1.5">
+      <Label htmlFor={id} className="text-sm font-medium">
+        {label}
+      </Label>
+      {children}
+      {help && <p className="text-xs text-muted-foreground">{help}</p>}
+    </div>
+  )
+}

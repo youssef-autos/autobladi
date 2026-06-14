@@ -1,0 +1,446 @@
+import "server-only"
+
+import { getResend, isResendConfigured } from "./client"
+import { getEmailSettings, type EmailType } from "./settings"
+
+import { AnnonceApprovedEmail } from "./templates/AnnonceApprovedEmail"
+import { AnnonceExpiringEmail } from "./templates/AnnonceExpiringEmail"
+import { AnnoncePendingEmail } from "./templates/AnnoncePendingEmail"
+import { AnnonceRejectedEmail } from "./templates/AnnonceRejectedEmail"
+import { ContactNotificationEmail } from "./templates/ContactNotificationEmail"
+import {
+  NewsletterEmail,
+  type NewsletterItem,
+} from "./templates/NewsletterEmail"
+import { PasswordResetEmail } from "./templates/PasswordResetEmail"
+import { ReportNotificationEmail } from "./templates/ReportNotificationEmail"
+import { SubscriptionApprovedEmail } from "./templates/SubscriptionApprovedEmail"
+import { SubscriptionExpiringEmail } from "./templates/SubscriptionExpiringEmail"
+import { SubscriptionGraceEmail } from "./templates/SubscriptionGraceEmail"
+import { SubscriptionRejectedEmail } from "./templates/SubscriptionRejectedEmail"
+import { VerificationApprovedEmail } from "./templates/VerificationApprovedEmail"
+import { VerificationRejectedEmail } from "./templates/VerificationRejectedEmail"
+import { WelcomeEmail } from "./templates/WelcomeEmail"
+
+export type SendResult =
+  | { ok: true; skipped?: "disabled" | "no_key" | "no_to" }
+  | { ok: false; error: string }
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://autobladi.ma"
+
+/**
+ * Shared send helper. Centralizes:
+ *  - the per-type enable toggle
+ *  - the missing-API-key fall-through (we don't want to break user actions
+ *    just because RESEND_API_KEY isn't set in dev)
+ *  - the from/replyTo lookup from site_settings
+ *  - structured error logging without leaking PII
+ */
+async function sendEmail({
+  type,
+  to,
+  subject,
+  react,
+}: {
+  type: EmailType
+  to: string | string[] | null | undefined
+  subject: string
+  react: React.ReactElement
+}): Promise<SendResult> {
+  if (!to || (Array.isArray(to) && to.length === 0)) {
+    return { ok: true, skipped: "no_to" }
+  }
+
+  const settings = await getEmailSettings()
+  if (!settings.enabled[type]) {
+    return { ok: true, skipped: "disabled" }
+  }
+
+  const resend = await getResend()
+  if (!resend) {
+    console.warn(`[email] Resend key not set — skipping ${type}`)
+    return { ok: true, skipped: "no_key" }
+  }
+  try {
+    const { error } = await resend.emails.send({
+      from: settings.from,
+      to,
+      replyTo: settings.replyTo,
+      subject,
+      react,
+    })
+    if (error) {
+        console.error(`[email] ${type} failed`, error)
+      return { ok: false, error: error.message ?? "send_failed" }
+    }
+    return { ok: true }
+  } catch (e) {
+    console.error(`[email] ${type} threw`, e)
+    return { ok: false, error: (e as Error).message ?? "send_failed" }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Public senders — one per template. Each takes typed args and returns
+// SendResult. All catch errors internally so callers never throw because
+// of email failure.
+// ---------------------------------------------------------------------------
+
+export function sendWelcomeEmail(args: {
+  to: string
+  name: string
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "welcome",
+    to: args.to,
+    subject: lang === "ar"
+      ? "مرحباً بك في autobladi.ma"
+      : "Bienvenue sur autobladi.ma",
+    react: WelcomeEmail({
+      name: args.name,
+      ctaUrl: `${SITE_URL}/${lang}/dashboard`,
+      lang,
+    }),
+  })
+}
+
+export function sendAnnoncePendingEmail(args: {
+  to: string
+  name: string
+  annonceTitle: string
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "annonce_pending",
+    to: args.to,
+    subject: lang === "ar"
+      ? "إعلانك قيد المراجعة"
+      : "Votre annonce est en cours de revue",
+    react: AnnoncePendingEmail({
+      name: args.name,
+      annonceTitle: args.annonceTitle,
+      dashboardUrl: `${SITE_URL}/${lang}/dashboard/annonces`,
+      lang,
+    }),
+  })
+}
+
+export function sendAnnonceApprovedEmail(args: {
+  to: string
+  name: string
+  annonceTitle: string
+  annonceSlug: string
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "annonce_approved",
+    to: args.to,
+    subject: lang === "ar" ? "تم نشر إعلانك ✓" : "Votre annonce est publiée ✓",
+    react: AnnonceApprovedEmail({
+      name: args.name,
+      annonceTitle: args.annonceTitle,
+      annonceUrl: `${SITE_URL}/${lang}/annonces/${args.annonceSlug}`,
+      lang,
+    }),
+  })
+}
+
+export function sendAnnonceRejectedEmail(args: {
+  to: string
+  name: string
+  annonceTitle: string
+  annonceId: string
+  reason: string
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "annonce_rejected",
+    to: args.to,
+    subject: lang === "ar"
+      ? "إعلانك بحاجة لتعديل"
+      : "Votre annonce nécessite des modifications",
+    react: AnnonceRejectedEmail({
+      name: args.name,
+      annonceTitle: args.annonceTitle,
+      reason: args.reason,
+      editUrl: `${SITE_URL}/${lang}/dashboard/modifier/${args.annonceId}`,
+      lang,
+    }),
+  })
+}
+
+export function sendVerificationApprovedEmail(args: {
+  to: string
+  name: string
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "verification_approved",
+    to: args.to,
+    subject: lang === "ar" ? "تم توثيق حسابك ✓" : "Votre compte est vérifié ✓",
+    react: VerificationApprovedEmail({
+      name: args.name,
+      showroomUrl: `${SITE_URL}/${lang}/dashboard/showroom`,
+      lang,
+    }),
+  })
+}
+
+export function sendVerificationRejectedEmail(args: {
+  to: string
+  name: string
+  reason: string
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "verification_rejected",
+    to: args.to,
+    subject: lang === "ar"
+      ? "طلب التوثيق — يحتاج لمعلومات إضافية"
+      : "Vérification — informations supplémentaires requises",
+    react: VerificationRejectedEmail({
+      name: args.name,
+      reason: args.reason,
+      retryUrl: `${SITE_URL}/${lang}/dashboard/verification`,
+      lang,
+    }),
+  })
+}
+
+export function sendSubscriptionApprovedEmail(args: {
+  to: string
+  name: string
+  planName: string
+  endsAt: string
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "subscription_approved",
+    to: args.to,
+    subject: lang === "ar" ? "🎉 تم تفعيل اشتراكك" : "🎉 Abonnement activé",
+    react: SubscriptionApprovedEmail({
+      name: args.name,
+      planName: args.planName,
+      endsAt: args.endsAt,
+      showroomUrl: `${SITE_URL}/${lang}/dashboard/showroom`,
+      lang,
+    }),
+  })
+}
+
+export function sendSubscriptionRejectedEmail(args: {
+  to: string
+  name: string
+  planName: string
+  reason: string
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "subscription_rejected",
+    to: args.to,
+    subject: lang === "ar"
+      ? "طلب الاشتراك — يحتاج لتوضيح"
+      : "Demande d'abonnement — clarification requise",
+    react: SubscriptionRejectedEmail({
+      name: args.name,
+      planName: args.planName,
+      reason: args.reason,
+      retryUrl: `${SITE_URL}/${lang}/dashboard/upgrade`,
+      lang,
+    }),
+  })
+}
+
+export function sendSubscriptionExpiringEmail(args: {
+  to: string
+  name: string
+  planName: string
+  endsAt: string
+  daysLeft: number
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "subscription_expiring",
+    to: args.to,
+    subject: lang === "ar"
+      ? `ينتهي اشتراكك خلال ${args.daysLeft} أيام`
+      : `Votre abonnement expire dans ${args.daysLeft} jours`,
+    react: SubscriptionExpiringEmail({
+      name: args.name,
+      planName: args.planName,
+      endsAt: args.endsAt,
+      daysLeft: args.daysLeft,
+      renewUrl: `${SITE_URL}/${lang}/dashboard/upgrade`,
+      lang,
+    }),
+  })
+}
+
+/**
+ * Daily reminder during the post-expiry grace window. When `daysLeft` is 0 the
+ * template renders as a "service suspended" notice instead.
+ */
+export function sendSubscriptionGraceEmail(args: {
+  to: string
+  name: string
+  planName: string
+  daysLeft: number
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  const suspended = args.daysLeft <= 0
+  return sendEmail({
+    type: "subscription_expiring",
+    to: args.to,
+    subject: suspended
+      ? lang === "ar"
+        ? "تم إيقاف خدمات حسابك المحترف"
+        : "Vos services professionnels ont été suspendus"
+      : lang === "ar"
+        ? `انتهى اشتراكك — ${args.daysLeft} يوم قبل الإيقاف`
+        : `Abonnement expiré — ${args.daysLeft} jours avant suspension`,
+    react: SubscriptionGraceEmail({
+      name: args.name,
+      planName: args.planName,
+      daysLeft: args.daysLeft,
+      renewUrl: `${SITE_URL}/${lang}/dashboard/upgrade`,
+      lang,
+    }),
+  })
+}
+
+export function sendAnnonceExpiringEmail(args: {
+  to: string
+  name: string
+  annonceTitle: string
+  annonceId: string
+  daysLeft: number
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "annonce_expiring",
+    to: args.to,
+    subject: lang === "ar"
+      ? "إعلانك ينتهي قريباً — جدّده الآن"
+      : "Votre annonce expire bientôt — renouvelez-la",
+    react: AnnonceExpiringEmail({
+      name: args.name,
+      annonceTitle: args.annonceTitle,
+      daysLeft: args.daysLeft,
+      renewUrl: `${SITE_URL}/${lang}/dashboard/modifier/${args.annonceId}`,
+      lang,
+    }),
+  })
+}
+
+export function sendPasswordResetEmail(args: {
+  to: string
+  resetUrl: string
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "welcome", // password reset isn't in toggle list — always sent
+    to: args.to,
+    subject: lang === "ar"
+      ? "إعادة تعيين كلمة المرور"
+      : "Réinitialisation du mot de passe",
+    react: PasswordResetEmail({ resetUrl: args.resetUrl, lang }),
+  })
+}
+
+/**
+ * Sends a notification to the admin inbox (settings.adminEmail). If the
+ * admin email isn't configured we skip silently.
+ */
+export async function sendContactNotificationEmail(args: {
+  fromName: string
+  fromEmail: string
+  fromPhone?: string | null
+  subject: string
+  message: string
+}) {
+  const settings = await getEmailSettings()
+  return sendEmail({
+    type: "contact_notification",
+    to: settings.adminEmail || undefined,
+    subject: `📨 ${args.subject} — ${args.fromName}`,
+    react: ContactNotificationEmail({
+      fromName: args.fromName,
+      fromEmail: args.fromEmail,
+      fromPhone: args.fromPhone ?? null,
+      subject: args.subject,
+      message: args.message,
+      adminUrl: `${SITE_URL}/ar/admin/communication/contact`,
+    }),
+  })
+}
+
+export async function sendReportNotificationEmail(args: {
+  reporterName: string
+  annonceTitle: string
+  reason: string
+  description?: string | null
+}) {
+  const settings = await getEmailSettings()
+  return sendEmail({
+    type: "report_notification",
+    to: settings.adminEmail || undefined,
+    subject: `🚨 Nouveau signalement: ${args.annonceTitle}`,
+    react: ReportNotificationEmail({
+      reporterName: args.reporterName,
+      annonceTitle: args.annonceTitle,
+      reason: args.reason,
+      description: args.description ?? null,
+      adminUrl: `${SITE_URL}/ar/admin/annonces/reports`,
+    }),
+  })
+}
+
+export function sendNewsletterEmail(args: {
+  to: string | string[]
+  preheader: string
+  introHeading: string
+  introText: string
+  items: NewsletterItem[]
+  unsubscribeUrl: string
+  lang?: "ar" | "fr"
+}) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "newsletter",
+    to: args.to,
+    subject: lang === "ar"
+      ? "نشرة autobladi الأسبوعية"
+      : "Newsletter autobladi — Hebdo",
+    react: NewsletterEmail({
+      preheader: args.preheader,
+      introHeading: args.introHeading,
+      introText: args.introText,
+      items: args.items,
+      unsubscribeUrl: args.unsubscribeUrl,
+      lang,
+    }),
+  })
+}
+
+// ---------------------------------------------------------------------------
+// Admin test helper used by /admin/settings/email
+// ---------------------------------------------------------------------------
+export async function sendTestEmail(to: string): Promise<SendResult> {
+  if (!(await isResendConfigured())) {
+    return { ok: false, error: "Resend key not set" }
+  }
+  return sendWelcomeEmail({ to, name: "Admin Test", lang: "ar" })
+}

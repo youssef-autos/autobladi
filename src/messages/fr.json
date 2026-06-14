@@ -1,0 +1,2815 @@
+{
+  "notFound": {
+    "title": "Page introuvable",
+    "subtitle": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "home": "Retour à l'accueil",
+    "browse": "Parcourir les annonces"
+  },
+  "common": {
+    "siteName": "autobladi.ma",
+    "tagline": "Le premier marché automobile au Maroc",
+    "loading": "Chargement...",
+    "submit": "Envoyer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "back": "Retour"
+  },
+  "auth": {
+    "social": {
+      "or": "ou",
+      "google": "Continuer avec Google",
+      "facebook": "Continuer avec Facebook",
+      "error": "Échec de la connexion sociale"
+    },
+    "signIn": {
+      "title": "Heureux de vous revoir",
+      "subtitle": "Connectez-vous pour gérer vos annonces et messages",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "vous@autobladi.ma",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Se connecter",
+      "submitting": "Connexion en cours...",
+      "forgotPassword": "Mot de passe oublié ?",
+      "noAccount": "Vous n'avez pas de compte ?",
+      "createAccount": "Créer un compte",
+      "errorInvalid": "E-mail ou mot de passe incorrect",
+      "errorGeneric": "Connexion impossible. Réessayez."
+    },
+    "signUp": {
+      "title": "Créez votre compte",
+      "subtitle": "Rejoignez autobladi.ma et commencez à acheter ou vendre",
+      "fullName": "Nom complet",
+      "fullNamePlaceholder": "Mohamed Alaoui",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "vous@autobladi.ma",
+      "phone": "Téléphone",
+      "phonePlaceholder": "+212 6 00 00 00 00",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "8 caractères minimum",
+      "confirmPassword": "Confirmer le mot de passe",
+      "terms": "J'accepte les conditions d'utilisation et la politique de confidentialité",
+      "submit": "Créer le compte",
+      "submitting": "Création en cours...",
+      "hasAccount": "Vous avez déjà un compte ?",
+      "signIn": "Se connecter",
+      "successTitle": "Vérifiez votre boîte mail",
+      "successMessage": "Un lien de confirmation a été envoyé à {email}. Ouvrez-le pour activer votre compte.",
+      "errorEmailExists": "Cette adresse e-mail est déjà utilisée",
+      "errorGeneric": "Création impossible. Réessayez."
+    },
+    "forgotPassword": {
+      "title": "Mot de passe oublié ?",
+      "subtitle": "Indiquez votre e-mail et nous vous enverrons un lien de réinitialisation",
+      "email": "Adresse e-mail",
+      "submit": "Envoyer le lien",
+      "submitting": "Envoi en cours...",
+      "backToSignIn": "Retour à la connexion",
+      "successTitle": "Lien envoyé",
+      "successMessage": "Si {email} correspond à un compte, vous recevrez un message avec les instructions."
+    },
+    "resetPassword": {
+      "title": "Choisissez un nouveau mot de passe",
+      "subtitle": "Définissez un nouveau mot de passe pour votre compte",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "Mettre à jour",
+      "submitting": "Mise à jour...",
+      "successTitle": "Mot de passe mis à jour",
+      "successMessage": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe",
+      "errorInvalidLink": "Lien invalide ou expiré"
+    }
+  },
+  "validation": {
+    "required": "Ce champ est obligatoire",
+    "fullNameRequired": "Le nom complet est obligatoire",
+    "invalidEmail": "Adresse e-mail invalide",
+    "phoneRequired": "Le téléphone est obligatoire",
+    "passwordTooShort": "Le mot de passe doit comporter au moins 8 caractères",
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "termsRequired": "Vous devez accepter les conditions"
+  },
+  "nav": {
+    "home": "Accueil",
+    "annonces": "Annonces",
+    "byBrand": "Par marque",
+    "byCategory": "Par catégorie",
+    "byCity": "Par ville",
+    "professionnels": "Professionnels",
+    "estimation": "Estimation",
+    "compare": "Comparer",
+    "blog": "Blog",
+    "contact": "Contact",
+    "postAd": "Publier une annonce",
+    "favorites": "Favoris",
+    "messages": "Messages",
+    "menu": "Menu",
+    "search": "Cherchez votre voiture...",
+    "login": "Connexion",
+    "register": "Créer un compte",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu"
+  },
+  "userMenu": {
+    "dashboard": "Tableau de bord",
+    "myAnnonces": "Mes annonces",
+    "favorites": "Mes favoris",
+    "messages": "Messages",
+    "account": "Mon compte",
+    "adminPanel": "Panneau admin",
+    "signOut": "Déconnexion"
+  },
+  "topBar": {
+    "help": "Aide",
+    "forPros": "Pour les pros"
+  },
+  "subscription": {
+    "upgrade": {
+      "metaTitle": "Passer à un compte Pro",
+      "heroTitle": "Transformez votre compte en concession professionnelle",
+      "heroSubtitle": "Tout pour gérer une concession moderne sur autobladi.ma",
+      "featuresTitle": "Ce que vous obtenez",
+      "features": {
+        "showroomTitle": "Page concession dédiée",
+        "showroomDesc": "Logo, bannière, description, horaires et localisation",
+        "unlimitedTitle": "Annonces illimitées",
+        "unlimitedDesc": "Publiez toutes vos voitures sans plafond",
+        "badgeTitle": "Badge Pro distinctif",
+        "badgeDesc": "Affiché sur votre page et toutes vos annonces",
+        "statsTitle": "Statistiques avancées",
+        "statsDesc": "Vues, messages, sources de trafic"
+      },
+      "plansTitle": "Choisissez votre formule",
+      "plansSubtitle": "Paiement par virement bancaire et validation manuelle",
+      "selectPlan": "Choisir cette formule",
+      "perDays": "/ {days} jours",
+      "free": "Gratuit",
+      "tagline": "Tout pour une vitrine professionnelle",
+      "includes": "Cette formule inclut",
+      "currentPlan": "Votre formule actuelle",
+      "discountBadge": "-{percent}%",
+      "save": "Économisez {percent}%",
+      "maxAnnonces": "{count} annonces",
+      "popular": "Le plus choisi",
+      "noPlans": "Aucune formule disponible",
+      "noPlansDesc": "Contactez-nous pour une formule sur mesure",
+      "pendingTitle": "Votre demande est en cours",
+      "pendingDesc": "Demande envoyée le {date}",
+      "viewStatus": "Voir le statut"
+    },
+    "payment": {
+      "metaTitle": "Finaliser l'abonnement",
+      "back": "Retour aux formules",
+      "title": "Finaliser votre abonnement",
+      "subtitle": "Effectuez le virement puis envoyez le reçu",
+      "summaryTitle": "Récapitulatif",
+      "summaryAmount": "Montant à régler",
+      "bankTitle": "Coordonnées bancaires",
+      "bankName": "Banque",
+      "rib": "RIB",
+      "beneficiary": "Bénéficiaire",
+      "amount": "Montant",
+      "currency": "DH",
+      "ribNote": "Indiquez votre e-mail ou téléphone en référence du virement.",
+      "copy": "Copier",
+      "copied": "Copié",
+      "formTitle": "Envoyer le reçu",
+      "receipt": "Reçu de virement",
+      "receiptHelp": "Image ou PDF — jusqu'à 10 Mo",
+      "bankReference": "Référence du virement",
+      "optional": "(facultatif)",
+      "bankReferencePlaceholder": "Ex. : TRF-2026-0001",
+      "notes": "Notes (facultatif)",
+      "notesPlaceholder": "Toute info utile...",
+      "submit": "Envoyer pour validation",
+      "submitting": "Envoi en cours...",
+      "successTitle": "Demande reçue",
+      "successDesc": "La validation prend jusqu'à 24h",
+      "errorTitle": "Envoi impossible",
+      "secureNotice": "Paiement sécurisé et manuel par virement. Vérifiez les coordonnées avant de virer.",
+      "planNotFound": "Formule introuvable ou inactive",
+      "missingBankSettings": "Coordonnées bancaires incomplètes",
+      "alreadyPending": "Vous avez déjà une demande en cours"
+    },
+    "status": {
+      "metaTitle": "Abonnement",
+      "currentTitle": "Abonnement en cours",
+      "noActiveTitle": "Aucun abonnement actif",
+      "noActiveDesc": "Vous n'avez pas encore souscrit",
+      "planLabel": "Formule",
+      "startedAt": "Début",
+      "expiresAt": "Fin",
+      "daysLeft": "{days} jour(s) restant(s)",
+      "expiredOn": "Expiré le {date}",
+      "expiringSoon": "Expire bientôt — renouvelez",
+      "renew": "Renouveler",
+      "historyTitle": "Historique des demandes",
+      "historyEmpty": "Aucune demande passée",
+      "amount": "Montant",
+      "bankRef": "Référence",
+      "tablePlan": "Formule",
+      "tableSubmitted": "Envoyée",
+      "tableStatus": "Statut",
+      "tableAmount": "Montant"
+    },
+    "requestStatus": {
+      "pending": "En attente",
+      "approved": "Approuvée",
+      "rejected": "Refusée"
+    }
+  },
+  "verification": {
+    "title": "Vérification d'identité",
+    "subtitle": "Documents officiels pour activer le badge \"Vérifié\" sur votre page et vos annonces",
+    "notPro": {
+      "title": "Réservé aux comptes professionnels",
+      "desc": "Passez à un compte Pro pour accéder à la vérification",
+      "cta": "Passer en Pro"
+    },
+    "stepper": {
+      "info": "Informations",
+      "documents": "Documents",
+      "review": "Vérification",
+      "approved": "Approuvé"
+    },
+    "infoNotice": "Vos données sont chiffrées et utilisées uniquement pour la vérification. Non visibles publiquement.",
+    "reviewTimeline": "Votre demande sera examinée sous 24 à 48 heures ouvrées.",
+    "status": {
+      "verifiedTitle": "Compte vérifié ✓",
+      "verifiedDesc": "Le badge \"Vérifié\" apparaît sur votre page et vos annonces.",
+      "verifiedAt": "Vérifié le {date}",
+      "pendingTitle": "Votre demande est en cours d'examen",
+      "pendingDesc": "Envoyée le {date} — vous serez notifié dès la décision.",
+      "rejectedTitle": "Demande refusée",
+      "rejectedReason": "Motif : {reason}",
+      "rejectedDesc": "Vous pouvez resoumettre après correction des éléments.",
+      "resubmit": "Resoumettre"
+    },
+    "form": {
+      "companyName": "Nom de la société / concession",
+      "companyPlaceholder": "Ex. : Auto Casa SARL",
+      "managerName": "Nom du gérant",
+      "managerPlaceholder": "Nom complet du responsable",
+      "rcNumber": "Registre de commerce (RC)",
+      "rcPlaceholder": "Chiffres uniquement",
+      "professionalPhone": "Téléphone professionnel",
+      "phonePlaceholder": "+212 5 22 00 00 00",
+      "address": "Adresse complète",
+      "addressPlaceholder": "Rue, ville, code postal",
+      "rcDocument": "Extrait du registre de commerce",
+      "rcDocumentHelp": "PDF ou image, 10 Mo maximum",
+      "idCard": "Pièce d'identité du gérant",
+      "idCardHelp": "PDF contenant recto + verso, ou une image",
+      "submit": "Envoyer la demande",
+      "submitting": "Envoi en cours...",
+      "successTitle": "Demande reçue",
+      "successDesc": "Vous recevrez bientôt le résultat de l'examen",
+      "errorTitle": "Envoi impossible",
+      "uploadFailed": "Échec du téléversement",
+      "fileTypeError": "Format non pris en charge (PDF/JPG/PNG uniquement)",
+      "fileTooLarge": "Fichier supérieur à 10 Mo",
+      "selectFile": "Choisissez un fichier ou glissez-le ici",
+      "uploaded": "Téléversé ✓",
+      "uploading": "Téléversement...",
+      "remove": "Supprimer"
+    },
+    "badge": {
+      "label": "Vérifié",
+      "tooltip": "Identité vérifiée par autobladi.ma"
+    }
+  },
+  "professionnels": {
+    "metaTitle": "Professionnels automobile au Maroc",
+    "metaDescription": "Découvrez les meilleurs professionnels automobile au Maroc — avis, voitures disponibles et coordonnées.",
+    "detail": {
+      "verified": "Vérifié",
+      "carsAvailable": "Voitures en stock",
+      "rating": "Note moyenne",
+      "reviews": "Avis clients",
+      "since": "Depuis",
+      "phone": "Téléphone",
+      "email": "E-mail",
+      "whatsapp": "WhatsApp",
+      "whatsappAction": "Envoyer un message",
+      "directions": "Itinéraire",
+      "filterAll": "Tous",
+      "filterNew": "Neuf",
+      "filterUsed": "Occasion",
+      "proCtaTitle": "Vous gérez une concession ?",
+      "proCtaText": "Créez votre vitrine professionnelle sur autobladi.ma et présentez tout votre stock à des milliers d'acheteurs chaque mois.",
+      "proCtaButton": "Devenir partenaire"
+    },
+    "list": {
+      "title": "Découvrez les meilleurs professionnels au Maroc",
+      "subtitle": "Professionnels vérifiés avec des avis authentiques",
+      "search": "Rechercher un professionnel...",
+      "filters": "Filtres",
+      "filterCity": "Ville",
+      "filterMinRating": "Note minimale",
+      "filterAnyRating": "Toutes notes",
+      "minStars": "{stars}+ étoiles",
+      "sortMostCars": "Plus de voitures",
+      "sortBestRating": "Mieux notés",
+      "sortNewest": "Plus récents",
+      "resultsCount": "{count} professionnel(s)",
+      "carsCount": "{count} voiture(s)",
+      "reviewsCount": "{count} avis",
+      "visit": "Visiter",
+      "empty": "Aucun professionnel trouvé",
+      "emptyDesc": "Essayez de modifier ou d'effacer les filtres"
+    },
+    "tabs": {
+      "cars": "Voitures",
+      "about": "À propos",
+      "reviews": "Avis",
+      "stats": "Statistiques"
+    },
+    "about": {
+      "description": "Présentation",
+      "noDescription": "Le professionnel n'a pas encore ajouté de description.",
+      "hours": "Horaires d'ouverture",
+      "address": "Adresse",
+      "contact": "Contact",
+      "location": "Localisation",
+      "noHours": "Horaires non renseignés",
+      "noLocation": "Localisation non renseignée",
+      "closed": "Fermé",
+      "days": {
+        "monday": "Lundi",
+        "tuesday": "Mardi",
+        "wednesday": "Mercredi",
+        "thursday": "Jeudi",
+        "friday": "Vendredi",
+        "saturday": "Samedi",
+        "sunday": "Dimanche"
+      }
+    },
+    "reviews": {
+      "title": "Avis clients",
+      "averageRating": "Note moyenne",
+      "addYour": "Laissez votre avis",
+      "yourRating": "Votre note",
+      "yourComment": "Votre commentaire (facultatif)",
+      "commentPlaceholder": "Partagez votre expérience...",
+      "submit": "Publier l'avis",
+      "submitting": "Publication...",
+      "loginRequired": "Connectez-vous pour laisser un avis",
+      "alreadyReviewed": "Vous avez déjà évalué ce professionnel",
+      "successTitle": "Merci pour votre avis",
+      "successDesc": "Vous aidez les futurs acheteurs",
+      "error": "Publication impossible",
+      "empty": "Aucun avis pour le moment",
+      "emptyDesc": "Soyez le premier à évaluer"
+    },
+    "stats": {
+      "memberSince": "Membre depuis {date}",
+      "carsActive": "{count} voitures actives",
+      "totalSales": "Ventes estimées",
+      "responseRate": "Taux de réponse",
+      "comingSoon": "Statistiques détaillées bientôt"
+    },
+    "sidebar": {
+      "contactCta": "Contacter le professionnel",
+      "follow": "Suivre",
+      "callNow": "Appeler",
+      "whatsapp": "WhatsApp",
+      "website": "Site web",
+      "email": "E-mail",
+      "verifiedBadge": "Professionnel vérifié par autobladi.ma"
+    },
+    "similar": {
+      "title": "Professionnels similaires",
+      "empty": "Aucun professionnel similaire"
+    },
+    "notFound": {
+      "title": "Professionnel introuvable",
+      "desc": "Peut-être supprimé ou pas encore activé",
+      "back": "Tous les professionnels"
+    }
+  },
+  "showroom": {
+    "title": "Ma concession",
+    "subtitle": "Mettez à jour les informations et suivez votre activité",
+    "publicLink": "Voir la page publique",
+    "tabs": {
+      "info": "Informations",
+      "reviews": "Avis",
+      "stats": "Statistiques",
+      "annonces": "Annonces actives"
+    },
+    "info": {
+      "title": "Informations",
+      "name": "Nom de la concession",
+      "slug": "Identifiant URL",
+      "slugHelp": "Apparaît dans l'URL : /professionnel/{slug}",
+      "logo": "Logo",
+      "uploadLogo": "Changer le logo",
+      "logoHint": "Carré · PNG transparent recommandé · 400×400 px",
+      "cover": "Photo de couverture",
+      "uploadCover": "Changer la couverture",
+      "coverHint": "Format paysage 3:1 · 1500×500 px recommandé · max 5 Mo",
+      "uploading": "Téléversement...",
+      "description": "Présentation",
+      "descriptionPlaceholder": "Présentation, spécialités, années d'expérience...",
+      "aiGenerate": "Générer avec l'IA",
+      "address": "Adresse",
+      "city": "Ville",
+      "secteur": "Secteur",
+      "secteurPlaceholder": "Choisir un secteur",
+      "location": "Localisation",
+      "lat": "Latitude",
+      "lng": "Longitude",
+      "pickFromMaps": "Ouvrir Google Maps pour choisir",
+      "useMyLocation": "Utiliser ma position actuelle",
+      "locating": "Localisation…",
+      "geoSuccess": "Position détectée",
+      "geoError": "Impossible d'obtenir la position",
+      "geoUnsupported": "Géolocalisation non supportée par votre navigateur",
+      "pasteLabel": "Coller un lien Google Maps",
+      "pasteHelp": "Collez un lien Maps ou des coordonnées « lat, lng » — elles seront détectées automatiquement.",
+      "pasteSuccess": "Coordonnées détectées",
+      "manualCoords": "Saisir les coordonnées manuellement",
+      "phone": "Téléphone",
+      "whatsapp": "WhatsApp",
+      "email": "E-mail",
+      "website": "Site web",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "youtube": "YouTube",
+      "tiktok": "TikTok",
+      "linkedin": "LinkedIn",
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "savedTitle": "Enregistré",
+      "savedDesc": "Informations mises à jour",
+      "errorTitle": "Échec de l'enregistrement"
+    },
+    "hours": {
+      "title": "Horaires d'ouverture",
+      "subtitle": "Définissez les jours et heures",
+      "open": "Ouvert",
+      "closed": "Fermé",
+      "from": "De",
+      "to": "À"
+    },
+    "reviewsTab": {
+      "title": "Avis reçus",
+      "empty": "Aucun avis reçu",
+      "comingSoon": "Réponse et signalement bientôt"
+    },
+    "statsTab": {
+      "title": "Statistiques",
+      "pageViews": "Vues de la page",
+      "annonceViews": "Vues des annonces",
+      "messages": "Messages reçus",
+      "totalCars": "Total de voitures",
+      "activeCars": "Voitures actives",
+      "comingSoon": "Graphique des visites à venir"
+    },
+    "annoncesTab": {
+      "title": "Annonces actives",
+      "manageHere": "Gérer les annonces",
+      "goToAnnonces": "Voir mes annonces →"
+    },
+    "notReady": {
+      "title": "Votre concession n'est pas encore activée",
+      "desc": "Après validation de votre abonnement, le panneau apparaîtra ici.",
+      "upgradeCta": "Demander la promotion"
+    }
+  },
+  "dashboard": {
+    "menu": "Menu",
+    "openSidebar": "Ouvrir le menu latéral",
+    "nav": {
+      "home": "Tableau de bord",
+      "annonces": "Mes annonces",
+      "ajouter": "Publier",
+      "favoris": "Favoris",
+      "messages": "Messages",
+      "compte": "Mon compte",
+      "upgrade": "Devenir professionnel",
+      "showroom": "Ma concession",
+      "abonnement": "Mon abonnement",
+      "verification": "Vérification",
+      "adminPanel": "Panneau admin",
+      "signOut": "Déconnexion",
+      "viewSite": "Voir le site"
+    },
+    "badge": {
+      "gratuit": "Gratuit",
+      "pro": "Pro",
+      "admin": "Admin",
+      "verified": "Vérifié"
+    },
+    "home": {
+      "welcome": "Bienvenue, {name}",
+      "welcomeAnon": "Bienvenue",
+      "subtitle": "Vue d'ensemble de votre activité",
+      "stats": {
+        "totalAnnonces": "Annonces totales",
+        "activeAnnonces": "Annonces actives",
+        "views": "Vues totales",
+        "messages": "Messages non lus",
+        "favorites": "Mises en favori"
+      },
+      "chart": {
+        "title": "Vos annonces les plus vues",
+        "subtitle": "Classement des annonces par nombre de vues",
+        "viewsLabel": "vues",
+        "empty": "Aucune donnée pour le moment. Publiez une annonce pour voir vos statistiques."
+      },
+      "alerts": {
+        "title": "Alertes",
+        "expiring": "{count} annonce(s) expire(nt) dans 5 jours",
+        "renew": "Renouveler",
+        "notVerified": "Votre compte pro n'est pas encore vérifié",
+        "verifyNow": "Démarrer la vérification",
+        "noAlerts": "Aucune alerte ✓"
+      },
+      "recent": {
+        "annoncesTitle": "Vos dernières annonces",
+        "messagesTitle": "Derniers messages",
+        "empty": "Rien pour le moment",
+        "viewAll": "Voir tout"
+      }
+    },
+    "annoncesPage": {
+      "title": "Mes annonces",
+      "subtitle": "Gérez et modifiez vos annonces",
+      "addNew": "Publier une annonce",
+      "empty": "Vous n'avez pas encore d'annonces",
+      "emptyDesc": "Publiez votre première annonce pour atteindre des milliers d'acheteurs",
+      "columns": {
+        "annonce": "Annonce",
+        "price": "Prix",
+        "status": "État",
+        "views": "Vues",
+        "published": "Publication",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "pending": "En attente",
+        "rejected": "Refusée",
+        "expired": "Expirée",
+        "sold": "Vendue",
+        "draft": "Brouillon"
+      },
+      "actions": {
+        "view": "Voir",
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "markSold": "Marquer vendue",
+        "renew": "Renouveler",
+        "boost": "Mettre en avant",
+        "feature": "Mettre en avant",
+        "unfeature": "Retirer de la une",
+        "featureProOnly": "Mettre en avant (Pro)"
+      },
+      "deleteConfirmTitle": "Supprimer cette annonce ?",
+      "deleteConfirmDesc": "Cette action est définitive et ne peut pas être annulée.",
+      "cancel": "Annuler",
+      "confirmDelete": "Oui, supprimer",
+      "toast": {
+        "deleted": "Annonce supprimée",
+        "sold": "Annonce marquée vendue",
+        "renewed": "Annonce renouvelée",
+        "boostUnavailable": "La mise en avant arrive bientôt",
+        "featured": "Annonce mise en avant",
+        "unfeatured": "Annonce retirée de la une",
+        "error": "Une erreur est survenue, réessayez"
+      }
+    },
+    "favorisPage": {
+      "title": "Mes favoris",
+      "subtitle": "Les voitures que vous avez enregistrées",
+      "empty": "Aucune annonce en favori",
+      "emptyDesc": "Parcourez les annonces et ajoutez celles qui vous intéressent",
+      "browse": "Parcourir les annonces",
+      "remove": "Retirer des favoris",
+      "removed": "Retiré des favoris"
+    },
+    "abonnementPage": {
+      "title": "Mon abonnement",
+      "subtitle": "Votre formule actuelle, sa date d'expiration et l'historique de vos paiements"
+    },
+    "comptePage": {
+      "title": "Paramètres du compte",
+      "subtitle": "Mettez à jour vos informations personnelles",
+      "personal": "Informations personnelles",
+      "avatar": "Photo de profil",
+      "uploadAvatar": "Changer la photo",
+      "uploading": "Téléversement...",
+      "fullName": "Nom complet",
+      "email": "Adresse e-mail",
+      "emailHelp": "L'e-mail est lié à votre compte et ne peut pas être modifié ici",
+      "phone": "Téléphone",
+      "whatsapp": "WhatsApp (facultatif)",
+      "city": "Ville",
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "savedTitle": "Enregistré",
+      "savedDesc": "Vos informations ont été mises à jour",
+      "security": "Sécurité",
+      "changePassword": "Changer le mot de passe",
+      "danger": "Zone dangereuse",
+      "dangerDesc": "Actions irréversibles",
+      "deleteAccount": "Supprimer le compte",
+      "deleteDialogTitle": "Supprimer définitivement le compte",
+      "deleteWarning": "Vous perdrez toutes vos annonces, messages et favoris. Impossible d'annuler.",
+      "deleteConfirmInput": "Tapez DELETE pour confirmer",
+      "deleteCancel": "Annuler",
+      "deleteConfirm": "Supprimer définitivement",
+      "deleted": "Compte supprimé",
+      "deleteError": "Impossible de supprimer — contactez le support"
+    },
+    "modifier": {
+      "title": "Modifier l'annonce",
+      "subtitle": "Après modification, l'annonce repassera en file d'attente pour validation",
+      "notFound": "Annonce introuvable ou n'appartenant pas à votre compte"
+    },
+    "comingSoon": {
+      "title": "Bientôt disponible",
+      "desc": "Cette fonctionnalité est en cours de développement.",
+      "back": "Retour au tableau de bord"
+    }
+  },
+  "estimation": {
+    "metaTitle": "Estimer le prix d'une voiture gratuitement",
+    "metaDescription": "Estimation instantanée et gratuite du prix de votre voiture sur le marché marocain, propulsée par l'IA Gemini.",
+    "hero": {
+      "badge": "Estimation IA instantanée",
+      "title": "Découvrez la vraie valeur de votre voiture",
+      "subtitle": "Estimation gratuite et instantanée sur le marché marocain, propulsée par l'intelligence artificielle",
+      "trustFree": "100% gratuit",
+      "trustInstant": "Résultat en secondes",
+      "trustLocal": "Prix du marché marocain"
+    },
+    "steps": {
+      "title": "Comment ça marche ?",
+      "subtitle": "Trois étapes simples pour obtenir le prix de votre voiture",
+      "s1Title": "Saisissez les infos",
+      "s1Desc": "Marque, modèle, année, kilométrage, carburant, état et historique d'accident.",
+      "s2Title": "L'IA analyse",
+      "s2Desc": "Nous comparons vos caractéristiques aux prix actuels du marché marocain pour une valeur juste.",
+      "s3Title": "Prix instantané",
+      "s3Desc": "Une fourchette de prix estimée avec un bref contexte marché — gratuit et sans inscription."
+    },
+    "form": {
+      "title": "Caractéristiques du véhicule",
+      "subtitle": "Remplissez les champs ci-dessous pour une estimation précise",
+      "brand": "Marque",
+      "model": "Modèle",
+      "year": "Année",
+      "mileage": "Kilométrage",
+      "mileagePlaceholder": "en kilomètres",
+      "fuelType": "Carburant",
+      "condition": "État",
+      "accident": "A-t-elle déjà eu un accident ?",
+      "accidentNo": "Non, sans accident",
+      "accidentNoHint": "N'a subi aucun accident",
+      "accidentYes": "Oui, accidentée",
+      "accidentYesHint": "A eu un accident puis réparée",
+      "submit": "Obtenir l'estimation",
+      "submitting": "Analyse du marché...",
+      "selectPlaceholder": "Sélectionner",
+      "selectBrandFirst": "Choisissez d'abord la marque",
+      "noResults": "Aucun résultat",
+      "conditions": {
+        "neuf": "Neuve",
+        "excellent": "Excellente",
+        "very_good": "Très bonne",
+        "good": "Bonne",
+        "fair": "Moyenne"
+      }
+    },
+    "validation": {
+      "required": "Champ obligatoire",
+      "year": "Année invalide",
+      "mileage": "Kilométrage invalide"
+    },
+    "loading": {
+      "title": "Analyse du marché...",
+      "subtitle": "Nous évaluons votre voiture sur le marché marocain"
+    },
+    "placeholder": {
+      "title": "Résultat de l'estimation",
+      "subtitle": "Remplissez le formulaire pour obtenir une estimation instantanée"
+    },
+    "result": {
+      "title": "Valeur estimée de votre voiture",
+      "poweredBy": "Estimation par IA",
+      "rangeLabel": "Fourchette de prix",
+      "averageLabel": "Moyenne",
+      "currency": "DH",
+      "reasoningLabel": "Analyse",
+      "marketLabel": "Contexte marché",
+      "publishCta": "Publier ma voiture",
+      "againCta": "Estimer une autre voiture",
+      "saveCta": "Enregistrer le résultat",
+      "savedToast": "Estimation enregistrée dans votre compte",
+      "loginToSave": "Connectez-vous pour enregistrer vos estimations"
+    },
+    "errors": {
+      "generic": "Estimation impossible, réessayez",
+      "rateLimited": "Trop de requêtes. Réessayez plus tard."
+    },
+    "disclaimer": "Cette estimation s'appuie sur les données du marché et ne constitue pas une évaluation officielle. La valeur réelle peut varier selon l'état effectif du véhicule.",
+    "faq": {
+      "title": "Questions fréquentes sur l'estimation du prix",
+      "q1": "L'estimation du prix d'une voiture est-elle gratuite ?",
+      "a1": "Oui, l'estimation du prix de votre voiture sur autobladi.ma est entièrement gratuite et instantanée, sans inscription.",
+      "q2": "Comment est calculé le prix d'une voiture d'occasion au Maroc ?",
+      "a2": "Nous analysons la marque, le modèle, l'année, le kilométrage, l'état et l'historique d'accident, puis les comparons aux prix actuels du marché marocain grâce à l'intelligence artificielle.",
+      "q3": "Quelle est la fiabilité de l'estimation ?",
+      "a3": "L'estimation fournit une fourchette de prix réaliste à titre indicatif ; la valeur réelle peut varier selon l'état effectif du véhicule et la négociation.",
+      "q4": "Puis-je vendre ma voiture après l'estimation ?",
+      "a4": "Oui, vous pouvez publier une annonce pour vendre votre voiture directement au prix suggéré depuis la page d'estimation."
+    },
+    "why": {
+      "title": "Pourquoi choisir l'estimation autobladi",
+      "subtitle": "Trois avantages qui font de notre estimation la référence au Maroc",
+      "freeTitle": "100 % gratuit",
+      "freeDesc": "Sans inscription, utilisez le service autant que vous voulez",
+      "instantTitle": "Résultat instantané (IA)",
+      "instantDesc": "Gemini analyse des milliers de points de données en quelques secondes",
+      "localTitle": "Spécialisé Maroc",
+      "localDesc": "Prix alignés sur le marché actuel, en dirhams marocains"
+    }
+  },
+  "adminPanel": {
+    "openMenu": "Ouvrir le menu",
+    "viewSite": "Voir le site",
+    "signOut": "Déconnexion",
+    "editProfile": "Modifier mon profil",
+    "cacheClear": "Vider le cache",
+    "cacheClearing": "Nettoyage...",
+    "cacheCleared": "Cache vidé et site actualisé",
+    "cacheError": "Impossible de vider le cache",
+    "accountPage": {
+      "title": "Mon profil",
+      "subtitle": "Gérez votre photo et vos informations personnelles"
+    },
+    "groups": {
+      "manage": "Gestion générale",
+      "annonces": "Annonces",
+      "professionnels": "Concessions & vérification",
+      "subscriptions": "Abonnements",
+      "users": "Utilisateurs",
+      "communication": "Communication",
+      "blog": "Blog",
+      "ads": "Publicités",
+      "sections": "Sections",
+      "settings": "Paramètres"
+    },
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "brands": "Marques",
+      "models": "Modèles",
+      "cities": "Villes",
+      "allAnnonces": "Toutes les annonces",
+      "pendingAnnonces": "Annonces à valider",
+      "featuredAnnonces": "Annonces mises en avant",
+      "reports": "Signalements",
+      "verification": "Demandes de vérification",
+      "allProfessionnels": "Tous les professionnels",
+      "reviews": "Avis",
+      "plans": "Formules",
+      "pendingSubs": "Abonnements à valider",
+      "subsHistory": "Historique des abonnements",
+      "usersList": "Liste des utilisateurs",
+      "contact": "Messages de contact",
+      "newsletter": "Abonnés newsletter",
+      "blogCategories": "Catégories blog",
+      "blogPosts": "Articles",
+      "blogComments": "Commentaires",
+      "adPlacements": "Emplacements pubs",
+      "ads": "Publicités",
+      "homeSections": "Sections d'accueil",
+      "pages": "Pages",
+      "generalSettings": "Paramètres généraux",
+      "settingsLogo": "Logo & Favicon",
+      "settingsDuration": "Durée des annonces",
+      "settingsRib": "RIB bancaire",
+      "settingsSeo": "SEO",
+      "settingsEmail": "E-mails",
+      "settingsSocial": "Connexion sociale",
+      "settingsWatermark": "Filigrane"
+    },
+    "dashboard": {
+      "title": "Tableau de bord admin",
+      "subtitle": "Vue d'ensemble de l'activité d'autobladi.ma",
+      "stats": {
+        "users": "Utilisateurs",
+        "newUsersMonth": "+{count} ce mois",
+        "totalAnnonces": "Annonces totales",
+        "activeAnnonces": "Annonces actives",
+        "pendingAnnonces": "Annonces à valider",
+        "professionnels": "Concessions",
+        "pendingVerification": "Vérifications en attente",
+        "pendingSubs": "Abonnements en attente",
+        "pendingReports": "Signalements en attente"
+      },
+      "needsAttention": "À traiter",
+      "noAttention": "Tout est à jour ✓",
+      "review": "Examiner"
+    },
+    "annoncesQueue": {
+      "title": "Annonces à valider",
+      "subtitle": "Validez les annonces avant publication",
+      "columns": {
+        "annonce": "Annonce",
+        "seller": "Vendeur",
+        "price": "Prix",
+        "submitted": "Soumise",
+        "actions": "Actions"
+      },
+      "empty": "Aucune annonce à valider",
+      "approve": "Approuver",
+      "reject": "Refuser",
+      "preview": "Aperçu",
+      "rejectDialogTitle": "Refuser l'annonce",
+      "rejectReason": "Motif du refus",
+      "rejectReasonPlaceholder": "Expliquez au vendeur pourquoi...",
+      "cancel": "Annuler",
+      "confirmReject": "Confirmer",
+      "toast": {
+        "approved": "Annonce publiée",
+        "rejected": "Annonce refusée",
+        "error": "Une erreur est survenue"
+      }
+    },
+    "allAnnoncesPage": {
+      "title": "Toutes les annonces",
+      "subtitle": "Gérez, modérez et mettez en avant toutes les annonces du site",
+      "search": "Rechercher par titre, marque, vendeur...",
+      "featuredOnly": "Mises en avant",
+      "count": "{count} annonce(s)",
+      "empty": "Aucune annonce",
+      "noResults": "Aucune annonce ne correspond à votre recherche",
+      "statusTabs": {
+        "all": "Toutes",
+        "active": "Actives",
+        "pending": "En attente",
+        "rejected": "Refusées",
+        "sold": "Vendues",
+        "expired": "Expirées",
+        "draft": "Brouillons"
+      },
+      "statusLabels": {
+        "active": "Active",
+        "pending": "En attente",
+        "rejected": "Refusée",
+        "sold": "Vendue",
+        "expired": "Expirée",
+        "draft": "Brouillon"
+      },
+      "columns": {
+        "annonce": "Annonce",
+        "seller": "Vendeur",
+        "price": "Prix",
+        "status": "Statut",
+        "views": "Vues",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "preview": "Aperçu",
+      "feature": "Mettre en avant",
+      "unfeature": "Retirer de la une",
+      "publish": "Publier",
+      "reject": "Refuser",
+      "markSold": "Marquer vendue",
+      "markExpired": "Marquer expirée",
+      "delete": "Supprimer",
+      "deleteConfirm": "Supprimer définitivement l'annonce « {title} » ?",
+      "rejectDialogTitle": "Refuser l'annonce",
+      "rejectReason": "Motif du refus",
+      "rejectReasonPlaceholder": "Expliquez au vendeur pourquoi...",
+      "toast": {
+        "published": "Annonce publiée",
+        "rejected": "Annonce refusée",
+        "featured": "Annonce mise en avant",
+        "unfeatured": "Retirée de la une",
+        "markedSold": "Marquée comme vendue",
+        "markedExpired": "Marquée comme expirée",
+        "deleted": "Annonce supprimée",
+        "error": "Une erreur est survenue"
+      }
+    },
+    "featuredPage": {
+      "title": "Annonces en vedette",
+      "subtitle": "Les annonces mises en avant sur la page d'accueil et en tête des résultats",
+      "hint": "Utilisez l'étoile pour retirer une annonce de la une. Pour mettre une annonce en avant, activez l'étoile depuis « Toutes les annonces ».",
+      "empty": "Aucune annonce en vedette",
+      "emptyDesc": "Activez l'étoile sur une annonce pour la faire apparaître ici",
+      "count": "{count} annonce(s) en vedette"
+    },
+    "reportsPage": {
+      "title": "Signalements",
+      "subtitle": "Traitez les annonces signalées par les utilisateurs",
+      "empty": "Aucun signalement",
+      "emptyDesc": "Les annonces signalées par les utilisateurs apparaîtront ici",
+      "noResults": "Aucun signalement dans cette catégorie",
+      "count": "{count} signalement(s)",
+      "statusTabs": {
+        "all": "Tous",
+        "pending": "À traiter",
+        "approved": "Traités",
+        "rejected": "Rejetés"
+      },
+      "statusLabels": {
+        "pending": "À traiter",
+        "approved": "Traité",
+        "rejected": "Rejeté"
+      },
+      "annonceStatus": {
+        "draft": "Brouillon",
+        "pending": "En attente",
+        "active": "Active",
+        "sold": "Vendue",
+        "rejected": "Retirée",
+        "expired": "Expirée"
+      },
+      "columns": {
+        "annonce": "Annonce",
+        "reporter": "Signalé par",
+        "reason": "Motif",
+        "description": "Détails",
+        "status": "Statut",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "anonymous": "Anonyme",
+      "noAnnonce": "Annonce supprimée",
+      "preview": "Aperçu",
+      "resolve": "Marquer traité",
+      "dismiss": "Rejeter le signalement",
+      "takedown": "Retirer l'annonce",
+      "takedownConfirm": "Retirer l'annonce « {title} » et marquer le signalement comme traité ?",
+      "toast": {
+        "resolved": "Signalement traité",
+        "dismissed": "Signalement rejeté",
+        "takendown": "Annonce retirée",
+        "error": "Une erreur est survenue"
+      }
+    },
+    "professionnelsPage": {
+      "title": "Professionnels",
+      "subtitle": "Gérez les showrooms et leur visibilité sur le site",
+      "search": "Rechercher par nom ou propriétaire...",
+      "showInactive": "Inclure les inactifs",
+      "count": "{count} professionnel(s)",
+      "active": "Actif",
+      "inactive": "Inactif",
+      "empty": "Aucun professionnel",
+      "emptyDesc": "Les showrooms créés par les comptes Pro apparaîtront ici",
+      "noResults": "Aucun professionnel ne correspond à votre recherche",
+      "columns": {
+        "name": "Professionnel",
+        "city": "Ville",
+        "owner": "Propriétaire",
+        "rating": "Note",
+        "annonces": "Annonces",
+        "status": "Statut",
+        "created": "Créé le",
+        "actions": "Actions"
+      },
+      "preview": "Voir la page",
+      "activate": "Activer",
+      "deactivate": "Désactiver",
+      "delete": "Supprimer",
+      "deleteConfirm": "Supprimer définitivement le professionnel « {name} » ?",
+      "toast": {
+        "activated": "Professionnel activé",
+        "deactivated": "Professionnel désactivé",
+        "deleted": "Professionnel supprimé",
+        "error": "Une erreur est survenue"
+      }
+    },
+    "contactPage": {
+      "title": "Messages de contact",
+      "subtitle": "Demandes envoyées via le formulaire de contact",
+      "tabs": {
+        "all": "Tous",
+        "unread": "Non lus",
+        "read": "Lus"
+      },
+      "empty": "Aucun message",
+      "emptyDesc": "Les messages envoyés par les visiteurs apparaîtront ici",
+      "noResults": "Aucun message dans cette catégorie",
+      "reply": "Répondre",
+      "markRead": "Marquer comme lu",
+      "markUnread": "Marquer comme non lu",
+      "readState": "Lu",
+      "toast": {
+        "markedRead": "Message marqué comme lu",
+        "markedUnread": "Message marqué comme non lu",
+        "error": "Une erreur est survenue"
+      }
+    },
+    "newsletterPage": {
+      "title": "Newsletter",
+      "subtitle": "Rédigez et envoyez une campagne à vos abonnés",
+      "stats": {
+        "subscribers": "Abonnés",
+        "unsubscribed": "Désabonnés",
+        "total": "Total comptes"
+      },
+      "compose": "Composer la campagne",
+      "composeDesc": "Les dernières annonces actives seront ajoutées automatiquement.",
+      "heading": "Titre",
+      "headingPlaceholder": "Ex : Les nouveautés de la semaine",
+      "introText": "Texte d'introduction",
+      "introTextPlaceholder": "Quelques mots pour présenter cette édition...",
+      "itemCount": "Annonces à inclure",
+      "itemCountHelp": "Entre 0 et 12 dernières annonces actives.",
+      "willSendTo": "Sera envoyé à {count} abonné(s)",
+      "send": "Envoyer la campagne",
+      "sending": "Envoi en cours...",
+      "confirmSend": "Envoyer cette newsletter à {count} abonné(s) ?",
+      "subscribers": "Abonnés",
+      "copyEmails": "Copier les e-mails",
+      "searchSubscribers": "Rechercher un abonné...",
+      "noSubscribers": "Aucun abonné",
+      "noResults": "Aucun abonné ne correspond",
+      "columns": {
+        "name": "Nom",
+        "email": "E-mail",
+        "joined": "Inscription"
+      },
+      "toast": {
+        "sent": "Campagne envoyée : {sent} envoyé(s), {failed} échec(s)",
+        "invalid": "Renseignez un titre et un texte",
+        "noSubscribers": "Aucun abonné à qui envoyer",
+        "error": "Une erreur est survenue",
+        "copied": "{count} e-mail(s) copié(s)",
+        "copyError": "Impossible de copier"
+      }
+    },
+    "socialLoginPage": {
+      "title": "Connexion sociale",
+      "subtitle": "Activez et gérez la connexion via Facebook et Google",
+      "facebook": "Connexion Facebook",
+      "google": "Connexion Google",
+      "visibility": "Statut de visibilité",
+      "fbClientId": "Facebook Client Id",
+      "fbSecret": "Facebook App Secret",
+      "googleClientId": "Google Client Id",
+      "googleSecret": "Google Secret",
+      "redirectUrl": "URL de redirection",
+      "update": "Mettre à jour",
+      "saving": "Enregistrement...",
+      "saved": "Paramètres de connexion sociale enregistrés",
+      "error": "Une erreur est survenue",
+      "supabaseNote": "⚠️ Le bouton de visibilité affiche/masque les boutons sur la page de connexion. Pour que la connexion fonctionne réellement, activez le fournisseur (Google/Facebook) et saisissez les mêmes clés dans les paramètres Authentication de votre tableau de bord Supabase."
+    },
+    "plansPage": {
+      "title": "Formules d'abonnement",
+      "subtitle": "Gérez les offres Pro proposées aux vendeurs",
+      "addPlan": "Nouvelle formule",
+      "empty": "Aucune formule",
+      "emptyDesc": "Créez votre première formule d'abonnement Pro",
+      "count": "{count} formule(s)",
+      "active": "Active",
+      "inactive": "Inactive",
+      "currency": "DH",
+      "durationDays": "{days} jours",
+      "maxAnnonces": "Jusqu'à {count} annonces",
+      "discountBadge": "-{percent}%",
+      "freeDefault": "Formule gratuite par défaut",
+      "popularTag": "Le plus populaire",
+      "activate": "Activer",
+      "deactivate": "Désactiver",
+      "delete": "Supprimer",
+      "deleteConfirm": "Supprimer définitivement la formule « {name} » ?",
+      "form": {
+        "edit": "Modifier la formule",
+        "name": "Nom (français)",
+        "namePlaceholder": "Ex : Pro",
+        "nameAr": "Nom (arabe)",
+        "nameArPlaceholder": "مثال: احترافي",
+        "tagline": "Description courte (français)",
+        "taglinePlaceholder": "Tout pour une vitrine professionnelle",
+        "taglineAr": "Description courte (arabe)",
+        "taglineArPlaceholder": "كل ما تحتاجه لعرض احترافي",
+        "price": "Prix de la formule (DH)",
+        "priceHelp": "Ce que l'utilisateur paie réellement",
+        "originalPrice": "Prix d'origine (DH)",
+        "originalPriceHelp": "Avant réduction — laissez 0 s'il n'y a pas de réduction",
+        "autoDiscount": "Réduction calculée automatiquement : -{percent}%",
+        "duration": "Durée (jours)",
+        "maxAnnonces": "Annonces max",
+        "maxAnnoncesHelp": "Nombre d'annonces actives autorisées",
+        "featuresFr": "Avantages (français)",
+        "featuresAr": "Avantages (arabe)",
+        "featuresHelp": "Un avantage par ligne",
+        "featuresPlaceholder": "Badge vérifié\nAnnonces mises en avant\nSupport prioritaire",
+        "featuresArPlaceholder": "شارة موثّق\nإعلانات مميّزة\nدعم ذو أولوية",
+        "popular": "Le plus populaire",
+        "popularHelp": "Affiche le bandeau « Le plus choisi »",
+        "active": "Formule active",
+        "save": "Enregistrer",
+        "saving": "Enregistrement...",
+        "cancel": "Annuler"
+      },
+      "toast": {
+        "created": "Formule créée",
+        "updated": "Formule mise à jour",
+        "deleted": "Formule supprimée",
+        "activated": "Formule activée",
+        "deactivated": "Formule désactivée",
+        "inUse": "Formule utilisée par des abonnements — suppression impossible",
+        "error": "Une erreur est survenue"
+      }
+    },
+    "ribSettings": {
+      "title": "Coordonnées bancaires",
+      "subtitle": "Le RIB affiché aux vendeurs pour le paiement des abonnements",
+      "hint": "Ces informations s'affichent sur la page de paiement des abonnements. Sans RIB, les vendeurs voient « Coordonnées bancaires incomplètes ».",
+      "bankName": "Nom de la banque",
+      "bankNamePlaceholder": "Ex. : Attijariwafa Bank",
+      "rib": "RIB",
+      "ribPlaceholder": "007 780 0001234567890123 45",
+      "ribHint": "Relevé d'Identité Bancaire (24 chiffres)",
+      "beneficiary": "Bénéficiaire",
+      "beneficiaryPlaceholder": "Ex. : autobladi.ma SARL",
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "toast": {
+        "saved": "Coordonnées bancaires enregistrées",
+        "error": "Une erreur est survenue"
+      }
+    },
+    "subsHistoryPage": {
+      "title": "Historique des abonnements",
+      "subtitle": "Toutes les demandes d'abonnement et leur statut",
+      "empty": "Aucun abonnement",
+      "emptyDesc": "Les demandes d'abonnement apparaîtront ici",
+      "noResults": "Aucun abonnement dans cette catégorie",
+      "count": "{count} demande(s)",
+      "statusTabs": {
+        "all": "Toutes",
+        "pending": "En attente",
+        "approved": "Activées",
+        "rejected": "Refusées"
+      },
+      "statusLabels": {
+        "pending": "En attente",
+        "approved": "Activé",
+        "rejected": "Refusé"
+      },
+      "columns": {
+        "user": "Utilisateur",
+        "plan": "Formule",
+        "amount": "Montant",
+        "status": "Statut",
+        "period": "Période",
+        "date": "Demandé le"
+      }
+    },
+    "verificationQueue": {
+      "title": "Vérifications",
+      "subtitle": "Vérifiez les documents avant d'attribuer le badge",
+      "columns": {
+        "user": "Utilisateur",
+        "company": "Société",
+        "rc": "RC",
+        "documents": "Documents",
+        "submitted": "Soumis",
+        "actions": "Actions"
+      },
+      "viewRc": "Voir RC",
+      "viewIdCard": "Voir CIN",
+      "loadingPreview": "...",
+      "approve": "Approuver",
+      "reject": "Refuser",
+      "rejectDialogTitle": "Refuser la demande",
+      "rejectReason": "Motif",
+      "empty": "Aucune demande à valider",
+      "toast": {
+        "approved": "Concession marquée vérifiée",
+        "rejected": "Demande refusée",
+        "error": "Une erreur est survenue",
+        "linkError": "Impossible de générer l'aperçu"
+      }
+    },
+    "sectionsPage": {
+      "title": "Sections de l'accueil",
+      "subtitle": "Affichez, masquez et réorganisez les sections de la page d'accueil",
+      "hint": "Les changements s'appliquent à la page d'accueil après enregistrement. L'en-tête de recherche et les bannières publicitaires restent fixes.",
+      "count": "{visible} sur {total} sections visibles",
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "visible": "Affichée",
+      "hidden": "Masquée",
+      "show": "Afficher",
+      "hide": "Masquer",
+      "moveUp": "Monter",
+      "moveDown": "Descendre",
+      "toast": {
+        "saved": "Sections mises à jour",
+        "error": "Une erreur est survenue"
+      },
+      "labels": {
+        "featured": "Voitures en vedette",
+        "brands": "Marques",
+        "latest": "Dernières annonces",
+        "why": "Pourquoi autobladi.ma",
+        "dealers": "Top professionnels",
+        "estimation": "Estimation de prix",
+        "blog": "Blog",
+        "newsletter": "Newsletter"
+      }
+    },
+    "pagesPage": {
+      "title": "Pages du site",
+      "subtitle": "Créez et modifiez les pages éditoriales (À propos, CGU, Confidentialité…)",
+      "newPage": "Nouvelle page",
+      "editTitle": "Modifier la page",
+      "empty": "Aucune page",
+      "emptyDesc": "Créez votre première page de contenu.",
+      "statusPublished": "Publiée",
+      "statusDraft": "Brouillon",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "publish": "Publier",
+      "unpublish": "Dépublier",
+      "deleteConfirm": "Supprimer la page « {title} » ? Cette action est irréversible.",
+      "columns": {
+        "title": "Titre",
+        "slug": "Lien",
+        "status": "Statut",
+        "footer": "Footer",
+        "order": "Ordre",
+        "actions": "Actions"
+      },
+      "toast": {
+        "created": "Page créée",
+        "updated": "Page mise à jour",
+        "deleted": "Page supprimée",
+        "published": "Page publiée",
+        "unpublished": "Page dépubliée",
+        "slugTaken": "Ce lien est déjà utilisé",
+        "error": "Une erreur est survenue"
+      },
+      "form": {
+        "back": "Retour aux pages",
+        "save": "Enregistrer",
+        "saving": "Enregistrement...",
+        "titleFr": "Titre (français)",
+        "titleFrPlaceholder": "À propos",
+        "titleAr": "Titre (arabe)",
+        "titleArPlaceholder": "من نحن",
+        "slug": "Lien (slug)",
+        "slugHelp": "Adresse de la page : /p/votre-lien — minuscules, chiffres et tirets.",
+        "contentFr": "Contenu (français)",
+        "contentAr": "Contenu (arabe)",
+        "contentPlaceholder": "Rédigez le contenu en Markdown...",
+        "write": "Écrire",
+        "preview": "Aperçu",
+        "markdownHelp": "Markdown pris en charge : titres, gras, listes, liens, tableaux.",
+        "published": "Publiée",
+        "showInFooter": "Afficher dans le footer",
+        "orderIndex": "Ordre",
+        "orderIndexHelp": "Plus petit = affiché en premier."
+      }
+    },
+    "blogCommentsPage": {
+      "title": "Commentaires du blog",
+      "subtitle": "Approuvez ou supprimez les commentaires des lecteurs",
+      "search": "Rechercher dans les commentaires...",
+      "statusTabs": {
+        "all": "Tous",
+        "pending": "En attente",
+        "approved": "Approuvés"
+      },
+      "empty": "Aucun commentaire",
+      "emptyDesc": "Les commentaires des lecteurs apparaîtront ici.",
+      "noResults": "Aucun commentaire ne correspond à votre recherche",
+      "reply": "Réponse",
+      "onPost": "Sur :",
+      "approve": "Approuver",
+      "hide": "Masquer",
+      "delete": "Supprimer",
+      "deleteConfirm": "Supprimer définitivement ce commentaire ?",
+      "toast": {
+        "approved": "Commentaire approuvé",
+        "hidden": "Commentaire masqué",
+        "deleted": "Commentaire supprimé",
+        "error": "Une erreur est survenue"
+      }
+    },
+    "blogPostsPage": {
+      "title": "Articles du blog",
+      "subtitle": "Rédigez et publiez les articles du blog",
+      "search": "Rechercher un article...",
+      "newPost": "Nouvel article",
+      "editTitle": "Modifier l'article",
+      "empty": "Aucun article",
+      "emptyDesc": "Rédigez votre premier article de blog.",
+      "noResults": "Aucun article ne correspond à votre recherche",
+      "statusTabs": {
+        "all": "Tous",
+        "published": "Publiés",
+        "draft": "Brouillons"
+      },
+      "columns": {
+        "post": "Article",
+        "category": "Catégorie",
+        "status": "Statut",
+        "stats": "Stats",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "publish": "Publier",
+      "unpublish": "Dépublier",
+      "deleteConfirm": "Supprimer l'article « {title} » ? Cette action est irréversible.",
+      "toast": {
+        "created": "Article créé",
+        "updated": "Article mis à jour",
+        "deleted": "Article supprimé",
+        "published": "Article publié",
+        "unpublished": "Article dépublié",
+        "slugTaken": "Ce slug est déjà utilisé",
+        "error": "Une erreur est survenue"
+      },
+      "form": {
+        "back": "Retour aux articles",
+        "published": "Publié",
+        "save": "Enregistrer",
+        "saving": "Enregistrement...",
+        "langAr": "Arabe",
+        "langFr": "Français",
+        "langArHint": "Contenu principal (obligatoire)",
+        "langFrHint": "Traduction française (optionnelle)",
+        "title": "Titre",
+        "titlePlaceholder": "Titre de l'article",
+        "slug": "Slug",
+        "slugHelp": "Identifiant dans l'URL — minuscules, chiffres et tirets. Généré à partir du titre français.",
+        "excerpt": "Extrait",
+        "excerptHelp": "Court résumé affiché dans les listes et le SEO.",
+        "excerptPlaceholder": "Résumé en une ou deux phrases...",
+        "content": "Contenu",
+        "write": "Écrire",
+        "preview": "Aperçu",
+        "contentPlaceholder": "Rédigez votre article en Markdown...",
+        "markdownHelp": "Markdown pris en charge : titres, gras, listes, liens, tableaux, code.",
+        "insertImage": "Insérer une image",
+        "cover": "Image de couverture",
+        "coverHint": "Taille recommandée : 1200×630 px (ratio 16:9). Largeur minimale conseillée 1200 px pour éviter le flou.",
+        "noCover": "Aucune image",
+        "uploadCover": "Télécharger",
+        "uploading": "Envoi...",
+        "removeCover": "Supprimer l'image",
+        "category": "Catégorie",
+        "noCategory": "— Sans catégorie —",
+        "tags": "Mots-clés",
+        "tagsHelp": "Séparés par des virgules.",
+        "tagsPlaceholder": "voiture, occasion, conseils",
+        "imageUploaded": "Image téléchargée ✓",
+        "imageInserted": "Image insérée ✓"
+      }
+    },
+    "blogCategoriesPage": {
+      "title": "Catégories du blog",
+      "subtitle": "Organisez les articles par thématique",
+      "search": "Rechercher une catégorie...",
+      "addManual": "Ajouter une catégorie",
+      "count": "{count} catégorie(s)",
+      "empty": "Aucune catégorie",
+      "emptyDesc": "Créez votre première catégorie d'articles.",
+      "noResults": "Aucune catégorie ne correspond à votre recherche",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "deleteConfirm": "Supprimer la catégorie « {name} » ? Les articles associés ne seront pas supprimés.",
+      "columns": {
+        "nameAr": "Nom (AR)",
+        "nameFr": "Nom (FR)",
+        "slug": "Slug",
+        "posts": "Articles",
+        "order": "Ordre",
+        "actions": "Actions"
+      },
+      "toast": {
+        "created": "Catégorie créée",
+        "updated": "Catégorie mise à jour",
+        "deleted": "Catégorie supprimée",
+        "slugTaken": "Ce slug est déjà utilisé",
+        "error": "Une erreur est survenue"
+      },
+      "form": {
+        "edit": "Modifier la catégorie",
+        "nameAr": "Nom (arabe)",
+        "nameArPlaceholder": "أخبار السيارات",
+        "nameFr": "Nom (français)",
+        "nameFrPlaceholder": "Actualités auto",
+        "slug": "Slug",
+        "slugHelp": "Identifiant dans l'URL — minuscules, chiffres et tirets.",
+        "slugPlaceholder": "actualites-auto",
+        "orderIndex": "Ordre d'affichage",
+        "orderIndexHelp": "Plus petit = affiché en premier.",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "saving": "Enregistrement..."
+      }
+    },
+    "reviewsPage": {
+      "title": "Avis sur les professionnels",
+      "subtitle": "Modérez les avis abusifs ou inappropriés",
+      "ratingTabs": {
+        "all": "Tous"
+      },
+      "search": "Rechercher par professionnel, auteur ou texte...",
+      "count": "{count} avis",
+      "empty": "Aucun avis",
+      "emptyDesc": "Les avis laissés par les utilisateurs apparaîtront ici.",
+      "noResults": "Aucun avis ne correspond à votre recherche",
+      "noComment": "Sans commentaire",
+      "columns": {
+        "dealer": "Professionnel",
+        "author": "Auteur",
+        "rating": "Note",
+        "comment": "Commentaire",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "delete": "Supprimer l'avis",
+      "deleteConfirm": "Supprimer définitivement cet avis ?",
+      "toast": {
+        "deleted": "Avis supprimé",
+        "error": "Une erreur est survenue"
+      }
+    },
+    "subscriptionsQueue": {
+      "title": "Abonnements à valider",
+      "subtitle": "Vérifiez le reçu bancaire avant activation",
+      "columns": {
+        "user": "Utilisateur",
+        "plan": "Formule",
+        "amount": "Montant",
+        "bankRef": "Référence",
+        "receipt": "Reçu",
+        "submitted": "Soumis",
+        "actions": "Actions"
+      },
+      "viewReceipt": "Voir reçu",
+      "approve": "Activer",
+      "reject": "Refuser",
+      "rejectDialogTitle": "Refuser",
+      "rejectReason": "Motif",
+      "empty": "Aucun abonnement à valider",
+      "toast": {
+        "approved": "Abonnement activé",
+        "rejected": "Demande refusée",
+        "error": "Une erreur est survenue",
+        "linkError": "Impossible de générer l'aperçu"
+      }
+    },
+    "usersPage": {
+      "title": "Utilisateurs",
+      "subtitle": "Gestion des comptes et permissions",
+      "search": "Rechercher par nom, e-mail ou téléphone...",
+      "filterAll": "Tous",
+      "filterPro": "Pro",
+      "filterAdmin": "Admin",
+      "filterGratuit": "Gratuit",
+      "columns": {
+        "user": "Utilisateur",
+        "email": "E-mail",
+        "phone": "Téléphone",
+        "whatsapp": "WhatsApp",
+        "type": "Type",
+        "verified": "Vérifié",
+        "joined": "Inscription",
+        "actions": "Actions"
+      },
+      "you": "Vous",
+      "edit": "Modifier",
+      "promote": "Promouvoir admin",
+      "demote": "Retirer admin",
+      "downgrade": "Rétrograder en gratuit",
+      "confirmPromote": "Promouvoir ce compte au rang d'admin ?",
+      "confirmDemote": "Retirer les droits admin ?",
+      "confirmDowngrade": "Rétrograder ce compte ?",
+      "toast": {
+        "promoted": "Promotion effectuée",
+        "demoted": "Droits retirés",
+        "downgraded": "Compte rétrogradé",
+        "updated": "Utilisateur mis à jour",
+        "error": "Une erreur est survenue",
+        "cantSelf": "Vous ne pouvez pas modifier vos propres permissions"
+      },
+      "export": {
+        "button": "Exporter (Excel)",
+        "sheet": "Utilisateurs",
+        "name": "Nom",
+        "phone": "Téléphone",
+        "email": "E-mail",
+        "done": "{count} utilisateurs exportés",
+        "empty": "Aucun utilisateur à exporter",
+        "failed": "Échec de l'export"
+      },
+      "editForm": {
+        "title": "Modifier l'utilisateur",
+        "email": "E-mail",
+        "fullName": "Nom complet",
+        "phone": "Téléphone",
+        "whatsapp": "WhatsApp",
+        "city": "Ville",
+        "accountType": "Type de compte",
+        "typeGratuit": "Gratuit",
+        "typePro": "Pro",
+        "typeAdmin": "Admin",
+        "verified": "Compte vérifié",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "saving": "Enregistrement..."
+      },
+      "empty": "Aucun utilisateur",
+      "noResults": "Aucun utilisateur ne correspond à votre recherche"
+    },
+    "citiesPage": {
+      "title": "Gestion des villes",
+      "subtitle": "Ajoutez des villes manuellement ou importez un fichier JSON",
+      "addManual": "Nouvelle ville",
+      "uploadJson": "Importer un JSON",
+      "search": "Rechercher une ville...",
+      "columns": {
+        "nameAr": "Nom arabe",
+        "nameFr": "Nom français",
+        "slug": "Slug",
+        "region": "Région",
+        "actions": "Actions"
+      },
+      "form": {
+        "nameAr": "Nom arabe",
+        "nameArPlaceholder": "Exemple : الدار البيضاء",
+        "nameFr": "Nom français",
+        "nameFrPlaceholder": "Exemple : Casablanca",
+        "slug": "Slug dans l'URL",
+        "slugPlaceholder": "casablanca",
+        "slugHelp": "Généré automatiquement à partir du nom français si laissé vide",
+        "region": "Région (optionnel)",
+        "regionPlaceholder": "Casablanca-Settat",
+        "save": "Enregistrer",
+        "saving": "Enregistrement...",
+        "cancel": "Annuler",
+        "edit": "Modifier la ville"
+      },
+      "upload": {
+        "title": "Importer un fichier JSON",
+        "subtitle": "Téléchargez un fichier JSON contenant un tableau de villes",
+        "dropOrClick": "Cliquez ou déposez un fichier .json ici",
+        "format": "Format attendu :",
+        "example": "[\n  {\n    \"name_ar\": \"الدار البيضاء\",\n    \"name_fr\": \"Casablanca\",\n    \"slug\": \"casablanca\",\n    \"region\": \"Casablanca-Settat\"\n  }\n]",
+        "preview": "Aperçu ({count})",
+        "import": "Importer",
+        "importing": "Import en cours...",
+        "summary": "{imported} ville(s) ajoutée(s), {updated} mise(s) à jour.",
+        "invalidFile": "Fichier invalide. JSON avec un tableau de villes attendu.",
+        "invalidEntry": "Entrée #{index} invalide : {reason}"
+      },
+      "deleteConfirm": "Supprimer la ville \"{name}\" ? Action irréversible.",
+      "toast": {
+        "created": "Ville ajoutée",
+        "updated": "Mise à jour",
+        "deleted": "Supprimée",
+        "error": "Une erreur est survenue"
+      },
+      "empty": "Aucune ville pour le moment",
+      "emptyDesc": "Ajoutez la première ville manuellement ou importez un JSON",
+      "count": "{count} ville(s)",
+      "secteursCount": "{count} secteur(s)",
+      "secteurs": {
+        "title": "Secteurs de {city}",
+        "addSecteur": "Ajouter un secteur",
+        "empty": "Aucun secteur pour cette ville",
+        "emptyDesc": "Ajoutez des secteurs comme : Ain Sebaâ, Maarif, Hay Hassani...",
+        "columns": {
+          "nameAr": "Nom arabe",
+          "nameFr": "Nom français",
+          "slug": "Slug",
+          "actions": "Actions"
+        },
+        "form": {
+          "nameAr": "Nom arabe",
+          "nameArPlaceholder": "Exemple : عين السبع",
+          "nameFr": "Nom français",
+          "nameFrPlaceholder": "Exemple : Aïn Sebaâ",
+          "slug": "Slug",
+          "slugPlaceholder": "ain-sebaa",
+          "slugHelp": "Généré depuis le nom français",
+          "save": "Enregistrer",
+          "saving": "Enregistrement...",
+          "cancel": "Annuler",
+          "edit": "Modifier le secteur",
+          "new": "Nouveau secteur"
+        },
+        "deleteConfirm": "Supprimer le secteur \"{name}\" ?",
+        "toast": {
+          "created": "Secteur ajouté",
+          "updated": "Mis à jour",
+          "deleted": "Supprimé",
+          "slugTaken": "Ce slug existe déjà pour cette ville",
+          "error": "Une erreur est survenue"
+        }
+      }
+    },
+    "brandsPage": {
+      "title": "Gestion des marques",
+      "subtitle": "Ajoutez des marques manuellement ou importez un fichier JSON",
+      "addManual": "Nouvelle marque",
+      "uploadJson": "Importer un JSON",
+      "search": "Rechercher une marque...",
+      "columns": {
+        "logo": "Logo",
+        "name": "Nom",
+        "slug": "Slug",
+        "order": "Ordre",
+        "active": "État",
+        "actions": "Actions"
+      },
+      "form": {
+        "name": "Nom de la marque",
+        "namePlaceholder": "Exemple : BMW",
+        "slug": "Slug dans l'URL",
+        "slugPlaceholder": "bmw",
+        "slugHelp": "Généré automatiquement depuis le nom si laissé vide",
+        "logoUrl": "URL du logo (optionnel)",
+        "logoUrlPlaceholder": "https://...",
+        "logoUrlHelp": "Lien direct vers l'image du logo (PNG/SVG/WebP)",
+        "orderIndex": "Ordre d'affichage",
+        "orderIndexHelp": "Les plus petits nombres apparaissent en premier",
+        "isActive": "Active",
+        "isActiveHelp": "Les marques inactives n'apparaissent pas dans les filtres",
+        "save": "Enregistrer",
+        "saving": "Enregistrement...",
+        "cancel": "Annuler",
+        "edit": "Modifier la marque"
+      },
+      "upload": {
+        "title": "Importer un fichier JSON",
+        "subtitle": "Téléchargez un JSON contenant un tableau de marques",
+        "dropOrClick": "Cliquez ou déposez un fichier .json ici",
+        "format": "Format attendu :",
+        "example": "[\n  {\n    \"name\": \"BMW\",\n    \"slug\": \"bmw\",\n    \"logo_url\": \"https://example.com/bmw.png\",\n    \"order_index\": 1,\n    \"is_active\": true\n  }\n]",
+        "preview": "Aperçu ({count})",
+        "import": "Importer",
+        "importing": "Import en cours...",
+        "summary": "{imported} marque(s) ajoutée(s), {updated} mise(s) à jour.",
+        "invalidFile": "Fichier invalide. JSON avec un tableau de marques attendu.",
+        "invalidEntry": "Entrée #{index} invalide : {reason}"
+      },
+      "toggle": {
+        "activate": "Activer",
+        "deactivate": "Désactiver",
+        "activated": "Activée",
+        "deactivated": "Désactivée"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "deleteConfirm": "Supprimer la marque \"{name}\" ? Action irréversible.",
+      "toast": {
+        "created": "Marque ajoutée",
+        "updated": "Mise à jour",
+        "deleted": "Supprimée",
+        "error": "Une erreur est survenue",
+        "inUse": "Marque utilisée par des modèles ou annonces — suppression impossible"
+      },
+      "empty": "Aucune marque pour le moment",
+      "emptyDesc": "Ajoutez la première marque manuellement ou importez un JSON",
+      "count": "{count} marque(s)"
+    },
+    "modelsPage": {
+      "title": "Gestion des modèles",
+      "subtitle": "Ajoutez des modèles manuellement ou importez un JSON lié aux marques",
+      "addManual": "Nouveau modèle",
+      "uploadJson": "Importer un JSON",
+      "search": "Rechercher un modèle...",
+      "filterAllBrands": "Toutes les marques",
+      "columns": {
+        "brand": "Marque",
+        "name": "Modèle",
+        "slug": "Slug",
+        "active": "État",
+        "actions": "Actions"
+      },
+      "form": {
+        "brand": "Marque",
+        "brandPlaceholder": "Sélectionnez une marque",
+        "noBrands": "Aucune marque — ajoutez d'abord une marque dans /admin/brands",
+        "name": "Nom du modèle",
+        "namePlaceholder": "Exemple : Série 3",
+        "slug": "Slug dans l'URL",
+        "slugPlaceholder": "serie-3",
+        "slugHelp": "Généré depuis le nom. Doit être unique au sein de la même marque.",
+        "isActive": "Actif",
+        "isActiveHelp": "Les modèles inactifs n'apparaissent pas dans les filtres",
+        "save": "Enregistrer",
+        "saving": "Enregistrement...",
+        "cancel": "Annuler",
+        "edit": "Modifier le modèle"
+      },
+      "upload": {
+        "title": "Importer un fichier JSON",
+        "subtitle": "Chaque entrée doit contenir brand_slug pour lier à une marque existante",
+        "dropOrClick": "Cliquez ou déposez un fichier .json ici",
+        "format": "Format attendu :",
+        "example": "[\n  {\n    \"brand_slug\": \"bmw\",\n    \"name\": \"Serie 3\",\n    \"slug\": \"serie-3\",\n    \"is_active\": true\n  },\n  {\n    \"brand_slug\": \"renault\",\n    \"name\": \"Clio\"\n  }\n]",
+        "preview": "Aperçu ({count})",
+        "import": "Importer",
+        "importing": "Import en cours...",
+        "summary": "{imported} ajouté(s), {updated} mis à jour. Marques inconnues : {skipped}.",
+        "invalidFile": "Fichier invalide. JSON avec un tableau de modèles attendu.",
+        "invalidEntry": "Entrée #{index} invalide : {reason}"
+      },
+      "toggle": {
+        "activate": "Activer",
+        "deactivate": "Désactiver",
+        "activated": "Activé",
+        "deactivated": "Désactivé"
+      },
+      "status": {
+        "active": "Actif",
+        "inactive": "Inactif"
+      },
+      "deleteConfirm": "Supprimer le modèle \"{name}\" ? Action irréversible.",
+      "toast": {
+        "created": "Modèle ajouté",
+        "updated": "Mise à jour",
+        "deleted": "Supprimé",
+        "error": "Une erreur est survenue",
+        "inUse": "Modèle utilisé par des annonces — suppression impossible",
+        "slugTaken": "Ce slug existe déjà pour cette marque",
+        "brandNotFound": "Marque introuvable"
+      },
+      "empty": "Aucun modèle pour le moment",
+      "emptyDesc": "Ajoutez le premier modèle manuellement ou importez un JSON",
+      "emptyNoBrands": "Ajoutez d'abord une marque avant de créer des modèles",
+      "count": "{count} modèle(s)"
+    },
+    "categoriesPage": {
+      "title": "Gestion des catégories",
+      "subtitle": "Ajoutez des catégories de véhicules (berline, SUV, etc.) manuellement ou via JSON",
+      "addManual": "Nouvelle catégorie",
+      "uploadJson": "Importer un JSON",
+      "search": "Rechercher une catégorie...",
+      "columns": {
+        "icon": "Image",
+        "nameAr": "Nom arabe",
+        "nameFr": "Nom français",
+        "slug": "Slug",
+        "order": "Ordre",
+        "actions": "Actions"
+      },
+      "form": {
+        "nameAr": "Nom arabe",
+        "nameArPlaceholder": "Exemple : سيدان",
+        "nameFr": "Nom français",
+        "nameFrPlaceholder": "Exemple : Berline",
+        "slug": "Slug dans l'URL",
+        "slugPlaceholder": "berline",
+        "slugHelp": "Généré depuis le nom français si laissé vide",
+        "icon": "Image (optionnel)",
+        "iconPlaceholder": "https://...",
+        "iconHelp": "Téléchargez une image via le bouton ci-dessus ou collez une URL directe (JPG, PNG, WebP)",
+        "orderIndex": "Ordre d'affichage",
+        "orderIndexHelp": "Les plus petits nombres apparaissent en premier",
+        "save": "Enregistrer",
+        "saving": "Enregistrement...",
+        "cancel": "Annuler",
+        "edit": "Modifier la catégorie"
+      },
+      "upload": {
+        "title": "Importer un fichier JSON",
+        "subtitle": "Téléchargez un JSON contenant un tableau de catégories",
+        "dropOrClick": "Cliquez ou déposez un fichier .json ici",
+        "format": "Format attendu :",
+        "example": "[\n  {\n    \"name_ar\": \"سيدان\",\n    \"name_fr\": \"Berline\",\n    \"slug\": \"berline\",\n    \"icon\": \"Car\",\n    \"order_index\": 1\n  }\n]",
+        "preview": "Aperçu ({count})",
+        "import": "Importer",
+        "importing": "Import en cours...",
+        "summary": "{imported} catégorie(s) ajoutée(s), {updated} mise(s) à jour.",
+        "invalidFile": "Fichier invalide. JSON avec un tableau de catégories attendu.",
+        "invalidEntry": "Entrée #{index} invalide : {reason}"
+      },
+      "deleteConfirm": "Supprimer la catégorie \"{name}\" ? Action irréversible.",
+      "toast": {
+        "created": "Catégorie ajoutée",
+        "updated": "Mise à jour",
+        "deleted": "Supprimée",
+        "error": "Une erreur est survenue",
+        "slugTaken": "Ce slug existe déjà",
+        "inUse": "Catégorie utilisée par des annonces — suppression impossible"
+      },
+      "empty": "Aucune catégorie pour le moment",
+      "emptyDesc": "Ajoutez la première catégorie manuellement ou importez un JSON",
+      "count": "{count} catégorie(s)"
+    },
+    "adsPage": {
+      "title": "Publicités",
+      "subtitle": "Gérez les annonces publicitaires diffusées sur le site",
+      "addAd": "Nouvelle publicité",
+      "search": "Rechercher une publicité...",
+      "filterAll": "Toutes",
+      "filterActive": "Actives",
+      "filterInactive": "Inactives",
+      "columns": {
+        "image": "Image",
+        "title": "Titre",
+        "placement": "Emplacement",
+        "dates": "Période",
+        "status": "Statut",
+        "stats": "Stats",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Actif",
+        "inactive": "Inactif",
+        "scheduled": "Planifié",
+        "expired": "Expiré"
+      },
+      "stats": {
+        "clicks": "{count} clic(s)",
+        "impressions": "{count} vue(s)",
+        "ctr": "CTR {rate}%"
+      },
+      "overview": {
+        "totalImpressions": "Impressions totales",
+        "totalClicks": "Clics totaux",
+        "ctr": "Taux de clic (CTR)",
+        "activeAds": "Publicités actives",
+        "byPlacement": "Performance par emplacement",
+        "placement": "Emplacement",
+        "ads": "Pubs",
+        "impressions": "Impressions",
+        "clicks": "Clics"
+      },
+      "form": {
+        "title": "Titre",
+        "titlePlaceholder": "Exemple : Pub BMW Série 3",
+        "placement": "Emplacement",
+        "placementPlaceholder": "Choisissez un emplacement",
+        "image": "Image",
+        "imageHelp": "JPG, PNG, GIF — max 5 MB",
+        "imageUpload": "Télécharger",
+        "imageUploading": "Upload en cours...",
+        "imagePreview": "Aperçu",
+        "linkUrl": "URL de destination (optionnel)",
+        "linkUrlPlaceholder": "https://...",
+        "startsAt": "Date de début (optionnel)",
+        "endsAt": "Date de fin (optionnel)",
+        "isActive": "Actif immédiatement",
+        "save": "Enregistrer",
+        "saving": "Enregistrement...",
+        "cancel": "Annuler",
+        "edit": "Modifier la publicité",
+        "new": "Nouvelle publicité"
+      },
+      "deleteConfirm": "Supprimer la publicité \"{title}\" ? Action irréversible.",
+      "toast": {
+        "created": "Publicité ajoutée",
+        "updated": "Mise à jour",
+        "deleted": "Supprimée",
+        "toggled": "Statut modifié",
+        "error": "Une erreur est survenue",
+        "uploadFailed": "Échec de l'upload"
+      },
+      "empty": "Aucune publicité pour le moment",
+      "emptyDesc": "Ajoutez la première publicité pour commencer à monétiser",
+      "count": "{count} publicité(s)"
+    },
+    "placementsPage": {
+      "title": "Emplacements publicitaires",
+      "subtitle": "Configurez les dimensions et la description de chaque emplacement",
+      "columns": {
+        "slug": "Identifiant",
+        "name": "Emplacement",
+        "size": "Taille (px)",
+        "description": "Description",
+        "adsCount": "Pubs",
+        "actions": "Actions"
+      },
+      "form": {
+        "name": "Nom",
+        "namePlaceholder": "Exemple : Home — Top",
+        "slug": "Identifiant",
+        "width": "Largeur (px)",
+        "height": "Hauteur (px)",
+        "description": "Description (optionnel)",
+        "descriptionPlaceholder": "Bannière en haut de la page d'accueil",
+        "save": "Enregistrer",
+        "saving": "Enregistrement...",
+        "cancel": "Annuler",
+        "edit": "Modifier l'emplacement"
+      },
+      "toast": {
+        "updated": "Dimensions mises à jour",
+        "shown": "Emplacement affiché sur le site",
+        "hidden": "Emplacement masqué du site",
+        "error": "Une erreur est survenue"
+      },
+      "hide": "Masquer du site",
+      "show": "Afficher sur le site",
+      "hiddenBadge": "Masqué",
+      "sizePreview": "{width} × {height} px",
+      "noAds": "—",
+      "count": "{count} emplacement(s)"
+    },
+    "comingSoon": {
+      "title": "Bientôt disponible",
+      "desc": "Cette section du panneau admin est en cours de développement.",
+      "back": "Retour"
+    },
+    "seoPage": {
+      "title": "Paramètres SEO",
+      "subtitle": "Vérifiez la propriété du site auprès des moteurs et surveillez les outils d'indexation.",
+      "verifyTitle": "Vérification de propriété",
+      "verifyHelp": "Collez les codes de vérification : ils sont injectés automatiquement dans l'en-tête du site. Aucun fichier à téléverser.",
+      "googleLabel": "Code Google Search Console",
+      "googleHelp": "Dans Search Console, choisissez la méthode « Balise HTML » et copiez uniquement la valeur du content.",
+      "bingLabel": "Code Bing Webmaster",
+      "bingHelp": "Dans Bing Webmaster Tools, copiez la valeur msvalidate.01.",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "saved": "Paramètres enregistrés",
+      "saveError": "Échec de l'enregistrement",
+      "consolesTitle": "Outils pour webmasters",
+      "consolesHelp": "Ouvrez les consoles pour soumettre le sitemap et suivre l'indexation.",
+      "indexNowTitle": "IndexNow (indexation instantanée)",
+      "indexNowDesc": "À chaque publication ou mise à jour d'une annonce ou d'un article, les moteurs sont notifiés immédiatement.",
+      "indexNowOn": "Activé",
+      "indexNowOff": "Inactif — ajoutez INDEXNOW_KEY dans les variables d'environnement",
+      "sitemapTitle": "Plan du site",
+      "sitemapDesc": "Généré automatiquement, il couvre toutes les pages actives en arabe et en français.",
+      "robotsTitle": "robots.txt",
+      "robotsDesc": "Règles d'exploration et lien vers le sitemap.",
+      "rssTitle": "Flux RSS",
+      "rssDesc": "Derniers articles du blog au format RSS."
+    }
+  },
+  "admin": {
+    "settings": {
+      "pageTitle": "Paramètres du site",
+      "pageSubtitle": "Personnalisez les textes et valeurs générales d'autobladi.ma",
+      "logo": "Logo du site",
+      "logoHelp": "Affiché dans l'en-tête du site. Vous pouvez définir un logo différent pour chaque langue. PNG transparent recommandé, max 2 Mo.",
+      "logoAr": "Logo (version arabe)",
+      "logoFr": "Logo (version française)",
+      "favicon": "Favicon",
+      "faviconHelp": "Petite icône affichée dans l'onglet du navigateur. PNG carré recommandé (512×512), max 2 Mo.",
+      "noLogo": "Aucun logo",
+      "uploadLogo": "Télécharger un logo",
+      "removeLogo": "Supprimer le logo",
+      "uploading": "Envoi...",
+      "logoUploaded": "Logo téléchargé ✓",
+      "bank": "Coordonnées bancaires",
+      "bankName": "Nom de la banque",
+      "bankNamePlaceholder": "Ex. : Attijariwafa Bank",
+      "beneficiary": "Bénéficiaire",
+      "beneficiaryPlaceholder": "Ex. : autobladi.ma SARL",
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "successTitle": "Enregistré",
+      "successDesc": "Les paramètres ont été mis à jour",
+      "errorTitle": "Échec de l'enregistrement",
+      "errorAuth": "Permissions administrateur requises",
+      "watermark": "Filigrane",
+      "watermarkText": "Texte du filigrane",
+      "watermarkHelp": "Texte affiché en répétition sur les photos d'annonces (ex. autobladi.ma)",
+      "duration": "Durée de vie de l'annonce",
+      "durationDays": "Nombre de jours",
+      "durationHelp": "L'annonce reste publiée pendant cette durée avant expiration automatique. Définissez une durée distincte selon le type de compte.",
+      "durationGratuit": "Comptes gratuits (jours)",
+      "durationGratuitHelp": "Durée des annonces des particuliers",
+      "durationPro": "Comptes professionnels (jours)",
+      "durationProHelp": "Durée des annonces des comptes pro",
+      "graceDays": "Délai après expiration de l'abonnement (jours)",
+      "graceDaysHelp": "Nombre de jours pendant lesquels le pro reste actif après l'expiration de son abonnement avant la suspension du service. Un rappel par e-mail lui est envoyé chaque jour durant ce délai. Mettez 0 pour suspendre immédiatement.",
+      "annonceLimit": "Limite d'annonces",
+      "freeMaxAnnonces": "Annonces max — comptes gratuits",
+      "freeMaxAnnoncesHelp": "Nombre maximum d'annonces actives pour un compte gratuit. Pour les comptes pro, la limite est définie par leur formule d'abonnement.",
+      "aiProvider": "Intelligence artificielle",
+      "aiProviderLabel": "Modèle utilisé pour l'estimation et les descriptions",
+      "aiProviderHelp": "Choisissez le fournisseur actif pour l'estimation des prix et la génération de descriptions. Saisissez sa clé API ci-dessous.",
+      "aiGemini": "Google Gemini",
+      "aiOpenai": "ChatGPT (OpenAI)",
+      "aiQwen": "Qwen (Alibaba)",
+      "aiGeminiKey": "Clé API Gemini",
+      "aiOpenaiKey": "Clé API OpenAI",
+      "aiKeyHelp": "Stockée de façon sécurisée et jamais exposée publiquement. Laissez vide pour conserver la clé enregistrée.",
+      "aiKeySaved": "Clé enregistrée — laissez vide pour la conserver",
+      "aiModel": "Modèle OpenAI",
+      "aiModelHelp": "Optionnel. Par défaut gpt-4o-mini.",
+      "aiQwenKey": "Clé API Qwen",
+      "aiQwenKeyHelp": "Clé DashScope depuis qwen.ai. Stockée de façon sécurisée. Laissez vide pour conserver la clé enregistrée.",
+      "aiQwenModel": "Modèle Qwen",
+      "aiQwenModelHelp": "Optionnel. Par défaut qwen-plus (ou qwen-turbo / qwen-max).",
+      "contact": "Coordonnées",
+      "contactEmail": "E-mail",
+      "contactPhone": "Téléphone",
+      "rib": "RIB bancaire",
+      "ribHelp": "Affiché aux utilisateurs après leur demande d'abonnement"
+    }
+  },
+  "ajouter": {
+    "pageTitle": "Publier une annonce",
+    "pageSubtitle": "Quatre étapes simples pour mettre en ligne votre voiture",
+    "steps": {
+      "vehicle": "Véhicule",
+      "description": "Description & prix",
+      "photos": "Photos",
+      "review": "Vérifier & publier"
+    },
+    "previous": "Précédent",
+    "next": "Suivant",
+    "publish": "Publier l'annonce",
+    "publishing": "Publication...",
+    "update": "Mettre à jour",
+    "updating": "Mise à jour...",
+    "step1": {
+      "title": "Parlez-nous de votre voiture",
+      "subtitle": "Ces informations aident les acheteurs à trouver votre annonce",
+      "condition": "État",
+      "conditionUsed": "Occasion",
+      "conditionNew": "Neuve",
+      "brand": "Marque",
+      "model": "Modèle",
+      "city": "Ville",
+      "secteur": "Quartier / Secteur",
+      "secteurPlaceholder": "Tous les quartiers",
+      "year": "Année",
+      "mileage": "Kilométrage",
+      "mileagePlaceholder": "en kilomètres",
+      "fuelType": "Carburant",
+      "transmission": "Boîte de vitesses",
+      "transmissionManual": "Manuelle",
+      "transmissionAuto": "Automatique",
+      "doors": "Nombre de portes",
+      "seats": "Nombre de places",
+      "color": "Couleur",
+      "colorPlaceholder": "Blanc, noir, gris...",
+      "enginePower": "Puissance (CV)",
+      "engineSize": "Cylindrée",
+      "engineSizePlaceholder": "1.6L, 2.0L...",
+      "origine": "Origine du véhicule",
+      "firstOwner": "Première main",
+      "accidentFree": "Sans accident",
+      "optionsTitle": "Équipements"
+    },
+    "step2": {
+      "title": "Description et prix",
+      "subtitle": "Rédigez une description attractive et fixez un prix juste",
+      "carTitle": "Titre de l'annonce",
+      "titleHint": "Généré automatiquement, modifiable",
+      "description": "Description",
+      "descriptionPlaceholder": "Description détaillée : état général, équipements, historique d'entretien...",
+      "aiGenerate": "Générer avec l'IA",
+      "aiGenerating": "Génération...",
+      "aiError": "Impossible de générer, réessayez",
+      "price": "Prix (DH)",
+      "negotiable": "Prix négociable",
+      "contactPhone": "Téléphone de contact",
+      "contactWhatsapp": "WhatsApp (facultatif)",
+      "proBadge": "Fonction Pro",
+      "videoUrl": "Lien vidéo (facultatif)",
+      "videoUrlHint": "Collez un lien vidéo YouTube, Facebook ou TikTok — il s'affichera sur la page de l'annonce."
+    },
+    "step3": {
+      "title": "Ajoutez les photos",
+      "subtitle": "Entre 3 et 15 photos. Le filigrane sera ajouté automatiquement.",
+      "dropTitle": "Glissez vos photos ici ou cliquez pour parcourir",
+      "dropHint": "JPG / PNG jusqu'à 10 Mo par photo",
+      "tip": "Astuce : utilisez la lumière naturelle et photographiez sous plusieurs angles (avant, arrière, intérieur, moteur).",
+      "setMain": "Définir comme principale",
+      "isMain": "Photo principale",
+      "remove": "Supprimer",
+      "uploading": "Téléchargement...",
+      "tooSmall": "Ajoutez au moins 3 photos",
+      "tooLarge": "Maximum 15 photos",
+      "fileTooLarge": "Le fichier dépasse 10 Mo",
+      "invalidType": "Format non pris en charge (JPG/PNG uniquement)"
+    },
+    "step4": {
+      "title": "Vérification avant publication",
+      "subtitle": "Vérifiez les informations avant l'envoi",
+      "vehicleInfo": "Informations du véhicule",
+      "descPrice": "Description et prix",
+      "imagesCount": "{count} photo(s)",
+      "previewTitle": "Aperçu",
+      "acceptTerms": "J'accepte les conditions et certifie que les informations sont exactes",
+      "successTitle": "Annonce reçue",
+      "successDesc": "Votre annonce est en cours de vérification. Elle sera publiée sous 24h.",
+      "errorGeneric": "Impossible de publier, réessayez",
+      "limitReached": "Vous avez atteint votre limite d'annonces. Passez Pro ou supprimez une annonce existante."
+    },
+    "validation": {
+      "selectOption": "Sélectionnez une option",
+      "minImages": "Ajoutez au moins 3 photos",
+      "termsRequired": "Vous devez accepter les conditions",
+      "tooShort": "Texte trop court",
+      "invalidPrice": "Saisissez un prix valide",
+      "invalidYear": "Année invalide",
+      "invalidUrl": "Saisissez un lien valide"
+    },
+    "options": {
+      "climatisation": "Climatisation",
+      "gps": "GPS",
+      "camera": "Caméra de recul",
+      "toit_ouvrant": "Toit ouvrant",
+      "cuir": "Sièges en cuir",
+      "abs": "ABS",
+      "esp": "ESP",
+      "airbags": "Airbags",
+      "jantes_alu": "Jantes alu",
+      "bluetooth": "Bluetooth",
+      "usb": "USB",
+      "cruise": "Régulateur de vitesse",
+      "park_sensors": "Capteurs de recul",
+      "auto_lights": "Feux auto",
+      "heated_seats": "Sièges chauffants"
+    }
+  },
+  "annonceDetail": {
+    "viewCount": "{count} vue(s)",
+    "publishedRelative": "Publié {when}",
+    "negotiable": "Négociable",
+    "viewAllPhotos": "Voir toutes les photos ({count})",
+    "imageCounter": "{current} / {total}",
+    "closeLightbox": "Fermer",
+    "previousImage": "Précédente",
+    "nextImage": "Suivante",
+    "tabs": {
+      "description": "Description",
+      "specs": "Caractéristiques",
+      "options": "Options",
+      "history": "Historique"
+    },
+    "specs": {
+      "title": "Caractéristiques techniques",
+      "power": "Puissance",
+      "displacement": "Cylindrée",
+      "bodyType": "Carrosserie",
+      "origine": "Origine",
+      "doors": "Portes",
+      "seats": "Places",
+      "color": "Couleur"
+    },
+    "details": {
+      "vehicleInfo": "Informations véhicule",
+      "equipments": "Équipements et options",
+      "brand": "Marque",
+      "model": "Modèle"
+    },
+    "video": {
+      "title": "Vidéo du véhicule"
+    },
+    "keySpecs": {
+      "year": "Année",
+      "mileage": "Kilométrage",
+      "fuel": "Carburant",
+      "transmission": "Boîte",
+      "doors": "Portes",
+      "color": "Couleur"
+    },
+    "history": {
+      "title": "Historique du véhicule",
+      "firstOwner": "Premier propriétaire",
+      "accidentFree": "Sans accident",
+      "condition": "État",
+      "conditionNew": "Neuve",
+      "conditionUsed": "Occasion",
+      "yes": "Oui",
+      "no": "Non"
+    },
+    "noDescription": "Aucune description pour cette annonce.",
+    "noOptions": "Le vendeur n'a précisé aucune option.",
+    "seller": {
+      "title": "Vendeur",
+      "memberSince": "Membre depuis {date}",
+      "otherAnnonces": "{count, plural, =0 {Aucune autre annonce} one {1 autre annonce} other {{count} autres annonces}}",
+      "pro": "Pro",
+      "verified": "Vérifié",
+      "viewProfile": "Voir le profil",
+      "viewShowroom": "Visiter la concession"
+    },
+    "contact": {
+      "call": "Appeler",
+      "whatsapp": "WhatsApp",
+      "message": "Envoyer un message",
+      "report": "Signaler",
+      "favorite": "Ajouter aux favoris",
+      "favoriteAdded": "Ajouté aux favoris",
+      "favoriteRemoved": "Retiré des favoris",
+      "favoriteError": "Échec de la mise à jour des favoris",
+      "compare": "Comparer",
+      "share": "Partager",
+      "loginRequired": "Connexion requise",
+      "revealPhone": "Afficher le numéro",
+      "callNow": "Appeler maintenant"
+    },
+    "message": {
+      "title": "Envoyer un message au vendeur",
+      "subtitle": "Démarrez une conversation. Le message sera enregistré dans votre boîte.",
+      "content": "Votre message",
+      "placeholder": "Bonjour, je suis intéressé(e) par votre voiture. Est-elle toujours disponible ?",
+      "send": "Envoyer",
+      "sending": "Envoi en cours...",
+      "successTitle": "Message envoyé",
+      "successDesc": "Suivez la conversation depuis votre boîte de messages.",
+      "errorAuth": "Vous devez être connecté(e) pour envoyer un message",
+      "errorGeneric": "Impossible d'envoyer le message, réessayez.",
+      "loginCta": "Se connecter"
+    },
+    "report": {
+      "title": "Signaler cette annonce",
+      "subtitle": "Aidez-nous à protéger la communauté en signalant le contenu suspect.",
+      "reason": "Motif",
+      "description": "Détails supplémentaires (facultatif)",
+      "reasons": {
+        "fake": "Annonce factice",
+        "scam": "Arnaque",
+        "wrong_category": "Mauvaise catégorie",
+        "sold": "Voiture vendue",
+        "inappropriate": "Contenu inapproprié",
+        "other": "Autre"
+      },
+      "submit": "Envoyer le signalement",
+      "submitting": "Envoi...",
+      "successTitle": "Signalement reçu",
+      "successDesc": "Merci. L'équipe examinera l'annonce rapidement.",
+      "errorGeneric": "Impossible d'envoyer le signalement."
+    },
+    "share": {
+      "title": "Partager l'annonce",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "copyLink": "Copier le lien",
+      "linkCopied": "Lien copié",
+      "shareText": "Découvrez cette voiture sur autobladi.ma"
+    },
+    "safety": {
+      "title": "Conseils avant l'achat",
+      "tip1": "Inspectez la voiture en personne avant tout paiement.",
+      "tip2": "Vérifiez l'authenticité des documents (carte grise, taxes...).",
+      "tip3": "Ne versez aucun acompte avant d'avoir vu le véhicule.",
+      "tip4": "Demandez une expertise technique indépendante si nécessaire."
+    },
+    "map": {
+      "title": "Localisation approximative",
+      "desc": "Seule la ville est affichée pour préserver la vie privée du vendeur.",
+      "noCity": "Le vendeur n'a pas précisé de ville."
+    },
+    "similar": {
+      "title": "Voitures similaires qui pourraient vous intéresser",
+      "empty": "Aucune voiture similaire trouvée."
+    },
+    "notFound": {
+      "title": "Annonce indisponible",
+      "desc": "Cette annonce a peut-être été supprimée ou n'est plus disponible.",
+      "back": "Parcourir les annonces"
+    }
+  },
+  "landing": {
+    "breadcrumbHome": "Accueil",
+    "breadcrumbCars": "Annonces",
+    "brandTitle": "Voitures {brand} à vendre au Maroc",
+    "cityTitle": "Voitures {brand} à vendre à {city}",
+    "brandIntro": "Parcourez les dernières annonces de voitures {brand} à vendre au Maroc — occasion et neuf, prix à jour, photos et détails complets. Comparez les offres et contactez directement les vendeurs sur autobladi.ma.",
+    "cityIntro": "Dernières annonces de voitures {brand} à vendre à {city} — occasion et neuf à prix actualisés. Contactez directement les vendeurs à {city} sur autobladi.ma.",
+    "count": "{count} résultat(s)",
+    "viewAll": "Voir tous les résultats",
+    "citiesHeading": "Voitures {brand} par ville",
+    "backToBrand": "Toutes les voitures {brand}",
+    "faqTitle": "Questions fréquentes",
+    "emptyTitle": "Aucune annonce pour le moment",
+    "emptyDesc": "Soyez le premier à publier une annonce, ou parcourez toutes les voitures.",
+    "faq": {
+      "q1": "Quel est le prix des voitures {brand} au Maroc ?",
+      "a1": "Le prix des voitures {brand} varie selon le modèle, l'année, le kilométrage et l'état. Consultez les annonces ci-dessus pour les prix actuels, ou utilisez l'outil d'estimation gratuit sur autobladi.ma.",
+      "q2": "Où trouver des voitures {brand} à vendre au Maroc ?",
+      "a2": "Sur autobladi.ma, vous trouvez des annonces de voitures {brand} de particuliers et de professionnels dans plusieurs villes marocaines, avec photos, détails et contact direct.",
+      "q3": "Puis-je vendre ma voiture {brand} sur autobladi ?",
+      "a3": "Oui, vous pouvez publier gratuitement une annonce pour vendre votre voiture {brand}, avec la possibilité d'estimer son prix par IA au préalable."
+    },
+    "metaTitleBrand": "Voitures {brand} à vendre au Maroc — Prix et annonces",
+    "metaDescBrand": "Parcourez les annonces de voitures {brand} à vendre au Maroc : occasion et neuf dans toutes les villes, prix à jour, photos et contact direct sur autobladi.ma.",
+    "metaTitleCity": "Voitures {brand} à vendre à {city} — Prix et annonces",
+    "metaDescCity": "Annonces de voitures {brand} à vendre à {city} : occasion et neuf à prix actualisés, photos et contact direct avec les vendeurs à {city} sur autobladi.ma.",
+    "cityHubTitle": "Voitures à vendre à {city}",
+    "cityHubIntro": "Parcourez les dernières annonces de voitures à vendre à {city} — occasion et neuf de toutes les marques, prix à jour, photos et contact direct avec les vendeurs à {city} sur autobladi.ma.",
+    "brandsInCityHeading": "Marques disponibles à {city}",
+    "metaTitleCityHub": "Voitures à vendre à {city} — Annonces occasion et neuf",
+    "metaDescCityHub": "Parcourez les annonces de voitures à vendre à {city} : occasion et neuf de toutes les marques, prix à jour, photos et contact direct sur autobladi.ma.",
+    "cityFaq": {
+      "q1": "Où trouver des voitures à vendre à {city} ?",
+      "a1": "Sur autobladi.ma, vous trouvez des annonces de voitures à vendre à {city} de particuliers et de professionnels, avec photos, prix et contact direct.",
+      "q2": "Quels sont les prix des voitures d'occasion à {city} ?",
+      "a2": "Les prix varient selon la marque, le modèle, l'année et l'état. Consultez les annonces ci-dessus pour les prix actuels à {city}, ou utilisez l'outil d'estimation gratuit.",
+      "q3": "Puis-je vendre ma voiture à {city} sur autobladi ?",
+      "a3": "Oui, vous pouvez publier gratuitement une annonce pour vendre votre voiture à {city}, avec la possibilité d'estimer son prix par IA au préalable."
+    }
+  },
+  "annonces": {
+    "metaTitle": "Voitures à vendre au Maroc — Annonces auto neuves et d'occasion",
+    "metaDescription": "Parcourez des milliers d'annonces de voitures à vendre au Maroc : occasion et neuf dans toutes les villes, prix à jour, photos et détails. Recherchez par marque, ville et prix sur autobladi.ma.",
+    "browseByBrand": "Parcourir par marque",
+    "browseByCity": "Parcourir par ville",
+    "pageTitle": "Voitures disponibles",
+    "pageSubtitle": "Parcourez des milliers de voitures au Maroc",
+    "resultsCount": "{count} voiture(s)",
+    "saveSearch": "Enregistrer la recherche",
+    "saveSearchToast": "Enregistrez cette recherche dans votre compte. Fonctionnalité bientôt disponible.",
+    "filters": "Filtres",
+    "openFilters": "Ouvrir les filtres",
+    "applyFilters": "Appliquer",
+    "clearFilters": "Effacer les filtres",
+    "searchPlaceholder": "Rechercher...",
+    "fields": {
+      "condition": "État",
+      "conditionUsed": "Occasion",
+      "conditionNew": "Neuf",
+      "brand": "Marque",
+      "model": "Modèle",
+      "city": "Ville",
+      "price": "Prix (DH)",
+      "year": "Année",
+      "mileage": "Kilométrage",
+      "fuel": "Carburant",
+      "transmission": "Boîte de vitesses",
+      "transmissionManual": "Manuelle",
+      "transmissionAuto": "Automatique",
+      "color": "Couleur",
+      "doors": "Nombre de portes",
+      "options": "Options",
+      "verifiedOnly": "Professionnels vérifiés uniquement",
+      "from": "De",
+      "to": "À"
+    },
+    "options": {
+      "climatisation": "Climatisation",
+      "gps": "GPS",
+      "camera": "Caméra de recul",
+      "toit_ouvrant": "Toit ouvrant",
+      "abs": "ABS",
+      "esp": "ESP",
+      "bluetooth": "Bluetooth",
+      "cuir": "Sièges en cuir"
+    },
+    "fuel": {
+      "essence": "Essence",
+      "diesel": "Diesel",
+      "hybrid": "Hybride",
+      "electric": "Électrique",
+      "lpg": "GPL"
+    },
+    "sort": {
+      "label": "Trier par",
+      "newest": "Plus récentes",
+      "priceAsc": "Prix croissant",
+      "priceDesc": "Prix décroissant",
+      "mileageAsc": "Kilométrage croissant"
+    },
+    "view": {
+      "grid": "Grille",
+      "list": "Liste"
+    },
+    "empty": {
+      "title": "Aucun résultat",
+      "desc": "Essayez de modifier ou d'effacer les filtres pour voir plus de voitures"
+    },
+    "page": "Page {page} sur {total}",
+    "previous": "Précédent",
+    "next": "Suivant"
+  },
+  "home": {
+    "hero": {
+      "title": "Trouvez la voiture de vos rêves",
+      "subtitle": "Recherchez, comparez et choisissez votre voiture dès maintenant !",
+      "tabAll": "Tous",
+      "noResults": "Aucun résultat",
+      "found": "Nous avons trouvé <strong>{count}</strong> annonces pour vous",
+      "liveCount": "{count} annonces en ligne",
+      "trust": "Vendeurs vérifiés · Achat en toute confiance",
+      "tabUsed": "Occasion",
+      "tabNew": "Neuve",
+      "brand": "Marque",
+      "anyBrand": "Toutes les marques",
+      "model": "Modèle",
+      "anyModel": "Tous les modèles",
+      "city": "Ville",
+      "anyCity": "Toutes les villes",
+      "minPrice": "Prix min.",
+      "maxPrice": "Prix max.",
+      "searchNow": "Rechercher",
+      "advancedSearch": "Recherche avancée",
+      "statsCars": "annonces",
+      "statsDealers": "professionnels",
+      "statsCities": "villes"
+    },
+    "featured": {
+      "title": "Voitures mises en avant",
+      "subtitle": "Les meilleures offres sélectionnées par des vendeurs de confiance",
+      "viewAll": "Voir tout",
+      "empty": "Aucune voiture mise en avant pour le moment"
+    },
+    "brands": {
+      "title": "Parcourir par marque",
+      "subtitle": "Sélectionnez votre marque préférée parmi les plus populaires au Maroc"
+    },
+    "latest": {
+      "title": "Dernières annonces",
+      "subtitle": "Les voitures ajoutées récemment sur le site",
+      "viewAll": "Toutes les annonces",
+      "empty": "Aucune annonce pour le moment"
+    },
+    "why": {
+      "title": "Pourquoi choisir autobladi.ma ?",
+      "subtitle": "Tout ce qu'il faut pour acheter ou vendre votre voiture en toute confiance, partout au Maroc.",
+      "verifiedDealersTitle": "Vendeurs vérifiés",
+      "verifiedDealersDesc": "Professionnels et comptes pro validés par notre équipe pour des transactions en toute sécurité.",
+      "realPhotosTitle": "Photos authentiques",
+      "realPhotosDesc": "Un filigrane protège chaque annonce et garantit des photos réelles, jamais volées.",
+      "directContactTitle": "Contact direct & sécurisé",
+      "directContactDesc": "Échangez avec le vendeur via notre messagerie intégrée, par téléphone ou WhatsApp.",
+      "estimationTitle": "Estimation par IA",
+      "estimationDesc": "Découvrez la juste valeur d'une voiture en quelques secondes, gratuitement.",
+      "compareTitle": "Comparateur intelligent",
+      "compareDesc": "Comparez jusqu'à 4 voitures côte à côte : prix, kilométrage et équipements.",
+      "searchTitle": "Recherche avancée",
+      "searchDesc": "Filtrez par marque, modèle, ville, budget et des dizaines de critères."
+    },
+    "topDealers": {
+      "title": "Top professionnels",
+      "subtitle": "Les professionnels les mieux notés sur le site",
+      "visit": "Visiter",
+      "carsCount": "{count} voitures",
+      "reviews": "{count} avis",
+      "empty": "Aucun professionnel pour le moment"
+    },
+    "estimationCta": {
+      "title": "Vous voulez vendre votre voiture ?",
+      "subtitle": "Obtenez une estimation gratuite et instantanée basée sur les données du marché marocain",
+      "cta": "Obtenir une estimation"
+    },
+    "blog": {
+      "title": "Derniers articles",
+      "subtitle": "Conseils, actualités et expériences du monde automobile",
+      "viewAll": "Tous les articles",
+      "empty": "Aucun article pour le moment"
+    },
+    "newsletter": {
+      "title": "Abonnez-vous à la newsletter",
+      "subtitle": "Recevez les nouvelles offres et annonces directement dans votre boîte mail",
+      "placeholder": "Votre adresse e-mail",
+      "subscribe": "S'abonner"
+    },
+    "adPlaceholder": "Emplacement publicitaire",
+    "badges": {
+      "featured": "Mis en avant",
+      "verified": "Vérifié",
+      "new": "Nouveau",
+      "conditionNew": "Neuve",
+      "conditionUsed": "Occasion"
+    }
+  },
+  "footer": {
+    "tagline": "Le premier marché automobile au Maroc. Achetez, vendez, comparez et estimez en un seul endroit.",
+    "explore": "Explorer",
+    "exploreItems": {
+      "all": "Toutes les annonces",
+      "popular": "Voitures populaires",
+      "featured": "Annonces mises en avant",
+      "dealers": "Professionnels",
+      "estimation": "Estimer un prix"
+    },
+    "company": "Société",
+    "companyItems": {
+      "about": "À propos",
+      "contact": "Contact",
+      "terms": "Conditions d'utilisation",
+      "privacy": "Politique de confidentialité",
+      "publicite": "Publicité"
+    },
+    "contact": "Contact",
+    "phone": "+212 5 22 00 00 00",
+    "email": "contact@autobladi.ma",
+    "address": "Casablanca, Maroc",
+    "newsletter": "Newsletter",
+    "newsletterDesc": "Recevez les dernières annonces et offres dans votre boîte mail",
+    "newsletterPlaceholder": "Votre adresse e-mail",
+    "subscribe": "S'abonner",
+    "rights": "Tous droits réservés",
+    "follow": "Suivez-nous"
+  },
+  "compare": {
+    "metaTitle": "Comparer des voitures — autobladi.ma",
+    "metaDescription": "Comparez plusieurs voitures côte à côte : prix, kilométrage, motorisation et plus.",
+    "pageTitle": "Comparer les voitures",
+    "pageSubtitle": "Comparez jusqu'à 4 véhicules côte à côte avant de décider.",
+    "addToCompare": "Comparer",
+    "inCompare": "Ajouté au comparateur",
+    "added": "Ajouté au comparateur",
+    "removed": "Retiré du comparateur",
+    "maxReached": "Vous pouvez comparer jusqu'à {max} voitures",
+    "count": "{count} véhicule(s) sélectionné(s)",
+    "clearAll": "Tout effacer",
+    "remove": "Retirer",
+    "vehicle": "Véhicule",
+    "browseCars": "Parcourir les annonces",
+    "yes": "Oui",
+    "no": "Non",
+    "empty": {
+      "title": "Aucune voiture à comparer",
+      "desc": "Ajoutez des voitures au comparateur depuis les annonces pour les comparer ici."
+    },
+    "rows": {
+      "price": "Prix",
+      "brand": "Marque",
+      "model": "Modèle",
+      "year": "Année",
+      "mileage": "Kilométrage",
+      "fuel": "Carburant",
+      "transmission": "Boîte",
+      "condition": "État",
+      "color": "Couleur",
+      "doors": "Portes",
+      "seats": "Places",
+      "power": "Puissance",
+      "displacement": "Cylindrée",
+      "origine": "Origine",
+      "city": "Ville",
+      "firstOwner": "Première main",
+      "accidentFree": "Sans accident"
+    }
+  },
+  "contactPage": {
+    "metaTitle": "Contact — autobladi.ma",
+    "metaDescription": "Une question, une suggestion ou un problème ? Contactez l'équipe autobladi.ma.",
+    "hero": {
+      "eyebrow": "Contact",
+      "title": "Contactez-nous",
+      "subtitle": "Une question, une remarque ou besoin d'aide ? Notre équipe vous répond dans les plus brefs délais."
+    },
+    "info": {
+      "title": "Coordonnées",
+      "emailLabel": "E-mail",
+      "phoneLabel": "Téléphone",
+      "hoursLabel": "Horaires",
+      "hoursValue": "Lun – Ven : 9h00 – 18h00",
+      "addressLabel": "Adresse",
+      "addressValue": "Casablanca, Maroc"
+    },
+    "form": {
+      "title": "Envoyez-nous un message",
+      "subtitle": "Remplissez le formulaire ci-dessous, nous vous répondrons par e-mail.",
+      "name": "Nom complet",
+      "namePlaceholder": "Votre nom",
+      "email": "E-mail",
+      "emailPlaceholder": "vous@exemple.com",
+      "phone": "Téléphone (facultatif)",
+      "phonePlaceholder": "06 12 34 56 78",
+      "subject": "Sujet (facultatif)",
+      "subjectPlaceholder": "Objet de votre message",
+      "message": "Message",
+      "messagePlaceholder": "Écrivez votre message...",
+      "submit": "Envoyer le message",
+      "submitting": "Envoi...",
+      "successTitle": "Message envoyé !",
+      "successDesc": "Merci de nous avoir contactés. Nous vous répondrons rapidement.",
+      "sendAnother": "Envoyer un autre message",
+      "errorTitle": "Erreur",
+      "errorDesc": "Une erreur est survenue. Veuillez réessayer.",
+      "rateLimited": "Trop de tentatives. Réessayez dans une minute."
+    },
+    "validation": {
+      "nameRequired": "Veuillez saisir votre nom",
+      "emailInvalid": "Adresse e-mail invalide",
+      "messageTooShort": "Le message doit contenir au moins 10 caractères"
+    }
+  },
+  "publicite": {
+    "metaTitle": "Annoncez sur autobladi.ma",
+    "metaDescription": "Touchez des milliers d'acheteurs qualifiés à la recherche d'une voiture au Maroc — solutions publicitaires flexibles sur autobladi.ma.",
+    "hero": {
+      "eyebrow": "Solutions publicitaires",
+      "title": "Annoncez devant une audience qui cherche vraiment une voiture",
+      "subtitle": "Des milliers de Marocains visitent autobladi.ma chaque jour pour trouver leur prochaine voiture. Placez votre marque sur leur route.",
+      "cta": "Contactez-nous"
+    },
+    "audience": {
+      "title": "Notre audience",
+      "subtitle": "Chiffres mensuels approximatifs, mis à jour régulièrement",
+      "visitsLabel": "Visites / mois",
+      "visitsValue": "+250K",
+      "annoncesLabel": "Annonces actives",
+      "annoncesValue": "+10K",
+      "dealersLabel": "Professionnels vérifiés",
+      "dealersValue": "+300",
+      "citiesLabel": "Villes couvertes",
+      "citiesValue": "+40"
+    },
+    "placements": {
+      "title": "Où peut apparaître votre publicité",
+      "subtitle": "Choisissez parmi 15 emplacements stratégiques sur l'accueil, les pages annonces, les professionnels et le blog",
+      "items": {
+        "home": "Page d'accueil",
+        "homeDesc": "Haut, milieu et bas de la page — visibilité maximale",
+        "listings": "Pages d'annonces",
+        "listingsDesc": "Dans les filtres, entre les annonces ou au-dessus des résultats",
+        "annonce": "Pages de détail",
+        "annonceDesc": "À côté des coordonnées du vendeur, en haut ou en bas",
+        "professionnel": "Pages professionnel",
+        "professionnelDesc": "Devant des utilisateurs prêts à acheter",
+        "blog": "Blog",
+        "blogDesc": "Contenu automobile, conseils et actualités du marché",
+        "footer": "Pied de page",
+        "footerDesc": "Présence permanente sur toutes les pages du site"
+      }
+    },
+    "why": {
+      "title": "Pourquoi annoncer chez nous",
+      "subtitle": "Trois atouts qui font d'autobladi.ma le canal idéal pour toucher les acheteurs automobiles marocains",
+      "audienceTitle": "Audience ciblée",
+      "audienceDesc": "Chaque visiteur cherche réellement à acheter ou vendre — pas d'impressions perdues",
+      "localTitle": "Couverture nationale",
+      "localDesc": "Visiteurs depuis toutes les grandes villes : Casablanca, Rabat, Marrakech, Tanger...",
+      "transparentTitle": "Résultats transparents",
+      "transparentDesc": "Rapports mensuels sur les impressions et les clics, sans surprises"
+    },
+    "form": {
+      "title": "Envoyez-nous les détails de votre campagne",
+      "subtitle": "Nous répondons généralement sous 24 heures ouvrées",
+      "name": "Nom complet",
+      "namePlaceholder": "Mohamed El Alaoui",
+      "email": "E-mail",
+      "emailPlaceholder": "vous@entreprise.com",
+      "phone": "Téléphone",
+      "phonePlaceholder": "+212 6 00 00 00 00",
+      "company": "Entreprise (optionnel)",
+      "companyPlaceholder": "Nom de votre entreprise",
+      "message": "Votre message",
+      "messagePlaceholder": "Parlez-nous de votre produit, audience visée, budget approximatif...",
+      "submit": "Envoyer la demande",
+      "submitting": "Envoi en cours...",
+      "successTitle": "Demande reçue",
+      "successDesc": "Nous reviendrons vers vous très vite pour discuter des détails",
+      "errorTitle": "Envoi impossible",
+      "errorDesc": "Réessayez ou contactez-nous directement par e-mail"
+    },
+    "contact": {
+      "title": "Ou contactez-nous directement",
+      "email": "contact@autobladi.ma",
+      "phone": "+212 5 22 00 00 00"
+    },
+    "validation": {
+      "nameRequired": "Le nom est requis",
+      "emailInvalid": "E-mail invalide",
+      "messageRequired": "Veuillez écrire votre message",
+      "messageTooShort": "Message trop court (10 caractères minimum)"
+    }
+  },
+  "ads": {
+    "placeholder": "Emplacement publicitaire",
+    "label": "Publicité"
+  },
+  "blog": {
+    "metaTitle": "Blog autobladi — Actualités et conseils automobiles au Maroc",
+    "metaDescription": "Dernières actualités automobiles, conseils d'achat et d'entretien, et essais de voitures sur le marché marocain.",
+    "hero": {
+      "eyebrow": "Le blog",
+      "title": "Actualités et conseils automobiles au Maroc",
+      "subtitle": "Découvrez les derniers articles et conseils des experts du marché marocain"
+    },
+    "filters": {
+      "all": "Tous",
+      "searchPlaceholder": "Rechercher dans le blog...",
+      "search": "Rechercher"
+    },
+    "card": {
+      "readMore": "Lire la suite",
+      "readingTime": "{minutes} min de lecture",
+      "by": "Par {name}"
+    },
+    "featured": {
+      "label": "Article à la une"
+    },
+    "list": {
+      "title": "Derniers articles",
+      "count": "{count} article(s)",
+      "empty": "Aucun article pour le moment",
+      "emptyDesc": "Nos articles arrivent bientôt — revenez plus tard !",
+      "categoryEmpty": "Aucun article dans cette catégorie pour le moment"
+    },
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "page": "Page {page} sur {total}"
+    },
+    "detail": {
+      "publishedOn": "Publié le {date}",
+      "viewsCount": "{count} vue(s)",
+      "readingTime": "{minutes} min de lecture",
+      "by": "Par",
+      "tags": "Tags",
+      "noContent": "Cet article n'a pas encore de contenu.",
+      "notFound": {
+        "title": "Article introuvable",
+        "desc": "Il a peut-être été supprimé ou n'est pas encore publié.",
+        "back": "Retour au blog"
+      }
+    },
+    "share": {
+      "title": "Partager l'article",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "twitter": "Twitter",
+      "copyLink": "Copier le lien",
+      "linkCopied": "Lien copié ✓"
+    },
+    "author": {
+      "title": "À propos de l'auteur",
+      "defaultBio": "Auteur sur le blog autobladi.ma"
+    },
+    "related": {
+      "title": "Articles similaires",
+      "empty": "Aucun article similaire"
+    },
+    "sidebar": {
+      "categories": "Catégories",
+      "categoriesCount": "{count}",
+      "latest": "Derniers articles",
+      "newsletter": {
+        "title": "Newsletter",
+        "desc": "Les derniers articles dans votre boîte mail",
+        "placeholder": "Votre adresse e-mail",
+        "subscribe": "S'abonner"
+      }
+    },
+    "comments": {
+      "title": "Commentaires",
+      "count": "{count, plural, =0 {Aucun commentaire} one {1 commentaire} other {{count} commentaires}}",
+      "loginRequired": "Connectez-vous pour commenter",
+      "loginCta": "Se connecter",
+      "form": {
+        "placeholder": "Écrivez votre commentaire...",
+        "submit": "Publier le commentaire",
+        "submitting": "Publication...",
+        "replyTo": "En réponse à {name}",
+        "cancelReply": "Annuler la réponse",
+        "successTitle": "Commentaire reçu",
+        "successDesc": "Il apparaîtra après modération.",
+        "errorTitle": "Publication impossible",
+        "tooShort": "Commentaire trop court",
+        "tooLong": "Commentaire trop long"
+      },
+      "actions": {
+        "reply": "Répondre",
+        "like": "J'aime"
+      },
+      "empty": "Soyez le premier à commenter cet article",
+      "sort": {
+        "newest": "Plus récents",
+        "oldest": "Plus anciens"
+      },
+      "pending": "Votre commentaire est en attente de modération"
+    },
+    "category": {
+      "metaTitle": "{name} — Blog autobladi",
+      "title": "Articles dans {name}",
+      "back": "Tous les articles"
+    },
+    "rss": {
+      "title": "Suivez les articles via RSS"
+    }
+  },
+  "messagesPage": {
+    "title": "Messages",
+    "search": "Rechercher une conversation...",
+    "you": "Vous",
+    "annonceRef": "Au sujet de cette annonce",
+    "newMessage": "{name} : {content}",
+    "list": {
+      "empty": "Aucune conversation",
+      "emptyDesc": "Vos échanges avec les vendeurs et acheteurs apparaîtront ici.",
+      "browse": "Parcourir les annonces"
+    },
+    "chat": {
+      "back": "Retour",
+      "selectConversation": "Sélectionnez une conversation",
+      "selectDesc": "Choisissez une conversation pour afficher les messages."
+    },
+    "input": {
+      "placeholder": "Écrivez votre message...",
+      "send": "Envoyer",
+      "hint": "Entrée pour envoyer · Maj+Entrée pour un saut de ligne"
+    },
+    "errors": {
+      "send": "Impossible d'envoyer le message"
+    }
+  }
+}
