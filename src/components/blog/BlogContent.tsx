@@ -1,42 +1,20 @@
 import { Suspense } from "react"
-import Image from "next/image"
-import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm"
-import rehypeHighlight from "rehype-highlight"
+import { marked } from "marked"
 
 import { AdBanner } from "@/components/ads/AdBanner"
 import { cn } from "@/lib/utils"
 
+marked.use({ gfm: true, breaks: false })
+
 type Props = {
   content: string | null
-  /**
-   * Inject a `blog_post_inline` AdBanner after roughly this many words.
-   * Defaults to 800 (≈ 4 minutes of reading). Pass null/0 to disable.
-   */
   injectAdAfterWords?: number | null
   className?: string
 }
 
-/**
- * Renders blog markdown with:
- * - GFM tables/strikethrough/checkboxes via remark-gfm
- * - Code syntax highlighting via rehype-highlight (highlight.js classes)
- * - Tailwind prose styling tuned for the Moroccan palette
- * - A single inline ad slot inserted at a clean paragraph boundary near
- *   the configured word offset (skipped if the article is shorter).
- */
-export function BlogContent({
-  content,
-  injectAdAfterWords = 800,
-  className,
-}: Props) {
-  if (!content?.trim()) {
-    return null
-  }
+export function BlogContent({ content, injectAdAfterWords = 800, className }: Props) {
+  if (!content?.trim()) return null
 
-  // Split on blank lines so we render in two halves around the ad. The
-  // boundary is the first paragraph break past the word threshold. Falls
-  // back to the whole article if it's too short or injection is disabled.
   const wordTarget = injectAdAfterWords ?? 0
   let firstHalf = content
   let secondHalf = ""
@@ -58,10 +36,12 @@ export function BlogContent({
     }
   }
 
+  const firstHtml = marked.parse(firstHalf) as string
+  const secondHtml = secondHalf ? (marked.parse(secondHalf) as string) : ""
+
   return (
     <div
       className={cn(
-        // Base prose styling — explicit Moroccan colors instead of @tailwindcss/typography
         "max-w-[720px] mx-auto text-foreground/90",
         "[&_h1]:font-display [&_h1]:text-3xl [&_h1]:md:text-4xl [&_h1]:font-bold [&_h1]:text-foreground [&_h1]:mt-10 [&_h1]:mb-4",
         "[&_h2]:font-display [&_h2]:text-2xl [&_h2]:md:text-3xl [&_h2]:font-bold [&_h2]:text-foreground [&_h2]:mt-10 [&_h2]:mb-4",
@@ -79,67 +59,21 @@ export function BlogContent({
         "[&_table]:w-full [&_table]:my-6 [&_table]:border [&_table]:border-border [&_table]:rounded-xl [&_table]:overflow-hidden",
         "[&_th]:bg-moroccan-sand-50 [&_th]:text-start [&_th]:px-4 [&_th]:py-2 [&_th]:font-semibold",
         "[&_td]:px-4 [&_td]:py-2 [&_td]:border-t [&_td]:border-border",
+        "[&_img]:w-full [&_img]:h-auto [&_img]:rounded-xl [&_img]:my-6",
         className,
       )}
     >
-      <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeHighlight]}
-        components={{
-          img: ({ src, alt }) =>
-            typeof src === "string" ? (
-              <span className="block my-6 rounded-xl overflow-hidden shadow-card">
-                <Image
-                  src={src}
-                  alt={alt ?? ""}
-                  width={720}
-                  height={420}
-                  className="w-full h-auto object-cover"
-                />
-              </span>
-            ) : null,
-        }}
-      >
-        {firstHalf}
-      </ReactMarkdown>
+      <div dangerouslySetInnerHTML={{ __html: firstHtml }} />
 
-      {secondHalf && (
+      {secondHtml && (
         <div className="my-10 not-prose">
-          <Suspense
-            fallback={
-              <div className="h-[90px] md:h-[120px] rounded-2xl bg-muted animate-pulse" />
-            }
-          >
-            <AdBanner
-              placement="blog_post_inline"
-              heightClass="h-[90px] md:h-[120px]"
-            />
+          <Suspense fallback={<div className="h-[90px] md:h-[120px] rounded-2xl bg-muted animate-pulse" />}>
+            <AdBanner placement="blog_post_inline" heightClass="h-[90px] md:h-[120px]" />
           </Suspense>
         </div>
       )}
 
-      {secondHalf && (
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight]}
-          components={{
-            img: ({ src, alt }) =>
-              typeof src === "string" ? (
-                <span className="block my-6 rounded-xl overflow-hidden shadow-card">
-                  <Image
-                    src={src}
-                    alt={alt ?? ""}
-                    width={720}
-                    height={420}
-                    className="w-full h-auto object-cover"
-                  />
-                </span>
-              ) : null,
-          }}
-        >
-          {secondHalf}
-        </ReactMarkdown>
-      )}
+      {secondHtml && <div dangerouslySetInnerHTML={{ __html: secondHtml }} />}
     </div>
   )
 }

@@ -1,22 +1,21 @@
 "use client"
 
-import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm"
+import { useMemo } from "react"
+import { marked } from "marked"
 
 import { cn } from "@/lib/utils"
+
+marked.use({ gfm: true, breaks: false })
 
 type Props = {
   content: string
   className?: string
 }
 
-/**
- * Lightweight client-side markdown preview for the blog editor.
- * Mirrors the public BlogContent prose styling but without next/image,
- * ads, or syntax highlighting (kept small for the editor bundle).
- */
 export function MarkdownPreview({ content, className }: Props) {
-  if (!content.trim()) {
+  const html = useMemo(() => (content.trim() ? (marked.parse(content) as string) : ""), [content])
+
+  if (!html) {
     return (
       <p className="text-sm text-muted-foreground italic">
         — Aperçu vide —
@@ -46,8 +45,7 @@ export function MarkdownPreview({ content, className }: Props) {
         "[&_td]:px-3 [&_td]:py-1.5 [&_td]:border-t [&_td]:border-border",
         className,
       )}
-    >
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
-    </div>
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   )
 }
