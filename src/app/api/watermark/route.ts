@@ -1,56 +1,173 @@
 import { randomUUID } from "node:crypto"
 import { NextResponse, type NextRequest } from "next/server"
+import sharp from "sharp"
 
 import { createClient } from "@/lib/supabase/server"
 import { uploadToAnnoncesBucket } from "@/lib/storage/server"
 
-// sharp (native module) is not available in Cloudflare Workers.
-// Images are uploaded as-is without server-side resize or watermark.
-// Watermark can be handled client-side before upload if needed.
 export const runtime = "nodejs"
 export const maxDuration = 30
 
 const MAX_BYTES = 10 * 1024 * 1024
 const ALLOWED_TYPES = new Set(["image/jpeg", "image/jpg", "image/png", "image/webp"])
 
-function extFromType(type: string): string {
-  if (type === "image/webp") return "webp"
-  if (type === "image/png") return "png"
-  return "jpg"
+const MAIN = { width: 1200, height: 900 }
+const THUMB = { width: 400, height: 300 }
+
+/** Accepts either a plain JSON string ("autobladi.ma") or {text: "..."}. */
+function extractWatermarkText(raw: unknown): string {
+  if (typeof raw === "string" && raw.length > 0) return raw
+  if (raw && typeof raw === "object" && "text" in raw) {
+    const t = (raw as { text: unknown }).text
+    if (typeof t === "string" && t.length > 0) return t
+  }
+  return "autobladi.ma"
+}
+
+async function getWatermarkText(): Promise<string> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from("site_settings")
+    .select("value")
+    .eq("key", "watermark_text")
+    .maybeSingle<{ value: unknown }>()
+  return extractWatermarkText(data?.value)
+}
+
+function escapeForSvg(text: string): string {
+  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;")
+}
+
+/**
+ * Diagonal tiled watermark — repeats brand text across the whole image
+ * at ~25 % opacity, rotated -30°. Per spec: simple, no stroke.
+ */
+function buildPatternSvg({
+  text,
+  width,
+  height,
+  tileW,
+  tileH,
+  fontSize,
+  textX,
+  textY,
+}: {
+  text: string
+  width: number
+  height: number
+  tileW: number
+  tileH: number
+  fontSize: number
+  textX: number
+  textY: number
+}): Buffer {
+  const safe = escapeForSvg(text)
+  return Buffer.from(`<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="wm" patternUnits="userSpaceOnUse" width="${tileW}" height="${tileH}" patternTransform="rotate(-30)">
+        <text
+          x="${textX}"
+          y="${textY}"
+          font-family="system-ui, Arial, sans-serif"
+          font-size="${fontSize}"
+          font-weight="bold"
+          fill="white"
+          fill-opacity="0.25"
+        >${safe}</text>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#wm)"/>
+  </svg>`)
+}
+
+async function processImage(buffer: ArrayBuffer, watermark: string) {
+  const input = Buffer.from(buffer)
+
+  const mainOverlay = buildPatternSvg({
+    text: watermark,
+    width: MAIN.width,
+    height: MAIN.height,
+    tileW: 400,
+    tileH: 300,
+    fontSize: 32,
+    textX: 50,
+    textY: 150,
+  })
+
+  const main = await sharp(input)
+    .rotate()
+    .resize(MAIN.width, MAIN.height, { fit: "cover", position: "center" })
+    .composite([{ input: mainOverlay, blend: "over" }])
+    .webp({ quality: 85 })
+    .toBuffer()
+
+  const thumbOverlay = buildPatternSvg({
+    text: watermark,
+    width: THUMB.width,
+    height: THUMB.height,
+    tileW: 200,
+    tileH: 150,
+    fontSize: 16,
+    textX: 20,
+    textY: 80,
+  })
+
+  const thumb = await sharp(input)
+    .rotate()
+    .resize(THUMB.width, THUMB.height, { fit: "cover", position: "center" })
+    .composite([{ input: thumbOverlay, blend: "over" }])
+    .webp({ quality: 80 })
+    .toBuffer()
+
+  return { main, thumb }
 }
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
 
   const form = await req.formData()
   const file = form.get("file")
-  if (!(file instanceof File)) return NextResponse.json({ error: "No file" }, { status: 400 })
-  if (file.size > MAX_BYTES) return NextResponse.json({ error: "File too large (max 10MB)" }, { status: 413 })
-  if (!ALLOWED_TYPES.has(file.type)) return NextResponse.json({ error: "Unsupported type" }, { status: 415 })
+  if (!(file instanceof File)) {
+    return NextResponse.json({ error: "No file" }, { status: 400 })
+  }
+  if (file.size > MAX_BYTES) {
+    return NextResponse.json({ error: "File too large (max 10MB)" }, { status: 413 })
+  }
+  if (!ALLOWED_TYPES.has(file.type)) {
+    return NextResponse.json({ error: "Unsupported type" }, { status: 415 })
+  }
 
-  let buffer: Buffer
+  let processed
   try {
-    buffer = Buffer.from(await file.arrayBuffer())
+    const buffer = await file.arrayBuffer()
+    const watermark = await getWatermarkText()
+    processed = await processImage(buffer, watermark)
   } catch (err) {
-    console.error("watermark: read failed", err)
-    return NextResponse.json({ error: "Read failed" }, { status: 500 })
+    console.error("watermark processing failed", err)
+    return NextResponse.json({ error: "Processing failed" }, { status: 500 })
   }
 
   const id = randomUUID()
-  const ext = extFromType(file.type)
-  const mainPath = `${user.id}/${id}.${ext}`
-  const thumbPath = `${user.id}/${id}_thumb.${ext}`
+  const mainPath = `${user.id}/${id}.webp`
+  const thumbPath = `${user.id}/${id}_thumb.webp`
 
   try {
     const [main, thumb] = await Promise.all([
-      uploadToAnnoncesBucket(mainPath, buffer, file.type),
-      uploadToAnnoncesBucket(thumbPath, buffer, file.type),
+      uploadToAnnoncesBucket(mainPath, processed.main, "image/webp"),
+      uploadToAnnoncesBucket(thumbPath, processed.thumb, "image/webp"),
     ])
-    return NextResponse.json({ mainUrl: main.publicUrl, thumbnailUrl: thumb.publicUrl })
+    return NextResponse.json({
+      mainUrl: main.publicUrl,
+      thumbnailUrl: thumb.publicUrl,
+    })
   } catch (err) {
-    console.error("watermark: upload failed", err)
+    console.error("storage upload failed", err)
     return NextResponse.json({ error: "Upload failed" }, { status: 500 })
   }
 }

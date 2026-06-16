@@ -118,11 +118,20 @@ export async function generateMetadata({
       siteName: "autobladi.ma",
       title: titleDefault,
       description,
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: "autobladi.ma",
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: titleDefault,
       description,
+      images: ["/opengraph-image"],
     },
     alternates: {
       canonical: `${SITE_URL}/${locale}`,
