@@ -97,6 +97,9 @@ export default async function AdminParametresPage({
     bank_beneficiary: toString(map.get("bank_beneficiary"), ""),
   }
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://autobladi.ma"
+  const indexNowReady = Boolean(process.env.INDEXNOW_KEY)
+
   return (
     <section className="py-8 md:py-12">
       <Container className="max-w-3xl">
@@ -113,6 +116,8 @@ export default async function AdminParametresPage({
           geminiKeySet={!!aiRow?.gemini_key}
           openaiKeySet={!!aiRow?.openai_key}
           qwenKeySet={!!aiRow?.qwen_key}
+          siteUrl={siteUrl}
+          indexNowReady={indexNowReady}
         />
       </Container>
     </section>

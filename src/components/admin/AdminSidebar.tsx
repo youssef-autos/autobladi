@@ -25,7 +25,6 @@ import {
   Newspaper,
   Search,
   Send,
-  Settings,
   ShieldCheck,
   Sparkles,
   Star,
@@ -178,7 +177,6 @@ function makeGroups(counts: Counts): Group[] {
       items: [
         { href: "/admin/parametres", labelKey: "generalSettings", icon: Cog },
         { href: "/admin/settings/social-login", labelKey: "settingsSocial", icon: KeyRound },
-        { href: "/admin/settings/seo", labelKey: "settingsSeo", icon: Settings },
         { href: "/admin/settings/email", labelKey: "settingsEmail", icon: Mail },
       ],
     },

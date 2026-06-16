@@ -3,18 +3,24 @@
 import { useRef, useState, useTransition } from "react"
 import {
   Banknote,
+  CheckCircle2,
   Clock,
+  ExternalLink,
+  FileCode2,
   Files,
   Globe,
   ImageIcon,
   Loader2,
   Mail,
+  Map,
+  Rss,
   Save,
   Search,
   Sparkles,
   Stamp,
   Upload,
   X,
+  Zap,
 } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
@@ -33,6 +39,8 @@ type Props = {
   geminiKeySet: boolean
   openaiKeySet: boolean
   qwenKeySet: boolean
+  siteUrl: string
+  indexNowReady: boolean
 }
 
 export function SettingsForm({
@@ -40,8 +48,11 @@ export function SettingsForm({
   geminiKeySet,
   openaiKeySet,
   qwenKeySet,
+  siteUrl,
+  indexNowReady,
 }: Props) {
   const t = useTranslations("admin.settings")
+  const tSeo = useTranslations("adminPanel.seoPage")
   const [values, setValues] = useState<SettingsInput>(initial)
   const [pending, startTransition] = useTransition()
 
@@ -147,6 +158,93 @@ export function SettingsForm({
               dir="ltr"
             />
           </Field>
+        </div>
+
+        {/* Consoles */}
+        <div className="mt-2 border-t border-border/60 pt-4 space-y-3">
+          <div>
+            <p className="text-sm font-medium text-foreground">{tSeo("consolesTitle")}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">{tSeo("consolesHelp")}</p>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <a
+              href="https://search.google.com/search-console"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between gap-3 rounded-xl border border-border px-4 py-2.5 hover:border-moroccan-gold-500/60 hover:bg-moroccan-gold-50/40 transition-colors text-sm font-medium text-foreground"
+            >
+              Google Search Console
+              <ExternalLink className="size-3.5 text-muted-foreground shrink-0" aria-hidden="true" />
+            </a>
+            <a
+              href="https://www.bing.com/webmasters"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between gap-3 rounded-xl border border-border px-4 py-2.5 hover:border-moroccan-gold-500/60 hover:bg-moroccan-gold-50/40 transition-colors text-sm font-medium text-foreground"
+            >
+              Bing Webmaster Tools
+              <ExternalLink className="size-3.5 text-muted-foreground shrink-0" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+
+        {/* IndexNow */}
+        <div className="border-t border-border/60 pt-4 flex items-start gap-3">
+          <Zap className="size-4 text-moroccan-gold-600 shrink-0 mt-0.5" aria-hidden="true" />
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-medium text-foreground">{tSeo("indexNowTitle")}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">{tSeo("indexNowDesc")}</p>
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              {indexNowReady ? (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 border border-emerald-200">
+                  <CheckCircle2 className="size-3.5" aria-hidden="true" />
+                  {tSeo("indexNowOn")}
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700 border border-amber-200">
+                  {tSeo("indexNowOff")}
+                </span>
+              )}
+              {indexNowReady && (
+                <a
+                  href={`${siteUrl}/indexnow.txt`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-moroccan-red-600 hover:underline"
+                >
+                  /indexnow.txt
+                  <ExternalLink className="size-3" aria-hidden="true" />
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Resource links */}
+        <div className="border-t border-border/60 pt-4 grid gap-2 sm:grid-cols-3">
+          {([
+            { icon: Map, title: tSeo("sitemapTitle"), desc: tSeo("sitemapDesc"), path: "/sitemap.xml" },
+            { icon: FileCode2, title: tSeo("robotsTitle"), desc: tSeo("robotsDesc"), path: "/robots.txt" },
+            { icon: Rss, title: tSeo("rssTitle"), desc: tSeo("rssDesc"), path: "/feed.xml" },
+          ] as const).map(({ icon: Icon, title, desc, path }) => (
+            <a
+              key={path}
+              href={`${siteUrl}${path}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border border-border bg-background p-3 hover:border-moroccan-gold-500/60 transition-colors group"
+            >
+              <div className="flex items-center gap-2 text-foreground">
+                <Icon className="size-4 text-moroccan-red-600 shrink-0" aria-hidden="true" />
+                <span className="text-sm font-semibold">{title}</span>
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">{desc}</p>
+              <span className="mt-2 inline-flex items-center gap-1 text-xs font-mono text-muted-foreground group-hover:text-moroccan-red-600">
+                {path}
+                <ExternalLink className="size-3" aria-hidden="true" />
+              </span>
+            </a>
+          ))}
         </div>
       </Section>
 
