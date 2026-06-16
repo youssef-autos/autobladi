@@ -131,6 +131,23 @@ export function SettingsForm({
             />
           </Field>
         </div>
+        <div className="mt-2 border-t border-border/60 pt-4">
+          <Field
+            id="ga_id"
+            label={t("googleAnalytics")}
+            help={t("googleAnalyticsHelp")}
+          >
+            <Input
+              id="ga_id"
+              value={values.google_analytics_id}
+              onChange={(e) => update("google_analytics_id", e.target.value)}
+              placeholder="G-XXXXXXXXXX"
+              maxLength={30}
+              className="h-11 rounded-xl font-mono text-sm max-w-[280px]"
+              dir="ltr"
+            />
+          </Field>
+        </div>
       </Section>
 
       {/* Watermark */}

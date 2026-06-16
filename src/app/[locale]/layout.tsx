@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic"
 
 import type { Metadata } from "next"
 import { Cairo, Inter, Playfair_Display, Tajawal } from "next/font/google"
+import Script from "next/script"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
@@ -12,7 +13,7 @@ import { JsonLd } from "@/components/seo/JsonLd"
 import { FavoritesProvider } from "@/hooks/use-favorites"
 import { Toaster } from "@/components/ui/sonner"
 import { routing } from "@/i18n/routing"
-import { getSiteFaviconUrl, getSiteVerification } from "@/lib/queries/home"
+import { getSiteAnalyticsId, getSiteFaviconUrl, getSiteVerification } from "@/lib/queries/home"
 import { organizationSchema } from "@/lib/seo/structured-data"
 import { cn } from "@/lib/utils"
 
@@ -193,6 +194,7 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale)
   const dir = locale === "ar" ? "rtl" : "ltr"
+  const gaId = await getSiteAnalyticsId()
 
   return (
     <html
@@ -207,6 +209,17 @@ export default async function LocaleLayout({
       )}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`}
+            </Script>
+          </>
+        )}
         <JsonLd data={organizationSchema()} />
         <DirectionProvider direction={dir}>
           <NuqsAdapter>

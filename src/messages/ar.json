@@ -1988,6 +1988,8 @@
       "googleVerificationHelp": "الكود الموجود في content=\"...\" داخل الـ meta tag الخاص بـ Google",
       "bingVerification": "Bing Webmaster Tools",
       "bingVerificationHelp": "الكود الموجود في content=\"...\" داخل msvalidate.01",
+      "googleAnalytics": "Google Analytics (GA4)",
+      "googleAnalyticsHelp": "معرّف القياس — مثال: G-XXXXXXXXXX — سيُضاف سكريبت gtag تلقائياً في كل صفحة.",
       "noLogo": "لا يوجد شعار",
       "uploadLogo": "تحميل شعار",
       "removeLogo": "حذف الشعار",

@@ -11,6 +11,7 @@ export type SettingsInput = {
   site_favicon_url: string
   google_site_verification: string
   bing_site_verification: string
+  google_analytics_id: string
   watermark_text: string
   annonce_duration_days: number
   annonce_duration_days_pro: number
@@ -39,6 +40,7 @@ const inputSchema = z.object({
   site_favicon_url: z.string().max(1000),
   google_site_verification: z.string().max(200),
   bing_site_verification: z.string().max(200),
+  google_analytics_id: z.string().max(30),
   watermark_text: z.string().min(1).max(100),
   annonce_duration_days: z.number().int().min(1).max(365),
   annonce_duration_days_pro: z.number().int().min(1).max(365),
@@ -90,6 +92,7 @@ export async function saveSettings(input: unknown): Promise<SettingsResult> {
     { key: "site_favicon_url", value: v.site_favicon_url },
     { key: "google_site_verification", value: v.google_site_verification },
     { key: "bing_site_verification", value: v.bing_site_verification },
+    { key: "google_analytics_id", value: v.google_analytics_id },
     { key: "watermark_text", value: v.watermark_text },
     { key: "annonce_duration_days", value: v.annonce_duration_days },
     { key: "annonce_duration_days_pro", value: v.annonce_duration_days_pro },

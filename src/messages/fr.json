@@ -1987,6 +1987,8 @@
       "googleVerificationHelp": "La valeur dans content=\"...\" de la balise meta Google",
       "bingVerification": "Bing Webmaster Tools",
       "bingVerificationHelp": "La valeur dans content=\"...\" de la balise msvalidate.01",
+      "googleAnalytics": "Google Analytics (GA4)",
+      "googleAnalyticsHelp": "Identifiant de mesure — ex : G-XXXXXXXXXX — le script gtag sera injecté automatiquement sur toutes les pages.",
       "noLogo": "Aucun logo",
       "uploadLogo": "Télécharger un logo",
       "removeLogo": "Supprimer le logo",

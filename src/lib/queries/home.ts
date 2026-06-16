@@ -338,6 +338,21 @@ export async function getSiteVerification(): Promise<{
   }
 }
 
+/**
+ * Admin-entered Google Analytics measurement ID (e.g. "G-XXXXXXXXXX").
+ * Returns null when unset — layout skips injecting the gtag script.
+ */
+export async function getSiteAnalyticsId(): Promise<string | null> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from("site_settings")
+    .select("value")
+    .eq("key", "google_analytics_id")
+    .maybeSingle<{ value: unknown }>()
+  const v = data?.value
+  return typeof v === "string" && v.trim() ? v.trim() : null
+}
+
 // ---------------------------------------------------------------------------
 // Home sections layout (admin-managed visibility + order)
 // ---------------------------------------------------------------------------
