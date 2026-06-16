@@ -19,8 +19,7 @@ function stripLocale(pathname: string): string {
   return pathname.replace(LOCALE_RE, "") || "/"
 }
 
-export async function proxy(request: NextRequest) {
-  // Let next-intl handle locale prefixing first (rewrites, redirects).
+export async function middleware(request: NextRequest) {
   const intlResponse = intlMiddleware(request)
 
   const pathname = request.nextUrl.pathname
@@ -64,9 +63,6 @@ export async function proxy(request: NextRequest) {
   }
 
   if (needsAdmin) {
-    // Use maybeSingle so an empty result doesn't throw — we just fall
-    // through to the non-admin redirect. The select is RLS-friendly
-    // (profiles_public_read allows anyone to read).
     const { data: profile } = await supabase
       .from("profiles")
       .select("account_type")
