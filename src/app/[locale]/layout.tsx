@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import type { Metadata } from "next"
 import { Cairo, Inter, Playfair_Display, Tajawal } from "next/font/google"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
