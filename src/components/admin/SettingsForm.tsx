@@ -10,6 +10,7 @@ import {
   Loader2,
   Mail,
   Save,
+  Search,
   Sparkles,
   Stamp,
   Upload,
@@ -93,6 +94,43 @@ export function SettingsForm({
           value={values.site_favicon_url}
           onChange={(url) => update("site_favicon_url", url)}
         />
+      </Section>
+
+      {/* SEO Verification */}
+      <Section title={t("seoVerification")} icon={Search}>
+        <p className="text-xs text-muted-foreground -mt-1">{t("seoVerificationHelp")}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Field
+            id="gsc"
+            label={t("googleVerification")}
+            help={t("googleVerificationHelp")}
+          >
+            <Input
+              id="gsc"
+              value={values.google_site_verification}
+              onChange={(e) => update("google_site_verification", e.target.value)}
+              placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+              maxLength={200}
+              className="h-11 rounded-xl font-mono text-xs"
+              dir="ltr"
+            />
+          </Field>
+          <Field
+            id="bing"
+            label={t("bingVerification")}
+            help={t("bingVerificationHelp")}
+          >
+            <Input
+              id="bing"
+              value={values.bing_site_verification}
+              onChange={(e) => update("bing_site_verification", e.target.value)}
+              placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+              maxLength={200}
+              className="h-11 rounded-xl font-mono text-xs"
+              dir="ltr"
+            />
+          </Field>
+        </div>
       </Section>
 
       {/* Watermark */}

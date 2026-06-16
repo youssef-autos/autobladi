@@ -71,6 +71,8 @@ export default async function AdminParametresPage({
     site_logo_url_light: toString(map.get("site_logo_url_light"), legacyLogo),
     site_logo_url_dark: toString(map.get("site_logo_url_dark"), ""),
     site_favicon_url: toString(map.get("site_favicon_url"), ""),
+    google_site_verification: toString(map.get("google_site_verification"), ""),
+    bing_site_verification: toString(map.get("bing_site_verification"), ""),
     watermark_text: toString(map.get("watermark_text"), "autobladi.ma"),
     annonce_duration_days: toNumber(map.get("annonce_duration_days"), 60),
     annonce_duration_days_pro: toNumber(map.get("annonce_duration_days_pro"), 90),
