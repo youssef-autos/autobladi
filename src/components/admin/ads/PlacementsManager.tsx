@@ -53,13 +53,21 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
   const t = useTranslations("adminPanel.placementsPage")
   const tForm = useTranslations("adminPanel.placementsPage.form")
   const [editing, setEditing] = useState(false)
-  const [name, setName] = useState(placement.name)
-  const [width, setWidth] = useState(String(placement.width ?? ""))
-  const [height, setHeight] = useState(String(placement.height ?? ""))
-  const [description, setDescription] = useState(placement.description ?? "")
   const [isActive, setIsActive] = useState(placement.is_active)
   const [pending, startTransition] = useTransition()
   const [togglingVis, startVisTransition] = useTransition()
+
+  // Committed state — shown in display mode, updated after a successful save
+  const [savedName, setSavedName] = useState(placement.name)
+  const [savedWidth, setSavedWidth] = useState<number | null>(placement.width ?? null)
+  const [savedHeight, setSavedHeight] = useState<number | null>(placement.height ?? null)
+  const [savedDesc, setSavedDesc] = useState(placement.description ?? "")
+
+  // Draft state — used only while the row is in edit mode
+  const [draftName, setDraftName] = useState(placement.name)
+  const [draftWidth, setDraftWidth] = useState(String(placement.width ?? ""))
+  const [draftHeight, setDraftHeight] = useState(String(placement.height ?? ""))
+  const [draftDesc, setDraftDesc] = useState(placement.description ?? "")
 
   function onToggleVisibility() {
     const next = !isActive
@@ -75,28 +83,43 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
   }
 
   function onSave() {
+    const newName = draftName.trim() || savedName
+    const newWidth = draftWidth ? Number(draftWidth) : null
+    const newHeight = draftHeight ? Number(draftHeight) : null
+    const newDesc = draftDesc.trim() || null
+
     startTransition(async () => {
       const res = await updatePlacement({
         id: placement.id,
-        name: name.trim() || placement.name,
-        width: width ? Number(width) : null,
-        height: height ? Number(height) : null,
-        description: description.trim() || null,
+        name: newName,
+        width: newWidth,
+        height: newHeight,
+        description: newDesc,
       })
       if (!res.ok) {
         toast.error(t("toast.error"))
         return
       }
+      // Commit the new values so the display row reflects them immediately
+      setSavedName(newName)
+      setSavedWidth(newWidth)
+      setSavedHeight(newHeight)
+      setSavedDesc(newDesc ?? "")
       toast.success(t("toast.updated"))
       setEditing(false)
     })
   }
 
+  function onEdit() {
+    // Initialise draft from the last committed values
+    setDraftName(savedName)
+    setDraftWidth(String(savedWidth ?? ""))
+    setDraftHeight(String(savedHeight ?? ""))
+    setDraftDesc(savedDesc)
+    setEditing(true)
+  }
+
   function onCancel() {
-    setName(placement.name)
-    setWidth(String(placement.width ?? ""))
-    setHeight(String(placement.height ?? ""))
-    setDescription(placement.description ?? "")
     setEditing(false)
   }
 
@@ -118,8 +141,8 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
         <div className="flex items-center gap-2">
           {editing ? (
             <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={draftName}
+              onChange={(e) => setDraftName(e.target.value)}
               className={inlineCls}
             />
           ) : (
@@ -129,7 +152,7 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
                 isActive ? "text-foreground" : "text-muted-foreground",
               )}
             >
-              {placement.name}
+              {savedName}
             </span>
           )}
           {!isActive && !editing && (
@@ -148,8 +171,8 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
           <div className="flex items-center gap-1">
             <input
               type="number"
-              value={width}
-              onChange={(e) => setWidth(e.target.value)}
+              value={draftWidth}
+              onChange={(e) => setDraftWidth(e.target.value)}
               placeholder={tForm("width")}
               min={1}
               max={9999}
@@ -158,8 +181,8 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
             <span className="text-muted-foreground text-xs">×</span>
             <input
               type="number"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
+              value={draftHeight}
+              onChange={(e) => setDraftHeight(e.target.value)}
               placeholder={tForm("height")}
               min={1}
               max={9999}
@@ -167,14 +190,11 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
             />
             <span className="text-[11px] text-muted-foreground">px</span>
           </div>
-        ) : placement.width && placement.height ? (
+        ) : savedWidth && savedHeight ? (
           <div className="flex items-center gap-2">
-            <SizeSwatch width={placement.width} height={placement.height} />
+            <SizeSwatch width={savedWidth} height={savedHeight} />
             <span className="text-sm font-mono text-foreground">
-              {t("sizePreview", {
-                width: placement.width,
-                height: placement.height,
-              })}
+              {t("sizePreview", { width: savedWidth, height: savedHeight })}
             </span>
           </div>
         ) : (
@@ -184,15 +204,15 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
       <td className={cellBase}>
         {editing ? (
           <input
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={draftDesc}
+            onChange={(e) => setDraftDesc(e.target.value)}
             placeholder={tForm("descriptionPlaceholder")}
             maxLength={300}
             className={cn(inlineCls, "w-full")}
           />
         ) : (
           <span className="text-xs text-muted-foreground line-clamp-2">
-            {placement.description ?? "—"}
+            {savedDesc || "—"}
           </span>
         )}
       </td>
@@ -251,7 +271,7 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
               </button>
               <button
                 type="button"
-                onClick={() => setEditing(true)}
+                onClick={onEdit}
                 className="inline-flex items-center justify-center size-9 rounded-lg text-muted-foreground hover:bg-moroccan-sand-50 hover:text-moroccan-gold-700"
                 aria-label="Edit"
               >

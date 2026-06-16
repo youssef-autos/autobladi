@@ -157,6 +157,7 @@ export async function updatePlacement(input: unknown): Promise<ActionResult> {
     .eq("id", id)
   if (error) return { ok: false, error: error.message }
   revalidatePath("/admin/ads/placements")
+  revalidatePath("/", "layout")
   return { ok: true }
 }
 
