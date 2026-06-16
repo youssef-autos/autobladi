@@ -44,8 +44,8 @@ export function SettingsForm({
   const [values, setValues] = useState<SettingsInput>(initial)
   const [pending, startTransition] = useTransition()
 
-  function update<K extends keyof SettingsInput>(key: K, value: SettingsInput[K]) {
-    setValues((prev) => ({ ...prev, [key]: value }))
+  function update<K extends keyof SettingsInput>(k: K, value: SettingsInput[K]) {
+    setValues((prev) => ({ ...prev, [k]: value }))
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -64,19 +64,23 @@ export function SettingsForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Logos (per language) */}
+      {/* Logos (light + dark) */}
       <Section title={t("logo")} icon={ImageIcon}>
         <p className="text-xs text-muted-foreground mb-4">{t("logoHelp")}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <LogoUploader
-            label={t("logoAr")}
-            value={values.site_logo_url_ar}
-            onChange={(url) => update("site_logo_url_ar", url)}
+            label={t("logoLight")}
+            value={values.site_logo_url_light}
+            onChange={(url) => update("site_logo_url_light", url)}
+            hint={t("logoSizeHint")}
+            bg="light"
           />
           <LogoUploader
-            label={t("logoFr")}
-            value={values.site_logo_url_fr}
-            onChange={(url) => update("site_logo_url_fr", url)}
+            label={t("logoDark")}
+            value={values.site_logo_url_dark}
+            onChange={(url) => update("site_logo_url_dark", url)}
+            hint={t("logoSizeHint")}
+            bg="dark"
           />
         </div>
       </Section>
@@ -354,15 +358,19 @@ export function SettingsForm({
   )
 }
 
-/** A single logo upload slot (used once per language). */
+/** A single logo upload slot. bg="dark" renders a dark preview to show white logos. */
 function LogoUploader({
   label,
   value,
   onChange,
+  hint,
+  bg = "light",
 }: {
   label: string
   value: string
   onChange: (url: string) => void
+  hint?: string
+  bg?: "light" | "dark"
 }) {
   const t = useTranslations("admin.settings")
   const inputRef = useRef<HTMLInputElement>(null)
@@ -385,10 +393,17 @@ function LogoUploader({
     }
   }
 
+  const previewBg =
+    bg === "dark"
+      ? "bg-[#1a0506] border-white/10"
+      : "bg-moroccan-sand-50 border-border"
+
   return (
     <div className="space-y-2">
       <Label className="text-xs font-medium text-foreground">{label}</Label>
-      <span className="flex h-20 w-full max-w-[180px] items-center justify-center overflow-hidden rounded-xl border border-border bg-moroccan-sand-50">
+      <span
+        className={`flex h-20 w-full max-w-[180px] items-center justify-center overflow-hidden rounded-xl border ${previewBg}`}
+      >
         {value ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -397,9 +412,18 @@ function LogoUploader({
             className="max-h-full max-w-full object-contain"
           />
         ) : (
-          <span className="text-xs text-muted-foreground">{t("noLogo")}</span>
+          <span
+            className={`text-xs ${bg === "dark" ? "text-white/40" : "text-muted-foreground"}`}
+          >
+            {t("noLogo")}
+          </span>
         )}
       </span>
+      {hint && (
+        <p className="text-[11px] leading-snug text-muted-foreground/80 max-w-[180px]">
+          {hint}
+        </p>
+      )}
       <div className="flex items-center gap-2">
         <button
           type="button"

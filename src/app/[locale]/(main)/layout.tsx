@@ -2,7 +2,7 @@ import { setRequestLocale } from "next-intl/server"
 
 import { Footer } from "@/components/layout/Footer"
 import { Header } from "@/components/layout/Header"
-import { getSiteLogoUrl } from "@/lib/queries/home"
+import { getSiteLogos } from "@/lib/queries/home"
 
 export default async function MainLayout({
   children,
@@ -13,13 +13,13 @@ export default async function MainLayout({
 }) {
   const { locale } = await params
   setRequestLocale(locale)
-  const logoUrl = await getSiteLogoUrl(locale)
+  const logos = await getSiteLogos()
 
   return (
     <>
-      <Header logoUrl={logoUrl} />
+      <Header logoUrl={logos.light} />
       <main className="flex-1 flex flex-col">{children}</main>
-      <Footer logoUrl={logoUrl} />
+      <Footer logoUrl={logos.dark} />
     </>
   )
 }

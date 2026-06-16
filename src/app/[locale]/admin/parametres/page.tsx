@@ -68,8 +68,8 @@ export default async function AdminParametresPage({
   // Fall back to the legacy single logo so an existing logo still appears.
   const legacyLogo = toString(map.get("site_logo_url"), "")
   const initial: SettingsInput = {
-    site_logo_url_ar: toString(map.get("site_logo_url_ar"), legacyLogo),
-    site_logo_url_fr: toString(map.get("site_logo_url_fr"), legacyLogo),
+    site_logo_url_light: toString(map.get("site_logo_url_light"), legacyLogo),
+    site_logo_url_dark: toString(map.get("site_logo_url_dark"), ""),
     site_favicon_url: toString(map.get("site_favicon_url"), ""),
     watermark_text: toString(map.get("watermark_text"), "autobladi.ma"),
     annonce_duration_days: toNumber(map.get("annonce_duration_days"), 60),

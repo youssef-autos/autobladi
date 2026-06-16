@@ -6,8 +6,8 @@ import { z } from "zod"
 import { createClient } from "@/lib/supabase/server"
 
 export type SettingsInput = {
-  site_logo_url_ar: string
-  site_logo_url_fr: string
+  site_logo_url_light: string
+  site_logo_url_dark: string
   site_favicon_url: string
   watermark_text: string
   annonce_duration_days: number
@@ -32,8 +32,8 @@ export type SettingsResult =
   | { ok: false; error: string }
 
 const inputSchema = z.object({
-  site_logo_url_ar: z.string().max(1000),
-  site_logo_url_fr: z.string().max(1000),
+  site_logo_url_light: z.string().max(1000),
+  site_logo_url_dark: z.string().max(1000),
   site_favicon_url: z.string().max(1000),
   watermark_text: z.string().min(1).max(100),
   annonce_duration_days: z.number().int().min(1).max(365),
@@ -81,8 +81,8 @@ export async function saveSettings(input: unknown): Promise<SettingsResult> {
 
   type Upsert = { key: string; value: unknown }
   const rows: Upsert[] = [
-    { key: "site_logo_url_ar", value: v.site_logo_url_ar },
-    { key: "site_logo_url_fr", value: v.site_logo_url_fr },
+    { key: "site_logo_url_light", value: v.site_logo_url_light },
+    { key: "site_logo_url_dark", value: v.site_logo_url_dark },
     { key: "site_favicon_url", value: v.site_favicon_url },
     { key: "watermark_text", value: v.watermark_text },
     { key: "annonce_duration_days", value: v.annonce_duration_days },

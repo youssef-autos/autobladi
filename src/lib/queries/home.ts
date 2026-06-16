@@ -275,23 +275,27 @@ export async function getPlacementMeta(slug: string): Promise<{
 }
 
 /**
- * The admin-uploaded site logo for the given locale (ar → Arabic logo, fr →
- * French logo). Falls back to the legacy single `site_logo_url`, then null
- * (the header then shows the text wordmark).
+ * Returns the admin-uploaded logos:
+ * - `light`: for light/white backgrounds (header, nav, mobile menu)
+ * - `dark`: for dark backgrounds (footer)
+ * Falls back to the legacy single `site_logo_url`, then null (shows text wordmark).
  */
-export async function getSiteLogoUrl(locale: string): Promise<string | null> {
+export async function getSiteLogos(): Promise<{ light: string | null; dark: string | null }> {
   const supabase = await createClient()
-  const localeKey = locale === "ar" ? "site_logo_url_ar" : "site_logo_url_fr"
   const { data } = await supabase
     .from("site_settings")
     .select("key, value")
-    .in("key", [localeKey, "site_logo_url"])
+    .in("key", ["site_logo_url_light", "site_logo_url_dark", "site_logo_url"])
   const rows = (data ?? []) as Array<{ key: string; value: unknown }>
   const pick = (k: string): string | null => {
     const v = rows.find((r) => r.key === k)?.value
     return typeof v === "string" && v.trim() ? v : null
   }
-  return pick(localeKey) ?? pick("site_logo_url")
+  const legacy = pick("site_logo_url")
+  return {
+    light: pick("site_logo_url_light") ?? legacy,
+    dark: pick("site_logo_url_dark") ?? legacy,
+  }
 }
 
 /**
