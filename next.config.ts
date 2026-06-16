@@ -4,6 +4,9 @@ import createNextIntlPlugin from "next-intl/plugin"
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts")
 
 const nextConfig: NextConfig = {
+  experimental: {
+    optimizePackageImports: ["lucide-react", "date-fns", "recharts"],
+  },
   images: {
     // The Next 16 image optimizer refuses to fetch upstream images that
     // resolve to a "private" IP. On IPv6-only / DNS64+NAT64 dev networks
