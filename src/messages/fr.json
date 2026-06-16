@@ -15,6 +15,24 @@
     "back": "Retour"
   },
   "auth": {
+    "hero": {
+      "badge": "Plateforme 100% marocaine",
+      "headline": "Votre prochaine voiture commence ici",
+      "subline": "Des milliers de voitures neuves et d'occasion, des concessions vérifiées et une estimation instantanée des prix — le tout au même endroit.",
+      "features": {
+        "ai": "Estimation instantanée des prix par IA",
+        "verified": "Concessions et professionnels vérifiés",
+        "secure": "Contact direct et sécurisé entre vendeur et acheteur"
+      },
+      "stats": {
+        "cars": "10K+",
+        "carsLabel": "voitures en ligne",
+        "dealers": "300+",
+        "dealersLabel": "concessions vérifiées",
+        "cities": "40+",
+        "citiesLabel": "villes marocaines"
+      }
+    },
     "social": {
       "or": "ou",
       "google": "Continuer avec Google",
