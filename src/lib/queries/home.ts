@@ -222,25 +222,36 @@ type AdRow = {
 
 export async function getActiveAd(placementSlug: string): Promise<AdvertisementData | null> {
   const supabase = await createClient()
+
+  // Step 1 — resolve the placement to its ID and confirm it's visible.
+  // Using a plain single-table query (no embedded join filter) avoids the
+  // PostgREST behaviour where .eq("related.column") silently returns no rows.
+  const { data: placement } = await supabase
+    .from("ad_placements")
+    .select("id, is_active")
+    .eq("slug", placementSlug)
+    .maybeSingle<{ id: string; is_active: boolean }>()
+
+  if (!placement || !placement.is_active) return null
+
+  // Step 2 — find an active, in-schedule ad for that placement.
   const now = new Date().toISOString()
   const { data } = await supabase
     .from("advertisements")
-    .select("id, title, image_url, link_url, ad_placements!inner(slug, is_active)")
-    .eq("ad_placements.slug", placementSlug)
-    // Never serve an ad for a placement the admin has hidden.
-    .eq("ad_placements.is_active", true)
+    .select("id, title, image_url, link_url")
+    .eq("placement_id", placement.id)
     .eq("is_active", true)
     .or(`starts_at.is.null,starts_at.lte.${now}`)
     .or(`ends_at.is.null,ends_at.gte.${now}`)
     .limit(1)
-    .maybeSingle()
+    .maybeSingle<{ id: string; title: string; image_url: string; link_url: string | null }>()
+
   if (!data) return null
-  const row = data as unknown as AdRow
   return {
-    id: row.id,
-    title: row.title,
-    image_url: row.image_url,
-    link_url: row.link_url,
+    id: data.id,
+    title: data.title,
+    image_url: data.image_url,
+    link_url: data.link_url,
   }
 }
 
@@ -258,22 +269,38 @@ export async function getPlacementMeta(slug: string): Promise<{
   device: "mobile" | "desktop" | "both"
 } | null> {
   const supabase = await createClient()
-  const { data } = await supabase
+
+  // Try with device column first (requires migration 035).
+  // If it fails (column not yet added), fall back to the base columns.
+  const { data, error } = await supabase
     .from("ad_placements")
     .select("width, height, is_active, device")
     .eq("slug", slug)
-    .maybeSingle<{
-      width: number | null
-      height: number | null
-      is_active: boolean
-      device: "mobile" | "desktop" | "both"
-    }>()
-  if (!data) return null
+    .maybeSingle()
+
+  if (!error && data) {
+    const row = data as { width: number | null; height: number | null; is_active: boolean; device?: string }
+    return {
+      width: row.width,
+      height: row.height,
+      isActive: row.is_active,
+      device: (row.device ?? "both") as "mobile" | "desktop" | "both",
+    }
+  }
+
+  // Fallback — device column missing, select without it.
+  const { data: data2 } = await supabase
+    .from("ad_placements")
+    .select("width, height, is_active")
+    .eq("slug", slug)
+    .maybeSingle<{ width: number | null; height: number | null; is_active: boolean }>()
+
+  if (!data2) return null
   return {
-    width: data.width,
-    height: data.height,
-    isActive: data.is_active,
-    device: (data.device as "mobile" | "desktop" | "both") ?? "both",
+    width: data2.width,
+    height: data2.height,
+    isActive: data2.is_active,
+    device: "both",
   }
 }
 
