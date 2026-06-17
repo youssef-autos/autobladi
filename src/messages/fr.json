@@ -1903,30 +1903,22 @@
     },
     "placementsPage": {
       "title": "Emplacements publicitaires",
-      "subtitle": "Configurez les dimensions et la description de chaque emplacement",
+      "subtitle": "Gérez les emplacements — affichez ou masquez chaque emplacement",
       "columns": {
         "slug": "Identifiant",
         "name": "Emplacement",
         "size": "Taille (px)",
+        "device": "Appareil",
         "description": "Description",
         "adsCount": "Pubs",
         "actions": "Actions"
       },
-      "form": {
-        "name": "Nom",
-        "namePlaceholder": "Exemple : Home — Top",
-        "slug": "Identifiant",
-        "width": "Largeur (px)",
-        "height": "Hauteur (px)",
-        "description": "Description (optionnel)",
-        "descriptionPlaceholder": "Bannière en haut de la page d'accueil",
-        "save": "Enregistrer",
-        "saving": "Enregistrement...",
-        "cancel": "Annuler",
-        "edit": "Modifier l'emplacement"
+      "device": {
+        "mobile": "Mobile",
+        "desktop": "Bureau",
+        "both": "Tous"
       },
       "toast": {
-        "updated": "Dimensions mises à jour",
         "shown": "Emplacement affiché sur le site",
         "hidden": "Emplacement masqué du site",
         "error": "Une erreur est survenue"

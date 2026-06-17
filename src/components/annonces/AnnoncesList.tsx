@@ -61,10 +61,13 @@ export function AnnoncesList({
             )}
           </div>
           {idx < chunks.length - 1 && (
-            <AdBanner
-              placement="listings_inline"
-              heightClass="h-[120px] md:h-[150px]"
-            />
+            <>
+              <AdBanner
+                placement="listings_inline"
+                heightClass="h-[120px] md:h-[150px]"
+              />
+              <AdBanner placement="listings_inline_mobile" />
+            </>
           )}
         </Fragment>
       ))}

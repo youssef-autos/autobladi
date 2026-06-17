@@ -255,22 +255,25 @@ export async function getPlacementMeta(slug: string): Promise<{
   width: number | null
   height: number | null
   isActive: boolean
+  device: "mobile" | "desktop" | "both"
 } | null> {
   const supabase = await createClient()
   const { data } = await supabase
     .from("ad_placements")
-    .select("width, height, is_active")
+    .select("width, height, is_active, device")
     .eq("slug", slug)
     .maybeSingle<{
       width: number | null
       height: number | null
       is_active: boolean
+      device: "mobile" | "desktop" | "both"
     }>()
   if (!data) return null
   return {
     width: data.width,
     height: data.height,
     isActive: data.is_active,
+    device: (data.device as "mobile" | "desktop" | "both") ?? "both",
   }
 }
 

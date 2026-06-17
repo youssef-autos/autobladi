@@ -1,14 +1,11 @@
 "use client"
 
 import { useState, useTransition } from "react"
-import { Check, Eye, EyeOff, Pencil, X } from "lucide-react"
+import { Eye, EyeOff, Monitor, Smartphone, LayoutGrid } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 
-import {
-  setPlacementVisibility,
-  updatePlacement,
-} from "@/app/[locale]/admin/ads/actions"
+import { setPlacementVisibility } from "@/app/[locale]/admin/ads/actions"
 import { Badge } from "@/components/ui/badge"
 import type { AdminPlacementRow } from "@/lib/queries/admin"
 
@@ -16,11 +13,6 @@ type Props = {
   placements: AdminPlacementRow[]
 }
 
-/**
- * Inline-editing table for ad placement sizes + descriptions. Each row
- * shows the slug and current size, and clicking the edit pencil turns
- * the size cells into inputs — no dialog needed for such simple changes.
- */
 export function PlacementsManager({ placements }: Props) {
   const t = useTranslations("adminPanel.placementsPage")
 
@@ -32,10 +24,11 @@ export function PlacementsManager({ placements }: Props) {
             <tr>
               <th className="text-start px-4 py-3">{t("columns.slug")}</th>
               <th className="text-start px-4 py-3">{t("columns.name")}</th>
-              <th className="text-start px-4 py-3 w-40">{t("columns.size")}</th>
+              <th className="text-start px-4 py-3 w-36">{t("columns.size")}</th>
+              <th className="text-start px-4 py-3 w-28">{t("columns.device")}</th>
               <th className="text-start px-4 py-3">{t("columns.description")}</th>
               <th className="text-start px-4 py-3 w-20">{t("columns.adsCount")}</th>
-              <th className="text-end px-4 py-3 w-20">{t("columns.actions")}</th>
+              <th className="text-end px-4 py-3 w-16">{t("columns.actions")}</th>
             </tr>
           </thead>
           <tbody>
@@ -51,23 +44,10 @@ export function PlacementsManager({ placements }: Props) {
 
 function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
   const t = useTranslations("adminPanel.placementsPage")
-  const tForm = useTranslations("adminPanel.placementsPage.form")
-  const [editing, setEditing] = useState(false)
   const [isActive, setIsActive] = useState(placement.is_active)
-  const [pending, startTransition] = useTransition()
   const [togglingVis, startVisTransition] = useTransition()
 
-  // Committed state — shown in display mode, updated after a successful save
-  const [savedName, setSavedName] = useState(placement.name)
-  const [savedWidth, setSavedWidth] = useState<number | null>(placement.width ?? null)
-  const [savedHeight, setSavedHeight] = useState<number | null>(placement.height ?? null)
-  const [savedDesc, setSavedDesc] = useState(placement.description ?? "")
-
-  // Draft state — used only while the row is in edit mode
-  const [draftName, setDraftName] = useState(placement.name)
-  const [draftWidth, setDraftWidth] = useState(String(placement.width ?? ""))
-  const [draftHeight, setDraftHeight] = useState(String(placement.height ?? ""))
-  const [draftDesc, setDraftDesc] = useState(placement.description ?? "")
+  const device = (placement as AdminPlacementRow & { device?: string }).device ?? "both"
 
   function onToggleVisibility() {
     const next = !isActive
@@ -80,47 +60,6 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
       setIsActive(next)
       toast.success(next ? t("toast.shown") : t("toast.hidden"))
     })
-  }
-
-  function onSave() {
-    const newName = draftName.trim() || savedName
-    const newWidth = draftWidth ? Number(draftWidth) : null
-    const newHeight = draftHeight ? Number(draftHeight) : null
-    const newDesc = draftDesc.trim() || null
-
-    startTransition(async () => {
-      const res = await updatePlacement({
-        id: placement.id,
-        name: newName,
-        width: newWidth,
-        height: newHeight,
-        description: newDesc,
-      })
-      if (!res.ok) {
-        toast.error(t("toast.error"))
-        return
-      }
-      // Commit the new values so the display row reflects them immediately
-      setSavedName(newName)
-      setSavedWidth(newWidth)
-      setSavedHeight(newHeight)
-      setSavedDesc(newDesc ?? "")
-      toast.success(t("toast.updated"))
-      setEditing(false)
-    })
-  }
-
-  function onEdit() {
-    // Initialise draft from the last committed values
-    setDraftName(savedName)
-    setDraftWidth(String(savedWidth ?? ""))
-    setDraftHeight(String(savedHeight ?? ""))
-    setDraftDesc(savedDesc)
-    setEditing(true)
-  }
-
-  function onCancel() {
-    setEditing(false)
   }
 
   const cellBase = "px-4 py-3 align-middle"
@@ -139,23 +78,15 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
       </td>
       <td className={cellBase}>
         <div className="flex items-center gap-2">
-          {editing ? (
-            <input
-              value={draftName}
-              onChange={(e) => setDraftName(e.target.value)}
-              className={inlineCls}
-            />
-          ) : (
-            <span
-              className={cn(
-                "text-sm",
-                isActive ? "text-foreground" : "text-muted-foreground",
-              )}
-            >
-              {savedName}
-            </span>
-          )}
-          {!isActive && !editing && (
+          <span
+            className={cn(
+              "text-sm",
+              isActive ? "text-foreground" : "text-muted-foreground",
+            )}
+          >
+            {placement.name}
+          </span>
+          {!isActive && (
             <Badge
               variant="outline"
               className="text-[10px] gap-1 text-muted-foreground border-muted-foreground/30"
@@ -167,34 +98,11 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
         </div>
       </td>
       <td className={cellBase}>
-        {editing ? (
-          <div className="flex items-center gap-1">
-            <input
-              type="number"
-              value={draftWidth}
-              onChange={(e) => setDraftWidth(e.target.value)}
-              placeholder={tForm("width")}
-              min={1}
-              max={9999}
-              className={cn(inlineCls, "w-20 text-center")}
-            />
-            <span className="text-muted-foreground text-xs">×</span>
-            <input
-              type="number"
-              value={draftHeight}
-              onChange={(e) => setDraftHeight(e.target.value)}
-              placeholder={tForm("height")}
-              min={1}
-              max={9999}
-              className={cn(inlineCls, "w-20 text-center")}
-            />
-            <span className="text-[11px] text-muted-foreground">px</span>
-          </div>
-        ) : savedWidth && savedHeight ? (
+        {placement.width && placement.height ? (
           <div className="flex items-center gap-2">
-            <SizeSwatch width={savedWidth} height={savedHeight} />
+            <SizeSwatch width={placement.width} height={placement.height} />
             <span className="text-sm font-mono text-foreground">
-              {t("sizePreview", { width: savedWidth, height: savedHeight })}
+              {t("sizePreview", { width: placement.width, height: placement.height })}
             </span>
           </div>
         ) : (
@@ -202,19 +110,12 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
         )}
       </td>
       <td className={cellBase}>
-        {editing ? (
-          <input
-            value={draftDesc}
-            onChange={(e) => setDraftDesc(e.target.value)}
-            placeholder={tForm("descriptionPlaceholder")}
-            maxLength={300}
-            className={cn(inlineCls, "w-full")}
-          />
-        ) : (
-          <span className="text-xs text-muted-foreground line-clamp-2">
-            {savedDesc || "—"}
-          </span>
-        )}
+        <DeviceBadge device={device} t={t} />
+      </td>
+      <td className={cellBase}>
+        <span className="text-xs text-muted-foreground line-clamp-2">
+          {placement.description || "—"}
+        </span>
       </td>
       <td className={cellBase}>
         {placement.ads_count > 0 ? (
@@ -226,66 +127,63 @@ function PlacementRow({ placement }: { placement: AdminPlacementRow }) {
         )}
       </td>
       <td className={cellBase}>
-        <div className="flex items-center justify-end gap-1">
-          {editing ? (
-            <>
-              <button
-                type="button"
-                onClick={onSave}
-                disabled={pending}
-                className="inline-flex items-center justify-center size-9 rounded-lg text-moroccan-mint-500 hover:bg-moroccan-mint-500/10 disabled:opacity-50"
-                aria-label="Save"
-              >
-                <Check className="size-4" />
-              </button>
-              <button
-                type="button"
-                onClick={onCancel}
-                disabled={pending}
-                className="inline-flex items-center justify-center size-9 rounded-lg text-muted-foreground hover:bg-moroccan-sand-50"
-                aria-label="Cancel"
-              >
-                <X className="size-4" />
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                type="button"
-                onClick={onToggleVisibility}
-                disabled={togglingVis}
-                title={isActive ? t("hide") : t("show")}
-                aria-label={isActive ? t("hide") : t("show")}
-                className={cn(
-                  "inline-flex items-center justify-center size-9 rounded-lg hover:bg-moroccan-sand-50 disabled:opacity-50",
-                  isActive
-                    ? "text-muted-foreground hover:text-foreground"
-                    : "text-moroccan-mint-500 hover:text-moroccan-mint-500",
-                )}
-              >
-                {isActive ? (
-                  <Eye className="size-4" />
-                ) : (
-                  <EyeOff className="size-4" />
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={onEdit}
-                className="inline-flex items-center justify-center size-9 rounded-lg text-muted-foreground hover:bg-moroccan-sand-50 hover:text-moroccan-gold-700"
-                aria-label="Edit"
-              >
-                <Pencil className="size-4" />
-              </button>
-            </>
-          )}
+        <div className="flex items-center justify-end">
+          <button
+            type="button"
+            onClick={onToggleVisibility}
+            disabled={togglingVis}
+            title={isActive ? t("hide") : t("show")}
+            aria-label={isActive ? t("hide") : t("show")}
+            className={cn(
+              "inline-flex items-center justify-center size-9 rounded-lg hover:bg-moroccan-sand-50 disabled:opacity-50",
+              isActive
+                ? "text-muted-foreground hover:text-foreground"
+                : "text-moroccan-mint-500 hover:text-moroccan-mint-500",
+            )}
+          >
+            {isActive ? (
+              <Eye className="size-4" />
+            ) : (
+              <EyeOff className="size-4" />
+            )}
+          </button>
         </div>
       </td>
     </tr>
   )
 }
 
-/** Tiny visual showing the placement's proportions (max 40px in either axis). */
+function DeviceBadge({
+  device,
+  t,
+}: {
+  device: string
+  t: ReturnType<typeof useTranslations<"adminPanel.placementsPage">>
+}) {
+  if (device === "mobile") {
+    return (
+      <Badge variant="outline" className="gap-1 text-[10px] border-blue-400/50 text-blue-600">
+        <Smartphone className="size-3" />
+        {t("device.mobile")}
+      </Badge>
+    )
+  }
+  if (device === "desktop") {
+    return (
+      <Badge variant="outline" className="gap-1 text-[10px] border-moroccan-gold-500/50 text-moroccan-gold-700">
+        <Monitor className="size-3" />
+        {t("device.desktop")}
+      </Badge>
+    )
+  }
+  return (
+    <Badge variant="outline" className="gap-1 text-[10px] text-muted-foreground">
+      <LayoutGrid className="size-3" />
+      {t("device.both")}
+    </Badge>
+  )
+}
+
 function SizeSwatch({ width, height }: { width: number; height: number }) {
   const MAX = 40
   const scale = MAX / Math.max(width, height)
@@ -300,9 +198,6 @@ function SizeSwatch({ width, height }: { width: number; height: number }) {
     />
   )
 }
-
-const inlineCls =
-  "h-9 px-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40 focus:border-moroccan-gold-500/60"
 
 function cn(...classes: (string | undefined | false)[]) {
   return classes.filter(Boolean).join(" ")

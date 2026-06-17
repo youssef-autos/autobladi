@@ -103,6 +103,7 @@ export default async function AnnonceDetailPage({
       <Container className="pt-6 pb-4">
         <Suspense fallback={<div className="h-[90px] rounded-2xl bg-muted animate-pulse" />}>
           <AdBanner placement="annonce_top" heightClass="h-[90px] md:h-[120px]" />
+          <AdBanner placement="annonce_top_mobile" />
         </Suspense>
       </Container>
 
@@ -129,6 +130,7 @@ export default async function AnnonceDetailPage({
 
             <Suspense fallback={<div className="h-[90px] rounded-2xl bg-muted animate-pulse" />}>
               <AdBanner placement="annonce_bottom" heightClass="h-[90px] md:h-[120px]" />
+              <AdBanner placement="annonce_bottom_mobile" />
             </Suspense>
 
             <AnnonceMap annonce={annonce} />

@@ -79,6 +79,7 @@ export default async function HomePage({
       <Container className="py-6">
         <Suspense fallback={<AdSkeleton />}>
           <AdBanner placement="home_top" />
+          <AdBanner placement="home_top_mobile" />
         </Suspense>
       </Container>
 
@@ -89,6 +90,7 @@ export default async function HomePage({
             <Container className="py-6">
               <Suspense fallback={<AdSkeleton />}>
                 <AdBanner placement="home_middle" />
+                <AdBanner placement="home_middle_mobile" />
               </Suspense>
             </Container>
           )}

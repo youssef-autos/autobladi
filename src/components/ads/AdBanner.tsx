@@ -53,6 +53,15 @@ export async function AdBanner({
     return null
   }
 
+  // Responsive visibility wrapper based on the placement's device target.
+  const device = placementMeta?.device ?? "both"
+  const deviceWrapper =
+    device === "desktop"
+      ? "hidden md:block"
+      : device === "mobile"
+        ? "block md:hidden"
+        : undefined // "both" → no restriction
+
   // Prefer explicit props, then the placement's admin-configured dimensions.
   // When known, the slot is sized by aspect-ratio (responsive) and capped at
   // its intrinsic width — so each placement renders proportionally to where it
@@ -65,7 +74,7 @@ export async function AdBanner({
     : undefined
 
   if (!ad) {
-    return (
+    const placeholder = (
       <AdPlaceholder
         label={t("placeholder")}
         heightClass={hasDims ? "" : heightClass}
@@ -73,9 +82,11 @@ export async function AdBanner({
         className={cn(hasDims && "w-full mx-auto", className)}
       />
     )
+    if (!deviceWrapper) return placeholder
+    return <div className={deviceWrapper}>{placeholder}</div>
   }
 
-  return (
+  const banner = (
     <div
       style={sizeStyle}
       className={cn(
@@ -106,4 +117,6 @@ export async function AdBanner({
       </AdLink>
     </div>
   )
+  if (!deviceWrapper) return banner
+  return <div className={deviceWrapper}>{banner}</div>
 }

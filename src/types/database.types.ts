@@ -683,6 +683,7 @@ export type Database = {
           height: number | null
           description: string | null
           is_active: boolean
+          device: "mobile" | "desktop" | "both"
           created_at: string
         }
         Insert: {
@@ -693,6 +694,7 @@ export type Database = {
           height?: number | null
           description?: string | null
           is_active?: boolean
+          device?: "mobile" | "desktop" | "both"
           created_at?: string
         }
         Update: Partial<Database["public"]["Tables"]["ad_placements"]["Insert"]>

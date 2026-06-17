@@ -8,7 +8,6 @@ import { createAdminClient } from "@/lib/supabase/admin"
 import {
   adSchema,
   adUpdateSchema,
-  placementUpdateSchema,
   placementVisibilitySchema,
 } from "@/lib/validations/ad"
 
@@ -136,29 +135,6 @@ export async function deleteAd(id: unknown): Promise<ActionResult> {
   const { error } = await admin.from("advertisements").delete().eq("id", parsed.data)
   if (error) return { ok: false, error: error.message }
   revalidatePath("/admin/ads")
-  return { ok: true }
-}
-
-// ---------------------------------------------------------------------------
-// Update placement dimensions/description
-// ---------------------------------------------------------------------------
-export async function updatePlacement(input: unknown): Promise<ActionResult> {
-  const parsed = placementUpdateSchema.safeParse(input)
-  if (!parsed.success) {
-    return { ok: false, error: parsed.error.issues[0]?.message ?? "validation" }
-  }
-  if (!(await ensureAdmin())) return { ok: false, error: "forbidden" }
-
-  const { id, ...rest } = parsed.data
-  const admin = createAdminClient()
-  const { error } = await admin
-    .from("ad_placements")
-    .update(rest as never)
-    .eq("id", id)
-  if (error) return { ok: false, error: error.message }
-  revalidatePath("/admin/ads/placements")
-  // Bust ISR cache for every page under the [locale] layout (e.g. /ar, /fr, /ar/annonces …)
-  revalidatePath("/[locale]", "layout")
   return { ok: true }
 }
 

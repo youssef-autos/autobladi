@@ -1904,30 +1904,22 @@
     },
     "placementsPage": {
       "title": "مواقع الإعلانات",
-      "subtitle": "اضبط مقاسات ووصف كل موقع إعلاني في الموقع",
+      "subtitle": "إدارة مواقع الإعلانات — يمكنك إظهار أو إخفاء كل موقع",
       "columns": {
         "slug": "المعرّف",
         "name": "الموقع",
         "size": "المقاس (px)",
+        "device": "الجهاز",
         "description": "الوصف",
         "adsCount": "إعلانات",
         "actions": "إجراءات"
       },
-      "form": {
-        "name": "اسم الموقع",
-        "namePlaceholder": "مثال: Home — Top",
-        "slug": "المعرّف",
-        "width": "العرض (px)",
-        "height": "الارتفاع (px)",
-        "description": "وصف (اختياري)",
-        "descriptionPlaceholder": "مثال: بانر فوق الصفحة الرئيسية",
-        "save": "حفظ",
-        "saving": "جاري الحفظ...",
-        "cancel": "إلغاء",
-        "edit": "تعديل الموقع"
+      "device": {
+        "mobile": "هاتف",
+        "desktop": "ويب",
+        "both": "الكل"
       },
       "toast": {
-        "updated": "تم تحديث المقاس",
         "shown": "تم إظهار الموضع في الموقع",
         "hidden": "تم إخفاء الموضع من الموقع",
         "error": "حدث خطأ"
