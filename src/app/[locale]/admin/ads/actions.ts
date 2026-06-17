@@ -157,7 +157,8 @@ export async function updatePlacement(input: unknown): Promise<ActionResult> {
     .eq("id", id)
   if (error) return { ok: false, error: error.message }
   revalidatePath("/admin/ads/placements")
-  revalidatePath("/", "layout")
+  // Bust ISR cache for every page under the [locale] layout (e.g. /ar, /fr, /ar/annonces …)
+  revalidatePath("/[locale]", "layout")
   return { ok: true }
 }
 
@@ -178,7 +179,7 @@ export async function setPlacementVisibility(
     .eq("id", parsed.data.id)
   if (error) return { ok: false, error: error.message }
   revalidatePath("/admin/ads/placements")
-  // The placement may appear anywhere on the site — refresh broadly.
-  revalidatePath("/", "layout")
+  // Bust ISR cache for every page under the [locale] layout (e.g. /ar, /fr, /ar/annonces …)
+  revalidatePath("/[locale]", "layout")
   return { ok: true }
 }
