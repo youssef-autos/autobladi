@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { setRequestLocale } from "next-intl/server"
 
-import { AdBanner } from "@/components/ads/AdBanner"
+import { AdSlot } from "@/components/ads/AdSlot"
 import { JsonLd } from "@/components/seo/JsonLd"
 import { breadcrumbSchema, vehicleSchema } from "@/lib/seo/structured-data"
 import { AnnonceHeader } from "@/components/annonces/AnnonceHeader"
@@ -102,8 +102,7 @@ export default async function AnnonceDetailPage({
 
       <Container className="pt-6 pb-4">
         <Suspense fallback={<div className="h-[90px] rounded-2xl bg-muted animate-pulse" />}>
-          <AdBanner placement="annonce_top" heightClass="h-[90px] md:h-[120px]" />
-          <AdBanner placement="annonce_top_mobile" />
+          <AdSlot slotId="annonce_top" />
         </Suspense>
       </Container>
 
@@ -129,8 +128,8 @@ export default async function AnnonceDetailPage({
             <AnnonceVideo annonce={annonce} />
 
             <Suspense fallback={<div className="h-[90px] rounded-2xl bg-muted animate-pulse" />}>
-              <AdBanner placement="annonce_bottom" heightClass="h-[90px] md:h-[120px]" />
-              <AdBanner placement="annonce_bottom_mobile" />
+              {/* In-article slot — different size on mobile vs desktop, one call. */}
+              <AdSlot slotId="annonce_bottom" />
             </Suspense>
 
             <AnnonceMap annonce={annonce} />
@@ -162,7 +161,7 @@ export default async function AnnonceDetailPage({
             <SafetyTips />
 
             <Suspense fallback={<div className="h-[250px] rounded-2xl bg-muted animate-pulse" />}>
-              <AdBanner placement="annonce_sidebar" heightClass="h-[250px]" />
+              <AdSlot slotId="annonce_sidebar" />
             </Suspense>
           </aside>
         </div>

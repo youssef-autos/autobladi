@@ -2,6 +2,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 import { ArrowLeft } from "lucide-react"
 
+import { AdSlotsOverview } from "@/components/admin/ads/AdSlotsOverview"
 import { PlacementsManager } from "@/components/admin/ads/PlacementsManager"
 import { listAllPlacementsAdmin } from "@/lib/queries/admin"
 
@@ -41,6 +42,8 @@ export default async function AdminPlacementsPage({
       </header>
 
       <PlacementsManager placements={placements} />
+
+      <AdSlotsOverview locale={locale} />
     </div>
   )
 }

@@ -12,6 +12,7 @@ import { DirectionProvider } from "@base-ui/react/direction-provider"
 import { JsonLd } from "@/components/seo/JsonLd"
 import { FavoritesProvider } from "@/hooks/use-favorites"
 import { Toaster } from "@/components/ui/sonner"
+import { ADSENSE } from "@/config/ads.config"
 import { routing } from "@/i18n/routing"
 import { getSiteAnalyticsId, getSiteFaviconUrl, getSiteVerification } from "@/lib/queries/home"
 import { organizationSchema } from "@/lib/seo/structured-data"
@@ -219,6 +220,15 @@ export default async function LocaleLayout({
               {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`}
             </Script>
           </>
+        )}
+        {/* Google AdSense loader — injected once, only when a publisher id is set. */}
+        {ADSENSE.enabled && (
+          <Script
+            id="adsbygoogle-init"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE.clientId}`}
+            strategy="afterInteractive"
+            crossOrigin="anonymous"
+          />
         )}
         <JsonLd data={organizationSchema()} />
         <DirectionProvider direction={dir}>

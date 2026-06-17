@@ -3,31 +3,38 @@ import { getTranslations } from "next-intl/server"
 
 import { AdLink } from "@/components/ads/AdLink"
 import { AdPlaceholder } from "@/components/ads/AdPlaceholder"
+import { AdSlot } from "@/components/ads/AdSlot"
+import { getAdSlot } from "@/config/ads.config"
 import { getActiveAd, getPlacementMeta } from "@/lib/queries/home"
 import { cn } from "@/lib/utils"
 
 type Props = {
   /**
-   * The `ad_placements.slug` to show (e.g. `"home_top"`, `"annonce_sidebar"`).
-   * Old callsites still use `slug` — both names are accepted to make the
-   * migration painless.
+   * The placement id to show (e.g. `"home_top"`, `"annonce_sidebar"`).
+   * When the id matches a slot in `config/ads.config.ts`, rendering is
+   * delegated to the new centralized <AdSlot/> (device-aware, lazy, AdSense
+   * fallback). Unknown ids fall back to the legacy DB-only banner below.
    */
   placement?: string
   /** @deprecated Use `placement` instead. Kept for backward compatibility. */
   slug?: string
-  /**
-   * Visual height for the placeholder/banner box. Defaults to a responsive
-   * leaderboard height. Prefer passing explicit `width` / `height` props when
-   * you know the placement's intrinsic dimensions.
-   */
+  /** Legacy: visual height for the placeholder/banner box. */
   heightClass?: string
-  /** Intrinsic ad width in pixels (used for Next/Image sizing hints). */
+  /** Legacy: intrinsic ad width in pixels. */
   width?: number
-  /** Intrinsic ad height in pixels (used for Next/Image sizing hints). */
+  /** Legacy: intrinsic ad height in pixels. */
   height?: number
   className?: string
 }
 
+/**
+ * Backward-compatible wrapper around the ad system.
+ *
+ * New code should use <AdSlot slotId="…" /> directly. This component remains so
+ * existing call-sites keep working: when the placement is a known config slot
+ * it transparently delegates to <AdSlot/>; otherwise it renders the original
+ * DB-driven banner.
+ */
 export async function AdBanner({
   placement,
   slug,
@@ -37,35 +44,22 @@ export async function AdBanner({
   className,
 }: Props) {
   const placementSlug = placement ?? slug
-  if (!placementSlug) {
-    // Defensive: misconfigured callsite — render nothing rather than crash.
-    return null
+  if (!placementSlug) return null
+
+  // Known slot → route through the centralized system.
+  if (getAdSlot(placementSlug)) {
+    return <AdSlot slotId={placementSlug} className={className} />
   }
 
+  // ---- Legacy path (unknown slots) --------------------------------------
   const [ad, placementMeta, t] = await Promise.all([
     getActiveAd(placementSlug),
     getPlacementMeta(placementSlug),
     getTranslations("ads"),
   ])
 
-  // Admin hid this placement → render nothing at all (no ad, no placeholder).
-  if (placementMeta && !placementMeta.isActive) {
-    return null
-  }
+  if (placementMeta && !placementMeta.isActive) return null
 
-  // Responsive visibility wrapper based on the placement's device target.
-  const device = placementMeta?.device ?? "both"
-  const deviceWrapper =
-    device === "desktop"
-      ? "hidden md:block"
-      : device === "mobile"
-        ? "block md:hidden"
-        : undefined // "both" → no restriction
-
-  // Prefer explicit props, then the placement's admin-configured dimensions.
-  // When known, the slot is sized by aspect-ratio (responsive) and capped at
-  // its intrinsic width — so each placement renders proportionally to where it
-  // appears on the page. Falls back to `heightClass` when no size is set.
   const w = width ?? placementMeta?.width ?? null
   const h = height ?? placementMeta?.height ?? null
   const hasDims = !!(w && h)
@@ -74,7 +68,7 @@ export async function AdBanner({
     : undefined
 
   if (!ad) {
-    const placeholder = (
+    return (
       <AdPlaceholder
         label={t("placeholder")}
         heightClass={hasDims ? "" : heightClass}
@@ -82,11 +76,9 @@ export async function AdBanner({
         className={cn(hasDims && "w-full mx-auto", className)}
       />
     )
-    if (!deviceWrapper) return placeholder
-    return <div className={deviceWrapper}>{placeholder}</div>
   }
 
-  const banner = (
+  return (
     <div
       style={sizeStyle}
       className={cn(
@@ -117,6 +109,4 @@ export async function AdBanner({
       </AdLink>
     </div>
   )
-  if (!deviceWrapper) return banner
-  return <div className={deviceWrapper}>{banner}</div>
 }

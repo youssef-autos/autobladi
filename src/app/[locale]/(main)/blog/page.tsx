@@ -102,8 +102,7 @@ export default async function BlogIndexPage({
 
       <Container className="py-8 md:py-12 space-y-8">
         <Suspense fallback={<div className="h-[120px] md:h-[150px] rounded-2xl bg-muted animate-pulse" />}>
-          <AdBanner placement="blog_top" heightClass="h-[120px] md:h-[150px]" />
-          <AdBanner placement="blog_top_mobile" />
+          <AdBanner placement="blog_top" />
         </Suspense>
 
         <CategoriesNav categories={categories} activeSlug={null} />

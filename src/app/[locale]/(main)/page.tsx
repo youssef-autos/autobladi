@@ -1,7 +1,7 @@
 import { Fragment, Suspense } from "react"
 import { setRequestLocale } from "next-intl/server"
 
-import { AdBanner } from "@/components/ads/AdBanner"
+import { AdSlot } from "@/components/ads/AdSlot"
 import { JsonLd } from "@/components/seo/JsonLd"
 import { websiteSchema } from "@/lib/seo/structured-data"
 import { BlogPreview } from "@/components/home/BlogPreview"
@@ -78,8 +78,8 @@ export default async function HomePage({
 
       <Container className="py-6">
         <Suspense fallback={<AdSkeleton />}>
-          <AdBanner placement="home_top" />
-          <AdBanner placement="home_top_mobile" />
+          {/* One slot renders the right size per device automatically. */}
+          <AdSlot slotId="home_top" />
         </Suspense>
       </Container>
 
@@ -89,18 +89,14 @@ export default async function HomePage({
           {i === midPos && (
             <Container className="py-6">
               <Suspense fallback={<AdSkeleton />}>
-                <AdBanner placement="home_middle" />
-                <AdBanner placement="home_middle_mobile" />
+                <AdSlot slotId="home_middle" />
               </Suspense>
             </Container>
           )}
           {bottomPos > midPos && i === bottomPos && (
             <Container className="py-6">
               <Suspense fallback={<AdSkeleton />}>
-                <AdBanner
-                  placement="home_bottom"
-                  heightClass="h-[180px] md:h-[220px]"
-                />
+                <AdSlot slotId="home_bottom" />
               </Suspense>
             </Container>
           )}

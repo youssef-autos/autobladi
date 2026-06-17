@@ -80,8 +80,7 @@ export default async function AnnoncesPage({
 
         <Suspense fallback={<div className="h-[120px] md:h-[150px] rounded-2xl bg-muted animate-pulse mb-6" />}>
           <div className="mb-6">
-            <AdBanner placement="listings_top" heightClass="h-[120px] md:h-[150px]" />
-            <AdBanner placement="listings_top_mobile" />
+            <AdBanner placement="listings_top" />
           </div>
         </Suspense>
 

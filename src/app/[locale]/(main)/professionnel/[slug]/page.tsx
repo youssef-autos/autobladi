@@ -75,8 +75,7 @@ export default async function ProfessionnelDetailPage({
 
       <Container className="pt-6">
         <Suspense fallback={<div className="h-[120px] md:h-[150px] rounded-2xl bg-muted animate-pulse" />}>
-          <AdBanner placement="professionnel_top" heightClass="h-[120px] md:h-[150px]" />
-          <AdBanner placement="professionnel_top_mobile" />
+          <AdBanner placement="professionnel_top" />
         </Suspense>
       </Container>
 

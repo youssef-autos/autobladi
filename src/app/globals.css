@@ -291,3 +291,44 @@
     animation: none;
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * Ad slots — device-correct reserved space (prevents Cumulative Layout Shift).
+ *
+ * Size is driven by CSS custom properties set inline by <AdSlotClient/>:
+ *   --ad-w / --ad-h        → mobile box (default, < md)
+ *   --ad-w-md / --ad-h-md  → desktop box (≥ md, 768px)
+ *
+ * Device gating is pure CSS via [data-device], so the correct viewport sees the
+ * slot with zero hydration flash and the wrong viewport reserves no space.
+ * ------------------------------------------------------------------------- */
+.ad-slot {
+  width: var(--ad-w);
+  height: var(--ad-h);
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .ad-slot {
+    width: var(--ad-w-md);
+    height: var(--ad-h-md);
+  }
+}
+
+.ad-slot[data-device="desktop"] {
+  display: none;
+}
+@media (min-width: 768px) {
+  .ad-slot[data-device="desktop"] {
+    display: block;
+  }
+}
+
+.ad-slot[data-device="mobile"] {
+  display: block;
+}
+@media (min-width: 768px) {
+  .ad-slot[data-device="mobile"] {
+    display: none;
+  }
+}
