@@ -274,6 +274,85 @@ export function getAllAdSlots(): AdSlotConfig[] {
 }
 
 /**
+ * The fully-resolved settings of a slot — code defaults with any admin-saved
+ * database overrides applied. This is what both the public <AdSlot/> and the
+ * admin editor consume, so they always agree.
+ */
+export interface ResolvedAdSlot {
+  id: string
+  label: string
+  enabled: boolean
+  device: AdDevice
+  defaultProvider: AdProvider
+  adsenseSlotId: string
+  sizes: { desktop: AdSize; mobile: AdSize }
+  lazy: boolean
+}
+
+/**
+ * Admin-editable overrides, shaped like the `ad_placements` DB row. Every field
+ * is optional/nullable: a NULL means "use the code default". `??` is used so a
+ * real `false` (e.g. a disabled slot) is never overwritten by the default.
+ */
+export interface AdSlotOverrides {
+  name?: string | null
+  is_active?: boolean | null
+  device?: AdDevice | null
+  width?: number | null
+  height?: number | null
+  width_mobile?: number | null
+  height_mobile?: number | null
+  default_provider?: AdProvider | null
+  adsense_slot_id?: string | null
+  lazy?: boolean | null
+}
+
+/**
+ * Merge DB overrides over the code defaults for a slot. Returns null only when
+ * the id is unknown AND there is no DB row to describe it.
+ */
+export function resolveAdSlot(
+  id: string,
+  o?: AdSlotOverrides | null,
+): ResolvedAdSlot | null {
+  const base = AD_SLOTS[id]
+  if (!base && !o) return null
+
+  // Fallback skeleton for a slot that exists only in the DB (no code default).
+  const b: AdSlotConfig =
+    base ?? {
+      id,
+      label: id,
+      enabled: true,
+      device: "both",
+      defaultProvider: "adsense",
+      adsenseSlotId: "",
+      sizes: { desktop: { width: 728, height: 90 }, mobile: { width: 300, height: 250 } },
+      lazy: true,
+    }
+
+  return {
+    id,
+    label: o?.name ?? b.label,
+    enabled: o?.is_active ?? b.enabled,
+    device: (o?.device ?? b.device) as AdDevice,
+    defaultProvider: (o?.default_provider ?? b.defaultProvider) as AdProvider,
+    adsenseSlotId: (o?.adsense_slot_id ?? b.adsenseSlotId ?? "").trim(),
+    sizes: {
+      desktop: {
+        width: o?.width ?? b.sizes.desktop.width,
+        height: o?.height ?? b.sizes.desktop.height,
+      },
+      mobile: {
+        width: o?.width_mobile ?? b.sizes.mobile.width,
+        height: o?.height_mobile ?? b.sizes.mobile.height,
+      },
+    },
+    lazy: o?.lazy ?? b.lazy ?? true,
+  }
+}
+
+/**
  * Whether a slot can render on a given concrete device.
  * `both` matches everything; otherwise an exact match is required.
  */

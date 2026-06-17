@@ -1903,7 +1903,10 @@
     },
     "placementsPage": {
       "title": "Emplacements publicitaires",
-      "subtitle": "Gérez les emplacements — affichez ou masquez chaque emplacement",
+      "subtitle": "Contrôle total de chaque emplacement — activation, appareil, tailles et type de publicité",
+      "count": "{count} emplacement(s)",
+      "campaignsHint": "Pour ajouter ou arrêter la publicité d'une entreprise (image + lien + dates), utilisez la page des publicités :",
+      "activeCampaigns": "{count} campagne(s) active(s)",
       "columns": {
         "slug": "Identifiant",
         "name": "Emplacement",
@@ -1918,17 +1921,49 @@
         "desktop": "Bureau",
         "both": "Tous"
       },
+      "provider": {
+        "adsense": "Publicités Google (AdSense)",
+        "direct": "Publicité directe (entreprise)"
+      },
+      "fields": {
+        "name": "Nom de l'emplacement",
+        "on": "Affiché",
+        "off": "Masqué",
+        "provider": "Type de publicité",
+        "desktopSize": "Taille Bureau",
+        "mobileSize": "Taille Mobile",
+        "adsenseUnit": "Code de l'unité AdSense",
+        "adsenseUnitPlaceholder": "Ex : 1234567890",
+        "lazy": "Chargement à la demande (meilleure performance)"
+      },
+      "form": {
+        "save": "Enregistrer",
+        "saving": "Enregistrement..."
+      },
       "toast": {
         "shown": "Emplacement affiché sur le site",
         "hidden": "Emplacement masqué du site",
+        "savedSlot": "Réglages de l'emplacement enregistrés",
         "error": "Une erreur est survenue"
+      },
+      "adsense": {
+        "title": "Publicités Google AdSense",
+        "desc": "Saisissez votre identifiant éditeur une seule fois pour activer Google sur tout le site",
+        "label": "Identifiant éditeur (Publisher ID)",
+        "save": "Enregistrer",
+        "saving": "Enregistrement...",
+        "help": "Vous le trouverez dans votre compte AdSense sous la forme ca-pub-... — laissez vide pour désactiver Google. Mettez ensuite le code de chaque unité dans son emplacement ci-dessous.",
+        "enabled": "Activé",
+        "disabled": "Désactivé",
+        "saved": "Identifiant AdSense enregistré",
+        "error": "Une erreur est survenue",
+        "invalid": "Identifiant invalide (doit commencer par ca-pub-)"
       },
       "hide": "Masquer du site",
       "show": "Afficher sur le site",
       "hiddenBadge": "Masqué",
       "sizePreview": "{width} × {height} px",
-      "noAds": "—",
-      "count": "{count} emplacement(s)"
+      "noAds": "—"
     },
     "comingSoon": {
       "title": "Bientôt disponible",

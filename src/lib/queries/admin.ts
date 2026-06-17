@@ -2,6 +2,11 @@ import "server-only"
 
 import { createClient } from "@/lib/supabase/server"
 import { createAdminClient } from "@/lib/supabase/admin"
+import {
+  getAllAdSlots,
+  resolveAdSlot,
+  type AdSlotOverrides,
+} from "@/config/ads.config"
 import type { AnnonceStatus, RequestStatus, Tables } from "@/types/database.types"
 
 export type AdminCounts = {
@@ -975,6 +980,65 @@ export async function listAllPlacementsAdmin(): Promise<AdminPlacementRow[]> {
     ...p,
     ads_count: countMap.get(p.id) ?? 0,
   }))
+}
+
+// ---------------------------------------------------------------------------
+// Full ad-slot settings for the admin editor — every slot in the config
+// registry, merged with its saved DB overrides, plus its active-ad count.
+// Driven by the config registry so the list is always the canonical set of
+// slots (stray legacy rows in the DB are ignored).
+// ---------------------------------------------------------------------------
+export type AdSlotSettingsRow = {
+  slug: string
+  name: string
+  is_active: boolean
+  device: "mobile" | "desktop" | "both"
+  default_provider: "adsense" | "direct"
+  width: number
+  height: number
+  width_mobile: number
+  height_mobile: number
+  adsense_slot_id: string
+  lazy: boolean
+  ads_count: number
+}
+
+export async function listAdSlotSettings(): Promise<AdSlotSettingsRow[]> {
+  const supabase = await createClient()
+
+  const [{ data: rows }, { data: counts }] = await Promise.all([
+    supabase.from("ad_placements").select("*"),
+    supabase.from("advertisements").select("placement_id").eq("is_active", true),
+  ])
+
+  const countMap = new Map<string, number>()
+  for (const c of (counts ?? []) as Array<{ placement_id: string }>) {
+    countMap.set(c.placement_id, (countMap.get(c.placement_id) ?? 0) + 1)
+  }
+
+  const bySlug = new Map<string, { id: string } & AdSlotOverrides>()
+  for (const r of (rows ?? []) as Array<{ id: string; slug: string } & AdSlotOverrides>) {
+    bySlug.set(r.slug, r)
+  }
+
+  return getAllAdSlots().map((slot) => {
+    const row = bySlug.get(slot.id)
+    const r = resolveAdSlot(slot.id, (row ?? null) as AdSlotOverrides | null)!
+    return {
+      slug: slot.id,
+      name: r.label,
+      is_active: r.enabled,
+      device: r.device,
+      default_provider: r.defaultProvider,
+      width: r.sizes.desktop.width,
+      height: r.sizes.desktop.height,
+      width_mobile: r.sizes.mobile.width,
+      height_mobile: r.sizes.mobile.height,
+      adsense_slot_id: r.adsenseSlotId,
+      lazy: r.lazy,
+      ads_count: row ? countMap.get(row.id) ?? 0 : 0,
+    }
+  })
 }
 
 // ---------------------------------------------------------------------------

@@ -8,6 +8,8 @@ import { createAdminClient } from "@/lib/supabase/admin"
 import {
   adSchema,
   adUpdateSchema,
+  adSlotSettingsSchema,
+  adsenseClientSchema,
   placementVisibilitySchema,
 } from "@/lib/validations/ad"
 
@@ -156,6 +158,72 @@ export async function setPlacementVisibility(
   if (error) return { ok: false, error: error.message }
   revalidatePath("/admin/ads/placements")
   // Bust ISR cache for every page under the [locale] layout (e.g. /ar, /fr, /ar/annonces …)
+  revalidatePath("/[locale]", "layout")
+  return { ok: true }
+}
+
+// ---------------------------------------------------------------------------
+// Full slot settings — upsert all editable fields of one ad slot by slug.
+// Creates the placement row on first save (onConflict slug).
+// ---------------------------------------------------------------------------
+export async function updateAdSlotSettings(
+  input: unknown,
+): Promise<ActionResult> {
+  const parsed = adSlotSettingsSchema.safeParse(input)
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "validation" }
+  }
+  if (!(await ensureAdmin())) return { ok: false, error: "forbidden" }
+
+  const d = parsed.data
+  const admin = createAdminClient()
+  const { error } = await admin.from("ad_placements").upsert(
+    {
+      slug: d.slug,
+      name: d.name,
+      is_active: d.is_active,
+      device: d.device,
+      width: d.width,
+      height: d.height,
+      width_mobile: d.width_mobile,
+      height_mobile: d.height_mobile,
+      default_provider: d.default_provider,
+      adsense_slot_id: d.adsense_slot_id || null,
+      lazy: d.lazy,
+    } as never,
+    { onConflict: "slug" },
+  )
+  if (error) return { ok: false, error: error.message }
+
+  revalidatePath("/admin/ads/placements")
+  // Bust ISR cache for every page under the [locale] layout.
+  revalidatePath("/[locale]", "layout")
+  return { ok: true }
+}
+
+// ---------------------------------------------------------------------------
+// Global AdSense publisher id (ca-pub-…). Stored in site_settings (public —
+// it is embedded in every page's script, so it is NOT a secret).
+// ---------------------------------------------------------------------------
+export async function saveAdsenseClientId(
+  input: unknown,
+): Promise<ActionResult> {
+  const parsed = adsenseClientSchema.safeParse(input)
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0]?.message ?? "validation" }
+  }
+  if (!(await ensureAdmin())) return { ok: false, error: "forbidden" }
+
+  const admin = createAdminClient()
+  const { error } = await admin
+    .from("site_settings")
+    .upsert(
+      { key: "adsense_client_id", value: parsed.data.adsense_client_id } as never,
+      { onConflict: "key" },
+    )
+  if (error) return { ok: false, error: error.message }
+
+  revalidatePath("/admin/ads/placements")
   revalidatePath("/[locale]", "layout")
   return { ok: true }
 }

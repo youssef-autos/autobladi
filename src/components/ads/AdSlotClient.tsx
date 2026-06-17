@@ -5,7 +5,7 @@ import Image from "next/image"
 import { Megaphone } from "lucide-react"
 
 import { AdLink } from "@/components/ads/AdLink"
-import { ADSENSE, type AdSlotConfig } from "@/config/ads.config"
+import type { ResolvedAdSlot } from "@/config/ads.config"
 import { useInView } from "@/hooks/use-in-view"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { cn } from "@/lib/utils"
@@ -19,9 +19,14 @@ export type DirectAd = {
 }
 
 type Props = {
-  slot: AdSlotConfig
+  /** Fully-resolved slot settings (DB overrides merged over code defaults). */
+  settings: ResolvedAdSlot
   /** Active direct campaign for this slot, or null → fall back to AdSense. */
   directAd: DirectAd | null
+  /** Google AdSense publisher id ("ca-pub-…"), admin-managed. */
+  adsenseClientId: string
+  /** Whether AdSense is configured site-wide. */
+  adsenseEnabled: boolean
   /** Localized "Advertisement" label. */
   label: string
   className?: string
@@ -34,12 +39,15 @@ type Props = {
  *   - lazy-mount the actual creative once it scrolls near the viewport
  *   - prefer a direct campaign, otherwise an AdSense unit, otherwise nothing
  *   - show a subtle skeleton until the creative is mounted
- *
- * Tailwind can't generate arbitrary classes from runtime sizes, so the reserved
- * box is sized with CSS custom properties consumed by the `.ad-slot` rule in
- * globals.css (mobile by default, desktop at the `md` breakpoint).
  */
-export function AdSlotClient({ slot, directAd, label, className }: Props) {
+export function AdSlotClient({
+  settings,
+  directAd,
+  adsenseClientId,
+  adsenseEnabled,
+  label,
+  className,
+}: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, "300px")
   const isDesktop = useMediaQuery("(min-width: 768px)")
@@ -48,36 +56,36 @@ export function AdSlotClient({ slot, directAd, label, className }: Props) {
 
   // Concrete viewport device — only meaningful after mount.
   const deviceActive =
-    slot.device === "both"
+    settings.device === "both"
       ? true
-      : slot.device === "desktop"
+      : settings.device === "desktop"
         ? isDesktop
         : !isDesktop
 
-  const eager = slot.lazy === false
+  const eager = settings.lazy === false
   const ready = mounted && deviceActive && (eager || inView)
 
   // Active-device size (used to size the AdSense <ins> exactly → CLS-safe).
-  const size = isDesktop ? slot.sizes.desktop : slot.sizes.mobile
+  const size = isDesktop ? settings.sizes.desktop : settings.sizes.mobile
 
   // Resolution: direct campaign wins; else AdSense if this slot opts into it.
   const canAdsense =
     !directAd &&
-    slot.defaultProvider === "adsense" &&
-    Boolean(slot.adsenseSlotId) &&
-    ADSENSE.enabled
+    settings.defaultProvider === "adsense" &&
+    Boolean(settings.adsenseSlotId) &&
+    adsenseEnabled
 
   const styleVars = {
-    "--ad-w": `${slot.sizes.mobile.width}px`,
-    "--ad-h": `${slot.sizes.mobile.height}px`,
-    "--ad-w-md": `${slot.sizes.desktop.width}px`,
-    "--ad-h-md": `${slot.sizes.desktop.height}px`,
+    "--ad-w": `${settings.sizes.mobile.width}px`,
+    "--ad-h": `${settings.sizes.mobile.height}px`,
+    "--ad-w-md": `${settings.sizes.desktop.width}px`,
+    "--ad-h-md": `${settings.sizes.desktop.height}px`,
   } as React.CSSProperties
 
   return (
     <div
       ref={ref}
-      data-device={slot.device}
+      data-device={settings.device}
       style={styleVars}
       className={cn(
         "ad-slot relative mx-auto overflow-hidden rounded-2xl",
@@ -111,14 +119,14 @@ export function AdSlotClient({ slot, directAd, label, className }: Props) {
         </>
       ) : canAdsense ? (
         <AdSenseUnit
-          clientId={ADSENSE.clientId}
-          slotId={slot.adsenseSlotId!}
+          clientId={adsenseClientId}
+          slotId={settings.adsenseSlotId}
           width={size.width}
           height={size.height}
         />
       ) : (
         // No direct campaign and AdSense not applicable → keep the reserved
-        // space empty but unobtrusive (so the layout stays stable).
+        // space but unobtrusive (so the layout stays stable).
         <AdSkeleton label={label} />
       )}
     </div>

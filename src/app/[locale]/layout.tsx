@@ -12,9 +12,13 @@ import { DirectionProvider } from "@base-ui/react/direction-provider"
 import { JsonLd } from "@/components/seo/JsonLd"
 import { FavoritesProvider } from "@/hooks/use-favorites"
 import { Toaster } from "@/components/ui/sonner"
-import { ADSENSE } from "@/config/ads.config"
 import { routing } from "@/i18n/routing"
-import { getSiteAnalyticsId, getSiteFaviconUrl, getSiteVerification } from "@/lib/queries/home"
+import {
+  getAdsenseClientId,
+  getSiteAnalyticsId,
+  getSiteFaviconUrl,
+  getSiteVerification,
+} from "@/lib/queries/home"
 import { organizationSchema } from "@/lib/seo/structured-data"
 import { cn } from "@/lib/utils"
 
@@ -195,7 +199,11 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale)
   const dir = locale === "ar" ? "rtl" : "ltr"
-  const gaId = await getSiteAnalyticsId()
+  const [gaId, adsenseClientId] = await Promise.all([
+    getSiteAnalyticsId(),
+    getAdsenseClientId(),
+  ])
+  const adsenseEnabled = adsenseClientId.startsWith("ca-pub-")
 
   return (
     <html
@@ -222,10 +230,10 @@ export default async function LocaleLayout({
           </>
         )}
         {/* Google AdSense loader — injected once, only when a publisher id is set. */}
-        {ADSENSE.enabled && (
+        {adsenseEnabled && (
           <Script
             id="adsbygoogle-init"
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE.clientId}`}
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
             strategy="afterInteractive"
             crossOrigin="anonymous"
           />

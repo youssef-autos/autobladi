@@ -1904,7 +1904,10 @@
     },
     "placementsPage": {
       "title": "مواقع الإعلانات",
-      "subtitle": "إدارة مواقع الإعلانات — يمكنك إظهار أو إخفاء كل موقع",
+      "subtitle": "تحكّم كامل بكل خانة إعلانية — التشغيل/الإيقاف، الجهاز، المقاسات، ونوع الإعلان",
+      "count": "{count} موقع",
+      "campaignsHint": "لإضافة أو إيقاف إعلان شركة معيّنة (صورة + رابط + تواريخ) استخدم صفحة الإعلانات:",
+      "activeCampaigns": "{count} حملة نشطة",
       "columns": {
         "slug": "المعرّف",
         "name": "الموقع",
@@ -1919,17 +1922,49 @@
         "desktop": "ويب",
         "both": "الكل"
       },
+      "provider": {
+        "adsense": "إعلانات Google (AdSense)",
+        "direct": "إعلان شركة مباشر"
+      },
+      "fields": {
+        "name": "اسم الموقع",
+        "on": "ظاهر",
+        "off": "مخفي",
+        "provider": "نوع الإعلان",
+        "desktopSize": "مقاس الويب",
+        "mobileSize": "مقاس الهاتف",
+        "adsenseUnit": "كود وحدة AdSense",
+        "adsenseUnitPlaceholder": "مثال: 1234567890",
+        "lazy": "تحميل عند الحاجة (أداء أفضل)"
+      },
+      "form": {
+        "save": "حفظ",
+        "saving": "جاري الحفظ..."
+      },
       "toast": {
         "shown": "تم إظهار الموضع في الموقع",
         "hidden": "تم إخفاء الموضع من الموقع",
+        "savedSlot": "تم حفظ إعدادات الموقع",
         "error": "حدث خطأ"
+      },
+      "adsense": {
+        "title": "إعلانات Google AdSense",
+        "desc": "أدخل معرّف الناشر مرة واحدة لتفعيل إعلانات Google في كامل الموقع",
+        "label": "معرّف الناشر (Publisher ID)",
+        "save": "حفظ",
+        "saving": "جاري الحفظ...",
+        "help": "تجده في حساب AdSense على شكل ca-pub-... — اتركه فارغاً لتعطيل إعلانات Google. ثم ضع كود كل وحدة في خانتها بالأسفل.",
+        "enabled": "مفعّل",
+        "disabled": "غير مفعّل",
+        "saved": "تم حفظ معرّف AdSense",
+        "error": "حدث خطأ",
+        "invalid": "معرّف غير صالح (يجب أن يبدأ بـ ca-pub-)"
       },
       "hide": "إخفاء من الموقع",
       "show": "إظهار في الموقع",
       "hiddenBadge": "مخفي",
       "sizePreview": "{width} × {height} px",
-      "noAds": "—",
-      "count": "{count} موقع"
+      "noAds": "—"
     },
     "comingSoon": {
       "title": "قريباً",

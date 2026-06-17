@@ -7,6 +7,9 @@ import { useEffect, useState, type RefObject } from "react"
  * viewport. Fires once then disconnects — ideal for lazy-mounting ads/images
  * below the fold. Falls back to `true` immediately when IntersectionObserver is
  * unavailable (very old browsers / SSR safety).
+ *
+ * An `active` flag guards every state update so a callback that fires after the
+ * effect is torn down (e.g. React StrictMode's double-mount in dev) is ignored.
  */
 export function useInView(
   ref: RefObject<Element | null>,
@@ -17,14 +20,17 @@ export function useInView(
   useEffect(() => {
     const el = ref.current
     if (!el) return
+
+    let active = true
+
     if (typeof IntersectionObserver === "undefined") {
       setInView(true)
       return
     }
+
     const observer = new IntersectionObserver(
       (entries) => {
-        const entry = entries[0]
-        if (entry?.isIntersecting) {
+        if (active && entries[0]?.isIntersecting) {
           setInView(true)
           observer.disconnect()
         }
@@ -32,7 +38,11 @@ export function useInView(
       { rootMargin },
     )
     observer.observe(el)
-    return () => observer.disconnect()
+
+    return () => {
+      active = false
+      observer.disconnect()
+    }
   }, [ref, rootMargin])
 
   return inView

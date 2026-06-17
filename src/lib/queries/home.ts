@@ -1,10 +1,17 @@
 import "server-only"
 
+import { cache } from "react"
+
 import { createClient } from "@/lib/supabase/server"
 import {
   mergeHomeSections,
   type HomeSectionConfig,
 } from "@/lib/home-sections"
+import {
+  resolveAdSlot,
+  type AdSlotOverrides,
+  type ResolvedAdSlot,
+} from "@/config/ads.config"
 import type { Tables } from "@/types/database.types"
 
 export type Brand = Tables<"brands">
@@ -303,6 +310,75 @@ export async function getPlacementMeta(slug: string): Promise<{
     device: "both",
   }
 }
+
+/**
+ * Everything <AdSlot/> needs for a slug in one place: the fully-resolved slot
+ * settings (DB row merged over code defaults) plus the active direct campaign
+ * (if any). Returns null when the slot is unknown or disabled — the component
+ * then renders nothing.
+ *
+ * `select("*")` is used (not an explicit column list) so this keeps working
+ * even before migration 036 adds the new columns — missing columns simply fall
+ * back to the code defaults via resolveAdSlot().
+ */
+export async function getAdSlotData(slug: string): Promise<{
+  settings: ResolvedAdSlot
+  directAd: AdvertisementData | null
+} | null> {
+  const supabase = await createClient()
+
+  const { data: row } = await supabase
+    .from("ad_placements")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle()
+
+  const settings = resolveAdSlot(slug, (row ?? null) as AdSlotOverrides | null)
+  if (!settings || !settings.enabled) return null
+
+  // Active direct campaign for this placement (date-windowed).
+  let directAd: AdvertisementData | null = null
+  const placementId = (row as { id?: string } | null)?.id
+  if (placementId) {
+    const now = new Date().toISOString()
+    const { data: ad } = await supabase
+      .from("advertisements")
+      .select("id, title, image_url, link_url")
+      .eq("placement_id", placementId)
+      .eq("is_active", true)
+      .or(`starts_at.is.null,starts_at.lte.${now}`)
+      .or(`ends_at.is.null,ends_at.gte.${now}`)
+      .limit(1)
+      .maybeSingle<{ id: string; title: string; image_url: string; link_url: string | null }>()
+    if (ad) {
+      directAd = {
+        id: ad.id,
+        title: ad.title,
+        image_url: ad.image_url,
+        link_url: ad.link_url,
+      }
+    }
+  }
+
+  return { settings, directAd }
+}
+
+/**
+ * The Google AdSense publisher id (e.g. "ca-pub-1234…"). Admin-editable from
+ * the dashboard (stored in the public `site_settings` table — it is NOT a
+ * secret), falling back to the build-time env var. Empty string when unset, in
+ * which case AdSense is disabled site-wide. Cached per request.
+ */
+export const getAdsenseClientId = cache(async (): Promise<string> => {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from("site_settings")
+    .select("value")
+    .eq("key", "adsense_client_id")
+    .maybeSingle<{ value: unknown }>()
+  const fromDb = typeof data?.value === "string" ? data.value.trim() : ""
+  return fromDb || (process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID ?? "").trim()
+})
 
 /**
  * Returns the admin-uploaded logos:

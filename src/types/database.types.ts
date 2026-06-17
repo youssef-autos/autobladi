@@ -681,9 +681,14 @@ export type Database = {
           slug: string
           width: number | null
           height: number | null
+          width_mobile: number | null
+          height_mobile: number | null
           description: string | null
           is_active: boolean
           device: "mobile" | "desktop" | "both"
+          default_provider: "adsense" | "direct" | null
+          adsense_slot_id: string | null
+          lazy: boolean
           created_at: string
         }
         Insert: {
@@ -692,9 +697,14 @@ export type Database = {
           slug: string
           width?: number | null
           height?: number | null
+          width_mobile?: number | null
+          height_mobile?: number | null
           description?: string | null
           is_active?: boolean
           device?: "mobile" | "desktop" | "both"
+          default_provider?: "adsense" | "direct" | null
+          adsense_slot_id?: string | null
+          lazy?: boolean
           created_at?: string
         }
         Update: Partial<Database["public"]["Tables"]["ad_placements"]["Insert"]>
