@@ -1,12 +1,8 @@
 import { Eye, Heart, Mail, Tag, TrendingUp } from "lucide-react"
 import { redirect } from "next/navigation"
-import nextDynamic from "next/dynamic"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 
-const ActivityChart = nextDynamic(
-  () => import("@/components/dashboard/ActivityChart").then((m) => m.ActivityChart),
-  { ssr: false },
-)
+import { ActivityChart } from "@/components/dashboard/ActivityChartWrapper"
 import { AlertsList } from "@/components/dashboard/AlertsList"
 import { StatsCard } from "@/components/dashboard/StatsCard"
 import { Link } from "@/i18n/navigation"
