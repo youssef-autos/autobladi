@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { startTransition, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Megaphone } from "lucide-react"
 
@@ -52,7 +52,7 @@ export function AdSlotClient({
   const inView = useInView(ref, "300px")
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
+  useEffect(() => { startTransition(() => setMounted(true)) }, [])
 
   // Concrete viewport device — only meaningful after mount.
   const deviceActive =

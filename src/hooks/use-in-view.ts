@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, type RefObject } from "react"
+import { startTransition, useEffect, useState, type RefObject } from "react"
 
 /**
  * Returns true once the referenced element scrolls within `rootMargin` of the
@@ -24,7 +24,7 @@ export function useInView(
     let active = true
 
     if (typeof IntersectionObserver === "undefined") {
-      setInView(true)
+      startTransition(() => setInView(true))
       return
     }
 
