@@ -114,11 +114,11 @@ export function Header({ logoUrl }: HeaderProps) {
               className="order-first sm:order-none inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-moroccan-gradient h-9 px-3 sm:px-4 text-sm font-semibold text-white shadow-moroccan hover:brightness-105 transition-all"
             >
               <Plus className="size-4" aria-hidden="true" />
-              <span>{t("postAd")}</span>
+              <span className="hidden sm:inline">{t("postAd")}</span>
             </Link>
 
             {/* Language switcher — beside the "post ad" button */}
-            <LanguageSwitcher className="ms-1" />
+            <LanguageSwitcher className="ms-1 shrink-0" />
           </div>
         </div>
       </div>
