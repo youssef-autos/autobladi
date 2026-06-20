@@ -57,7 +57,7 @@ export function EstimationForm({
   const selectedBrand = useWatch({ control: form.control, name: "brandId" })
 
   const brandItems = useMemo<ComboboxOption[]>(
-    () => brands.map((b) => ({ value: b.id, label: b.name })),
+    () => brands.map((b) => ({ value: b.id, label: b.name, logo: b.logo_url })),
     [brands],
   )
   const modelItems = useMemo<ComboboxOption[]>(
