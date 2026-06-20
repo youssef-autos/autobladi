@@ -1289,7 +1289,10 @@
         "published": "Publiée",
         "showInFooter": "Afficher dans le footer",
         "orderIndex": "Ordre",
-        "orderIndexHelp": "Plus petit = affiché en premier."
+        "orderIndexHelp": "Plus petit = affiché en premier.",
+        "html": "HTML",
+        "markdown": "Markdown",
+        "formatHelp": "Vous pouvez rédiger le contenu en Markdown ou HTML. Utilisez le sélecteur pour choisir le format et prévisualiser le résultat."
       }
     },
     "blogCommentsPage": {

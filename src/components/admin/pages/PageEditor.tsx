@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useTransition } from "react"
-import { ArrowLeft, Eye, Pencil } from "lucide-react"
+import { ArrowLeft, Code2, Eye, Pencil, Type } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 
@@ -134,6 +134,8 @@ export function PageEditor({ mode, initial }: Props) {
             placeholder={tForm("contentPlaceholder")}
             writeLabel={tForm("write")}
             previewLabel={tForm("preview")}
+            htmlLabel={tForm("html")}
+            markdownLabel={tForm("markdown")}
           />
 
           <ContentEditor
@@ -143,6 +145,8 @@ export function PageEditor({ mode, initial }: Props) {
             placeholder={tForm("contentPlaceholder")}
             writeLabel={tForm("write")}
             previewLabel={tForm("preview")}
+            htmlLabel={tForm("html")}
+            markdownLabel={tForm("markdown")}
             rtl
           />
         </div>
@@ -171,11 +175,18 @@ export function PageEditor({ mode, initial }: Props) {
               />
             </Field>
           </div>
-          <p className="text-xs text-muted-foreground px-1">{tForm("markdownHelp")}</p>
+          <p className="text-xs text-muted-foreground px-1">{tForm("formatHelp")}</p>
         </aside>
       </div>
     </form>
   )
+}
+
+function detectFormat(content: string): "markdown" | "html" {
+  const trimmed = content.trim()
+  if (!trimmed) return "markdown"
+  if (/^<(!DOCTYPE|html|div|section|article|main|header|footer|nav|p|h[1-6]|ul|ol|table|form|style)/i.test(trimmed)) return "html"
+  return "markdown"
 }
 
 function ContentEditor({
@@ -185,6 +196,8 @@ function ContentEditor({
   placeholder,
   writeLabel,
   previewLabel,
+  htmlLabel,
+  markdownLabel,
   rtl,
 }: {
   label: string
@@ -193,13 +206,47 @@ function ContentEditor({
   placeholder: string
   writeLabel: string
   previewLabel: string
+  htmlLabel: string
+  markdownLabel: string
   rtl?: boolean
 }) {
   const [tab, setTab] = useState<"write" | "preview">("write")
+  const [format, setFormat] = useState<"markdown" | "html">(() => detectFormat(value))
+
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between gap-2">
-        <span className="text-sm font-medium text-foreground">{label}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-foreground">{label}</span>
+          <div className="flex items-center rounded-lg border border-border bg-background overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setFormat("markdown")}
+              className={
+                "inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium transition-colors " +
+                (format === "markdown"
+                  ? "bg-moroccan-mint-500/10 text-moroccan-mint-700"
+                  : "text-muted-foreground hover:bg-moroccan-sand-50")
+              }
+            >
+              <Type className="size-3" />
+              {markdownLabel}
+            </button>
+            <button
+              type="button"
+              onClick={() => setFormat("html")}
+              className={
+                "inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium transition-colors border-s border-border " +
+                (format === "html"
+                  ? "bg-moroccan-red-500/10 text-moroccan-red-600"
+                  : "text-muted-foreground hover:bg-moroccan-sand-50")
+              }
+            >
+              <Code2 className="size-3" />
+              {htmlLabel}
+            </button>
+          </div>
+        </div>
         <div className="flex items-center gap-1">
           <TabButton
             active={tab === "write"}
@@ -219,9 +266,9 @@ function ContentEditor({
         <textarea
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder={placeholder}
+          placeholder={format === "html" ? "<div>\n  <h2>...</h2>\n  <p>...</p>\n</div>" : placeholder}
           dir={rtl ? "rtl" : "ltr"}
-          rows={12}
+          rows={14}
           className={`${inputCls} h-auto py-3 font-mono text-[13px] leading-relaxed resize-y`}
         />
       ) : (
@@ -229,7 +276,15 @@ function ContentEditor({
           className="rounded-xl border border-border bg-card p-5 min-h-[200px]"
           dir={rtl ? "rtl" : "ltr"}
         >
-          <MarkdownPreview content={value} />
+          {format === "html" ? (
+            value.trim() ? (
+              <div dangerouslySetInnerHTML={{ __html: value }} />
+            ) : (
+              <p className="text-sm text-muted-foreground italic">— {previewLabel} —</p>
+            )
+          ) : (
+            <MarkdownPreview content={value} />
+          )}
         </div>
       )}
     </div>

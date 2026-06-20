@@ -1290,7 +1290,10 @@
         "published": "منشورة",
         "showInFooter": "إظهار في التذييل",
         "orderIndex": "الترتيب",
-        "orderIndexHelp": "الأصغر يظهر أولاً."
+        "orderIndexHelp": "الأصغر يظهر أولاً.",
+        "html": "HTML",
+        "markdown": "Markdown",
+        "formatHelp": "يمكنك كتابة المحتوى بصيغة Markdown أو HTML. استخدم مفتاح التبديل لتحديد الصيغة ومعاينة النتيجة."
       }
     },
     "blogCommentsPage": {
