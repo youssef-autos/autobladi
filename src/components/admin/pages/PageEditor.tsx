@@ -1,12 +1,12 @@
 "use client"
 
 import { useState, useTransition } from "react"
-import { ArrowLeft, Code2, Eye, Pencil, Type } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 
 import { createPage, updatePage } from "@/app/[locale]/admin/pages/actions"
-import { MarkdownPreview } from "@/components/admin/blog/posts/MarkdownPreview"
+import { RichTextEditor } from "@/components/admin/RichTextEditor"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import { Link, useRouter } from "@/i18n/navigation"
 import { slugify } from "@/lib/validations/page"
@@ -127,28 +127,23 @@ export function PageEditor({ mode, initial }: Props) {
             />
           </Field>
 
-          <ContentEditor
-            label={tForm("contentFr")}
-            value={contentFr}
-            onChange={setContentFr}
-            placeholder={tForm("contentPlaceholder")}
-            writeLabel={tForm("write")}
-            previewLabel={tForm("preview")}
-            htmlLabel={tForm("html")}
-            markdownLabel={tForm("markdown")}
-          />
+          <Field label={tForm("contentFr")}>
+            <RichTextEditor
+              value={contentFr}
+              onChange={setContentFr}
+              dir="ltr"
+              placeholder={tForm("contentPlaceholder")}
+            />
+          </Field>
 
-          <ContentEditor
-            label={tForm("contentAr")}
-            value={contentAr}
-            onChange={setContentAr}
-            placeholder={tForm("contentPlaceholder")}
-            writeLabel={tForm("write")}
-            previewLabel={tForm("preview")}
-            htmlLabel={tForm("html")}
-            markdownLabel={tForm("markdown")}
-            rtl
-          />
+          <Field label={tForm("contentAr")}>
+            <RichTextEditor
+              value={contentAr}
+              onChange={setContentAr}
+              dir="rtl"
+              placeholder={tForm("contentPlaceholder")}
+            />
+          </Field>
         </div>
 
         {/* Sidebar */}
@@ -175,119 +170,10 @@ export function PageEditor({ mode, initial }: Props) {
               />
             </Field>
           </div>
-          <p className="text-xs text-muted-foreground px-1">{tForm("formatHelp")}</p>
+          <p className="text-xs text-muted-foreground px-1">{tForm("editorHelp")}</p>
         </aside>
       </div>
     </form>
-  )
-}
-
-function detectFormat(content: string): "markdown" | "html" {
-  const trimmed = content.trim()
-  if (!trimmed) return "markdown"
-  if (/^<(!DOCTYPE|html|div|section|article|main|header|footer|nav|p|h[1-6]|ul|ol|table|form|style)/i.test(trimmed)) return "html"
-  return "markdown"
-}
-
-function ContentEditor({
-  label,
-  value,
-  onChange,
-  placeholder,
-  writeLabel,
-  previewLabel,
-  htmlLabel,
-  markdownLabel,
-  rtl,
-}: {
-  label: string
-  value: string
-  onChange: (v: string) => void
-  placeholder: string
-  writeLabel: string
-  previewLabel: string
-  htmlLabel: string
-  markdownLabel: string
-  rtl?: boolean
-}) {
-  const [tab, setTab] = useState<"write" | "preview">("write")
-  const [format, setFormat] = useState<"markdown" | "html">(() => detectFormat(value))
-
-  return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-foreground">{label}</span>
-          <div className="flex items-center rounded-lg border border-border bg-background overflow-hidden">
-            <button
-              type="button"
-              onClick={() => setFormat("markdown")}
-              className={
-                "inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium transition-colors " +
-                (format === "markdown"
-                  ? "bg-moroccan-mint-500/10 text-moroccan-mint-700"
-                  : "text-muted-foreground hover:bg-moroccan-sand-50")
-              }
-            >
-              <Type className="size-3" />
-              {markdownLabel}
-            </button>
-            <button
-              type="button"
-              onClick={() => setFormat("html")}
-              className={
-                "inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium transition-colors border-s border-border " +
-                (format === "html"
-                  ? "bg-moroccan-red-500/10 text-moroccan-red-600"
-                  : "text-muted-foreground hover:bg-moroccan-sand-50")
-              }
-            >
-              <Code2 className="size-3" />
-              {htmlLabel}
-            </button>
-          </div>
-        </div>
-        <div className="flex items-center gap-1">
-          <TabButton
-            active={tab === "write"}
-            onClick={() => setTab("write")}
-            icon={Pencil}
-            label={writeLabel}
-          />
-          <TabButton
-            active={tab === "preview"}
-            onClick={() => setTab("preview")}
-            icon={Eye}
-            label={previewLabel}
-          />
-        </div>
-      </div>
-      {tab === "write" ? (
-        <textarea
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder={format === "html" ? "<div>\n  <h2>...</h2>\n  <p>...</p>\n</div>" : placeholder}
-          dir={rtl ? "rtl" : "ltr"}
-          rows={14}
-          className={`${inputCls} h-auto py-3 font-mono text-[13px] leading-relaxed resize-y`}
-        />
-      ) : (
-        <div
-          className="rounded-xl border border-border bg-card p-5 min-h-[200px]"
-          dir={rtl ? "rtl" : "ltr"}
-        >
-          {format === "html" ? (
-            value.trim() ? (
-              <div dangerouslySetInnerHTML={{ __html: value }} />
-            ) : (
-              <p className="text-sm text-muted-foreground italic">— {previewLabel} —</p>
-            )
-          ) : (
-            <MarkdownPreview content={value} />
-          )}
-        </div>
-      )}
-    </div>
   )
 }
 
@@ -334,30 +220,3 @@ function Toggle({
   )
 }
 
-function TabButton({
-  active,
-  onClick,
-  icon: Icon,
-  label,
-}: {
-  active: boolean
-  onClick: () => void
-  icon: React.ComponentType<{ className?: string }>
-  label: string
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={
-        "inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg text-xs font-medium transition-colors " +
-        (active
-          ? "bg-moroccan-red-50 text-moroccan-red-600"
-          : "text-muted-foreground hover:bg-moroccan-sand-50")
-      }
-    >
-      <Icon className="size-3.5" />
-      {label}
-    </button>
-  )
-}

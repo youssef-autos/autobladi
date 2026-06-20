@@ -1292,7 +1292,8 @@
         "orderIndexHelp": "Plus petit = affiché en premier.",
         "html": "HTML",
         "markdown": "Markdown",
-        "formatHelp": "Vous pouvez rédiger le contenu en Markdown ou HTML. Utilisez le sélecteur pour choisir le format et prévisualiser le résultat."
+        "formatHelp": "Vous pouvez rédiger le contenu en Markdown ou HTML. Utilisez le sélecteur pour choisir le format et prévisualiser le résultat.",
+        "editorHelp": "Éditeur riche — collez du HTML directement ou utilisez la barre d'outils. Cliquez sur <> pour voir le code source."
       }
     },
     "blogCommentsPage": {
