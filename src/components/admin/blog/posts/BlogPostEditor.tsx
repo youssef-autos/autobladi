@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState, useTransition } from "react"
-import { ArrowLeft, Eye, Loader2, Pencil, Upload, X } from "lucide-react"
+import { ArrowLeft, Code2, Eye, Loader2, Pencil, Type, Upload, X } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 
@@ -46,6 +46,11 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
   const [isPublished, setIsPublished] = useState(initial?.is_published ?? false)
 
   const [tab, setTab] = useState<"write" | "preview">("write")
+  const [format, setFormat] = useState<"markdown" | "html">(() => {
+    const c = (initial?.content ?? "").trim()
+    if (c && /^<(!DOCTYPE|html|div|section|article|main|header|footer|nav|p|h[1-6]|ul|ol|table|form|style)/i.test(c)) return "html"
+    return "markdown"
+  })
   const [uploadingCover, setUploadingCover] = useState(false)
   const [uploadingInline, setUploadingInline] = useState(false)
   const coverInputRef = useRef<HTMLInputElement>(null)
@@ -244,12 +249,42 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
             />
           </Field>
 
-          {/* Content: write / preview tabs */}
+          {/* Content: format toggle + write / preview tabs */}
           <div className="space-y-2">
             <div className="flex items-center justify-between gap-2">
-              <span className="text-sm font-medium text-foreground">
-                {tForm("content")}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium text-foreground">
+                  {tForm("content")}
+                </span>
+                <div className="flex items-center rounded-lg border border-border bg-background overflow-hidden">
+                  <button
+                    type="button"
+                    onClick={() => setFormat("markdown")}
+                    className={
+                      "inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium transition-colors " +
+                      (format === "markdown"
+                        ? "bg-moroccan-mint-500/10 text-moroccan-mint-700"
+                        : "text-muted-foreground hover:bg-moroccan-sand-50")
+                    }
+                  >
+                    <Type className="size-3" />
+                    {tForm("markdown")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setFormat("html")}
+                    className={
+                      "inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium transition-colors border-s border-border " +
+                      (format === "html"
+                        ? "bg-moroccan-red-500/10 text-moroccan-red-600"
+                        : "text-muted-foreground hover:bg-moroccan-sand-50")
+                    }
+                  >
+                    <Code2 className="size-3" />
+                    {tForm("html")}
+                  </button>
+                </div>
+              </div>
               <div className="flex items-center gap-1">
                 <TabButton
                   active={tab === "write"}
@@ -273,13 +308,13 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
                   value={activeContent}
                   dir={lang === "ar" ? "rtl" : "ltr"}
                   onChange={(e) => setActiveContent(e.target.value)}
-                  placeholder={tForm("contentPlaceholder")}
+                  placeholder={format === "html" ? "<div>\n  <h2>...</h2>\n  <p>...</p>\n</div>" : tForm("contentPlaceholder")}
                   rows={20}
                   className={`${inputCls} h-auto py-3 font-mono text-[13px] leading-relaxed resize-y`}
                 />
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                   <p className="text-xs text-muted-foreground">
-                    {tForm("markdownHelp")}
+                    {tForm("formatHelp")}
                   </p>
                   <button
                     type="button"
@@ -308,8 +343,16 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
                 </div>
               </>
             ) : (
-              <div className="rounded-xl border border-border bg-card p-5 min-h-[300px]">
-                <MarkdownPreview content={activeContent} />
+              <div className="rounded-xl border border-border bg-card p-5 min-h-[300px]" dir={lang === "ar" ? "rtl" : "ltr"}>
+                {format === "html" ? (
+                  activeContent.trim() ? (
+                    <div dangerouslySetInnerHTML={{ __html: activeContent }} />
+                  ) : (
+                    <p className="text-sm text-muted-foreground italic">— {tForm("preview")} —</p>
+                  )
+                ) : (
+                  <MarkdownPreview content={activeContent} />
+                )}
               </div>
             )}
           </div>

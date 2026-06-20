@@ -1390,7 +1390,10 @@
         "tagsHelp": "Séparés par des virgules.",
         "tagsPlaceholder": "voiture, occasion, conseils",
         "imageUploaded": "Image téléchargée ✓",
-        "imageInserted": "Image insérée ✓"
+        "imageInserted": "Image insérée ✓",
+        "html": "HTML",
+        "markdown": "Markdown",
+        "formatHelp": "Vous pouvez rédiger le contenu en Markdown ou HTML."
       }
     },
     "blogCategoriesPage": {

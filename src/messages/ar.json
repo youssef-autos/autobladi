@@ -1391,7 +1391,10 @@
         "tagsHelp": "مفصولة بفواصل.",
         "tagsPlaceholder": "سيارة, مستعملة, نصائح",
         "imageUploaded": "تم تحميل الصورة ✓",
-        "imageInserted": "تم إدراج الصورة ✓"
+        "imageInserted": "تم إدراج الصورة ✓",
+        "html": "HTML",
+        "markdown": "Markdown",
+        "formatHelp": "يمكنك كتابة المحتوى بصيغة Markdown أو HTML."
       }
     },
     "blogCategoriesPage": {
