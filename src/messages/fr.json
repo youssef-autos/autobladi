@@ -1995,6 +1995,48 @@
       "robotsDesc": "Règles d'exploration et lien vers le sitemap.",
       "rssTitle": "Flux RSS",
       "rssDesc": "Derniers articles du blog au format RSS."
+    },
+    "adsReport": {
+      "title": "Rapport d'audience du site",
+      "subtitle": "Statistiques et chiffres à présenter aux annonceurs potentiels",
+      "print": "Imprimer le rapport",
+      "generatedAt": "Date du rapport",
+      "footer": "Ce rapport reflète les performances du site basées sur des données réelles de la base de données.",
+      "reach": {
+        "title": "Portée et audience",
+        "totalUsers": "Utilisateurs inscrits au total",
+        "newUsersMonth": "Nouvel utilisateur",
+        "thisMonth": "Ce mois-ci",
+        "activeListings": "Annonce voiture active",
+        "pageViews": "Vues totales des pages voitures",
+        "newsletter": "Abonné à la newsletter",
+        "proUsers": "Concessionnaire / pro inscrit"
+      },
+      "adPerf": {
+        "title": "Performance des publicités",
+        "impressions": "Impressions totales",
+        "clicks": "Clics totaux",
+        "ctr": "Taux de clic (CTR)"
+      },
+      "growth": {
+        "title": "Croissance du site (6 derniers mois)",
+        "subtitle": "Nouveaux utilisateurs et annonces voitures publiées par mois",
+        "users": "Nouveaux utilisateurs",
+        "listings": "Nouvelles annonces"
+      },
+      "cities": {
+        "title": "Répartition géographique de l'audience"
+      },
+      "placements": {
+        "title": "Performance des emplacements publicitaires",
+        "name": "Emplacement",
+        "impressions": "Impressions",
+        "clicks": "Clics",
+        "ctr": "CTR",
+        "activeAds": "Publicités actives",
+        "active": "active(s)",
+        "available": "Disponible"
+      }
     }
   },
   "admin": {
