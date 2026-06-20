@@ -56,7 +56,7 @@ export default async function AdsReportPage({
         <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
       </header>
 
-      <AdsReportView report={report} generatedAt={generatedAt} />
+      <AdsReportView report={report} generatedAt={generatedAt} locale={locale} />
     </div>
   )
 }

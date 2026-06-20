@@ -5,7 +5,6 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  Cell,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -31,6 +30,7 @@ import type { AdsReportData } from "@/lib/queries/admin"
 type Props = {
   report: AdsReportData
   generatedAt: string
+  locale: string
 }
 
 const MONTH_NAMES_AR = [
@@ -68,16 +68,10 @@ function formatMonth(key: string, locale: string) {
   return locale === "ar" ? MONTH_NAMES_AR[idx] : MONTH_NAMES_FR[idx]
 }
 
-export function AdsReportView({ report, generatedAt }: Props) {
+export function AdsReportView({ report, generatedAt, locale }: Props) {
   const t = useTranslations("adminPanel.adsReport")
   const fmt = useFormatter()
   const num = (n: number) => fmt.number(n)
-
-  // Build chart data with localized month labels — locale detection via document.dir
-  const locale =
-    typeof document !== "undefined" && document.documentElement.dir === "rtl"
-      ? "ar"
-      : "fr"
 
   const growthData = useMemo(
     () =>
