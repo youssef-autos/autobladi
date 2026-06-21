@@ -149,10 +149,16 @@ export async function generateMetadata({
     },
     // Search-engine ownership verification (google-site-verification + Bing's
     // msvalidate.01) — admin-managed from /admin/parametres.
-    ...((verify.google || verify.bing) && {
+    ...((verify.google || verify.bing || verify.yandex || verify.pinterest) && {
       verification: {
         ...(verify.google && { google: verify.google }),
-        ...(verify.bing && { other: { "msvalidate.01": verify.bing } }),
+        ...((verify.bing || verify.yandex || verify.pinterest) && {
+          other: {
+            ...(verify.bing && { "msvalidate.01": verify.bing }),
+            ...(verify.yandex && { "yandex-verification": verify.yandex }),
+            ...(verify.pinterest && { "p:domain_verify": verify.pinterest }),
+          },
+        }),
       },
     }),
     // Icons are auto-discovered by Next from app/icon.tsx + app/apple-icon.tsx.
@@ -199,9 +205,10 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale)
   const dir = locale === "ar" ? "rtl" : "ltr"
-  const [gaId, adsenseClientId] = await Promise.all([
+  const [gaId, adsenseClientId, verify] = await Promise.all([
     getSiteAnalyticsId(),
     getAdsenseClientId(),
+    getSiteVerification(),
   ])
   const adsenseEnabled = adsenseClientId.startsWith("ca-pub-")
 
@@ -217,6 +224,9 @@ export default async function LocaleLayout({
         "h-full antialiased",
       )}
     >
+      {verify.customHead && (
+        <head dangerouslySetInnerHTML={{ __html: verify.customHead }} />
+      )}
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {gaId && (
           <>

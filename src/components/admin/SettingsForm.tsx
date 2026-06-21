@@ -141,6 +141,53 @@ export function SettingsForm({
               dir="ltr"
             />
           </Field>
+          <Field
+            id="yandex"
+            label={t("yandexVerification")}
+            help={t("yandexVerificationHelp")}
+          >
+            <Input
+              id="yandex"
+              value={values.yandex_verification ?? ""}
+              onChange={(e) => update("yandex_verification", e.target.value)}
+              placeholder="xxxxxxxxxxxxxxxx"
+              maxLength={200}
+              className="h-11 rounded-xl font-mono text-xs"
+              dir="ltr"
+            />
+          </Field>
+          <Field
+            id="pinterest"
+            label={t("pinterestVerification")}
+            help={t("pinterestVerificationHelp")}
+          >
+            <Input
+              id="pinterest"
+              value={values.pinterest_verification ?? ""}
+              onChange={(e) => update("pinterest_verification", e.target.value)}
+              placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+              maxLength={200}
+              className="h-11 rounded-xl font-mono text-xs"
+              dir="ltr"
+            />
+          </Field>
+        </div>
+        <div className="mt-3">
+          <Field
+            id="custom_head"
+            label={t("customHeadCode")}
+            help={t("customHeadCodeHelp")}
+          >
+            <textarea
+              id="custom_head"
+              value={values.custom_head_code ?? ""}
+              onChange={(e) => update("custom_head_code", e.target.value)}
+              placeholder={'<meta name="example-verification" content="xxx" />'}
+              rows={4}
+              className="w-full rounded-xl border border-border bg-background px-3 py-2.5 font-mono text-xs leading-relaxed resize-y focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40 focus:border-moroccan-gold-500/60"
+              dir="ltr"
+            />
+          </Field>
         </div>
         <div className="mt-2 border-t border-border/60 pt-4">
           <Field

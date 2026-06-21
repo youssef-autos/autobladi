@@ -427,12 +427,21 @@ export async function getSiteFaviconUrl(): Promise<string | null> {
 export async function getSiteVerification(): Promise<{
   google: string | null
   bing: string | null
+  yandex: string | null
+  pinterest: string | null
+  customHead: string | null
 }> {
   const supabase = await createClient()
   const { data } = await supabase
     .from("site_settings")
     .select("key, value")
-    .in("key", ["google_site_verification", "bing_site_verification"])
+    .in("key", [
+      "google_site_verification",
+      "bing_site_verification",
+      "yandex_verification",
+      "pinterest_verification",
+      "custom_head_code",
+    ])
   const rows = (data ?? []) as Array<{ key: string; value: unknown }>
   const pick = (k: string): string | null => {
     const v = rows.find((r) => r.key === k)?.value
@@ -441,6 +450,9 @@ export async function getSiteVerification(): Promise<{
   return {
     google: pick("google_site_verification"),
     bing: pick("bing_site_verification"),
+    yandex: pick("yandex_verification"),
+    pinterest: pick("pinterest_verification"),
+    customHead: pick("custom_head_code"),
   }
 }
 

@@ -766,7 +766,13 @@
     "cacheError": "Impossible de vider le cache",
     "accountPage": {
       "title": "Mon profil",
-      "subtitle": "Gérez votre photo et vos informations personnelles"
+      "subtitle": "Gérez votre photo et vos informations personnelles",
+      "yandexVerification": "Yandex Webmaster",
+      "yandexVerificationHelp": "Code de vérification Yandex Webmaster",
+      "pinterestVerification": "Pinterest",
+      "pinterestVerificationHelp": "Code de vérification Pinterest",
+      "customHeadCode": "Balises meta personnalisées",
+      "customHeadCodeHelp": "Collez ici des balises meta ou scripts supplémentaires — ils seront injectés dans le head du site."
     },
     "groups": {
       "manage": "Gestion générale",

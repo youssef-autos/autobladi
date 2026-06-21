@@ -766,7 +766,13 @@
     "cacheError": "تعذّر مسح الذاكرة المؤقتة",
     "accountPage": {
       "title": "ملفي الشخصي",
-      "subtitle": "عدّل صورتك ومعلوماتك الشخصية"
+      "subtitle": "عدّل صورتك ومعلوماتك الشخصية",
+      "yandexVerification": "Yandex Webmaster",
+      "yandexVerificationHelp": "كود التحقق من Yandex Webmaster",
+      "pinterestVerification": "Pinterest",
+      "pinterestVerificationHelp": "كود التحقق من Pinterest",
+      "customHeadCode": "أكواد meta مخصصة",
+      "customHeadCodeHelp": "ألصق أي أكواد meta أو script إضافية هنا — ستُضاف مباشرة في head الموقع."
     },
     "groups": {
       "manage": "إدارة عامة",
