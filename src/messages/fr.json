@@ -766,13 +766,7 @@
     "cacheError": "Impossible de vider le cache",
     "accountPage": {
       "title": "Mon profil",
-      "subtitle": "Gérez votre photo et vos informations personnelles",
-      "yandexVerification": "Yandex Webmaster",
-      "yandexVerificationHelp": "Code de vérification Yandex Webmaster",
-      "pinterestVerification": "Pinterest",
-      "pinterestVerificationHelp": "Code de vérification Pinterest",
-      "customHeadCode": "Balises meta personnalisées",
-      "customHeadCodeHelp": "Collez ici des balises meta ou scripts supplémentaires — ils seront injectés dans le head du site."
+      "subtitle": "Gérez votre photo et vos informations personnelles"
     },
     "groups": {
       "manage": "Gestion générale",
@@ -2122,7 +2116,13 @@
       "contactEmail": "E-mail",
       "contactPhone": "Téléphone",
       "rib": "RIB bancaire",
-      "ribHelp": "Affiché aux utilisateurs après leur demande d'abonnement"
+      "ribHelp": "Affiché aux utilisateurs après leur demande d'abonnement",
+      "yandexVerification": "Yandex Webmaster",
+      "yandexVerificationHelp": "Code Yandex Webmaster",
+      "pinterestVerification": "Pinterest",
+      "pinterestVerificationHelp": "Code Pinterest",
+      "customHeadCode": "Balises meta perso",
+      "customHeadCodeHelp": "Collez ici des balises meta."
     }
   },
   "ajouter": {

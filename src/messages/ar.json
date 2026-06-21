@@ -766,13 +766,7 @@
     "cacheError": "تعذّر مسح الذاكرة المؤقتة",
     "accountPage": {
       "title": "ملفي الشخصي",
-      "subtitle": "عدّل صورتك ومعلوماتك الشخصية",
-      "yandexVerification": "Yandex Webmaster",
-      "yandexVerificationHelp": "كود التحقق من Yandex Webmaster",
-      "pinterestVerification": "Pinterest",
-      "pinterestVerificationHelp": "كود التحقق من Pinterest",
-      "customHeadCode": "أكواد meta مخصصة",
-      "customHeadCodeHelp": "ألصق أي أكواد meta أو script إضافية هنا — ستُضاف مباشرة في head الموقع."
+      "subtitle": "عدّل صورتك ومعلوماتك الشخصية"
     },
     "groups": {
       "manage": "إدارة عامة",
@@ -2123,7 +2117,13 @@
       "contactEmail": "البريد الإلكتروني",
       "contactPhone": "الهاتف",
       "rib": "RIB للتحويل البنكي",
-      "ribHelp": "يظهر للمشتركين بعد طلب الاشتراك"
+      "ribHelp": "يظهر للمشتركين بعد طلب الاشتراك",
+      "yandexVerification": "Yandex Webmaster",
+      "yandexVerificationHelp": "??? ?????? ?? Yandex Webmaster",
+      "pinterestVerification": "Pinterest",
+      "pinterestVerificationHelp": "??? ?????? ?? Pinterest",
+      "customHeadCode": "????? meta ?????",
+      "customHeadCodeHelp": "???? ?? ????? meta ?????? ???"
     }
   },
   "ajouter": {
