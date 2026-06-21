@@ -1,5 +1,5 @@
 import { ArrowLeft } from "lucide-react"
-import { notFound, redirect } from "next/navigation"
+import { redirect } from "next/navigation"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 
 import { Link } from "@/i18n/navigation"
@@ -33,17 +33,31 @@ export default async function PaymentPage({
 }) {
   const { locale, planId } = await params
   setRequestLocale(locale)
-  const t = await getTranslations("subscription.payment")
 
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  let t: Awaited<ReturnType<typeof getTranslations>>
+  try {
+    t = await getTranslations("subscription.payment")
+  } catch (e) {
+    console.error("[PaymentPage] translations error:", e)
+    redirect(`/${locale}/dashboard/upgrade`)
+  }
+
+  let user: { id: string; email?: string | undefined } | null = null
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    user = data.user
+  } catch (e) {
+    console.error("[PaymentPage] auth error:", e)
+  }
+
   if (!user) {
     redirect(
       `/${locale}/auth/connexion?returnTo=/${locale}/dashboard/upgrade/payment/${planId}`,
     )
   }
+
+  const supabase = await createClient()
 
   type ProfileSlice = { account_type: string }
   const { data: profile } = await supabase
@@ -52,7 +66,7 @@ export default async function PaymentPage({
     .eq("id", user.id)
     .maybeSingle<ProfileSlice>()
 
-  if (profile && profile.account_type !== "gratuit") {
+  if (profile?.account_type === "admin") {
     redirect(`/${locale}/dashboard`)
   }
 
@@ -62,7 +76,10 @@ export default async function PaymentPage({
     getMyPendingRequest(),
   ])
 
-  if (!plan) notFound()
+  if (!plan) {
+    console.error("[PaymentPage] plan not found:", planId)
+    redirect(`/${locale}/dashboard/upgrade`)
+  }
 
   return (
     <div className="p-4 md:p-6 lg:p-8 space-y-6 max-w-5xl">

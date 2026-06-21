@@ -17,12 +17,14 @@ export async function listActivePlans(): Promise<Plan[]> {
 
 export async function getPlanById(id: string): Promise<Plan | null> {
   const supabase = await createClient()
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("subscription_plans")
     .select("*")
     .eq("id", id)
     .eq("is_active", true)
     .maybeSingle<Plan>()
+  if (error) console.error("[getPlanById]", id, error.message, error.code)
+  if (!data) console.warn("[getPlanById] no plan found for id:", id)
   return data ?? null
 }
 

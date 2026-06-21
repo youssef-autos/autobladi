@@ -40,6 +40,7 @@ type Props = {
   profile: DashboardProfile | null
   email: string | null
   unreadMessages: number
+  logoUrl?: string | null
 }
 
 type Item = {
@@ -60,7 +61,7 @@ function initials(name?: string | null): string {
     .join("")
 }
 
-export function DashboardSidebar({ profile, email, unreadMessages }: Props) {
+export function DashboardSidebar({ profile, email, unreadMessages, logoUrl }: Props) {
   const tNav = useTranslations("dashboard.nav")
   const tBadge = useTranslations("dashboard.badge")
   const tMenu = useTranslations("dashboard")
@@ -123,7 +124,7 @@ export function DashboardSidebar({ profile, email, unreadMessages }: Props) {
   const content = (
     <div className="flex flex-col h-full">
       <div className="px-5 py-5 border-b border-border">
-        <Logo size="md" />
+        <Logo size="md" imageUrl={logoUrl} />
       </div>
 
       <nav className="flex-1 overflow-y-auto px-3 py-4">
@@ -254,7 +255,7 @@ export function DashboardSidebar({ profile, email, unreadMessages }: Props) {
             {content}
           </SheetContent>
         </Sheet>
-        <Logo size="sm" />
+        <Logo size="sm" imageUrl={logoUrl} />
       </div>
     </>
   )

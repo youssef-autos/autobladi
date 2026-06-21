@@ -4,6 +4,7 @@ import { setRequestLocale } from "next-intl/server"
 import { DashboardSidebar } from "@/components/dashboard/Sidebar"
 import { createClient } from "@/lib/supabase/server"
 import { getCurrentProfile } from "@/lib/queries/dashboard"
+import { getSiteLogos } from "@/lib/queries/home"
 
 export const dynamic = "force-dynamic"
 
@@ -19,13 +20,21 @@ export default async function DashboardLayout({
 
   // Defensive check (middleware/proxy.ts already redirects, but keep this as
   // a safety net for any direct entry).
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  let user: { id: string; email?: string } | null = null
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.auth.getUser()
+    user = data.user
+  } catch (e) {
+    console.error("[DashboardLayout] auth error — clearing session:", e)
+  }
   if (!user) redirect(`/${locale}/auth/connexion?returnTo=/${locale}/dashboard`)
 
-  const profile = await getCurrentProfile()
+  const supabase = await createClient()
+  const [profile, logos] = await Promise.all([
+    getCurrentProfile(),
+    getSiteLogos().catch(() => ({ light: null, dark: null })),
+  ])
 
   const { count: unreadMessages } = await supabase
     .from("messages")
@@ -39,6 +48,7 @@ export default async function DashboardLayout({
         profile={profile}
         email={user.email ?? null}
         unreadMessages={unreadMessages ?? 0}
+        logoUrl={logos.light}
       />
       <main className="lg:ps-64 min-h-dvh">{children}</main>
     </div>

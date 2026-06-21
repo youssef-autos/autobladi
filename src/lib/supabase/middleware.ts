@@ -27,8 +27,17 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  // Refreshes the auth session if it has expired and propagates cookies.
-  await supabase.auth.getUser()
+  try {
+    await supabase.auth.getUser()
+  } catch {
+    // Corrupted auth cookie — clear it so the next request starts clean.
+    const authPrefix = `sb-${new URL(process.env.NEXT_PUBLIC_SUPABASE_URL!).hostname.split(".")[0]}-auth-token`
+    for (const cookie of request.cookies.getAll()) {
+      if (cookie.name.startsWith(authPrefix)) {
+        response.cookies.delete(cookie.name)
+      }
+    }
+  }
 
   return response
 }

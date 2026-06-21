@@ -52,8 +52,8 @@ export default async function UpgradePage({
     .eq("id", user.id)
     .maybeSingle<ProfileSlice>()
 
-  // Pro/admin already — bounce them out
-  if (profile && profile.account_type !== "gratuit") {
+  // Admins don't need subscriptions
+  if (profile?.account_type === "admin") {
     redirect(`/${locale}/dashboard`)
   }
 
