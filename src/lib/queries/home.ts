@@ -220,13 +220,6 @@ export type AdvertisementData = Pick<
   "id" | "title" | "image_url" | "link_url"
 >
 
-type AdRow = {
-  id: string
-  title: string
-  image_url: string
-  link_url: string | null
-}
-
 export async function getActiveAd(placementSlug: string): Promise<AdvertisementData | null> {
   const supabase = await createClient()
 
