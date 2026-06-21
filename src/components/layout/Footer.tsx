@@ -45,10 +45,10 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
               <SocialLink href="https://www.instagram.com/autobladi.ma/" label="Instagram">
                 <InstagramIcon className="size-4" />
               </SocialLink>
-              <SocialLink href="https://youtube.com/autobladima/" label="YouTube">
+              <SocialLink href="https://youtube.com/@autobladima/" label="YouTube">
                 <YoutubeIcon className="size-4" />
               </SocialLink>
-              <SocialLink href="https://linkedin.com/autobladi.ma/" label="LinkedIn">
+              <SocialLink href="https://www.linkedin.com/company/autobladima" label="LinkedIn">
                 <LinkedinIcon className="size-4" />
               </SocialLink>
               <SocialLink href="https://tiktok.com/autobladi.ma/" label="tiktok">
