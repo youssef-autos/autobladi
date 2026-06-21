@@ -39,19 +39,19 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
             <Logo variant="light" size="md" imageUrl={logoUrl} />
             <p className="text-sm leading-relaxed text-white/60">{t("tagline")}</p>
             <div className="flex items-center gap-3">
-              <SocialLink href="https://facebook.com" label="Facebook">
+              <SocialLink href="https://facebook.com/autobladi/" label="Facebook">
                 <FacebookIcon className="size-4" />
               </SocialLink>
-              <SocialLink href="https://instagram.com" label="Instagram">
+              <SocialLink href="https://www.instagram.com/autobladi.ma/" label="Instagram">
                 <InstagramIcon className="size-4" />
               </SocialLink>
-              <SocialLink href="https://youtube.com" label="YouTube">
+              <SocialLink href="https://youtube.com/autobladi.ma/" label="YouTube">
                 <YoutubeIcon className="size-4" />
               </SocialLink>
-              <SocialLink href="https://linkedin.com" label="LinkedIn">
+              <SocialLink href="https://linkedin.com/autobladi.ma/" label="LinkedIn">
                 <LinkedinIcon className="size-4" />
               </SocialLink>
-              <SocialLink href="https://tiktok.com" label="tiktok">
+              <SocialLink href="https://tiktok.com/autobladi.ma/" label="tiktok">
                 <TikTokIcon className="size-4" />
               </SocialLink>
             </div>
