@@ -84,7 +84,6 @@ function InnerForm({
   const [nameAr, setNameAr] = useState(initial?.name_ar ?? "")
   const [nameFr, setNameFr] = useState(initial?.name_fr ?? "")
   const [slug, setSlug] = useState(initial?.slug ?? "")
-  const [region, setRegion] = useState(initial?.region ?? "")
   const [slugTouched, setSlugTouched] = useState(!!initial)
 
   // Secteurs state — unlocked after city save (or immediately in edit mode)
@@ -119,7 +118,7 @@ function InnerForm({
       name_ar: nameAr.trim(),
       name_fr: nameFr.trim(),
       slug: slug.trim() || slugify(nameFr),
-      region: region.trim() || null,
+      region: null,
     }
     startTransition(async () => {
       const res = isEdit
@@ -192,17 +191,6 @@ function InnerForm({
             placeholder={tForm("slugPlaceholder")}
             pattern="^[a-z0-9-]+$"
             required
-            className={inputCls}
-          />
-        </Field>
-
-        <Field label={tForm("region")}>
-          <input
-            type="text"
-            value={region}
-            onChange={(e) => setRegion(e.target.value)}
-            placeholder={tForm("regionPlaceholder")}
-            maxLength={120}
             className={inputCls}
           />
         </Field>

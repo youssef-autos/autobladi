@@ -31,8 +31,7 @@ export function CitiesManager({ cities }: Props) {
       (c) =>
         c.name_ar.toLowerCase().includes(needle) ||
         c.name_fr.toLowerCase().includes(needle) ||
-        c.slug.toLowerCase().includes(needle) ||
-        (c.region?.toLowerCase().includes(needle) ?? false),
+        c.slug.toLowerCase().includes(needle),
     )
   }, [cities, q])
 
@@ -121,7 +120,6 @@ export function CitiesManager({ cities }: Props) {
                   <th className="text-start px-4 py-3">{t("columns.nameAr")}</th>
                   <th className="text-start px-4 py-3">{t("columns.nameFr")}</th>
                   <th className="text-start px-4 py-3">{t("columns.slug")}</th>
-                  <th className="text-start px-4 py-3">{t("columns.region")}</th>
                   <th className="text-end px-4 py-3">{t("columns.actions")}</th>
                 </tr>
               </thead>
@@ -139,9 +137,6 @@ export function CitiesManager({ cities }: Props) {
                     </td>
                     <td className="px-4 py-3 text-xs font-mono text-muted-foreground">
                       {city.slug}
-                    </td>
-                    <td className="px-4 py-3 text-xs text-muted-foreground">
-                      {city.region ?? "—"}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-1">
