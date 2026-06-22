@@ -526,6 +526,17 @@ export async function getActiveBrands(limit = 500): Promise<Brand[]> {
   return data ?? []
 }
 
+export async function getPopularBrands(limit = 12): Promise<Brand[]> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from("brands")
+    .select("*")
+    .eq("is_active", true)
+    .order("order_index", { ascending: true })
+    .limit(limit)
+  return data ?? []
+}
+
 export async function getActiveModels(): Promise<CarModel[]> {
   const supabase = await createClient()
   const { data } = await supabase

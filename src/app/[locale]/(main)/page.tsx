@@ -16,9 +16,9 @@ import { WhyUs } from "@/components/home/WhyUs"
 import { Container } from "@/components/ui/Container"
 import type { HomeSectionKey } from "@/lib/home-sections"
 import {
-  getActiveBrands,
   getActiveModels,
   getHomeSectionsConfig,
+  getPopularBrands,
 } from "@/lib/queries/home"
 
 export const revalidate = 60
@@ -32,7 +32,7 @@ export default async function HomePage({
   setRequestLocale(locale)
 
   const [brands, models, sections] = await Promise.all([
-    getActiveBrands(),
+    getPopularBrands(12),
     getActiveModels(),
     getHomeSectionsConfig(),
   ])
