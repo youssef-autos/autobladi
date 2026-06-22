@@ -16,6 +16,7 @@ import { WhyUs } from "@/components/home/WhyUs"
 import { Container } from "@/components/ui/Container"
 import type { HomeSectionKey } from "@/lib/home-sections"
 import {
+  getActiveBrands,
   getActiveModels,
   getHomeSectionsConfig,
   getPopularBrands,
@@ -31,7 +32,8 @@ export default async function HomePage({
   const { locale } = await params
   setRequestLocale(locale)
 
-  const [brands, models, sections] = await Promise.all([
+  const [allBrands, popularBrands, models, sections] = await Promise.all([
+    getActiveBrands(),
     getPopularBrands(12),
     getActiveModels(),
     getHomeSectionsConfig(),
@@ -44,7 +46,7 @@ export default async function HomePage({
         <FeaturedCars />
       </Suspense>
     ),
-    brands: <BrandsGrid brands={brands} />,
+    brands: <BrandsGrid brands={popularBrands} />,
     latest: (
       <Suspense fallback={<SectionSkeleton />}>
         <LatestCars />
@@ -74,7 +76,7 @@ export default async function HomePage({
     <>
       <JsonLd data={websiteSchema(locale)} />
 
-      <HeroSection brands={brands} models={models} />
+      <HeroSection brands={allBrands} models={models} />
 
       <Container className="py-6">
         <Suspense fallback={<AdSkeleton />}>
