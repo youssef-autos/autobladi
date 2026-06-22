@@ -521,7 +521,7 @@ export async function getActiveBrands(limit = 500): Promise<Brand[]> {
     .from("brands")
     .select("*")
     .eq("is_active", true)
-    .order("order_index", { ascending: true })
+    .order("name", { ascending: true })
     .limit(limit)
   return data ?? []
 }

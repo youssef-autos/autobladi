@@ -112,7 +112,7 @@ export function Step1Vehicle({
             name="brandId"
             render={({ field }) => (
               <Combobox
-                items={brands.map((b) => ({ value: b.id, label: b.name }))}
+                items={brands.map((b) => ({ value: b.id, label: b.name, logo: b.logo_url }))}
                 value={field.value}
                 onValueChange={(v) => {
                   field.onChange(v)
