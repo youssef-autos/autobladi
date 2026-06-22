@@ -515,7 +515,7 @@ export async function getHomeCounts(): Promise<{
   }
 }
 
-export async function getActiveBrands(limit = 50): Promise<Brand[]> {
+export async function getActiveBrands(limit = 500): Promise<Brand[]> {
   const supabase = await createClient()
   const { data } = await supabase
     .from("brands")
