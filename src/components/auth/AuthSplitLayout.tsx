@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 type Props = {
   children: React.ReactNode
   className?: string
+  logoUrl?: string | null
 }
 
 /**
@@ -17,7 +18,7 @@ type Props = {
  * value props, and headline stats. The form pane stays clean so the inputs
  * lead. RTL is handled by logical `start/end` utilities + the html `dir`.
  */
-export async function AuthSplitLayout({ children, className }: Props) {
+export async function AuthSplitLayout({ children, className, logoUrl }: Props) {
   const t = await getTranslations("auth.hero")
 
   const features = [
@@ -107,7 +108,7 @@ export async function AuthSplitLayout({ children, className }: Props) {
         <div className="relative z-10 flex h-full flex-col justify-between p-12 xl:p-16">
           {/* Header: logo + badge */}
           <div className="flex items-center justify-between gap-4">
-            <Logo variant="light" size="lg" />
+            <Logo variant="light" size="lg" imageUrl={logoUrl} />
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-medium backdrop-blur-sm">
               <span className="size-1.5 rounded-full bg-moroccan-gold-500" />
               {t("badge")}
@@ -171,7 +172,7 @@ export async function AuthSplitLayout({ children, className }: Props) {
         />
         <div className="w-full max-w-md">
           <div className="lg:hidden mb-8 flex justify-center">
-            <Logo size="md" />
+            <Logo size="md" imageUrl={logoUrl} />
           </div>
           {children}
         </div>

@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server"
 
 import { AuthSplitLayout } from "@/components/auth/AuthSplitLayout"
+import { getSiteLogos } from "@/lib/queries/home"
 
 export default async function AuthLayout({
   children,
@@ -11,5 +12,6 @@ export default async function AuthLayout({
 }) {
   const { locale } = await params
   setRequestLocale(locale)
-  return <AuthSplitLayout>{children}</AuthSplitLayout>
+  const logos = await getSiteLogos()
+  return <AuthSplitLayout logoUrl={logos.light}>{children}</AuthSplitLayout>
 }
