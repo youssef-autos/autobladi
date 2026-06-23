@@ -1,10 +1,12 @@
 "use client"
 
+import { useMemo } from "react"
 import { Search, X } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
 import { useQueryStates } from "nuqs"
 
 import { professionnelsSearchParams } from "@/components/professionnels/searchParams"
+import { Combobox, type ComboboxOption } from "@/components/ui/combobox"
 import {
   Select,
   SelectContent,
@@ -38,14 +40,15 @@ export function ProfessionnelsFilters({ cities }: Props) {
     filters.minRating != null ||
     filters.sort !== "popular"
 
-  // base-ui's <SelectValue> renders the raw value, so we compute the
-  // translated/display label and render it in the trigger ourselves.
-  const selectedCity = cities.find((c) => c.slug === filters.city) ?? null
-  const cityLabel = selectedCity
-    ? locale === "ar"
-      ? selectedCity.name_ar
-      : selectedCity.name_fr
-    : null
+  const cityItems = useMemo<ComboboxOption[]>(
+    () =>
+      cities.map((c) => ({
+        value: c.slug,
+        label: locale === "ar" ? c.name_ar : c.name_fr,
+      })),
+    [cities, locale],
+  )
+
   const sortLabel = t(
     `sort${filters.sort === "popular" ? "MostCars" : filters.sort === "rating" ? "BestRating" : "Newest"}` as never,
   )
@@ -66,25 +69,15 @@ export function ProfessionnelsFilters({ cities }: Props) {
         />
       </div>
 
-      <Select
-        value={filters.city || undefined}
-        onValueChange={(v) => setFilters({ city: v ?? "", page: 1 })}
-      >
-        <SelectTrigger className="h-11 w-full sm:w-[180px] rounded-xl">
-          <span
-            className={`flex-1 text-start text-sm truncate ${cityLabel ? "text-foreground" : "text-muted-foreground"}`}
-          >
-            {cityLabel ?? t("filterCity")}
-          </span>
-        </SelectTrigger>
-        <SelectContent>
-          {cities.map((c) => (
-            <SelectItem key={c.id} value={c.slug}>
-              {locale === "ar" ? c.name_ar : c.name_fr}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <div className="w-full sm:w-[200px]">
+        <Combobox
+          items={cityItems}
+          value={filters.city}
+          onValueChange={(v) => setFilters({ city: v, page: 1 })}
+          placeholder={t("filterCity")}
+          emptyText={t("noCityResults")}
+        />
+      </div>
 
       <Select
         value={filters.minRating ? String(filters.minRating) : undefined}

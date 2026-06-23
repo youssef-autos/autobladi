@@ -334,7 +334,8 @@
       "reviewsCount": "{count} avis",
       "visit": "Visiter",
       "empty": "Aucun professionnel trouvé",
-      "emptyDesc": "Essayez de modifier ou d'effacer les filtres"
+      "emptyDesc": "Essayez de modifier ou d'effacer les filtres",
+      "noCityResults": "Aucune ville trouv?e"
     },
     "tabs": {
       "cars": "Voitures",
