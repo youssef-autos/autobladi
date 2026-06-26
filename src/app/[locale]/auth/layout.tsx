@@ -12,6 +12,6 @@ export default async function AuthLayout({
 }) {
   const { locale } = await params
   setRequestLocale(locale)
-  const logos = await getSiteLogos()
+  const logos = await getSiteLogos().catch(() => ({ light: null, dark: null }))
   return <AuthSplitLayout logoUrl={logos.light}>{children}</AuthSplitLayout>
 }

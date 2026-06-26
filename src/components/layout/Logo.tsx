@@ -51,7 +51,10 @@ export function Logo({
         <img
           src={imageUrl}
           alt="autobladi.ma"
-          className={cn("w-auto object-contain", imageHeights[size])}
+          className={cn("w-auto min-h-[28px] object-contain", imageHeights[size])}
+          onError={(e) => {
+            e.currentTarget.style.display = "none"
+          }}
         />
       </Link>
     )
