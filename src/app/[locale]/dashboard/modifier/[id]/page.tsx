@@ -37,7 +37,15 @@ export default async function ModifierAnnoncePage({
   } = await supabase.auth.getUser()
   if (!user) redirect(`/${locale}/auth/connexion`)
 
-  const { data } = await supabase
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("account_type")
+    .eq("id", user.id)
+    .maybeSingle<{ account_type: string | null }>()
+  const isAdmin = profile?.account_type === "admin"
+  const isPro = isAdmin || profile?.account_type === "pro"
+
+  let query = supabase
     .from("annonces")
     .select(
       `id, condition, brand_id, model_id, city_id, secteur_id, year,
@@ -47,19 +55,11 @@ export default async function ModifierAnnoncePage({
        annonce_images(url, thumbnail_url, is_main, order_index)`,
     )
     .eq("id", id)
-    .eq("user_id", user.id)
-    .maybeSingle()
+  if (!isAdmin) query = query.eq("user_id", user.id)
+  const { data } = await query.maybeSingle()
 
   if (!data) notFound()
   const a = data as unknown as EditRow
-
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("account_type")
-    .eq("id", user.id)
-    .maybeSingle<{ account_type: string | null }>()
-  const isPro =
-    profile?.account_type === "pro" || profile?.account_type === "admin"
 
   const [brands, models, cities, secteurs] = await Promise.all([
     getActiveBrands(),

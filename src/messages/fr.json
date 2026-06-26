@@ -913,7 +913,8 @@
         "markedExpired": "Marquée comme expirée",
         "deleted": "Annonce supprimée",
         "error": "Une erreur est survenue"
-      }
+      },
+      "edit": "Modifier l'annonce"
     },
     "featuredPage": {
       "title": "Annonces en vedette",

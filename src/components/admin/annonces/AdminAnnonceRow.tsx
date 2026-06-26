@@ -10,6 +10,7 @@ import {
   ExternalLink,
   Eye,
   MoreHorizontal,
+  Pencil,
   Sparkles,
   Star,
   Trash2,
@@ -235,6 +236,13 @@ export function AdminAnnonceRow({ row }: Props) {
                 <MoreHorizontal className="size-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem
+                  onClick={() => window.location.assign(`/dashboard/modifier/${row.id}`)}
+                >
+                  <Pencil className="size-4 me-2" />
+                  {t("edit")}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
                 {row.status !== "active" && (
                   <DropdownMenuItem
                     onClick={() =>

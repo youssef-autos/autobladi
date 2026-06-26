@@ -254,13 +254,19 @@ export async function updateAnnonce(
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: "auth_required" }
 
-  // Ownership check — never let a user edit someone else's annonce.
-  const { data: existing } = await supabase
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("account_type")
+    .eq("id", user.id)
+    .maybeSingle<{ account_type: string }>()
+  const isAdmin = profile?.account_type === "admin"
+
+  let ownershipQuery = supabase
     .from("annonces")
     .select("id, slug, user_id")
     .eq("id", id)
-    .eq("user_id", user.id)
-    .maybeSingle<{ id: string; slug: string; user_id: string }>()
+  if (!isAdmin) ownershipQuery = ownershipQuery.eq("user_id", user.id)
+  const { data: existing } = await ownershipQuery.maybeSingle<{ id: string; slug: string; user_id: string }>()
   if (!existing) return { ok: false, error: "not_found" }
 
   const pro = await isProAccount(supabase, user.id)
