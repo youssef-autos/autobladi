@@ -34,8 +34,11 @@ export async function BlogPreview() {
         ) : (
           <ul className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {posts.map((post) => {
+              const isAr = locale === "ar"
+              const title = isAr ? post.title : (post.title_fr || post.title)
+              const excerpt = isAr ? post.excerpt : (post.excerpt_fr || post.excerpt)
               const categoryLabel = post.category
-                ? locale === "ar"
+                ? isAr
                   ? post.category.name_ar
                   : post.category.name_fr
                 : null
@@ -53,7 +56,7 @@ export async function BlogPreview() {
                       {post.cover_image ? (
                         <Image
                           src={post.cover_image}
-                          alt={post.title}
+                          alt={title}
                           fill
                           sizes="(max-width: 768px) 100vw, 33vw"
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -71,11 +74,11 @@ export async function BlogPreview() {
                         </Badge>
                       )}
                       <h3 className="font-semibold text-lg text-foreground line-clamp-2 group-hover:text-moroccan-red-500 transition-colors">
-                        {post.title}
+                        {title}
                       </h3>
-                      {post.excerpt && (
+                      {excerpt && (
                         <p className="text-sm text-muted-foreground line-clamp-2">
-                          {post.excerpt}
+                          {excerpt}
                         </p>
                       )}
                       {dateLabel && (

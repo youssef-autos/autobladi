@@ -178,14 +178,18 @@ export type BlogPostCardData = Pick<
   Tables<"blog_posts">,
   "id" | "title" | "slug" | "excerpt" | "cover_image" | "published_at"
 > & {
+  title_fr: string | null
+  excerpt_fr: string | null
   category: { name_ar: string; name_fr: string; slug: string } | null
 }
 
 type BlogPostRow = {
   id: string
   title: string
+  title_fr: string | null
   slug: string
   excerpt: string | null
+  excerpt_fr: string | null
   cover_image: string | null
   published_at: string | null
   blog_categories: { name_ar: string; name_fr: string; slug: string } | null
@@ -196,7 +200,7 @@ export async function getLatestBlogPosts(limit = 3): Promise<BlogPostCardData[]>
   const { data } = await supabase
     .from("blog_posts")
     .select(
-      `id, title, slug, excerpt, cover_image, published_at,
+      `id, title, title_fr, slug, excerpt, excerpt_fr, cover_image, published_at,
        blog_categories(name_ar, name_fr, slug)`,
     )
     .eq("is_published", true)
@@ -207,8 +211,10 @@ export async function getLatestBlogPosts(limit = 3): Promise<BlogPostCardData[]>
   return rows.map((row) => ({
     id: row.id,
     title: row.title,
+    title_fr: row.title_fr,
     slug: row.slug,
     excerpt: row.excerpt,
+    excerpt_fr: row.excerpt_fr,
     cover_image: row.cover_image,
     published_at: row.published_at,
     category: row.blog_categories,
