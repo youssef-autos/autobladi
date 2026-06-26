@@ -36,6 +36,8 @@ type Props = {
   annonceId?: string
   /** Pre-filled form values in edit mode. */
   initialValues?: AnnonceFormValues
+  /** Where to redirect after save (default: /dashboard/annonces). */
+  redirectTo?: string
 }
 
 const STORAGE_KEY = "autobladi:ajouter:draft:v1"
@@ -106,6 +108,7 @@ export function AjouterWizard({
   mode = "create",
   annonceId,
   initialValues,
+  redirectTo,
 }: Props) {
   const t = useTranslations("ajouter")
   const tStep4 = useTranslations("ajouter.step4")
@@ -197,7 +200,7 @@ export function AjouterWizard({
       }
       setDone(true)
       toast.success(tStep4("successTitle"), { description: tStep4("successDesc") })
-      setTimeout(() => router.push("/dashboard/annonces"), 1800)
+      setTimeout(() => router.push(redirectTo ?? "/dashboard/annonces"), 1800)
     })
   }
 

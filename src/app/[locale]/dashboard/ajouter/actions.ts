@@ -296,8 +296,7 @@ export async function updateAnnonce(
     contact_phone: v.contactPhone,
     contact_whatsapp: v.contactWhatsapp,
     video_url: pro ? (v.videoUrl ?? null) : null,
-    status: "pending" as const,
-    rejection_reason: null,
+    ...(isAdmin ? {} : { status: "pending" as const, rejection_reason: null }),
   }
 
   const { error: updateError } = await supabase

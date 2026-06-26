@@ -26,7 +26,7 @@ import {
   setAnnonceStatus,
   toggleAnnonceFeatured,
 } from "@/app/[locale]/admin/annonces/actions"
-import { Link } from "@/i18n/navigation"
+import { Link, useRouter } from "@/i18n/navigation"
 import { RejectDialog } from "@/components/admin/RejectDialog"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -73,6 +73,7 @@ export function AdminAnnonceRow({ row }: Props) {
   const t = useTranslations("adminPanel.allAnnoncesPage")
   const format = useFormatter()
   const locale = useLocale() as Locale
+  const router = useRouter()
   const [pending, startTransition] = useTransition()
   const [rejectOpen, setRejectOpen] = useState(false)
 
@@ -237,7 +238,7 @@ export function AdminAnnonceRow({ row }: Props) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuItem
-                  onClick={() => window.location.assign(`/dashboard/modifier/${row.id}`)}
+                  onClick={() => router.push(`/admin/annonces/edit/${row.id}`)}
                 >
                   <Pencil className="size-4 me-2" />
                   {t("edit")}
