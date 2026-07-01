@@ -7,11 +7,12 @@ import {
   Pencil,
   ShieldCheck,
   ShieldOff,
+  Trash2,
 } from "lucide-react"
 import { useFormatter, useTranslations } from "next-intl"
 import { toast } from "sonner"
 
-import { setUserRole } from "@/app/[locale]/admin/users/actions"
+import { deleteUser, setUserRole } from "@/app/[locale]/admin/users/actions"
 import { UserEditDialog } from "@/components/admin/UserEditDialog"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -71,6 +72,19 @@ export function UserRow({ row, currentAdminId }: Props) {
             ? t("toast.downgraded")
             : t("toast.demoted"),
       )
+    })
+  }
+
+  function handleDelete() {
+    if (!window.confirm(t("deleteConfirm", { name: row.full_name ?? row.email ?? row.id })))
+      return
+    startTransition(async () => {
+      const res = await deleteUser({ id: row.id })
+      if (!res.ok) {
+        toast.error(t("toast.error"))
+        return
+      }
+      toast.success(t("toast.deleted"))
     })
   }
 
@@ -209,6 +223,19 @@ export function UserRow({ row, currentAdminId }: Props) {
                   <ArrowDownToLine className="size-4 me-2" />
                   {t("downgrade")}
                 </DropdownMenuItem>
+              )}
+              {!isSelf && (
+                <>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    variant="destructive"
+                    onClick={handleDelete}
+                    disabled={pending}
+                  >
+                    <Trash2 className="size-4 me-2" />
+                    {t("delete")}
+                  </DropdownMenuItem>
+                </>
               )}
             </DropdownMenuContent>
           </DropdownMenu>

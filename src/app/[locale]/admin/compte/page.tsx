@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 
+import { ChangeEmailForm } from "@/components/admin/ChangeEmailForm"
 import { CompteForm } from "@/components/dashboard/CompteForm"
 import { createClient } from "@/lib/supabase/server"
 import { getCurrentProfile } from "@/lib/queries/dashboard"
@@ -32,8 +33,11 @@ export default async function AdminAccountPage({
         <p className="text-sm text-muted-foreground mt-1">{t("subtitle")}</p>
       </header>
 
-      {/* Reuse the dashboard profile form; hide the delete-account zone. */}
-      <CompteForm initial={profile} email={user.email ?? ""} showDanger={false} />
+      <div className="space-y-6">
+        {/* Reuse the dashboard profile form; hide the delete-account zone. */}
+        <CompteForm initial={profile} email={user.email ?? ""} showDanger={false} />
+        <ChangeEmailForm currentEmail={user.email ?? ""} />
+      </div>
     </div>
   )
 }

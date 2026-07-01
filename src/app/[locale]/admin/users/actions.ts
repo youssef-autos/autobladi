@@ -127,3 +127,20 @@ export async function setVerifiedFlag(input: unknown): Promise<UserActionResult>
   revalidatePath("/admin/users")
   return { ok: true }
 }
+
+export async function deleteUser(input: unknown): Promise<UserActionResult> {
+  const parsed = z.object({ id: idSchema }).safeParse(input)
+  if (!parsed.success) return { ok: false, error: "invalid_input" }
+  const ctx = await ensureAdmin()
+  if (!ctx) return { ok: false, error: "forbidden" }
+  if (parsed.data.id === ctx.adminId) return { ok: false, error: "cant_self" }
+
+  // Must use admin client (service role) to delete from auth.users.
+  const { createAdminClient } = await import("@/lib/supabase/admin")
+  const adminSupabase = createAdminClient()
+  const { error } = await adminSupabase.auth.admin.deleteUser(parsed.data.id)
+  if (error) return { ok: false, error: error.message }
+
+  revalidatePath("/admin/users")
+  return { ok: true }
+}

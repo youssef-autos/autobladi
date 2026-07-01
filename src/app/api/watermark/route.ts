@@ -4,6 +4,7 @@ import sharp from "sharp"
 
 import { createClient } from "@/lib/supabase/server"
 import { uploadToAnnoncesBucket } from "@/lib/storage/server"
+import { checkRateLimit } from "@/lib/ai/rate-limit"
 
 export const runtime = "nodejs"
 export const maxDuration = 30
@@ -129,6 +130,15 @@ export async function POST(req: NextRequest) {
   } = await supabase.auth.getUser()
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
+
+  // 20 uploads per hour per user (image processing is CPU-intensive).
+  const rl = checkRateLimit(`watermark:${user.id}`, 20, 60 * 60 * 1000)
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: "Rate limit exceeded" },
+      { status: 429, headers: { "Retry-After": String(rl.retryAfter) } },
+    )
   }
 
   const form = await req.formData()

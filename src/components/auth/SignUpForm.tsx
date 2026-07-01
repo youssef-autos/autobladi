@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useRouter } from "@/i18n/navigation"
 import { signUpSchema, type SignUpInput } from "@/lib/validations/auth"
 import { cn } from "@/lib/utils"
 
@@ -19,6 +20,7 @@ export function SignUpForm() {
   const t = useTranslations("auth.signUp")
   const tValidation = useTranslations("validation")
   const locale = useLocale()
+  const router = useRouter()
   const [pending, startTransition] = useTransition()
   const [successEmail, setSuccessEmail] = useState<string | null>(null)
   const [serverError, setServerError] = useState<string | null>(null)
@@ -41,6 +43,10 @@ export function SignUpForm() {
       const result = await signUp(values)
       if (!result.ok) {
         setServerError(result.error)
+        return
+      }
+      if (result.data?.autoConfirmed) {
+        router.push("/dashboard")
         return
       }
       setSuccessEmail(values.email)

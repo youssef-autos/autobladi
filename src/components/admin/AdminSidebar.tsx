@@ -16,6 +16,7 @@ import {
   Layers,
   LayoutDashboard,
   Layout as LayoutIcon,
+  Lock,
   LogOut,
   Mail,
   MapPin,
@@ -178,6 +179,7 @@ function makeGroups(counts: Counts): Group[] {
         { href: "/admin/parametres", labelKey: "generalSettings", icon: Cog },
         { href: "/admin/settings/social-login", labelKey: "settingsSocial", icon: KeyRound },
         { href: "/admin/settings/email", labelKey: "settingsEmail", icon: Mail },
+        { href: "/admin/settings/auth", labelKey: "settingsAuth", icon: Lock },
       ],
     },
   ]

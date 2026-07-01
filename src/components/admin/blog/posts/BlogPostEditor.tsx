@@ -64,9 +64,8 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
 
   function onTitleChange(v: string) {
     setActiveTitle(v)
-    // Slugs are URL-safe ASCII, so they come from the French (Latin) title;
-    // an Arabic title slugifies to empty and is left as-is.
-    if (!slugTouched) {
+    // Slug always derives from the French title (Latin characters only).
+    if (!slugTouched && lang === "fr") {
       const s = slugify(v)
       if (s) setSlug(s)
     }
@@ -124,7 +123,7 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
       .slice(0, 20)
     return {
       title: title.trim(),
-      slug: slug.trim() || slugify(titleFr) || slugify(title),
+      slug: slug.trim() || slugify(titleFr),
       excerpt: excerpt.trim() || null,
       content: content.trim() ? content : null,
       title_fr: titleFr.trim() || null,

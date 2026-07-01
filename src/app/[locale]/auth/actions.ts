@@ -31,7 +31,7 @@ export async function signUp(input: unknown): Promise<ActionResult> {
   const supabase = await createClient()
   const origin = await siteOrigin()
 
-  const { error } = await supabase.auth.signUp({
+  const { data: signUpData, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -45,6 +45,27 @@ export async function signUp(input: unknown): Promise<ActionResult> {
       return { ok: false, error: "auth.signUp.errorEmailExists" }
     }
     return { ok: false, error: "auth.signUp.errorGeneric" }
+  }
+
+  // Check the admin setting for email confirmation requirement.
+  const { data: settingRow } = await supabase
+    .from("site_settings")
+    .select("value")
+    .eq("key", "require_email_confirmation")
+    .maybeSingle<{ value: unknown }>()
+
+  // Default is true (require confirmation). Setting explicitly to false disables it.
+  const requireConfirmation = settingRow?.value !== false
+
+  if (!requireConfirmation && signUpData.user) {
+    // Auto-confirm the email via service-role client, then sign the user in.
+    const { createAdminClient } = await import("@/lib/supabase/admin")
+    const adminClient = createAdminClient()
+    await adminClient.auth.admin.updateUserById(signUpData.user.id, {
+      email_confirm: true,
+    })
+    await supabase.auth.signInWithPassword({ email, password })
+    return { ok: true, data: { autoConfirmed: true } }
   }
 
   return { ok: true, data: { email } }

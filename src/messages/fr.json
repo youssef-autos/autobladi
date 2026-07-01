@@ -767,7 +767,16 @@
     "cacheError": "Impossible de vider le cache",
     "accountPage": {
       "title": "Mon profil",
-      "subtitle": "Gérez votre photo et vos informations personnelles"
+      "subtitle": "Gérez votre photo et vos informations personnelles",
+      "changeEmailTitle": "Changer l'adresse e-mail",
+      "currentEmail": "E-mail actuel",
+      "newEmail": "Nouvel e-mail",
+      "emailSave": "Changer l'e-mail",
+      "emailSaving": "Modification...",
+      "emailChanged": "E-mail modifié avec succès",
+      "emailSame": "Le nouvel e-mail est identique à l'actuel",
+      "emailInvalid": "Adresse e-mail invalide",
+      "emailError": "Une erreur est survenue"
     },
     "groups": {
       "manage": "Gestion générale",
@@ -813,7 +822,8 @@
       "settingsSeo": "SEO",
       "settingsEmail": "E-mails",
       "settingsSocial": "Connexion sociale",
-      "settingsWatermark": "Filigrane"
+      "settingsWatermark": "Filigrane",
+      "settingsAuth": "Authentification"
     },
     "dashboard": {
       "title": "Tableau de bord admin",
@@ -1526,7 +1536,8 @@
         "downgraded": "Compte rétrogradé",
         "updated": "Utilisateur mis à jour",
         "error": "Une erreur est survenue",
-        "cantSelf": "Vous ne pouvez pas modifier vos propres permissions"
+        "cantSelf": "Vous ne pouvez pas modifier vos propres permissions",
+        "deleted": "Utilisateur supprimé"
       },
       "export": {
         "button": "Exporter (Excel)",
@@ -1555,7 +1566,9 @@
         "saving": "Enregistrement..."
       },
       "empty": "Aucun utilisateur",
-      "noResults": "Aucun utilisateur ne correspond à votre recherche"
+      "noResults": "Aucun utilisateur ne correspond à votre recherche",
+      "delete": "Supprimer l'utilisateur",
+      "deleteConfirm": "Supprimer définitivement \"{name}\" ? Toutes ses données seront supprimées."
     },
     "citiesPage": {
       "title": "Gestion des villes",
@@ -2046,6 +2059,20 @@
         "active": "active(s)",
         "available": "Disponible"
       }
+    },
+    "authSettingsPage": {
+      "title": "Paramètres d'authentification",
+      "subtitle": "Contrôler le processus d'inscription des nouveaux comptes",
+      "emailSection": "Confirmation par e-mail",
+      "requireConfirmationLabel": "Confirmation e-mail à l'inscription",
+      "confirmationOn": "Activée — l'utilisateur doit confirmer son e-mail avant de se connecter",
+      "confirmationOff": "Désactivée — l'utilisateur accède directement après la création du compte",
+      "noteOn": "Activé : un e-mail de confirmation est envoyé à l'inscription. La connexion n'est possible qu'après avoir cliqué sur le lien de confirmation.",
+      "noteOff": "Désactivé : le compte est créé immédiatement et l'utilisateur est redirigé vers son tableau de bord sans attendre de confirmation.",
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "saved": "Paramètres enregistrés",
+      "error": "Une erreur est survenue"
     }
   },
   "admin": {
