@@ -18,12 +18,12 @@ export async function FeaturedPost({ post }: Props) {
     locale === "fr" ? post.category?.name_fr : post.category?.name_ar
 
   return (
-    <article className="group relative overflow-hidden rounded-3xl border border-border bg-card shadow-card">
+    <article className="group relative overflow-hidden rounded-3xl border border-border bg-card shadow-card isolate">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
         {/* Cover */}
         <Link
           href={`/blog/${post.slug}`}
-          className="relative block aspect-[16/10] md:aspect-auto md:min-h-[320px] bg-muted overflow-hidden"
+          className="relative block aspect-video sm:aspect-[16/10] md:aspect-auto md:min-h-[320px] bg-muted overflow-hidden"
         >
           {post.cover_image ? (
             <Image

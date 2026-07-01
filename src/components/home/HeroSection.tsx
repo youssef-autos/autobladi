@@ -82,12 +82,11 @@ function Stat({
   first?: boolean
 }) {
   return (
-    <div className={first ? "pe-5 sm:pe-8" : "px-5 sm:px-8"}>
-      <dt className="sr-only">{label}</dt>
-      <dd className="font-display text-2xl md:text-3xl font-bold text-moroccan-gold-500 tabular-nums">
+    <div className={`flex flex-col ${first ? "pe-5 sm:pe-8" : "px-5 sm:px-8"}`}>
+      <dt className="text-xs text-white/65 mt-1 order-last">{label}</dt>
+      <dd className="font-display text-2xl md:text-3xl font-bold text-moroccan-gold-500 tabular-nums order-first">
         {value}
       </dd>
-      <p className="text-xs text-white/65 mt-1">{label}</p>
     </div>
   )
 }

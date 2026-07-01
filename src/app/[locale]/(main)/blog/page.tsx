@@ -87,7 +87,7 @@ export default async function BlogIndexPage({
           className="absolute -end-20 -top-20 size-64 rounded-full bg-moroccan-gold-500/20 blur-3xl"
           aria-hidden="true"
         />
-        <Container className="relative py-12 md:py-16">
+        <Container className="relative py-8 md:py-16">
           <div className="max-w-2xl space-y-3">
             <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-moroccan-gold-500">
               <Newspaper className="size-4" aria-hidden="true" />
@@ -101,7 +101,7 @@ export default async function BlogIndexPage({
         </Container>
       </section>
 
-      <Container className="py-8 md:py-12 space-y-8">
+      <Container className="py-6 md:py-12 space-y-6 md:space-y-8 overflow-x-hidden">
         <Suspense fallback={<div className="h-[120px] md:h-[150px] rounded-2xl bg-muted animate-pulse" />}>
           <AdBanner placement="blog_top" />
         </Suspense>

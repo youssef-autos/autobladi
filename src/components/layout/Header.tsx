@@ -111,6 +111,7 @@ export function Header({ logoUrl }: HeaderProps) {
                 start (right of the account icon in RTL); desktop order is kept. */}
             <Link
               href={publishHref}
+              aria-label={t("postAd")}
               className="order-first sm:order-none inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-moroccan-gradient h-9 px-3 sm:px-4 text-sm font-semibold text-white shadow-moroccan hover:brightness-105 transition-all"
             >
               <Plus className="size-4" aria-hidden="true" />
