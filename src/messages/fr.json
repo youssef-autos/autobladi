@@ -1392,7 +1392,7 @@
         "markdownHelp": "Markdown pris en charge : titres, gras, listes, liens, tableaux, code.",
         "insertImage": "Insérer une image",
         "cover": "Image de couverture",
-        "coverHint": "Taille recommandée : 1200×630 px (ratio 16:9). Largeur minimale conseillée 1200 px pour éviter le flou.",
+        "coverHint": "Taille recommandée : 1600×900 px (ratio 16:9) · Largeur minimale 1200 px pour éviter le flou · Formats : JPG, PNG ou WebP · Max 4 Mo",
         "noCover": "Aucune image",
         "uploadCover": "Télécharger",
         "uploading": "Envoi...",
