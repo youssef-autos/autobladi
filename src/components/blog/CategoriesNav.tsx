@@ -17,7 +17,7 @@ export async function CategoriesNav({ categories, activeSlug }: Props) {
   return (
     <nav
       aria-label="Blog categories"
-      className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap"
+      className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       <CategoryPill href="/blog" active={!activeSlug}>
         {t("filters.all")}

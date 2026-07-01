@@ -28,7 +28,7 @@ export async function BlogCard({ post, className }: Props) {
     >
       <Link
         href={`/blog/${post.slug}`}
-        className="relative block aspect-[16/10] bg-muted overflow-hidden"
+        className="relative block aspect-[2/1] sm:aspect-[16/10] bg-muted overflow-hidden"
       >
         {post.cover_image ? (
           <Image

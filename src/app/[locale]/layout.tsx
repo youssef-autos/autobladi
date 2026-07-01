@@ -221,13 +221,13 @@ export default async function LocaleLayout({
         tajawal.variable,
         inter.variable,
         playfair.variable,
-        "h-full antialiased",
+        "h-full antialiased overflow-x-hidden",
       )}
     >
       {verify.customHead && (
         <head dangerouslySetInnerHTML={{ __html: verify.customHead }} />
       )}
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden">
         {gaId && (
           <>
             <Script
