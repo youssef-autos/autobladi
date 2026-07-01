@@ -60,6 +60,9 @@ export function BlogContent({ content, injectAdAfterWords = 800, className }: Pr
         "[&_th]:bg-moroccan-sand-50 [&_th]:text-start [&_th]:px-4 [&_th]:py-2 [&_th]:font-semibold",
         "[&_td]:px-4 [&_td]:py-2 [&_td]:border-t [&_td]:border-border",
         "[&_img]:w-full [&_img]:h-auto [&_img]:rounded-xl [&_img]:my-6",
+        "[&_iframe]:w-full [&_iframe]:max-w-full [&_iframe]:aspect-video [&_iframe]:rounded-xl [&_iframe]:my-6",
+        "[&_table]:max-w-full",
+        "overflow-x-hidden",
         className,
       )}
     >

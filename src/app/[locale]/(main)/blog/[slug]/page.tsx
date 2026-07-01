@@ -161,7 +161,7 @@ export default async function BlogDetailPage({
 
       <Container className="py-10 md:py-14">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
-          <article className="min-w-0">
+          <article className="min-w-0 overflow-x-hidden">
             <BlogContent content={post.content} />
 
             {/* Tags + Share + Author bio */}
