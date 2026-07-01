@@ -1070,16 +1070,30 @@ export async function listAllAdsAdmin(): Promise<AdminAdRow[]> {
 }
 
 export async function listAllModelsAdmin(): Promise<AdminModelRow[]> {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("car_models")
-    .select(
-      `id, brand_id, name, slug, is_active, created_at,
-       brands(id, name, slug, logo_url)`,
-    )
-    .order("name", { ascending: true })
-  const rows = (data ?? []) as unknown as RawModelRow[]
-  return rows.map((r) => ({
+  const supabase = createAdminClient()
+  // PostgREST caps each response at max_rows (default 1000) regardless of
+  // .limit(). Paginate in 1000-row chunks until we exhaust the table.
+  const PAGE = 1000
+  const allRows: RawModelRow[] = []
+  let page = 0
+
+  for (;;) {
+    const from = page * PAGE
+    const { data } = await supabase
+      .from("car_models")
+      .select(
+        `id, brand_id, name, slug, is_active, created_at,
+         brands(id, name, slug, logo_url)`,
+      )
+      .order("name", { ascending: true })
+      .range(from, from + PAGE - 1)
+    const chunk = (data ?? []) as unknown as RawModelRow[]
+    allRows.push(...chunk)
+    if (chunk.length < PAGE) break
+    page++
+  }
+
+  return allRows.map((r) => ({
     id: r.id,
     brand_id: r.brand_id,
     name: r.name,
