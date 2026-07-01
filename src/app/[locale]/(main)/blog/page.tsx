@@ -168,6 +168,11 @@ export default async function BlogIndexPage({
             <BlogSidebar />
           </div>
         </div>
+
+        {/* Mobile / tablet: sidebar content below articles */}
+        <div className="mt-8 lg:hidden">
+          <BlogSidebar showAd={false} hideSearch />
+        </div>
       </Container>
     </>
   )

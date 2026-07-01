@@ -14,14 +14,12 @@ import {
 } from "@/lib/queries/blog"
 
 type Props = {
-  /**
-   * Show the inline `blog_sidebar` 300x600 ad. Disable on tiny screens by
-   * passing `showAd={false}` if the layout already provides one.
-   */
   showAd?: boolean
+  /** Hide the search input (e.g. when a search bar is already visible above). */
+  hideSearch?: boolean
 }
 
-export async function BlogSidebar({ showAd = true }: Props) {
+export async function BlogSidebar({ showAd = true, hideSearch = false }: Props) {
   const t = await getTranslations("blog")
   const [categories, latest] = await Promise.all([
     listCategoriesWithCounts(),
@@ -30,7 +28,7 @@ export async function BlogSidebar({ showAd = true }: Props) {
 
   return (
     <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
-      <BlogSearch />
+      {!hideSearch && <BlogSearch />}
 
       <CategoriesBox categories={categories} />
 

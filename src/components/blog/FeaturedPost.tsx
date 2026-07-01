@@ -35,7 +35,7 @@ export async function FeaturedPost({ post }: Props) {
             priority
           />
         ) : (
-          <div className="absolute inset-0 bg-moroccan-gradient opacity-30" aria-hidden="true" />
+          <div className="absolute inset-0 bg-moroccan-gradient" aria-hidden="true" />
         )}
         {/* Gradient overlay — readable text at all image brightness levels */}
         <div
@@ -59,7 +59,7 @@ export async function FeaturedPost({ post }: Props) {
         </div>
 
         {/* Title */}
-        <h2 className="font-display text-lg sm:text-2xl md:text-4xl font-bold text-white leading-tight max-w-3xl group-hover:text-moroccan-gold-100 transition-colors duration-200">
+        <h2 className="font-display text-lg sm:text-2xl md:text-4xl font-bold text-white leading-tight max-w-3xl group-hover:text-moroccan-gold-100 transition-colors duration-200 line-clamp-2 sm:line-clamp-none">
           {post.title}
         </h2>
 
