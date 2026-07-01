@@ -194,7 +194,10 @@ export default async function BlogDetailPage({
             </div>
           </article>
 
-          <BlogSidebar />
+          {/* Sidebar hidden on mobile — RelatedPosts handles discovery */}
+          <div className="hidden lg:block">
+            <BlogSidebar />
+          </div>
         </div>
       </Container>
 

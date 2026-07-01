@@ -6,6 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server"
 import { AdBanner } from "@/components/ads/AdBanner"
 import { BlogCard } from "@/components/blog/BlogCard"
 import { BlogPagination } from "@/components/blog/BlogPagination"
+import { BlogSearch } from "@/components/blog/BlogSearch"
 import { BlogSidebar } from "@/components/blog/BlogSidebar"
 import { CategoriesNav } from "@/components/blog/CategoriesNav"
 import { FeaturedPost } from "@/components/blog/FeaturedPost"
@@ -105,6 +106,11 @@ export default async function BlogIndexPage({
           <AdBanner placement="blog_top" />
         </Suspense>
 
+        {/* Search visible on mobile only — desktop uses the sidebar search */}
+        <div className="lg:hidden">
+          <BlogSearch />
+        </div>
+
         <CategoriesNav categories={categories} activeSlug={null} />
 
         {featured && (
@@ -147,7 +153,10 @@ export default async function BlogIndexPage({
             />
           </div>
 
-          <BlogSidebar />
+          {/* Sidebar hidden on mobile — search is in main area, cats in CategoriesNav */}
+          <div className="hidden lg:block">
+            <BlogSidebar />
+          </div>
         </div>
       </Container>
     </>

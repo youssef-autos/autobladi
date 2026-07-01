@@ -46,7 +46,7 @@ export async function FeaturedPost({ post }: Props) {
         </Link>
 
         {/* Content */}
-        <div className="p-6 md:p-10 flex flex-col gap-4 justify-center">
+        <div className="p-5 md:p-8 lg:p-10 flex flex-col gap-3 md:gap-4 justify-center">
           {categoryName && (
             <span className="text-xs font-semibold uppercase tracking-wider text-moroccan-red-500">
               {categoryName}
@@ -54,22 +54,22 @@ export async function FeaturedPost({ post }: Props) {
           )}
 
           <Link href={`/blog/${post.slug}`}>
-            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight group-hover:text-moroccan-red-500 transition-colors">
+            <h2 className="font-display text-xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight group-hover:text-moroccan-red-500 transition-colors">
               {post.title}
             </h2>
           </Link>
 
           {post.excerpt && (
-            <p className="text-muted-foreground line-clamp-3">{post.excerpt}</p>
+            <p className="text-sm md:text-base text-muted-foreground line-clamp-2 md:line-clamp-3">{post.excerpt}</p>
           )}
 
-          <div className="flex items-center gap-4 text-xs text-muted-foreground pt-2">
-            <span className="truncate">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground pt-1">
+            <span className="truncate min-w-0">
               {post.author?.full_name ?? "—"}
               {post.published_at && (
                 <>
                   {" · "}
-                  {fmt.dateTime(new Date(post.published_at), { dateStyle: "long" })}
+                  {fmt.dateTime(new Date(post.published_at), { dateStyle: "medium" })}
                 </>
               )}
             </span>
@@ -81,7 +81,7 @@ export async function FeaturedPost({ post }: Props) {
 
           <Link
             href={`/blog/${post.slug}`}
-            className="inline-flex items-center gap-2 mt-2 text-sm font-semibold text-moroccan-red-500 hover:text-moroccan-red-600"
+            className="inline-flex items-center gap-2 mt-1 text-sm font-semibold text-moroccan-red-500 hover:text-moroccan-red-600"
           >
             {t("card.readMore")}
             <ArrowRight className="size-4 rtl:rotate-180" aria-hidden="true" />

@@ -152,7 +152,7 @@ async function NewsletterBox() {
     <section className="rounded-2xl bg-moroccan-gradient text-white p-5 shadow-moroccan">
       <h3 className="font-display text-base font-bold">{t("title")}</h3>
       <p className="text-xs text-white/80 mt-1">{t("desc")}</p>
-      <form action="/api/newsletter" method="post" className="mt-3 flex gap-2">
+      <form action="/api/newsletter" method="post" className="mt-3 flex flex-col sm:flex-row gap-2">
         <input
           type="email"
           name="email"

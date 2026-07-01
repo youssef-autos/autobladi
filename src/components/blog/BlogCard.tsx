@@ -64,8 +64,8 @@ export async function BlogCard({ post, className }: Props) {
           </p>
         )}
 
-        <div className="flex items-center justify-between text-xs text-muted-foreground mt-auto pt-3 border-t border-border">
-          <span className="truncate">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-xs text-muted-foreground mt-auto pt-3 border-t border-border">
+          <span className="truncate min-w-0">
             {post.author?.full_name ?? "—"}
             {post.published_at && (
               <>
