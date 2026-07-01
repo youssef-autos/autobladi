@@ -224,7 +224,7 @@ export function FiltersSidebar({
               page: 1,
             })
           }
-          className="grid grid-cols-2 gap-2"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-2"
         >
           {CONDITION_VALUES.map((c) => (
             <label
@@ -399,7 +399,7 @@ export function FiltersSidebar({
 
       {/* Fuel */}
       <FilterGroup label={t("fields.fuel")}>
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {FUEL_VALUES.map((f) => (
             <CheckRow
               key={f}
@@ -422,7 +422,7 @@ export function FiltersSidebar({
               page: 1,
             })
           }
-          className="grid grid-cols-2 gap-2"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-2"
         >
           {TRANSMISSION_VALUES.map((tr) => (
             <label

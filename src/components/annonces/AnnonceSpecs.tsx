@@ -119,7 +119,7 @@ export function AnnonceSpecs({ annonce }: Props) {
           {visibleRows.map((row) => (
             <div
               key={row.label}
-              className="grid grid-cols-[40%_1fr] border-b border-border/60"
+              className="grid grid-cols-[50%_1fr] sm:grid-cols-[40%_1fr] border-b border-border/60"
             >
               <dt className="flex items-center border-e border-border/60 bg-gray-100 px-4 py-2.5 text-sm font-medium text-foreground/80">
                 {row.label}
