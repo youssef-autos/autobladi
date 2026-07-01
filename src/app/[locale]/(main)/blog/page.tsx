@@ -24,9 +24,7 @@ export const revalidate = 60
 
 type SearchParams = Record<string, string | string[] | undefined>
 
-function readStringParam(
-  value: string | string[] | undefined,
-): string | null {
+function readStringParam(value: string | string[] | undefined): string | null {
   if (typeof value === "string" && value.trim()) return value.trim()
   if (Array.isArray(value) && value[0]) return value[0]
   return null
@@ -72,8 +70,6 @@ export default async function BlogIndexPage({
     listPosts({ page, q }),
   ])
 
-  // On the first page (and only when not searching), the featured post is
-  // pulled out of the regular grid so it isn't shown twice.
   const gridPosts =
     featured && page === 1
       ? result.posts.filter((p) => p.id !== featured.id)
@@ -81,79 +77,93 @@ export default async function BlogIndexPage({
 
   return (
     <>
-      {/* Hero */}
+      {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-moroccan-gradient text-white">
         <div
-          className="absolute -end-20 -top-20 size-64 rounded-full bg-moroccan-gold-500/20 blur-3xl"
+          className="absolute -end-20 -top-20 size-72 rounded-full bg-moroccan-gold-500/15 blur-3xl pointer-events-none"
           aria-hidden="true"
         />
-        <Container className="relative py-8 md:py-16">
-          <div className="max-w-2xl space-y-3">
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-moroccan-gold-500">
-              <Newspaper className="size-4" aria-hidden="true" />
-              {t("hero.eyebrow")}
-            </p>
-            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
-              {t("hero.title")}
-            </h1>
-            <p className="text-white/85">{t("hero.subtitle")}</p>
-          </div>
+        <Container className="relative py-7 md:py-12">
+          <p className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-moroccan-gold-400 mb-2">
+            <Newspaper className="size-3.5" aria-hidden="true" />
+            {t("hero.eyebrow")}
+          </p>
+          <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+            {t("hero.title")}
+          </h1>
+          <p className="hidden sm:block text-white/80 mt-2 text-sm md:text-base max-w-xl">
+            {t("hero.subtitle")}
+          </p>
         </Container>
       </section>
 
-      <Container className="py-6 md:py-12 space-y-6 md:space-y-8 overflow-x-hidden">
-        <Suspense fallback={<div className="h-[120px] md:h-[150px] rounded-2xl bg-muted animate-pulse" />}>
-          <AdBanner placement="blog_top" />
+      {/* ── Main content ─────────────────────────────────────── */}
+      <Container className="py-6 md:py-10 overflow-x-hidden">
+
+        {/* Ad banner */}
+        <Suspense
+          fallback={
+            <div className="h-[80px] md:h-[120px] rounded-2xl bg-muted animate-pulse mb-6" />
+          }
+        >
+          <div className="mb-6">
+            <AdBanner placement="blog_top" />
+          </div>
         </Suspense>
 
-        {/* Search visible on mobile only — desktop uses the sidebar search */}
-        <div className="lg:hidden">
+        {/* Search — mobile / tablet only (desktop uses sidebar search) */}
+        <div className="lg:hidden mb-3">
           <BlogSearch />
         </div>
 
+        {/* Category tabs */}
         <CategoriesNav categories={categories} activeSlug={null} />
 
-        {featured && (
-          <section className="space-y-4">
-            <FeaturedPost post={featured} />
-          </section>
-        )}
+        {/* Two-column: articles + sidebar */}
+        <div className="mt-8 md:mt-10 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8 md:gap-10 items-start">
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
-          <div className="min-w-0 space-y-6">
-            <header className="space-y-2">
-              <h2 className="font-display text-2xl font-bold text-foreground">
-                {q ? `"${q}"` : t("list.title")}
-              </h2>
-              <GoldAccent />
-              <p className="text-sm text-muted-foreground">
-                {t("list.count", { count: result.total })}
-              </p>
-            </header>
+          {/* Articles column */}
+          <div className="min-w-0 space-y-8 md:space-y-10">
 
-            {gridPosts.length === 0 ? (
-              <EmptyState
-                icon={Newspaper}
-                title={t("list.empty")}
-                description={t("list.emptyDesc")}
-              />
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {gridPosts.map((post) => (
-                  <BlogCard key={post.id} post={post} />
-                ))}
+            {/* Featured post */}
+            {featured && <FeaturedPost post={featured} />}
+
+            {/* Latest articles */}
+            <section>
+              <div className="flex items-center justify-between gap-4 mb-1">
+                <h2 className="font-display text-xl font-bold text-foreground">
+                  {q ? `"${q}"` : t("list.title")}
+                </h2>
+                <p className="text-sm text-muted-foreground shrink-0">
+                  {t("list.count", { count: result.total })}
+                </p>
               </div>
-            )}
+              <GoldAccent className="mb-5" />
 
-            <BlogPagination
-              page={result.page}
-              totalPages={result.totalPages}
-              basePath={`/${locale}/blog`}
-              preserveParams={{ q }}
-            />
+              {gridPosts.length === 0 ? (
+                <EmptyState
+                  icon={Newspaper}
+                  title={t("list.empty")}
+                  description={t("list.emptyDesc")}
+                />
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  {gridPosts.map((post) => (
+                    <BlogCard key={post.id} post={post} />
+                  ))}
+                </div>
+              )}
+
+              <BlogPagination
+                page={result.page}
+                totalPages={result.totalPages}
+                basePath={`/${locale}/blog`}
+                preserveParams={{ q }}
+              />
+            </section>
           </div>
 
-          {/* Sidebar hidden on mobile — search is in main area, cats in CategoriesNav */}
+          {/* Sidebar (desktop only) */}
           <div className="hidden lg:block">
             <BlogSidebar />
           </div>

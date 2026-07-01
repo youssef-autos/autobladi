@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { ArrowRight, Clock } from "lucide-react"
+import { ArrowRight, Calendar, Clock } from "lucide-react"
 import { getFormatter, getLocale, getTranslations } from "next-intl/server"
 
 import { Link } from "@/i18n/navigation"
@@ -18,76 +18,84 @@ export async function FeaturedPost({ post }: Props) {
     locale === "fr" ? post.category?.name_fr : post.category?.name_ar
 
   return (
-    <article className="group relative overflow-hidden rounded-3xl border border-border bg-card shadow-card isolate">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-        {/* Cover */}
-        <Link
-          href={`/blog/${post.slug}`}
-          className="relative block h-[190px] sm:h-auto sm:aspect-[16/10] md:aspect-auto md:min-h-[320px] bg-muted overflow-hidden"
-        >
-          {post.cover_image ? (
-            <Image
-              src={post.cover_image}
-              alt={post.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
-              priority
-            />
-          ) : (
-            <div className="absolute inset-0 bg-moroccan-gradient opacity-20" aria-hidden="true" />
-          )}
-          <Badge
-            variant="featured"
-            className="absolute top-4 start-4 text-[11px] font-semibold uppercase tracking-wide"
-          >
+    <Link
+      href={`/blog/${post.slug}`}
+      className="group relative block overflow-hidden rounded-2xl md:rounded-3xl isolate bg-brand-dark shadow-moroccan"
+      aria-label={post.title}
+    >
+      {/* Hero image */}
+      <div className="relative h-[240px] sm:h-[340px] md:h-[420px] lg:h-[460px]">
+        {post.cover_image ? (
+          <Image
+            src={post.cover_image}
+            alt={post.title}
+            fill
+            sizes="(max-width: 1280px) 100vw, 90vw"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            priority
+          />
+        ) : (
+          <div className="absolute inset-0 bg-moroccan-gradient opacity-30" aria-hidden="true" />
+        )}
+        {/* Gradient overlay — readable text at all image brightness levels */}
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-brand-dark/95 via-brand-dark/45 to-transparent"
+          aria-hidden="true"
+        />
+      </div>
+
+      {/* Content overlaid at bottom */}
+      <div className="absolute inset-x-0 bottom-0 p-4 sm:p-6 md:p-8 lg:p-10">
+        {/* Badges */}
+        <div className="flex items-center gap-2 mb-2 sm:mb-3">
+          <Badge variant="featured" className="text-[11px] font-semibold">
             ★ {t("featured.label")}
           </Badge>
-        </Link>
-
-        {/* Content */}
-        <div className="p-4 md:p-8 lg:p-10 flex flex-col gap-2 md:gap-4 justify-center">
           {categoryName && (
-            <span className="text-xs font-semibold uppercase tracking-wider text-moroccan-red-500">
+            <span className="text-[11px] font-medium text-white/60 uppercase tracking-wide">
               {categoryName}
             </span>
           )}
+        </div>
 
-          <Link href={`/blog/${post.slug}`}>
-            <h2 className="font-display text-xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight group-hover:text-moroccan-red-500 transition-colors">
-              {post.title}
-            </h2>
-          </Link>
+        {/* Title */}
+        <h2 className="font-display text-lg sm:text-2xl md:text-4xl font-bold text-white leading-tight max-w-3xl group-hover:text-moroccan-gold-100 transition-colors duration-200">
+          {post.title}
+        </h2>
 
-          {post.excerpt && (
-            <p className="text-sm md:text-base text-muted-foreground line-clamp-2 md:line-clamp-3">{post.excerpt}</p>
+        {/* Excerpt — sm+ only */}
+        {post.excerpt && (
+          <p className="hidden sm:block text-sm md:text-base text-white/60 mt-2 line-clamp-2 max-w-2xl">
+            {post.excerpt}
+          </p>
+        )}
+
+        {/* Meta */}
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 mt-2 sm:mt-3 text-xs text-white/50">
+          {post.author?.full_name && (
+            <span className="font-medium text-white/70">{post.author.full_name}</span>
           )}
-
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground pt-1">
-            <span className="truncate min-w-0">
-              {post.author?.full_name ?? "—"}
-              {post.published_at && (
-                <>
-                  {" · "}
-                  {fmt.dateTime(new Date(post.published_at), { dateStyle: "medium" })}
-                </>
-              )}
+          {post.published_at && (
+            <span className="flex items-center gap-1">
+              <Calendar className="size-3" aria-hidden="true" />
+              {fmt.dateTime(new Date(post.published_at), { dateStyle: "medium" })}
             </span>
-            <span className="inline-flex items-center gap-1 shrink-0">
-              <Clock className="size-3.5" aria-hidden="true" />
-              {t("card.readingTime", { minutes: post.reading_minutes })}
-            </span>
-          </div>
+          )}
+          <span className="flex items-center gap-1">
+            <Clock className="size-3" aria-hidden="true" />
+            {t("card.readingTime", { minutes: post.reading_minutes })}
+          </span>
+        </div>
 
-          <Link
-            href={`/blog/${post.slug}`}
-            className="inline-flex items-center gap-2 mt-1 text-sm font-semibold text-moroccan-red-500 hover:text-moroccan-red-600"
-          >
-            {t("card.readMore")}
-            <ArrowRight className="size-4 rtl:rotate-180" aria-hidden="true" />
-          </Link>
+        {/* CTA arrow */}
+        <div className="mt-3 sm:mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-moroccan-gold-400 group-hover:text-moroccan-gold-300 transition-colors">
+          {t("card.readMore")}
+          <ArrowRight
+            className="size-4 rtl:rotate-180 transition-transform duration-200 group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
+            aria-hidden="true"
+          />
         </div>
       </div>
-    </article>
+    </Link>
   )
 }

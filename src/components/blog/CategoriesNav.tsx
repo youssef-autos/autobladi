@@ -17,30 +17,28 @@ export async function CategoriesNav({ categories, activeSlug }: Props) {
   return (
     <nav
       aria-label="Blog categories"
-      className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className="flex overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden border-b border-border -mx-4 px-4 md:mx-0 md:px-0"
     >
-      <CategoryPill href="/blog" active={!activeSlug}>
+      <CategoryTab href="/blog" active={!activeSlug}>
         {t("filters.all")}
-      </CategoryPill>
+      </CategoryTab>
       {categories.map((cat) => (
-        <CategoryPill
+        <CategoryTab
           key={cat.id}
           href={`/blog/category/${cat.slug}`}
           active={activeSlug === cat.slug}
         >
           {locale === "fr" ? cat.name_fr : cat.name_ar}
           {cat.posts_count > 0 && (
-            <span className="ms-1.5 text-[10px] opacity-70">
-              ({cat.posts_count})
-            </span>
+            <span className="ms-1 text-[10px] opacity-60">({cat.posts_count})</span>
           )}
-        </CategoryPill>
+        </CategoryTab>
       ))}
     </nav>
   )
 }
 
-function CategoryPill({
+function CategoryTab({
   href,
   active,
   children,
@@ -53,10 +51,10 @@ function CategoryPill({
     <Link
       href={href}
       className={cn(
-        "shrink-0 inline-flex items-center rounded-full px-4 h-9 text-sm font-medium transition-colors",
+        "shrink-0 inline-flex items-center h-10 px-3 sm:px-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap",
         active
-          ? "bg-moroccan-red-500 text-white"
-          : "bg-card border border-border text-foreground hover:bg-moroccan-sand-50",
+          ? "border-moroccan-red-500 text-moroccan-red-500"
+          : "border-transparent text-foreground/60 hover:text-foreground hover:border-border",
       )}
     >
       {children}
