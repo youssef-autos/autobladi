@@ -23,7 +23,7 @@ export async function FeaturedPost({ post }: Props) {
         {/* Cover */}
         <Link
           href={`/blog/${post.slug}`}
-          className="relative block aspect-video sm:aspect-[16/10] md:aspect-auto md:min-h-[320px] bg-muted overflow-hidden"
+          className="relative block h-[190px] sm:h-auto sm:aspect-[16/10] md:aspect-auto md:min-h-[320px] bg-muted overflow-hidden"
         >
           {post.cover_image ? (
             <Image
@@ -46,7 +46,7 @@ export async function FeaturedPost({ post }: Props) {
         </Link>
 
         {/* Content */}
-        <div className="p-5 md:p-8 lg:p-10 flex flex-col gap-3 md:gap-4 justify-center">
+        <div className="p-4 md:p-8 lg:p-10 flex flex-col gap-2 md:gap-4 justify-center">
           {categoryName && (
             <span className="text-xs font-semibold uppercase tracking-wider text-moroccan-red-500">
               {categoryName}

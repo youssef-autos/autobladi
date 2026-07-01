@@ -22,20 +22,23 @@ export async function BlogCard({ post, className }: Props) {
   return (
     <article
       className={cn(
-        "group flex flex-col rounded-2xl border border-border bg-card shadow-card overflow-hidden hover:shadow-moroccan transition-shadow",
+        // Mobile: horizontal (thumbnail left, text right)
+        // sm+: vertical (image top, text below)
+        "group flex flex-row sm:flex-col rounded-2xl border border-border bg-card shadow-card overflow-hidden hover:shadow-moroccan transition-shadow",
         className,
       )}
     >
+      {/* Image — fixed thumbnail on mobile, full-width banner on sm+ */}
       <Link
         href={`/blog/${post.slug}`}
-        className="relative block aspect-[2/1] sm:aspect-[16/10] bg-muted overflow-hidden"
+        className="relative block w-[120px] h-[110px] shrink-0 sm:w-full sm:h-auto sm:aspect-[16/10] bg-muted overflow-hidden"
       >
         {post.cover_image ? (
           <Image
             src={post.cover_image}
             alt={post.title}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            sizes="(max-width: 640px) 120px, (max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
@@ -44,48 +47,49 @@ export async function BlogCard({ post, className }: Props) {
         {categoryName && (
           <Badge
             variant="featured"
-            className="absolute top-3 start-3 text-[10px] font-semibold"
+            className="absolute top-2 start-2 text-[10px] font-semibold hidden sm:flex"
           >
             {categoryName}
           </Badge>
         )}
       </Link>
 
-      <div className="p-5 flex flex-col flex-1 gap-3">
-        <Link href={`/blog/${post.slug}`} className="block">
-          <h3 className="font-display text-lg font-bold text-foreground line-clamp-2 group-hover:text-moroccan-red-500 transition-colors">
+      <div className="p-3 sm:p-5 flex flex-col flex-1 gap-1 sm:gap-3 min-w-0">
+        {/* Category shown inline on mobile (badge hidden on thumbnail) */}
+        {categoryName && (
+          <span className="sm:hidden text-[10px] font-semibold uppercase tracking-wide text-moroccan-red-500 truncate">
+            {categoryName}
+          </span>
+        )}
+
+        <Link href={`/blog/${post.slug}`} className="block min-w-0">
+          <h3 className="font-display text-sm sm:text-lg font-bold text-foreground line-clamp-3 sm:line-clamp-2 group-hover:text-moroccan-red-500 transition-colors">
             {post.title}
           </h3>
         </Link>
 
         {post.excerpt && (
-          <p className="text-sm text-muted-foreground line-clamp-3">
+          <p className="hidden sm:block text-sm text-muted-foreground line-clamp-3">
             {post.excerpt}
           </p>
         )}
 
-        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-xs text-muted-foreground mt-auto pt-3 border-t border-border">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground mt-auto pt-2 sm:pt-3 sm:border-t sm:border-border">
           <span className="truncate min-w-0">
-            {post.author?.full_name ?? "—"}
-            {post.published_at && (
-              <>
-                {" · "}
-                {fmt.dateTime(new Date(post.published_at), { dateStyle: "medium" })}
-              </>
-            )}
+            {post.published_at
+              ? fmt.dateTime(new Date(post.published_at), { dateStyle: "medium" })
+              : (post.author?.full_name ?? "—")}
           </span>
-          <span className="inline-flex items-center gap-3 shrink-0">
-            <span className="inline-flex items-center gap-1">
-              <Clock className="size-3.5" aria-hidden="true" />
-              {t("card.readingTime", { minutes: post.reading_minutes })}
+          <span className="inline-flex items-center gap-1 shrink-0">
+            <Clock className="size-3" aria-hidden="true" />
+            {t("card.readingTime", { minutes: post.reading_minutes })}
+          </span>
+          {post.comments_count > 0 && (
+            <span className="inline-flex items-center gap-1 shrink-0">
+              <MessageCircle className="size-3" aria-hidden="true" />
+              {post.comments_count}
             </span>
-            {post.comments_count > 0 && (
-              <span className="inline-flex items-center gap-1">
-                <MessageCircle className="size-3.5" aria-hidden="true" />
-                {post.comments_count}
-              </span>
-            )}
-          </span>
+          )}
         </div>
       </div>
     </article>
