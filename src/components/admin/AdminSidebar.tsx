@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useTransition } from "react"
+import { useEffect, useState, useTransition } from "react"
 import {
   Banknote,
   BarChart3,
   Building2,
   Car,
+  ChevronDown,
   CircleDollarSign,
   Clock,
   Cog,
@@ -74,6 +75,12 @@ function initials(name?: string | null): string {
     .slice(0, 2)
     .map((w) => w[0]?.toUpperCase() ?? "")
     .join("")
+}
+
+function isItemActive(href: string, pathname: string): boolean {
+  return href === "/admin"
+    ? pathname === "/admin"
+    : pathname === href || pathname.startsWith(`${href}/`)
 }
 
 function makeGroups(counts: Counts): Group[] {
@@ -199,6 +206,26 @@ export function AdminSidebar({ profile, counts }: Props) {
   const [open, setOpen] = useState(false)
   const groups = makeGroups(counts)
 
+  // Which group contains the current route — kept open by default.
+  const activeKey =
+    groups.find((g) => g.items.some((it) => isItemActive(it.href, pathname)))
+      ?.labelKey ?? null
+
+  // Collapsible groups: start with only the active group expanded.
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() =>
+    activeKey ? { [activeKey]: true } : {},
+  )
+
+  // Navigating into a different group auto-expands it (without collapsing
+  // groups the admin opened manually).
+  useEffect(() => {
+    if (activeKey) {
+      setOpenGroups((prev) =>
+        prev[activeKey] ? prev : { ...prev, [activeKey]: true },
+      )
+    }
+  }, [activeKey])
+
   const content = (
     <div className="flex flex-col h-full text-white">
       <header className="px-5 py-5 border-b border-white/10">
@@ -209,55 +236,103 @@ export function AdminSidebar({ profile, counts }: Props) {
       </header>
 
       <nav className="flex-1 overflow-y-auto px-3 py-3">
-        {groups.map((group) => (
-          <section key={group.labelKey} className="mb-4 last:mb-0">
-            <p className="px-3 py-1.5 text-[10px] uppercase tracking-widest text-white/40 font-semibold">
-              {tGroups(group.labelKey)}
-            </p>
-            <ul className="flex flex-col gap-0.5">
-              {group.items.map((item) => {
-                const isActive =
-                  item.href === "/admin"
-                    ? pathname === "/admin"
-                    : pathname === item.href || pathname.startsWith(`${item.href}/`)
-                const Icon = item.icon
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      className={cn(
-                        "group flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
-                        isActive
-                          ? "bg-white/10 text-white font-medium"
-                          : "text-white/70 hover:bg-white/5 hover:text-white",
-                      )}
-                    >
-                      <span className="inline-flex items-center gap-3 min-w-0">
-                        <Icon
+        {groups.map((group) => {
+          const isOpen = openGroups[group.labelKey] ?? false
+          const hasActive = group.labelKey === activeKey
+          const groupBadge = group.items.reduce(
+            (sum, it) => sum + (it.badge ?? 0),
+            0,
+          )
+          return (
+            <section key={group.labelKey} className="mb-1.5 last:mb-0">
+              <button
+                type="button"
+                onClick={() =>
+                  setOpenGroups((prev) => ({
+                    ...prev,
+                    [group.labelKey]: !isOpen,
+                  }))
+                }
+                aria-expanded={isOpen}
+                className={cn(
+                  "w-full flex items-center gap-2 rounded-lg px-3 py-2 text-[10px] uppercase tracking-widest font-semibold transition-colors",
+                  isOpen ? "text-white/70" : "text-white/40",
+                  "hover:text-white/70 hover:bg-white/5",
+                )}
+              >
+                <span className="flex-1 text-start truncate">
+                  {tGroups(group.labelKey)}
+                </span>
+                {/* Collapsed signals: pending count + active-section dot */}
+                {!isOpen && groupBadge > 0 && (
+                  <Badge
+                    variant="pro"
+                    className="text-[10px] h-4 min-w-4 px-1 bg-moroccan-red-500 text-white border-0"
+                  >
+                    {groupBadge}
+                  </Badge>
+                )}
+                {!isOpen && hasActive && (
+                  <span
+                    className="size-1.5 rounded-full bg-moroccan-gold-500"
+                    aria-hidden="true"
+                  />
+                )}
+                <ChevronDown
+                  className={cn(
+                    "size-3.5 shrink-0 transition-transform duration-200",
+                    isOpen ? "rotate-180" : "rotate-0",
+                  )}
+                  aria-hidden="true"
+                />
+              </button>
+
+              {isOpen && (
+                <ul className="flex flex-col gap-0.5 mt-0.5 mb-2 animate-in fade-in slide-in-from-top-1 duration-150">
+                  {group.items.map((item) => {
+                    const isActive = isItemActive(item.href, pathname)
+                    const Icon = item.icon
+                    return (
+                      <li key={item.href}>
+                        <Link
+                          href={item.href}
+                          onClick={() => setOpen(false)}
                           className={cn(
-                            "size-4 shrink-0",
-                            isActive ? "text-moroccan-gold-500" : "text-white/50",
+                            "group flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+                            isActive
+                              ? "bg-white/10 text-white font-medium"
+                              : "text-white/70 hover:bg-white/5 hover:text-white",
                           )}
-                          aria-hidden="true"
-                        />
-                        <span className="truncate">{tNav(item.labelKey)}</span>
-                      </span>
-                      {item.badge != null && item.badge > 0 && (
-                        <Badge
-                          variant="pro"
-                          className="text-[10px] h-5 min-w-5 px-1.5 bg-moroccan-red-500 text-white border-0"
                         >
-                          {item.badge}
-                        </Badge>
-                      )}
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
-          </section>
-        ))}
+                          <span className="inline-flex items-center gap-3 min-w-0">
+                            <Icon
+                              className={cn(
+                                "size-4 shrink-0",
+                                isActive
+                                  ? "text-moroccan-gold-500"
+                                  : "text-white/50",
+                              )}
+                              aria-hidden="true"
+                            />
+                            <span className="truncate">{tNav(item.labelKey)}</span>
+                          </span>
+                          {item.badge != null && item.badge > 0 && (
+                            <Badge
+                              variant="pro"
+                              className="text-[10px] h-5 min-w-5 px-1.5 bg-moroccan-red-500 text-white border-0"
+                            >
+                              {item.badge}
+                            </Badge>
+                          )}
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
+            </section>
+          )
+        })}
       </nav>
 
       <footer className="border-t border-white/10 p-4 space-y-2">

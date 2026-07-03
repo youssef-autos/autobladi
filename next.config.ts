@@ -15,6 +15,29 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }]
   },
+  async rewrites() {
+    // Ad-blocker evasion: serve storage images from a neutral first-party path
+    // (`/media/*`) that proxies to the Supabase `ads` bucket. The browser never
+    // sees `/ads/`, which EasyList-based blockers strip. See `src/lib/media.ts`.
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const mediaRewrite = supabaseUrl
+      ? [
+          {
+            source: "/media/:path*",
+            destination: `${supabaseUrl}/storage/v1/object/public/ads/:path*`,
+          },
+        ]
+      : []
+    return [
+      ...mediaRewrite,
+      // Neutral alias for ad impression/click beacons so ad blockers (which
+      // block `/api/ads/…`) don't drop first-party campaign analytics.
+      {
+        source: "/api/e/:id/:event",
+        destination: "/api/ads/:id/:event",
+      },
+    ]
+  },
   experimental: {
     optimizePackageImports: ["lucide-react", "date-fns", "recharts"],
   },

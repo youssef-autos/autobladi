@@ -5,7 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server"
 import { ContactForm } from "@/components/contact/ContactForm"
 import { Container } from "@/components/ui/Container"
 import { GoldAccent } from "@/components/ui/GoldAccent"
-import { createClient } from "@/lib/supabase/server"
+import { getSiteContact } from "@/lib/queries/home"
 import { localeAlternates } from "@/lib/seo/alternates"
 
 export const dynamic = "force-dynamic"
@@ -24,11 +24,6 @@ export async function generateMetadata({
   }
 }
 
-function asString(raw: unknown, fallback = ""): string {
-  if (typeof raw === "string") return raw
-  return fallback
-}
-
 export default async function ContactPage({
   params,
 }: {
@@ -38,20 +33,9 @@ export default async function ContactPage({
   setRequestLocale(locale)
   const t = await getTranslations("contactPage")
 
-  // Pull the configurable contact details from site_settings.
-  const supabase = await createClient()
-  const { data: rows } = await supabase
-    .from("site_settings")
-    .select("key, value")
-    .in("key", ["contact_email", "contact_phone"])
-  const map = new Map(
-    ((rows ?? []) as Array<{ key: string; value: unknown }>).map((r) => [
-      r.key,
-      r.value,
-    ]),
-  )
-  const email = asString(map.get("contact_email"), "contact@autobladi.ma")
-  const phone = asString(map.get("contact_phone"), "")
+  // Configurable contact details — shared source of truth with the footer
+  // and the /publicite page.
+  const { email, phone } = await getSiteContact()
 
   return (
     <>

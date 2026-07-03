@@ -2,6 +2,7 @@ import "server-only"
 
 import { createClient } from "@/lib/supabase/server"
 import { createAdminClient } from "@/lib/supabase/admin"
+import { mediaUrl } from "@/lib/media"
 import {
   getAllAdSlots,
   resolveAdSlot,
@@ -937,7 +938,10 @@ export async function listAllBrandsAdmin(): Promise<AdminBrandRow[]> {
     .select("*")
     .order("order_index", { ascending: true })
     .order("name", { ascending: true })
-  return (data ?? []) as AdminBrandRow[]
+  return ((data ?? []) as AdminBrandRow[]).map((b) => ({
+    ...b,
+    logo_url: mediaUrl(b.logo_url),
+  }))
 }
 
 // ---------------------------------------------------------------------------

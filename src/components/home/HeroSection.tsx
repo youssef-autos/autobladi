@@ -24,13 +24,8 @@ export async function HeroSection({ brands, models }: Props) {
 
   return (
     <section className="relative isolate overflow-hidden bg-brand-dark">
-      {/* Background image */}
+      {/* Background gradient (no photo asset — keeps the dark branded look) */}
       <div className="absolute inset-0 -z-20">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-40"
-          style={{ backgroundImage: "url(/images/hero.jpg)" }}
-          aria-hidden="true"
-        />
         <div
           className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/85 to-brand-dark/40 rtl:bg-gradient-to-l rtl:from-brand-dark rtl:via-brand-dark/85 rtl:to-brand-dark/40"
           aria-hidden="true"

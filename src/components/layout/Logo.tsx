@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation"
+import { mediaUrl } from "@/lib/media"
 import { cn } from "@/lib/utils"
 
 type Props = {
@@ -49,7 +50,7 @@ export function Logo({
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={imageUrl}
+          src={mediaUrl(imageUrl)}
           alt="autobladi.ma"
           className={cn("w-auto min-h-[28px] object-contain", imageHeights[size])}
         />

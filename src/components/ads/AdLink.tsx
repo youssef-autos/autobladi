@@ -27,14 +27,16 @@ export function AdLink({ adId, href, title, className, children }: Props) {
     recordedRef.current = true
     // `keepalive` lets the request finish even if the user immediately
     // navigates away. We intentionally swallow errors — beacons are advisory.
-    fetch(`/api/ads/${adId}/impression`, {
+    // `/api/e/…` is a neutral alias for `/api/ads/…` (rewritten in
+    // next.config.ts) so ad blockers don't block the tracking beacon.
+    fetch(`/api/e/${adId}/impression`, {
       method: "POST",
       keepalive: true,
     }).catch(() => {})
   }, [adId])
 
   function handleClick() {
-    fetch(`/api/ads/${adId}/click`, {
+    fetch(`/api/e/${adId}/click`, {
       method: "POST",
       keepalive: true,
     }).catch(() => {})

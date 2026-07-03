@@ -1,6 +1,7 @@
 import "server-only"
 
 import { createClient } from "@/lib/supabase/server"
+import { mediaUrl } from "@/lib/media"
 import type { AnnoncesFilters } from "@/components/annonces/searchParams"
 
 export type LandingBrand = {
@@ -26,7 +27,8 @@ export async function getBrandBySlug(slug: string): Promise<LandingBrand | null>
     .eq("slug", slug)
     .eq("is_active", true)
     .maybeSingle<LandingBrand>()
-  return data ?? null
+  if (!data) return null
+  return { ...data, logo_url: mediaUrl(data.logo_url) }
 }
 
 /** City by slug, or null. */

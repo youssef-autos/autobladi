@@ -88,7 +88,9 @@ export function AdSlotClient({
       data-device={settings.device}
       style={styleVars}
       className={cn(
-        "ad-slot relative mx-auto overflow-hidden rounded-2xl",
+        // NOTE: deliberately NOT named with an "ad" token — ad-blocker cosmetic
+        // filters hide any element whose class contains "ad"/"ads"/"banner".
+        "ab-slot relative mx-auto overflow-hidden rounded-2xl",
         className,
       )}
     >
@@ -138,7 +140,7 @@ function AdSkeleton({ label }: { label: string }) {
   return (
     <div
       role="complementary"
-      aria-label="Advertisement placeholder"
+      aria-label={label}
       className="flex size-full items-center justify-center rounded-2xl border border-dashed border-moroccan-gold-500/30 bg-moroccan-gold-50/20 text-muted-foreground"
     >
       <span className="flex items-center gap-1.5 text-xs font-medium opacity-70">

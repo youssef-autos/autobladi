@@ -222,7 +222,12 @@ export function articleSchema(a: ArticleInput) {
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
   }
   if (a.description) data.description = a.description.slice(0, 5000)
-  if (a.imageUrl) data.image = [a.imageUrl]
+  if (a.imageUrl) {
+    // cover_image may be a root-relative `/media/…` path (ad-blocker-safe);
+    // structured data needs an absolute URL.
+    const img = a.imageUrl.startsWith("/") ? `${SITE_URL}${a.imageUrl}` : a.imageUrl
+    data.image = [img]
+  }
   if (a.publishedAt) data.datePublished = a.publishedAt
   if (a.updatedAt) data.dateModified = a.updatedAt
   if (a.authorName) {

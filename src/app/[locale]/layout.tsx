@@ -19,6 +19,7 @@ import {
   getSiteFaviconUrl,
   getSiteVerification,
 } from "@/lib/queries/home"
+import { mediaUrl } from "@/lib/media"
 import { organizationSchema } from "@/lib/seo/structured-data"
 import { cn } from "@/lib/utils"
 
@@ -68,7 +69,8 @@ export async function generateMetadata({
   const ar = locale === "ar"
 
   // Admin-configurable favicon (falls back to the static app/icon.tsx).
-  const faviconUrl = await getSiteFaviconUrl()
+  // mediaUrl() routes it through the ad-blocker-safe `/media` path.
+  const faviconUrl = mediaUrl(await getSiteFaviconUrl())
   // Admin-entered search-engine verification codes (GSC + Bing).
   const verify = await getSiteVerification()
 

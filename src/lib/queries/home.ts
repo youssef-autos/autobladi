@@ -3,6 +3,7 @@ import "server-only"
 import { cache } from "react"
 
 import { createClient } from "@/lib/supabase/server"
+import { mediaUrl } from "@/lib/media"
 import {
   mergeHomeSections,
   type HomeSectionConfig,
@@ -215,7 +216,7 @@ export async function getLatestBlogPosts(limit = 3): Promise<BlogPostCardData[]>
     slug: row.slug,
     excerpt: row.excerpt,
     excerpt_fr: row.excerpt_fr,
-    cover_image: row.cover_image,
+    cover_image: mediaUrl(row.cover_image),
     published_at: row.published_at,
     category: row.blog_categories,
   }))
@@ -256,7 +257,7 @@ export async function getActiveAd(placementSlug: string): Promise<AdvertisementD
   return {
     id: data.id,
     title: data.title,
-    image_url: data.image_url,
+    image_url: mediaUrl(data.image_url),
     link_url: data.link_url,
   }
 }
@@ -353,7 +354,7 @@ export async function getAdSlotData(slug: string): Promise<{
       directAd = {
         id: ad.id,
         title: ad.title,
-        image_url: ad.image_url,
+        image_url: mediaUrl(ad.image_url),
         link_url: ad.link_url,
       }
     }
@@ -398,8 +399,8 @@ export async function getSiteLogos(): Promise<{ light: string | null; dark: stri
   }
   const legacy = pick("site_logo_url")
   return {
-    light: pick("site_logo_url_light") ?? legacy,
-    dark: pick("site_logo_url_dark") ?? legacy,
+    light: mediaUrl(pick("site_logo_url_light") ?? legacy),
+    dark: mediaUrl(pick("site_logo_url_dark") ?? legacy),
   }
 }
 
@@ -416,6 +417,29 @@ export async function getSiteFaviconUrl(): Promise<string | null> {
     .maybeSingle<{ value: unknown }>()
   const v = data?.value
   return typeof v === "string" && v.trim() ? v : null
+}
+
+/**
+ * The admin-configured public contact details (site_settings), used everywhere
+ * a phone/email is shown to visitors: footer, contact page, and the advertising
+ * page. Single source of truth so the admin edits them in one place.
+ * `phone` is an empty string when unset — callers should hide the row.
+ */
+export async function getSiteContact(): Promise<{ email: string; phone: string }> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from("site_settings")
+    .select("key, value")
+    .in("key", ["contact_email", "contact_phone"])
+  const rows = (data ?? []) as Array<{ key: string; value: unknown }>
+  const pick = (k: string): string => {
+    const v = rows.find((r) => r.key === k)?.value
+    return typeof v === "string" ? v.trim() : ""
+  }
+  return {
+    email: pick("contact_email") || "contact@autobladi.ma",
+    phone: pick("contact_phone"),
+  }
 }
 
 /**
@@ -529,7 +553,10 @@ export async function getActiveBrands(limit = 500): Promise<Brand[]> {
     .eq("is_active", true)
     .order("name", { ascending: true })
     .limit(limit)
-  return data ?? []
+  return ((data ?? []) as Brand[]).map((b) => ({
+    ...b,
+    logo_url: mediaUrl(b.logo_url),
+  }))
 }
 
 export async function getPopularBrands(limit = 12): Promise<Brand[]> {
@@ -540,7 +567,10 @@ export async function getPopularBrands(limit = 12): Promise<Brand[]> {
     .eq("is_active", true)
     .order("order_index", { ascending: true })
     .limit(limit)
-  return data ?? []
+  return ((data ?? []) as Brand[]).map((b) => ({
+    ...b,
+    logo_url: mediaUrl(b.logo_url),
+  }))
 }
 
 export async function getActiveModels(): Promise<CarModel[]> {

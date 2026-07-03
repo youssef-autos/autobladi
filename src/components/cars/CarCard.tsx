@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge"
 import { CompareButton } from "@/components/compare/CompareButton"
 import { FavoriteButton } from "@/components/annonces/FavoriteButton"
 import { PriceTag } from "@/components/ui/PriceTag"
+import { mediaUrl } from "@/lib/media"
 import { formatMileage, formatPhone } from "@/lib/utils/format"
 import type { AnnonceCardData } from "@/lib/queries/home"
 import type { Locale } from "@/i18n/routing"
@@ -129,7 +130,7 @@ export function CarCard({ annonce, className }: Props) {
           </h3>
           {annonce.brand?.logo_url && (
             <Image
-              src={annonce.brand.logo_url}
+              src={mediaUrl(annonce.brand.logo_url)}
               alt={annonce.brand.name}
               width={28}
               height={28}

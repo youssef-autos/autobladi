@@ -3,6 +3,7 @@ import "server-only"
 import { getLocale } from "next-intl/server"
 
 import { createClient } from "@/lib/supabase/server"
+import { mediaHtml, mediaUrl } from "@/lib/media"
 import type { Tables } from "@/types/database.types"
 
 // ---------------------------------------------------------------------------
@@ -86,7 +87,8 @@ function pick(
 }
 
 function localizedContent(row: RawPostRow, locale: PostLocale): string | null {
-  return pick(locale, row.content, row.content_fr)
+  // Rewrite inline `ads`-bucket image URLs so ad blockers don't strip them.
+  return mediaHtml(pick(locale, row.content, row.content_fr))
 }
 
 function mapPostCard(row: RawPostRow, locale: PostLocale): BlogPostCard {
@@ -96,7 +98,7 @@ function mapPostCard(row: RawPostRow, locale: PostLocale): BlogPostCard {
     title: pick(locale, row.title, row.title_fr) ?? row.title,
     slug: row.slug,
     excerpt,
-    cover_image: row.cover_image,
+    cover_image: mediaUrl(row.cover_image),
     published_at: row.published_at,
     views_count: row.views_count,
     comments_count: row.comments_count,

@@ -144,25 +144,25 @@
   "subscription": {
     "upgrade": {
       "metaTitle": "Passer à un compte Pro",
-      "heroTitle": "Transformez votre compte en concession professionnelle",
-      "heroSubtitle": "Tout pour gérer une concession moderne sur autobladi.ma",
+      "heroTitle": "Vendez comme une concession, pas comme un particulier",
+      "heroSubtitle": "Une vitrine à votre nom, un stock sans limite et le badge Pro qui rassure les acheteurs — tout ce qu'il faut pour vendre plus vite sur autobladi.ma.",
       "featuresTitle": "Ce que vous obtenez",
       "features": {
-        "showroomTitle": "Page concession dédiée",
-        "showroomDesc": "Logo, bannière, description, horaires et localisation",
+        "showroomTitle": "Votre vitrine en ligne",
+        "showroomDesc": "Logo, bannière, horaires et localisation — une vraie adresse digitale à partager avec vos clients",
         "unlimitedTitle": "Annonces illimitées",
-        "unlimitedDesc": "Publiez toutes vos voitures sans plafond",
-        "badgeTitle": "Badge Pro distinctif",
-        "badgeDesc": "Affiché sur votre page et toutes vos annonces",
-        "statsTitle": "Statistiques avancées",
-        "statsDesc": "Vues, messages, sources de trafic"
+        "unlimitedDesc": "Publiez tout votre stock, sans plafond ni frais cachés",
+        "badgeTitle": "Badge Pro",
+        "badgeDesc": "Le signe de confiance qui fait sonner votre téléphone en premier",
+        "statsTitle": "Des chiffres, pas des intuitions",
+        "statsDesc": "Vues, messages et sources de visiteurs — sachez ce qui vend vraiment"
       },
       "plansTitle": "Choisissez votre formule",
-      "plansSubtitle": "Paiement par virement bancaire et validation manuelle",
+      "plansSubtitle": "Paiement par virement bancaire, activation rapide après validation",
       "selectPlan": "Choisir cette formule",
       "perDays": "/ {days} jours",
       "free": "Gratuit",
-      "tagline": "Tout pour une vitrine professionnelle",
+      "tagline": "Tout ce qu'il faut pour vendre en pro",
       "includes": "Cette formule inclut",
       "currentPlan": "Votre formule actuelle",
       "discountBadge": "-{percent}%",
@@ -2732,16 +2732,18 @@
   },
   "publicite": {
     "metaTitle": "Annoncez sur autobladi.ma",
-    "metaDescription": "Touchez des milliers d'acheteurs qualifiés à la recherche d'une voiture au Maroc — solutions publicitaires flexibles sur autobladi.ma.",
+    "metaDescription": "Placez votre marque devant des milliers de Marocains à la recherche d'une voiture. Emplacements premium, ciblage local et rapports transparents sur autobladi.ma.",
     "hero": {
-      "eyebrow": "Solutions publicitaires",
-      "title": "Annoncez devant une audience qui cherche vraiment une voiture",
-      "subtitle": "Des milliers de Marocains visitent autobladi.ma chaque jour pour trouver leur prochaine voiture. Placez votre marque sur leur route.",
-      "cta": "Contactez-nous"
+      "eyebrow": "Annoncez avec autobladi.ma",
+      "title": "Votre marque devant ceux qui vont acheter une voiture",
+      "subtitle": "autobladi.ma est la destination des Marocains pour acheter et vendre une voiture. Une audience à forte intention d'achat — pas des impressions perdues.",
+      "trust": "La plateforme marocaine spécialisée dans l'automobile",
+      "cta": "Réservez votre emplacement",
+      "ctaSecondary": "Voir les emplacements"
     },
     "audience": {
-      "title": "Notre audience",
-      "subtitle": "Chiffres mensuels approximatifs, mis à jour régulièrement",
+      "title": "Notre audience en chiffres",
+      "subtitle": "Moyenne mensuelle approximative, mise à jour régulièrement",
       "visitsLabel": "Visites / mois",
       "visitsValue": "+250K",
       "annoncesLabel": "Annonces actives",
@@ -2751,9 +2753,21 @@
       "citiesLabel": "Villes couvertes",
       "citiesValue": "+40"
     },
+    "why": {
+      "title": "Pourquoi autobladi.ma",
+      "subtitle": "Quatre raisons qui font travailler votre budget publicitaire à plein",
+      "audienceTitle": "Audience à forte intention",
+      "audienceDesc": "Nos visiteurs cherchent réellement une voiture — votre pub devant une décision, pas un simple scroll.",
+      "localTitle": "Couverture nationale",
+      "localDesc": "Présence dans toutes les grandes villes : Casablanca, Rabat, Marrakech, Tanger et plus.",
+      "premiumTitle": "Emplacements premium et sûrs",
+      "premiumDesc": "Des positions visibles dans un contenu de confiance, loin du désordre publicitaire.",
+      "transparentTitle": "Résultats transparents",
+      "transparentDesc": "Rapports mensuels d'impressions et de clics — vous savez où va chaque dirham."
+    },
     "placements": {
-      "title": "Où peut apparaître votre publicité",
-      "subtitle": "Choisissez parmi 15 emplacements stratégiques sur l'accueil, les pages annonces, les professionnels et le blog",
+      "title": "Où apparaît votre publicité",
+      "subtitle": "15 emplacements stratégiques sur l'accueil, les pages annonces, les professionnels et le blog",
       "items": {
         "home": "Page d'accueil",
         "homeDesc": "Haut, milieu et bas de la page — visibilité maximale",
@@ -2769,19 +2783,19 @@
         "footerDesc": "Présence permanente sur toutes les pages du site"
       }
     },
-    "why": {
-      "title": "Pourquoi annoncer chez nous",
-      "subtitle": "Trois atouts qui font d'autobladi.ma le canal idéal pour toucher les acheteurs automobiles marocains",
-      "audienceTitle": "Audience ciblée",
-      "audienceDesc": "Chaque visiteur cherche réellement à acheter ou vendre — pas d'impressions perdues",
-      "localTitle": "Couverture nationale",
-      "localDesc": "Visiteurs depuis toutes les grandes villes : Casablanca, Rabat, Marrakech, Tanger...",
-      "transparentTitle": "Résultats transparents",
-      "transparentDesc": "Rapports mensuels sur les impressions et les clics, sans surprises"
+    "how": {
+      "title": "De l'idée au lancement",
+      "subtitle": "Trois étapes, sans complications",
+      "step1Title": "Dites-nous votre objectif",
+      "step1Desc": "Votre produit, votre audience cible et votre budget approximatif.",
+      "step2Title": "Nous proposons un plan",
+      "step2Desc": "Les emplacements, formats et tarifs adaptés à votre campagne.",
+      "step3Title": "On lance et on mesure",
+      "step3Desc": "Votre publicité est diffusée, avec des rapports de performance réguliers."
     },
     "form": {
-      "title": "Envoyez-nous les détails de votre campagne",
-      "subtitle": "Nous répondons généralement sous 24 heures ouvrées",
+      "title": "Réservez votre emplacement",
+      "subtitle": "Remplissez le formulaire, nous répondons sous 24 heures ouvrées.",
       "name": "Nom complet",
       "namePlaceholder": "Mohamed El Alaoui",
       "email": "E-mail",
@@ -2801,8 +2815,10 @@
     },
     "contact": {
       "title": "Ou contactez-nous directement",
+      "subtitle": "Notre équipe commerciale répond à toutes vos questions.",
       "email": "contact@autobladi.ma",
-      "phone": "+212 5 22 00 00 00"
+      "phone": "+212 5 22 00 00 00",
+      "note": "Réponse sous un jour ouvré"
     },
     "validation": {
       "nameRequired": "Le nom est requis",
