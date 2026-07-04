@@ -552,6 +552,47 @@
         "viewAll": "Voir tout"
       }
     },
+    "advancedStats": {
+      "title": "Statistiques avancées",
+      "subtitle": "Analyse détaillée de la performance de vos annonces",
+      "range7": "7 jours",
+      "range30": "30 jours",
+      "error": "Impossible de charger les statistiques",
+      "retry": "Réessayer",
+      "empty": "Pas encore de données — les statistiques apparaîtront avec les premières visites de vos annonces",
+      "cards": {
+        "views": "Vues",
+        "messages": "Messages",
+        "contacts": "Clics de contact",
+        "contactsHint": "Tél. {phone} · WhatsApp {whatsapp}",
+        "conversion": "Conversion moyenne"
+      },
+      "chart": {
+        "title": "Vues quotidiennes",
+        "viewsLabel": "vues"
+      },
+      "sources": {
+        "title": "Sources des visiteurs",
+        "search": "Recherche",
+        "homepage": "Accueil",
+        "dealer_page": "Page concession",
+        "direct": "Direct / externe",
+        "other": "Autres"
+      },
+      "table": {
+        "title": "Performance par annonce",
+        "annonce": "Annonce",
+        "views": "Vues",
+        "interactions": "Interactions",
+        "conversion": "Conversion",
+        "lowConversionHint": "Votre annonce est très vue mais peu contactée — revoyez le prix ou les photos"
+      },
+      "locked": {
+        "title": "Statistiques avancées",
+        "desc": "Vues quotidiennes, sources des visiteurs, clics téléphone et WhatsApp, taux de conversion par annonce — en exclusivité pour les comptes Pro.",
+        "cta": "Passer Pro maintenant"
+      }
+    },
     "annoncesPage": {
       "title": "Mes annonces",
       "subtitle": "Gérez et modifiez vos annonces",

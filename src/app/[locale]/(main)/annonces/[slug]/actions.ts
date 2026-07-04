@@ -75,6 +75,17 @@ export async function sendMessage(input: unknown): Promise<ActionResult> {
     .update({ last_message_at: new Date().toISOString() } as never)
     .eq("id", conversationId)
 
+  // Advanced-stats event log (Pro dashboard). Recorded server-side so it can't
+  // be spoofed from the client; best-effort — never fails the send.
+  try {
+    const admin = createAdminClient()
+    await admin
+      .from("ad_events")
+      .insert({ ad_id: annonceId, event_type: "message", source: "direct" } as never)
+  } catch {
+    // ignore — table missing or transient error
+  }
+
   return { ok: true }
 }
 

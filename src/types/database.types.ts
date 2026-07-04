@@ -131,6 +131,23 @@ export type Database = {
         }
         Update: Partial<Database["public"]["Tables"]["secteurs"]["Insert"]>
       }
+      ad_events: {
+        Row: {
+          id: string
+          ad_id: string
+          event_type: string
+          source: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          ad_id: string
+          event_type: string
+          source?: string
+          created_at?: string
+        }
+        Update: Partial<Database["public"]["Tables"]["ad_events"]["Insert"]>
+      }
       annonces: {
         Row: {
           id: string

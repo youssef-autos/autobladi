@@ -6,9 +6,11 @@ import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 
 import { useUser } from "@/hooks/use-user"
+import { trackAdEvent } from "@/lib/track-ad-event"
 import { formatPhone } from "@/lib/utils/format"
 
 type Props = {
+  annonceId: string
   contactPhone: string | null
   contactWhatsapp: string | null
 }
@@ -18,7 +20,7 @@ type Props = {
  * keeps ContactSidebar visible in the sticky aside). Keeps Call + WhatsApp
  * always reachable without scrolling on the annonce detail page.
  */
-export function MobileContactBar({ contactPhone, contactWhatsapp }: Props) {
+export function MobileContactBar({ annonceId, contactPhone, contactWhatsapp }: Props) {
   const t = useTranslations("annonceDetail.contact")
   const { user, loading } = useUser()
   const [revealed, setRevealed] = useState(false)
@@ -34,6 +36,7 @@ export function MobileContactBar({ contactPhone, contactWhatsapp }: Props) {
       return
     }
     setRevealed(true)
+    trackAdEvent(annonceId, "phone_click")
   }
 
   return (
@@ -64,6 +67,7 @@ export function MobileContactBar({ contactPhone, contactWhatsapp }: Props) {
             href={`https://wa.me/${wa.replace(/^0/, "212")}`}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackAdEvent(annonceId, "whatsapp_click")}
             className="flex-1 inline-flex items-center justify-center gap-2 h-12 rounded-xl bg-moroccan-mint-500 text-white text-sm font-semibold active:brightness-95"
           >
             <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden="true">

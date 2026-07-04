@@ -174,6 +174,7 @@ export default async function AnnonceDetailPage({
       {/* Mobile-only sticky Call / WhatsApp bar */}
       {annonce.seller && (
         <MobileContactBar
+          annonceId={annonce.id}
           contactPhone={annonce.contact_phone}
           contactWhatsapp={annonce.contact_whatsapp}
         />

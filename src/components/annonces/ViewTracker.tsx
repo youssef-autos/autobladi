@@ -2,6 +2,8 @@
 
 import { useEffect } from "react"
 
+import { trackAdEvent } from "@/lib/track-ad-event"
+
 type Props = {
   annonceId: string
 }
@@ -10,6 +12,10 @@ type Props = {
  * Fires a single POST to /api/annonces/[id]/view after mount.
  * Uses sessionStorage to skip refresh-spam within the same browser session,
  * and the server still applies an IP-based dedup window.
+ *
+ * Also emits a granular `view` event to /api/annonces/[id]/track for the Pro
+ * advanced stats (its own 30-min server dedup + owner exclusion) — the legacy
+ * counter above stays exactly as it was.
  */
 export function ViewTracker({ annonceId }: Props) {
   useEffect(() => {
@@ -29,6 +35,7 @@ export function ViewTracker({ annonceId }: Props) {
       .catch(() => {
         // best-effort; ignore failures
       })
+    trackAdEvent(annonceId, "view")
   }, [annonceId])
 
   return null

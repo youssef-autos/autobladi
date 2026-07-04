@@ -11,6 +11,7 @@ import { MessageDialog } from "@/components/annonces/MessageDialog"
 import { ReportDialog } from "@/components/annonces/ReportDialog"
 import { ShareMenu } from "@/components/annonces/ShareMenu"
 import { useUser } from "@/hooks/use-user"
+import { trackAdEvent } from "@/lib/track-ad-event"
 import { formatPhone } from "@/lib/utils/format"
 import { cn } from "@/lib/utils"
 
@@ -54,6 +55,7 @@ export function ContactSidebar({
       return
     }
     setRevealed(true)
+    trackAdEvent(annonceId, "phone_click")
   }
 
   function handleCompare() {
@@ -91,6 +93,7 @@ export function ContactSidebar({
           href={`https://wa.me/${wa.replace(/^0/, "212")}`}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackAdEvent(annonceId, "whatsapp_click")}
           className="inline-flex items-center justify-center gap-2 h-11 w-full rounded-xl bg-moroccan-mint-500 text-white font-semibold hover:brightness-105 transition-all"
         >
           <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden="true">
