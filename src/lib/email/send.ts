@@ -30,18 +30,21 @@ async function sendEmail({
   to,
   subject,
   html,
+  alwaysSend = false,
 }: {
   type: EmailType
   to: string | string[] | null | undefined
   subject: string
   html: string
+  /** Skip the admin on/off toggle — for security-critical mails (password reset). */
+  alwaysSend?: boolean
 }): Promise<SendResult> {
   if (!to || (Array.isArray(to) && to.length === 0)) {
     return { ok: true, skipped: "no_to" }
   }
 
   const settings = await getEmailSettings()
-  if (!settings.enabled[type]) {
+  if (!alwaysSend && !settings.enabled[type]) {
     return { ok: true, skipped: "disabled" }
   }
 
@@ -190,6 +193,7 @@ export function sendPasswordResetEmail(args: { to: string; resetUrl: string; lan
   const lang = args.lang ?? "ar"
   return sendEmail({
     type: "welcome",
+    alwaysSend: true, // security-critical — never gated behind another toggle
     to: args.to,
     subject: lang === "ar" ? "إعادة تعيين كلمة المرور" : "Réinitialisation du mot de passe",
     html: PasswordResetEmail({ resetUrl: args.resetUrl, lang }),

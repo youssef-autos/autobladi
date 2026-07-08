@@ -1,9 +1,19 @@
 import { NextResponse } from "next/server"
+import type { EmailOtpType } from "@supabase/supabase-js"
 
 import { routing } from "@/i18n/routing"
 import { createClient } from "@/lib/supabase/server"
 
 export const dynamic = "force-dynamic"
+
+const EMAIL_OTP_TYPES: readonly EmailOtpType[] = [
+  "signup",
+  "invite",
+  "magiclink",
+  "recovery",
+  "email_change",
+  "email",
+]
 
 /**
  * Auth callback for both social login (OAuth) and email links (e.g. password
@@ -32,11 +42,21 @@ export async function GET(
   const { locale } = await params
   const url = new URL(request.url)
   const code = url.searchParams.get("code")
+  const tokenHash = url.searchParams.get("token_hash")
+  const otpType = url.searchParams.get("type")
   const next = safeNext(url.searchParams.get("next"), locale)
 
-  if (code) {
+  if (code || (tokenHash && otpType)) {
     const supabase = await createClient()
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
+    // Email links (password recovery, email change) arrive as a token_hash we
+    // verify with verifyOtp; social login arrives as a PKCE `code`.
+    const { error } =
+      tokenHash && otpType && EMAIL_OTP_TYPES.includes(otpType as EmailOtpType)
+        ? await supabase.auth.verifyOtp({
+            type: otpType as EmailOtpType,
+            token_hash: tokenHash,
+          })
+        : await supabase.auth.exchangeCodeForSession(code!)
     if (!error) {
       return NextResponse.redirect(
         new URL(next ?? `/${locale}/dashboard`, url.origin),

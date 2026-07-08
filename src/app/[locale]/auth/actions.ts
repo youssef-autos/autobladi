@@ -119,16 +119,31 @@ export async function resetPassword(input: unknown): Promise<ActionResult> {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "validation.invalidEmail" }
   }
 
-  const supabase = await createClient()
   const origin = await siteOrigin()
   const locale = await getLocale()
+  const lang = locale === "fr" ? "fr" : "ar"
 
-  // Locale-prefixed so the recovery link hits the localized callback directly
-  // (the middleware would otherwise force the default locale) and the reset
-  // form shows in the user's language.
-  await supabase.auth.resetPasswordForEmail(parsed.data.email, {
-    redirectTo: `${origin}/${locale}/auth/callback?next=/auth/reinitialiser`,
-  })
+  // Supabase's built-in recovery email is English-only and can't be localized
+  // per user. So we generate the recovery token via the admin API (this does
+  // NOT send any email) and deliver our OWN localized email through Resend.
+  // The link carries the token_hash to our callback, which verifies it with
+  // verifyOtp — no Supabase redirect-URL allow-listing required.
+  try {
+    const { createAdminClient } = await import("@/lib/supabase/admin")
+    const admin = createAdminClient()
+    const { data, error } = await admin.auth.admin.generateLink({
+      type: "recovery",
+      email: parsed.data.email,
+    })
+    const tokenHash = data?.properties?.hashed_token
+    if (!error && tokenHash) {
+      const resetUrl = `${origin}/${locale}/auth/callback?token_hash=${tokenHash}&type=recovery&next=/auth/reinitialiser`
+      const { sendPasswordResetEmail } = await import("@/lib/email/send")
+      await sendPasswordResetEmail({ to: parsed.data.email, resetUrl, lang })
+    }
+  } catch {
+    // Swallow — never reveal whether the email exists (enumeration guard).
+  }
 
   // Always report success to avoid email enumeration.
   return { ok: true, data: { email: parsed.data.email } }
