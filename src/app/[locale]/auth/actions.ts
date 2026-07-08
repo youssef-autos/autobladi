@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
+import { getLocale } from "next-intl/server"
 
 import { createClient } from "@/lib/supabase/server"
 import {
@@ -120,9 +121,13 @@ export async function resetPassword(input: unknown): Promise<ActionResult> {
 
   const supabase = await createClient()
   const origin = await siteOrigin()
+  const locale = await getLocale()
 
+  // Locale-prefixed so the recovery link hits the localized callback directly
+  // (the middleware would otherwise force the default locale) and the reset
+  // form shows in the user's language.
   await supabase.auth.resetPasswordForEmail(parsed.data.email, {
-    redirectTo: `${origin}/auth/callback?next=/auth/reinitialiser`,
+    redirectTo: `${origin}/${locale}/auth/callback?next=/auth/reinitialiser`,
   })
 
   // Always report success to avoid email enumeration.
