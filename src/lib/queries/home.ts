@@ -575,12 +575,24 @@ export async function getPopularBrands(limit = 12): Promise<Brand[]> {
 
 export async function getActiveModels(): Promise<CarModel[]> {
   const supabase = await createClient()
-  const { data } = await supabase
-    .from("car_models")
-    .select("*")
-    .eq("is_active", true)
-    .order("name", { ascending: true })
-  return data ?? []
+  // Supabase caps a single response at 1000 rows. There are more active models
+  // than that, so page through in 1000-row chunks — otherwise brands whose
+  // models sort past the cap silently lose options in the make/model pickers.
+  const PAGE = 1000
+  const all: CarModel[] = []
+  for (let page = 0; ; page++) {
+    const from = page * PAGE
+    const { data } = await supabase
+      .from("car_models")
+      .select("*")
+      .eq("is_active", true)
+      .order("name", { ascending: true })
+      .range(from, from + PAGE - 1)
+    const chunk = (data ?? []) as CarModel[]
+    all.push(...chunk)
+    if (chunk.length < PAGE) break
+  }
+  return all
 }
 
 export async function getCities(): Promise<City[]> {
