@@ -2238,7 +2238,8 @@
       "origine": "Origine du véhicule",
       "firstOwner": "Première main",
       "accidentFree": "Sans accident",
-      "optionsTitle": "Équipements"
+      "optionsTitle": "Équipements",
+      "optional": "(optionnel)"
     },
     "step2": {
       "title": "Description et prix",

@@ -39,7 +39,8 @@ export const step1Schema = z
     transmission: z.enum(["manuelle", "automatique"]),
     doors: z.number().int().min(2).max(8),
     seats: z.number().int().min(2).max(9),
-    color: z.string().min(2, "ajouter.validation.tooShort").max(40),
+    // Optional: empty stays empty here and is normalized to null on save.
+    color: z.string().max(40, "ajouter.validation.tooShort"),
     origine: z.string().max(30).nullable(),
     enginePower: z.number().int().positive().nullable(),
     engineSize: z.string().max(20).nullable(),

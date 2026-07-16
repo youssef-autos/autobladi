@@ -2239,7 +2239,8 @@
       "origine": "أصل السيارة",
       "firstOwner": "مالك أول",
       "accidentFree": "خالٍ من الحوادث",
-      "optionsTitle": "الخيارات المتوفرة"
+      "optionsTitle": "الخيارات المتوفرة",
+      "optional": "(اختياري)"
     },
     "step2": {
       "title": "الوصف والسعر",

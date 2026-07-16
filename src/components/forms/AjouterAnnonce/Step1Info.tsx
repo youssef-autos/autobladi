@@ -320,7 +320,7 @@ export function Step1Vehicle({
         </Field>
 
         {/* Color */}
-        <Field label={t("color")} error={tr(errors.color?.message)}>
+        <Field label={`${t("color")} ${t("optional")}`} error={tr(errors.color?.message)}>
           <Input
             placeholder={t("colorPlaceholder")}
             className="h-11 rounded-xl"
