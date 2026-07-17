@@ -5,12 +5,10 @@ import { GitCompare, Phone } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
 
-import { Link } from "@/i18n/navigation"
 import { FavoriteButton } from "@/components/annonces/FavoriteButton"
 import { MessageDialog } from "@/components/annonces/MessageDialog"
 import { ReportDialog } from "@/components/annonces/ReportDialog"
 import { ShareMenu } from "@/components/annonces/ShareMenu"
-import { useUser } from "@/hooks/use-user"
 import { trackAdEvent } from "@/lib/track-ad-event"
 import { formatPhone } from "@/lib/utils/format"
 import { cn } from "@/lib/utils"
@@ -35,12 +33,9 @@ export function ContactSidebar({
   className,
 }: Props) {
   const t = useTranslations("annonceDetail.contact")
-  const tNav = useTranslations("nav")
   const locale = useLocale()
-  const { user, loading } = useUser()
   const [revealed, setRevealed] = useState(false)
 
-  const isAuthed = !loading && !!user
   const phone = formatPhone(contactPhone)
   const wa = contactWhatsapp ? contactWhatsapp.replace(/\D/g, "") : null
 
@@ -50,10 +45,7 @@ export function ContactSidebar({
       : `https://autobladi.ma/${locale}/annonces/${annonceSlug}`
 
   function handleReveal() {
-    if (!isAuthed) {
-      toast.error(t("loginRequired"))
-      return
-    }
+    // No account required to see the phone number (same as the WhatsApp button).
     setRevealed(true)
     trackAdEvent(annonceId, "phone_click")
   }
@@ -122,15 +114,6 @@ export function ContactSidebar({
       <div className="flex justify-center pt-2">
         <ReportDialog annonceId={annonceId} />
       </div>
-
-      {!isAuthed && !loading && (
-        <p className="text-xs text-muted-foreground text-center">
-          {t("loginRequired")} —{" "}
-          <Link href="/auth/connexion" className="text-moroccan-red-500 hover:underline">
-            {tNav("login")}
-          </Link>
-        </p>
-      )}
     </div>
   )
 }

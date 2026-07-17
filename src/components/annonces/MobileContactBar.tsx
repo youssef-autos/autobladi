@@ -3,9 +3,7 @@
 import { useState } from "react"
 import { Phone } from "lucide-react"
 import { useTranslations } from "next-intl"
-import { toast } from "sonner"
 
-import { useUser } from "@/hooks/use-user"
 import { trackAdEvent } from "@/lib/track-ad-event"
 import { formatPhone } from "@/lib/utils/format"
 
@@ -22,19 +20,14 @@ type Props = {
  */
 export function MobileContactBar({ annonceId, contactPhone, contactWhatsapp }: Props) {
   const t = useTranslations("annonceDetail.contact")
-  const { user, loading } = useUser()
   const [revealed, setRevealed] = useState(false)
 
-  const isAuthed = !loading && !!user
   const wa = contactWhatsapp ? contactWhatsapp.replace(/\D/g, "") : null
 
   if (!contactPhone && !wa) return null
 
   function handleCall() {
-    if (!isAuthed) {
-      toast.error(t("loginRequired"))
-      return
-    }
+    // No account required to reveal the phone (same as the WhatsApp button).
     setRevealed(true)
     trackAdEvent(annonceId, "phone_click")
   }
