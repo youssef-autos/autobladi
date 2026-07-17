@@ -93,9 +93,9 @@ export default async function BlogDetailPage({
     <>
       <BlogViewTracker postId={post.id} />
 
-      {/* Cover header */}
-      <header className="relative w-full h-[320px] md:h-[440px] overflow-hidden bg-brand-dark">
-        {post.cover_image && (
+      {/* Cover image — no text over it */}
+      {post.cover_image && (
+        <div className="relative w-full h-[220px] sm:h-[320px] md:h-[440px] overflow-hidden bg-muted">
           <Image
             src={post.cover_image}
             alt={post.title}
@@ -104,24 +104,27 @@ export default async function BlogDetailPage({
             className="object-cover"
             priority
           />
-        )}
-        {/* Darken only the lower half so the cover stays visible while the
-            white title/meta remain readable over it. */}
-        <div
-          className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/55 to-brand-dark/5"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-x-0 bottom-0">
-          <Container className="pb-8 md:pb-12 text-white">
-            {categoryName && (
-              <Badge variant="featured" className="mb-3">
+          {categoryName && (
+            <span className="absolute top-4 start-4 md:top-6 md:start-6 inline-flex items-center rounded-full bg-moroccan-red-500 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-sm">
+              {categoryName}
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Title + meta — below the image, dark text on the page background */}
+      <header>
+        <Container className="pt-8 md:pt-10">
+          <div className="max-w-3xl">
+            {!post.cover_image && categoryName && (
+              <Badge variant="pro" className="mb-3">
                 {categoryName}
               </Badge>
             )}
-            <h1 className="font-display text-3xl md:text-5xl font-bold leading-tight max-w-3xl">
+            <h1 className="font-display text-3xl md:text-5xl font-bold leading-tight text-foreground">
               {post.title}
             </h1>
-            <div className="mt-4 flex items-center gap-4 text-sm text-white/80 flex-wrap">
+            <div className="mt-4 flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
               {post.author && (
                 <span className="inline-flex items-center gap-2">
                   <Avatar className="size-7">
@@ -131,11 +134,11 @@ export default async function BlogDetailPage({
                         alt={post.author.full_name ?? ""}
                       />
                     )}
-                    <AvatarFallback className="bg-white/15 text-white text-xs">
+                    <AvatarFallback className="bg-moroccan-sand-100 text-foreground text-xs">
                       {initials(post.author.full_name)}
                     </AvatarFallback>
                   </Avatar>
-                  <span>{post.author.full_name ?? "—"}</span>
+                  <span className="text-foreground/80">{post.author.full_name ?? "—"}</span>
                 </span>
               )}
               {post.published_at && (
@@ -155,8 +158,8 @@ export default async function BlogDetailPage({
                 {t("detail.viewsCount", { count: post.views_count })}
               </span>
             </div>
-          </Container>
-        </div>
+          </div>
+        </Container>
       </header>
 
       <Container className="py-10 md:py-14">
