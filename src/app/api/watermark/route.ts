@@ -1,4 +1,6 @@
 import { randomUUID } from "node:crypto"
+import { readFileSync } from "node:fs"
+import { join } from "node:path"
 import { NextResponse, type NextRequest } from "next/server"
 import sharp from "sharp"
 
@@ -39,6 +41,27 @@ function escapeForSvg(text: string): string {
   return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;")
 }
 
+// Serverless hosts (Vercel/Lambda) ship almost no fonts, so `system-ui`/`Arial`
+// referenced by the SVG resolve to nothing and the watermark text renders
+// broken or invisible. Embedding a bundled font as a base64 @font-face makes
+// rendering deterministic on any environment. Read once, then cache.
+const WM_FONT_FAMILY = "AutobladiWM"
+let cachedFontFace: string | null = null
+
+function fontFaceStyle(): string {
+  if (cachedFontFace !== null) return cachedFontFace
+  try {
+    const fontPath = join(process.cwd(), "src", "assets", "watermark-font.ttf")
+    const b64 = readFileSync(fontPath).toString("base64")
+    cachedFontFace = `@font-face{font-family:"${WM_FONT_FAMILY}";src:url(data:font/ttf;base64,${b64}) format("truetype");}`
+  } catch (err) {
+    // Fall back to system fonts (works on dev machines that have them).
+    console.error("[watermark] embedded font unavailable:", err)
+    cachedFontFace = ""
+  }
+  return cachedFontFace
+}
+
 /**
  * Diagonal tiled watermark — repeats brand text across the whole image
  * at ~25 % opacity, rotated -30°. Per spec: simple, no stroke.
@@ -63,13 +86,16 @@ function buildPatternSvg({
   textY: number
 }): Buffer {
   const safe = escapeForSvg(text)
+  const face = fontFaceStyle()
+  const fontFamily = face ? WM_FONT_FAMILY : "system-ui, Arial, sans-serif"
   return Buffer.from(`<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
     <defs>
+      ${face ? `<style>${face}</style>` : ""}
       <pattern id="wm" patternUnits="userSpaceOnUse" width="${tileW}" height="${tileH}" patternTransform="rotate(-30)">
         <text
           x="${textX}"
           y="${textY}"
-          font-family="system-ui, Arial, sans-serif"
+          font-family="${fontFamily}"
           font-size="${fontSize}"
           font-weight="bold"
           fill="white"

@@ -12,6 +12,12 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = {
+  // Ship the watermark font with the /api/watermark serverless function — its
+  // SVG text rendering embeds this file, which output tracing wouldn't include
+  // on its own (it's read at runtime, not imported).
+  outputFileTracingIncludes: {
+    "/api/watermark": ["./src/assets/watermark-font.ttf"],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }]
   },
