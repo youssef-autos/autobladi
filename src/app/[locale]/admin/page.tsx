@@ -1,6 +1,5 @@
 import {
   AlertTriangle,
-  Banknote,
   Building2,
   CheckCircle2,
   Clock,
@@ -86,14 +85,6 @@ export default async function AdminDashboardPage({
       urgent: counts.pendingVerification > 0,
     },
     {
-      label: t("stats.pendingSubs"),
-      value: counts.pendingSubs,
-      icon: Banknote,
-      accent: "gold",
-      href: "/admin/subscriptions/pending",
-      urgent: counts.pendingSubs > 0,
-    },
-    {
       label: t("stats.pendingReports"),
       value: counts.pendingReports,
       icon: Flag,
@@ -115,12 +106,6 @@ export default async function AdminDashboardPage({
       label: t("stats.pendingVerification"),
       href: "/admin/verification",
       icon: ShieldCheck,
-    },
-    {
-      count: counts.pendingSubs,
-      label: t("stats.pendingSubs"),
-      href: "/admin/subscriptions/pending",
-      icon: Banknote,
     },
     {
       count: counts.pendingReports,

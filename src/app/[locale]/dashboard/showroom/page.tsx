@@ -2,6 +2,7 @@ import { ExternalLink, Rocket } from "lucide-react"
 import { redirect } from "next/navigation"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 
+import { BecomeProButton } from "@/components/dashboard/showroom/BecomeProButton"
 import { ShowroomInfoForm } from "@/components/dashboard/showroom/InfoForm"
 import { EmptyState } from "@/components/ui/EmptyState"
 import { Link } from "@/i18n/navigation"
@@ -40,14 +41,7 @@ export default async function ShowroomDashboardPage({
             icon={Rocket}
             title={t("notReady.title")}
             description={t("notReady.desc")}
-            action={
-              <Link
-                href="/dashboard/upgrade"
-                className="inline-flex items-center h-11 px-5 rounded-xl bg-moroccan-gradient text-white text-sm font-semibold shadow-moroccan hover:brightness-105"
-              >
-                {t("notReady.upgradeCta")} →
-              </Link>
-            }
+            action={<BecomeProButton />}
           />
         </div>
       </div>

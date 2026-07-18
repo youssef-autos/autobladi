@@ -5,7 +5,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server"
 import { ActivityChart } from "@/components/dashboard/ActivityChartWrapper"
 import { AdvancedStats } from "@/components/dashboard/AdvancedStatsWrapper"
 import { AlertsList } from "@/components/dashboard/AlertsList"
-import { ProStatsLocked } from "@/components/dashboard/ProStatsLocked"
 import { StatsCard } from "@/components/dashboard/StatsCard"
 import { Link } from "@/i18n/navigation"
 import {
@@ -147,12 +146,8 @@ export default async function DashboardHomePage({
         )}
       </section>
 
-      {/* Advanced statistics — full widget for Pro, locked teaser for free */}
-      {profile?.account_type === "pro" || profile?.account_type === "admin" ? (
-        <AdvancedStats />
-      ) : (
-        <ProStatsLocked />
-      )}
+      {/* Advanced statistics — free for every user */}
+      <AdvancedStats />
     </div>
   )
 }

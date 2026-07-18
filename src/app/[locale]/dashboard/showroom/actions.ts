@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 
+import { createAdminClient } from "@/lib/supabase/admin"
 import { createClient } from "@/lib/supabase/server"
 import {
   professionnelInfoSchema,
@@ -9,6 +10,56 @@ import {
 } from "@/lib/validations/professionnel"
 
 export type UpdateResult = { ok: true; slug: string } | { ok: false; error: string }
+
+/**
+ * Free one-click activation of a professional (dealer) account — replaces the
+ * former paid subscription upgrade. Promotes the user to `pro` and creates
+ * their professionnel/showroom placeholder if missing. Idempotent.
+ */
+export async function becomeProfessional(): Promise<UpdateResult> {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return { ok: false, error: "auth_required" }
+
+  const admin = createAdminClient()
+
+  // Promote free accounts to pro (leave admin accounts untouched).
+  await admin
+    .from("profiles")
+    .update({ account_type: "pro" } as never)
+    .eq("id", user.id)
+    .eq("account_type", "gratuit")
+
+  // Reuse an existing showroom row if there is one.
+  const { data: existing } = await admin
+    .from("professionnels")
+    .select("slug")
+    .eq("user_id", user.id)
+    .maybeSingle<{ slug: string }>()
+  if (existing) {
+    revalidatePath("/dashboard/showroom")
+    return { ok: true, slug: existing.slug }
+  }
+
+  const shortId = user.id.replace(/-/g, "").slice(0, 8)
+  const { data: created, error } = await admin
+    .from("professionnels")
+    .insert({
+      user_id: user.id,
+      name: `Concession ${shortId}`,
+      slug: `concession-${shortId}`,
+      is_active: true,
+    } as never)
+    .select("slug")
+    .single<{ slug: string }>()
+  if (error || !created) return { ok: false, error: "create_failed" }
+
+  revalidatePath("/professionnels")
+  revalidatePath("/dashboard/showroom")
+  return { ok: true, slug: created.slug }
+}
 
 export async function updateMyProfessionnel(
   input: unknown,

@@ -19,26 +19,13 @@ const DEFAULT_DURATION_DAYS = 60
 
 type DbClient = Awaited<ReturnType<typeof createClient>>
 
-// Pro accounts get a longer lifetime (annonce_duration_days_pro);
-// regular (gratuit) accounts use annonce_duration_days.
-async function getDurationDays(
-  supabase: DbClient,
-  userId: string,
-): Promise<number> {
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("account_type")
-    .eq("id", userId)
-    .maybeSingle<{ account_type: string }>()
-  const key =
-    profile?.account_type === "pro"
-      ? "annonce_duration_days_pro"
-      : "annonce_duration_days"
-
+// Every account now gets the longer lifetime (formerly a Pro-only perk) —
+// all features are free.
+async function getDurationDays(supabase: DbClient): Promise<number> {
   const { data } = await supabase
     .from("site_settings")
     .select("value")
-    .eq("key", key)
+    .eq("key", "annonce_duration_days_pro")
     .maybeSingle<{ value: unknown }>()
   const raw = data?.value
   if (typeof raw === "number" && raw > 0) return raw
@@ -59,75 +46,6 @@ async function isProAccount(supabase: DbClient, userId: string): Promise<boolean
   return data?.account_type === "pro" || data?.account_type === "admin"
 }
 
-const DEFAULT_FREE_MAX = 3
-
-async function getFreeMaxAnnonces(supabase: DbClient): Promise<number> {
-  const { data } = await supabase
-    .from("site_settings")
-    .select("value")
-    .eq("key", "free_max_annonces")
-    .maybeSingle<{ value: unknown }>()
-  const raw = data?.value
-  if (typeof raw === "number" && raw >= 0) return raw
-  if (typeof raw === "string" && !Number.isNaN(Number(raw))) return Number(raw)
-  return DEFAULT_FREE_MAX
-}
-
-/**
- * Enforces the active-annonce quota:
- *  - admin  → unlimited
- *  - pro    → their active plan's max_annonces (falls back to free limit if
- *             the subscription has lapsed)
- *  - gratuit→ the admin-configured free_max_annonces setting
- * Counts annonces in 'active' or 'pending' status as occupied slots.
- */
-async function checkCanPublish(
-  supabase: DbClient,
-  userId: string,
-): Promise<{ ok: true } | { ok: false; max: number }> {
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("account_type")
-    .eq("id", userId)
-    .maybeSingle<{ account_type: string }>()
-  const type = profile?.account_type
-
-  if (type === "admin") return { ok: true }
-
-  let max: number
-  if (type === "pro") {
-    const { data: sub } = await supabase
-      .from("subscription_requests")
-      .select("ends_at, subscription_plans(max_annonces)")
-      .eq("user_id", userId)
-      .eq("status", "approved")
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle()
-    type SubRow = {
-      ends_at: string | null
-      subscription_plans: { max_annonces: number } | null
-    }
-    const s = sub as SubRow | null
-    const active = s ? (s.ends_at ? new Date(s.ends_at) > new Date() : true) : false
-    max =
-      active && s?.subscription_plans
-        ? s.subscription_plans.max_annonces
-        : await getFreeMaxAnnonces(supabase)
-  } else {
-    max = await getFreeMaxAnnonces(supabase)
-  }
-
-  const { count } = await supabase
-    .from("annonces")
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", userId)
-    .in("status", ["active", "pending"])
-
-  if ((count ?? 0) >= max) return { ok: false, max }
-  return { ok: true }
-}
-
 export async function publishAnnonce(input: unknown): Promise<PublishResult> {
   const parsed = fullAnnonceSchema.safeParse(input)
   if (!parsed.success) {
@@ -146,11 +64,8 @@ export async function publishAnnonce(input: unknown): Promise<PublishResult> {
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: "auth_required" }
 
-  // Enforce the per-account annonce quota (free setting / pro plan limit).
-  const canPublish = await checkCanPublish(supabase, user.id)
-  if (!canPublish.ok) return { ok: false, error: "limit_reached" }
-
-  const days = await getDurationDays(supabase, user.id)
+  // Publishing is unlimited and free for every account — no quota check.
+  const days = await getDurationDays(supabase)
   const now = new Date()
   const expiresAt = new Date(now.getTime() + days * 24 * 60 * 60 * 1000)
   const pro = await isProAccount(supabase, user.id)

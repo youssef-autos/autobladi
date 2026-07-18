@@ -2,8 +2,6 @@
 
 import { useState, useTransition } from "react"
 import {
-  ArrowUpRight,
-  CreditCard,
   Crown,
   ExternalLink,
   Heart,
@@ -86,21 +84,17 @@ export function DashboardSidebar({ profile, email, unreadMessages, logoUrl }: Pr
   ]
 
   if (accountType === "gratuit") {
+    // Free activation of a professional account lives on the showroom page.
     items.push({
-      href: "/dashboard/upgrade",
+      href: "/dashboard/showroom",
       label: tNav("upgrade"),
-      icon: ArrowUpRight,
+      icon: Store,
       highlight: true,
     })
   }
 
   if (accountType === "pro" || accountType === "admin") {
     items.push({ href: "/dashboard/showroom", label: tNav("showroom"), icon: Store })
-    items.push({
-      href: "/dashboard/abonnement",
-      label: tNav("abonnement"),
-      icon: CreditCard,
-    })
     if (!isVerified) {
       items.push({
         href: "/dashboard/verification",

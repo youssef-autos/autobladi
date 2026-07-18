@@ -200,7 +200,7 @@ export function AnnonceRow({ row }: Props) {
                   {row.featured ? t("actions.unfeature") : t("actions.feature")}
                 </DropdownMenuItem>
               ) : (
-                <DropdownMenuItem render={<Link href="/dashboard/upgrade" />}>
+                <DropdownMenuItem render={<Link href="/dashboard/showroom" />}>
                   <Sparkles className="size-4 me-2 text-moroccan-gold-700" />
                   {t("actions.featureProOnly")}
                 </DropdownMenuItem>

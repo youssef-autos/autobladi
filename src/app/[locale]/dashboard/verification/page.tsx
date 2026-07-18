@@ -72,7 +72,7 @@ export default async function VerificationPage({
             description={t("notPro.desc")}
             action={
               <Link
-                href="/dashboard/upgrade"
+                href="/dashboard/showroom"
                 className="inline-flex items-center h-11 px-5 rounded-xl bg-moroccan-gradient text-white text-sm font-semibold shadow-moroccan hover:brightness-105"
               >
                 {t("notPro.cta")}

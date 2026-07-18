@@ -491,9 +491,11 @@
       "goToAnnonces": "Voir mes annonces →"
     },
     "notReady": {
-      "title": "Votre concession n'est pas encore activée",
-      "desc": "Après validation de votre abonnement, le panneau apparaîtra ici.",
-      "upgradeCta": "Demander la promotion"
+      "title": "Créez votre page professionnelle",
+      "desc": "Activez gratuitement votre compte professionnel pour obtenir une vitrine dédiée et apparaître dans l'annuaire des professionnels.",
+      "activateCta": "Activer gratuitement",
+      "activating": "Activation...",
+      "error": "Échec de l'activation, réessayez"
     }
   },
   "dashboard": {
@@ -508,7 +510,6 @@
       "compte": "Mon compte",
       "upgrade": "Devenir professionnel",
       "showroom": "Ma concession",
-      "abonnement": "Mon abonnement",
       "verification": "Vérification",
       "adminPanel": "Panneau admin",
       "signOut": "Déconnexion",

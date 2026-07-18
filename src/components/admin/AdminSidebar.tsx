@@ -2,12 +2,10 @@
 
 import { useEffect, useState, useTransition } from "react"
 import {
-  Banknote,
   BarChart3,
   Building2,
   Car,
   ChevronDown,
-  CircleDollarSign,
   Clock,
   Cog,
   ExternalLink,
@@ -132,19 +130,6 @@ function makeGroups(counts: Counts): Group[] {
           icon: Building2,
         },
         { href: "/admin/reviews", labelKey: "reviews", icon: Star },
-      ],
-    },
-    {
-      labelKey: "subscriptions",
-      items: [
-        { href: "/admin/subscriptions/plans", labelKey: "plans", icon: CircleDollarSign },
-        {
-          href: "/admin/subscriptions/pending",
-          labelKey: "pendingSubs",
-          icon: Clock,
-          badge: counts.pendingSubs,
-        },
-        { href: "/admin/subscriptions/history", labelKey: "subsHistory", icon: Banknote },
       ],
     },
     {

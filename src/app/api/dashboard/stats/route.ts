@@ -69,14 +69,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "auth_required" }, { status: 401 })
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("account_type")
-    .eq("id", user.id)
-    .maybeSingle<{ account_type: string }>()
-  if (!profile || !["pro", "admin"].includes(profile.account_type)) {
-    return NextResponse.json({ ok: false, error: "pro_required" }, { status: 403 })
-  }
+  // Advanced statistics are free for every signed-in user (own listings only).
 
   const days = req.nextUrl.searchParams.get("days") === "7" ? 7 : 30
   const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString()
