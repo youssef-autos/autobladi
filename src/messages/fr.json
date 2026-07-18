@@ -410,6 +410,10 @@
     "title": "Ma concession",
     "subtitle": "Mettez à jour les informations et suivez votre activité",
     "publicLink": "Voir la page publique",
+    "pending": {
+      "title": "Votre page est en attente de validation",
+      "desc": "Vous pouvez déjà remplir vos informations, mais votre page n'apparaîtra dans l'annuaire qu'après validation par notre équipe."
+    },
     "tabs": {
       "info": "Informations",
       "reviews": "Avis",

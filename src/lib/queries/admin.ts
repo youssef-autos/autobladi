@@ -18,7 +18,6 @@ export type AdminCounts = {
   pendingAnnonces: number
   professionnels: number
   pendingVerification: number
-  pendingSubs: number
   pendingReports: number
 }
 
@@ -37,7 +36,6 @@ export async function getAdminCounts(): Promise<AdminCounts> {
     pendingAnnRes,
     concRes,
     verifRes,
-    subsRes,
     reportsRes,
   ] = await Promise.all([
     supabase.from("profiles").select("id", { count: "exact", head: true }),
@@ -60,10 +58,6 @@ export async function getAdminCounts(): Promise<AdminCounts> {
       .select("id", { count: "exact", head: true })
       .eq("status", "pending"),
     supabase
-      .from("subscription_requests")
-      .select("id", { count: "exact", head: true })
-      .eq("status", "pending"),
-    supabase
       .from("reports")
       .select("id", { count: "exact", head: true })
       .eq("status", "pending"),
@@ -76,7 +70,6 @@ export async function getAdminCounts(): Promise<AdminCounts> {
     pendingAnnonces: pendingAnnRes.count ?? 0,
     professionnels: concRes.count ?? 0,
     pendingVerification: verifRes.count ?? 0,
-    pendingSubs: subsRes.count ?? 0,
     pendingReports: reportsRes.count ?? 0,
   }
 }
@@ -568,75 +561,6 @@ export async function listContactMessages(): Promise<AdminContactMessage[]> {
 }
 
 // ---------------------------------------------------------------------------
-// Subscription plans — admin list (cheapest first)
-// ---------------------------------------------------------------------------
-export type AdminPlanRow = Tables<"subscription_plans">
-
-export async function listAllPlansAdmin(): Promise<AdminPlanRow[]> {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("subscription_plans")
-    .select("*")
-    .order("price", { ascending: true })
-    .order("created_at", { ascending: true })
-  return (data ?? []) as AdminPlanRow[]
-}
-
-// ---------------------------------------------------------------------------
-// Subscriptions — full history (every request, newest first)
-// ---------------------------------------------------------------------------
-export type AdminSubscriptionRow = {
-  id: string
-  amount: number
-  status: RequestStatus
-  bank_reference: string | null
-  rejection_reason: string | null
-  starts_at: string | null
-  ends_at: string | null
-  created_at: string
-  plan: { name: string; name_ar: string | null; duration_days: number } | null
-  user: { id: string; full_name: string | null; avatar_url: string | null } | null
-}
-
-type RawSubHistoryRow = Tables<"subscription_requests"> & {
-  subscription_plans: {
-    name: string
-    name_ar: string | null
-    duration_days: number
-  } | null
-  profiles: { id: string; full_name: string | null; avatar_url: string | null } | null
-}
-
-export async function listAllSubscriptionsAdmin(
-  limit = 300,
-): Promise<AdminSubscriptionRow[]> {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("subscription_requests")
-    .select(`
-      id, amount, status, bank_reference, rejection_reason,
-      starts_at, ends_at, created_at,
-      subscription_plans(name, name_ar, duration_days),
-      profiles!user_id(id, full_name, avatar_url)
-    `)
-    .order("created_at", { ascending: false })
-    .limit(limit)
-  const rows = (data ?? []) as unknown as RawSubHistoryRow[]
-  return rows.map((r) => ({
-    id: r.id,
-    amount: r.amount,
-    status: r.status,
-    bank_reference: r.bank_reference,
-    rejection_reason: r.rejection_reason,
-    starts_at: r.starts_at,
-    ends_at: r.ends_at,
-    created_at: r.created_at,
-    plan: r.subscription_plans,
-    user: r.profiles,
-  }))
-}
-
-// ---------------------------------------------------------------------------
 // Newsletter — subscriber stats
 // ---------------------------------------------------------------------------
 export type NewsletterStats = {
@@ -771,50 +695,6 @@ export async function listPendingVerifications(): Promise<VerificationReviewRow[
     professional_phone: r.professional_phone,
     address: r.address,
     created_at: r.created_at,
-    user: r.profiles,
-  }))
-}
-
-// ---------------------------------------------------------------------------
-// Pending subscriptions queue
-// ---------------------------------------------------------------------------
-export type SubscriptionReviewRow = {
-  id: string
-  user_id: string
-  amount: number
-  bank_reference: string | null
-  receipt_url: string | null
-  created_at: string
-  plan: { id: string; name: string; name_ar: string | null; duration_days: number } | null
-  user: { id: string; full_name: string | null; avatar_url: string | null; account_type: Tables<"profiles">["account_type"] } | null
-}
-
-type RawSubRow = Tables<"subscription_requests"> & {
-  subscription_plans: { id: string; name: string; name_ar: string | null; duration_days: number } | null
-  profiles: { id: string; full_name: string | null; avatar_url: string | null; account_type: Tables<"profiles">["account_type"] } | null
-}
-
-export async function listPendingSubscriptions(): Promise<SubscriptionReviewRow[]> {
-  const supabase = await createClient()
-  const { data, error } = await supabase
-    .from("subscription_requests")
-    .select(`
-      id, user_id, amount, bank_reference, receipt_url, created_at,
-      subscription_plans(id, name, name_ar, duration_days),
-      profiles!user_id(id, full_name, avatar_url, account_type)
-    `)
-    .eq("status", "pending")
-    .order("created_at", { ascending: true })
-  if (error) console.error("[listPendingSubscriptions]", error.message)
-  const rows = (data ?? []) as unknown as RawSubRow[]
-  return rows.map((r) => ({
-    id: r.id,
-    user_id: r.user_id,
-    amount: r.amount,
-    bank_reference: r.bank_reference,
-    receipt_url: r.receipt_url,
-    created_at: r.created_at,
-    plan: r.subscription_plans,
     user: r.profiles,
   }))
 }

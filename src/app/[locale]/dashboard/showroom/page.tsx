@@ -1,4 +1,4 @@
-import { ExternalLink, Rocket } from "lucide-react"
+import { Clock, ExternalLink, Rocket } from "lucide-react"
 import { redirect } from "next/navigation"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 
@@ -55,14 +55,26 @@ export default async function ShowroomDashboardPage({
           <h1 className="font-display text-3xl font-bold text-foreground">{t("title")}</h1>
           <p className="text-sm text-muted-foreground mt-1">{t("subtitle")}</p>
         </div>
-        <Link
-          href={`/professionnel/${dealer.slug}`}
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-moroccan-red-500 hover:underline"
-        >
-          <ExternalLink className="size-4" aria-hidden="true" />
-          {t("publicLink")}
-        </Link>
+        {dealer.is_active && (
+          <Link
+            href={`/professionnel/${dealer.slug}`}
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-moroccan-red-500 hover:underline"
+          >
+            <ExternalLink className="size-4" aria-hidden="true" />
+            {t("publicLink")}
+          </Link>
+        )}
       </header>
+
+      {!dealer.is_active && (
+        <div className="flex items-start gap-3 rounded-2xl border border-moroccan-gold-500/40 bg-moroccan-gold-50/60 p-4">
+          <Clock className="size-5 shrink-0 mt-0.5 text-moroccan-gold-700" aria-hidden="true" />
+          <div>
+            <p className="font-semibold text-foreground">{t("pending.title")}</p>
+            <p className="text-sm text-muted-foreground mt-0.5">{t("pending.desc")}</p>
+          </div>
+        </div>
+      )}
 
       <ShowroomInfoForm dealer={dealer} cities={cities} secteurs={secteurs} />
     </div>

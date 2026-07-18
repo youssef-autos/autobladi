@@ -43,6 +43,8 @@ export async function becomeProfessional(): Promise<UpdateResult> {
     return { ok: true, slug: existing.slug }
   }
 
+  // Created inactive: the showroom stays private until an admin approves it
+  // (admin flips is_active from the professionnels manager).
   const shortId = user.id.replace(/-/g, "").slice(0, 8)
   const { data: created, error } = await admin
     .from("professionnels")
@@ -50,7 +52,7 @@ export async function becomeProfessional(): Promise<UpdateResult> {
       user_id: user.id,
       name: `Concession ${shortId}`,
       slug: `concession-${shortId}`,
-      is_active: true,
+      is_active: false,
     } as never)
     .select("slug")
     .single<{ slug: string }>()

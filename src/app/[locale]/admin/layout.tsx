@@ -60,7 +60,6 @@ export default async function AdminLayout({
           pendingAnnonces: counts.pendingAnnonces,
           pendingReports: counts.pendingReports,
           pendingVerification: counts.pendingVerification,
-          pendingSubs: counts.pendingSubs,
         }}
       />
       <main className="lg:ps-72 min-h-dvh">{children}</main>

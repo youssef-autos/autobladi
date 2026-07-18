@@ -62,7 +62,6 @@ type Counts = {
   pendingAnnonces: number
   pendingReports: number
   pendingVerification: number
-  pendingSubs: number
 }
 
 function initials(name?: string | null): string {
