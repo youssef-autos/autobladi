@@ -80,8 +80,6 @@ export default async function AdminParametresPage({
     watermark_text: toString(map.get("watermark_text"), "autobladi.ma"),
     annonce_duration_days: toNumber(map.get("annonce_duration_days"), 60),
     annonce_duration_days_pro: toNumber(map.get("annonce_duration_days_pro"), 90),
-    free_max_annonces: toNumber(map.get("free_max_annonces"), 3),
-    subscription_grace_days: toNumber(map.get("subscription_grace_days"), 7),
     ai_provider:
       aiRow?.provider === "openai" || aiRow?.provider === "qwen"
         ? aiRow.provider
@@ -95,9 +93,6 @@ export default async function AdminParametresPage({
     ai_qwen_model: aiRow?.qwen_model ?? "",
     contact_email: toString(map.get("contact_email"), "contact@autobladi.ma"),
     contact_phone: toString(map.get("contact_phone"), ""),
-    bank_name: toString(map.get("bank_name"), ""),
-    rib: toString(map.get("rib"), ""),
-    bank_beneficiary: toString(map.get("bank_beneficiary"), ""),
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://autobladi.ma"

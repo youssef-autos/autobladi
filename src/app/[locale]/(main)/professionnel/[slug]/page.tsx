@@ -133,7 +133,7 @@ export default async function ProfessionnelDetailPage({
               </p>
             </div>
             <Link
-              href="/dashboard/upgrade"
+              href="/dashboard/showroom"
               className="inline-flex shrink-0 items-center justify-center gap-2 h-12 px-7 rounded-xl bg-moroccan-gradient text-white font-semibold shadow-moroccan hover:brightness-105 transition-all"
             >
               <Crown className="size-4" aria-hidden="true" />

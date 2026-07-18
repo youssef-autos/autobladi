@@ -18,8 +18,6 @@ export type SettingsInput = {
   watermark_text: string
   annonce_duration_days: number
   annonce_duration_days_pro: number
-  free_max_annonces: number
-  subscription_grace_days: number
   ai_provider: "gemini" | "openai" | "qwen"
   ai_gemini_key: string
   ai_openai_key: string
@@ -28,9 +26,6 @@ export type SettingsInput = {
   ai_qwen_model: string
   contact_email: string
   contact_phone: string
-  bank_name: string
-  rib: string
-  bank_beneficiary: string
 }
 
 export type SettingsResult =
@@ -50,8 +45,6 @@ const inputSchema = z.object({
   watermark_text: z.string().min(1).max(100),
   annonce_duration_days: z.number().int().min(1).max(365),
   annonce_duration_days_pro: z.number().int().min(1).max(365),
-  free_max_annonces: z.number().int().min(0).max(1000),
-  subscription_grace_days: z.number().int().min(0).max(90),
   ai_provider: z.enum(["gemini", "openai", "qwen"]),
   ai_gemini_key: z.string().max(500),
   ai_openai_key: z.string().max(500),
@@ -60,9 +53,6 @@ const inputSchema = z.object({
   ai_qwen_model: z.string().max(100),
   contact_email: z.string().email().or(z.literal("")),
   contact_phone: z.string().max(40),
-  bank_name: z.string().max(100),
-  rib: z.string().max(200),
-  bank_beneficiary: z.string().max(100),
 })
 
 async function assertAdmin() {
@@ -105,13 +95,8 @@ export async function saveSettings(input: unknown): Promise<SettingsResult> {
     { key: "watermark_text", value: v.watermark_text },
     { key: "annonce_duration_days", value: v.annonce_duration_days },
     { key: "annonce_duration_days_pro", value: v.annonce_duration_days_pro },
-    { key: "free_max_annonces", value: v.free_max_annonces },
-    { key: "subscription_grace_days", value: v.subscription_grace_days },
     { key: "contact_email", value: v.contact_email },
     { key: "contact_phone", value: v.contact_phone },
-    { key: "bank_name", value: v.bank_name },
-    { key: "rib", value: v.rib },
-    { key: "bank_beneficiary", value: v.bank_beneficiary },
   ]
 
   const { error } = await supabase

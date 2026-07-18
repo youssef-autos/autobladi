@@ -11,10 +11,6 @@ import { ContactNotificationEmail } from "./templates/ContactNotificationEmail"
 import { NewsletterEmail, type NewsletterItem } from "./templates/NewsletterEmail"
 import { PasswordResetEmail } from "./templates/PasswordResetEmail"
 import { ReportNotificationEmail } from "./templates/ReportNotificationEmail"
-import { SubscriptionApprovedEmail } from "./templates/SubscriptionApprovedEmail"
-import { SubscriptionExpiringEmail } from "./templates/SubscriptionExpiringEmail"
-import { SubscriptionGraceEmail } from "./templates/SubscriptionGraceEmail"
-import { SubscriptionRejectedEmail } from "./templates/SubscriptionRejectedEmail"
 import { VerificationApprovedEmail } from "./templates/VerificationApprovedEmail"
 import { VerificationRejectedEmail } from "./templates/VerificationRejectedEmail"
 import { WelcomeEmail } from "./templates/WelcomeEmail"
@@ -133,49 +129,6 @@ export function sendVerificationRejectedEmail(args: { to: string; name: string; 
     to: args.to,
     subject: lang === "ar" ? "طلب التوثيق — يحتاج لمعلومات إضافية" : "Vérification — informations supplémentaires requises",
     html: VerificationRejectedEmail({ name: args.name, reason: args.reason, retryUrl: `${SITE_URL}/${lang}/dashboard/verification`, lang }),
-  })
-}
-
-export function sendSubscriptionApprovedEmail(args: { to: string; name: string; planName: string; endsAt: string; lang?: "ar" | "fr" }) {
-  const lang = args.lang ?? "ar"
-  return sendEmail({
-    type: "subscription_approved",
-    to: args.to,
-    subject: lang === "ar" ? "🎉 تم تفعيل اشتراكك" : "🎉 Abonnement activé",
-    html: SubscriptionApprovedEmail({ name: args.name, planName: args.planName, endsAt: args.endsAt, showroomUrl: `${SITE_URL}/${lang}/dashboard/showroom`, lang }),
-  })
-}
-
-export function sendSubscriptionRejectedEmail(args: { to: string; name: string; planName: string; reason: string; lang?: "ar" | "fr" }) {
-  const lang = args.lang ?? "ar"
-  return sendEmail({
-    type: "subscription_rejected",
-    to: args.to,
-    subject: lang === "ar" ? "طلب الاشتراك — يحتاج لتوضيح" : "Demande d'abonnement — clarification requise",
-    html: SubscriptionRejectedEmail({ name: args.name, planName: args.planName, reason: args.reason, retryUrl: `${SITE_URL}/${lang}/dashboard/upgrade`, lang }),
-  })
-}
-
-export function sendSubscriptionExpiringEmail(args: { to: string; name: string; planName: string; endsAt: string; daysLeft: number; lang?: "ar" | "fr" }) {
-  const lang = args.lang ?? "ar"
-  return sendEmail({
-    type: "subscription_expiring",
-    to: args.to,
-    subject: lang === "ar" ? `ينتهي اشتراكك خلال ${args.daysLeft} أيام` : `Votre abonnement expire dans ${args.daysLeft} jours`,
-    html: SubscriptionExpiringEmail({ name: args.name, planName: args.planName, endsAt: args.endsAt, daysLeft: args.daysLeft, renewUrl: `${SITE_URL}/${lang}/dashboard/upgrade`, lang }),
-  })
-}
-
-export function sendSubscriptionGraceEmail(args: { to: string; name: string; planName: string; daysLeft: number; lang?: "ar" | "fr" }) {
-  const lang = args.lang ?? "ar"
-  const suspended = args.daysLeft <= 0
-  return sendEmail({
-    type: "subscription_expiring",
-    to: args.to,
-    subject: suspended
-      ? lang === "ar" ? "تم إيقاف خدمات حسابك المحترف" : "Vos services professionnels ont été suspendus"
-      : lang === "ar" ? `انتهى اشتراكك — ${args.daysLeft} يوم قبل الإيقاف` : `Abonnement expiré — ${args.daysLeft} jours avant suspension`,
-    html: SubscriptionGraceEmail({ name: args.name, planName: args.planName, daysLeft: args.daysLeft, renewUrl: `${SITE_URL}/${lang}/dashboard/upgrade`, lang }),
   })
 }
 

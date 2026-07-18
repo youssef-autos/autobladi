@@ -2,12 +2,10 @@
 
 import { useRef, useState, useTransition } from "react"
 import {
-  Banknote,
   CheckCircle2,
   Clock,
   ExternalLink,
   FileCode2,
-  Files,
   Globe,
   ImageIcon,
   Loader2,
@@ -32,7 +30,6 @@ import {
 import { uploadSiteLogo } from "@/app/[locale]/admin/parametres/upload-action"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 
 type Props = {
   initial: SettingsInput
@@ -352,50 +349,6 @@ export function SettingsForm({
             />
           </Field>
         </div>
-        <div className="mt-2 border-t border-border/60 pt-4">
-          <Field
-            id="grace_days"
-            label={t("graceDays")}
-            help={t("graceDaysHelp")}
-          >
-            <Input
-              id="grace_days"
-              type="number"
-              inputMode="numeric"
-              min={0}
-              max={90}
-              value={values.subscription_grace_days}
-              onChange={(e) =>
-                update("subscription_grace_days", Number(e.target.value) || 0)
-              }
-              className="h-11 rounded-xl max-w-[200px]"
-              required
-            />
-          </Field>
-        </div>
-      </Section>
-
-      {/* Annonce limit — free accounts */}
-      <Section title={t("annonceLimit")} icon={Files}>
-        <Field
-          id="free_max"
-          label={t("freeMaxAnnonces")}
-          help={t("freeMaxAnnoncesHelp")}
-        >
-          <Input
-            id="free_max"
-            type="number"
-            inputMode="numeric"
-            min={0}
-            max={1000}
-            value={values.free_max_annonces}
-            onChange={(e) =>
-              update("free_max_annonces", Number(e.target.value) || 0)
-            }
-            className="h-11 rounded-xl max-w-[200px]"
-            required
-          />
-        </Field>
       </Section>
 
       {/* AI provider for estimation + description generation */}
@@ -482,42 +435,6 @@ export function SettingsForm({
             />
           </Field>
         </div>
-      </Section>
-
-      {/* Bank details */}
-      <Section title={t("bank")} icon={Banknote}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Field id="bank_name" label={t("bankName")}>
-            <Input
-              id="bank_name"
-              value={values.bank_name}
-              onChange={(e) => update("bank_name", e.target.value)}
-              placeholder={t("bankNamePlaceholder")}
-              maxLength={100}
-              className="h-11 rounded-xl"
-            />
-          </Field>
-          <Field id="beneficiary" label={t("beneficiary")}>
-            <Input
-              id="beneficiary"
-              value={values.bank_beneficiary}
-              onChange={(e) => update("bank_beneficiary", e.target.value)}
-              placeholder={t("beneficiaryPlaceholder")}
-              maxLength={100}
-              className="h-11 rounded-xl"
-            />
-          </Field>
-        </div>
-        <Field id="rib" label={t("rib")} help={t("ribHelp")}>
-          <Textarea
-            id="rib"
-            value={values.rib}
-            onChange={(e) => update("rib", e.target.value)}
-            rows={2}
-            maxLength={200}
-            className="rounded-xl font-mono"
-          />
-        </Field>
       </Section>
 
       {/* Contact */}

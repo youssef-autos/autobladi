@@ -9,9 +9,6 @@ export type EmailType =
   | "annonce_rejected"
   | "verification_approved"
   | "verification_rejected"
-  | "subscription_approved"
-  | "subscription_rejected"
-  | "subscription_expiring"
   | "annonce_expiring"
   | "contact_notification"
   | "report_notification"
@@ -34,9 +31,6 @@ const DEFAULTS: EmailSettings = {
     annonce_rejected: true,
     verification_approved: true,
     verification_rejected: true,
-    subscription_approved: true,
-    subscription_rejected: true,
-    subscription_expiring: true,
     annonce_expiring: true,
     contact_notification: true,
     report_notification: true,
