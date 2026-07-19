@@ -5,6 +5,7 @@ import {
   Clock,
   Flag,
   Sparkles,
+  Store,
   Tag,
   Users,
   type LucideIcon,
@@ -12,8 +13,9 @@ import {
 import { getTranslations, setRequestLocale } from "next-intl/server"
 
 import { Link } from "@/i18n/navigation"
+import { PendingShowroomsWidget } from "@/components/admin/PendingShowroomsWidget"
 import { StatsCard } from "@/components/dashboard/StatsCard"
-import { getAdminCounts } from "@/lib/queries/admin"
+import { getAdminCounts, listPendingShowroomsAdmin } from "@/lib/queries/admin"
 import { cn } from "@/lib/utils"
 
 export const dynamic = "force-dynamic"
@@ -27,7 +29,10 @@ export default async function AdminDashboardPage({
   setRequestLocale(locale)
   void locale
   const t = await getTranslations("adminPanel.dashboard")
-  const counts = await getAdminCounts()
+  const [counts, pendingShowrooms] = await Promise.all([
+    getAdminCounts(),
+    listPendingShowroomsAdmin(5),
+  ])
 
   const stats: Array<{
     label: string
@@ -76,6 +81,14 @@ export default async function AdminDashboardPage({
       href: "/admin/showrooms",
     },
     {
+      label: t("stats.pendingShowrooms"),
+      value: counts.pendingShowrooms,
+      icon: Store,
+      accent: "gold",
+      href: "/admin/showrooms",
+      urgent: counts.pendingShowrooms > 0,
+    },
+    {
       label: t("stats.pendingReports"),
       value: counts.pendingReports,
       icon: Flag,
@@ -91,6 +104,12 @@ export default async function AdminDashboardPage({
       label: t("stats.pendingAnnonces"),
       href: "/admin/annonces/pending",
       icon: Clock,
+    },
+    {
+      count: counts.pendingShowrooms,
+      label: t("stats.pendingShowrooms"),
+      href: "/admin/showrooms",
+      icon: Store,
     },
     {
       count: counts.pendingReports,
@@ -186,6 +205,9 @@ export default async function AdminDashboardPage({
           </ul>
         )}
       </section>
+
+      {/* Showrooms awaiting approval — quick-approve without leaving the dashboard */}
+      <PendingShowroomsWidget rows={pendingShowrooms} total={counts.pendingShowrooms} />
     </div>
   )
 }

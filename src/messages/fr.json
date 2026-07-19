@@ -701,7 +701,6 @@
       "manage": "Gestion générale",
       "annonces": "Annonces",
       "professionnels": "Showrooms",
-      "subscriptions": "Abonnements",
       "users": "Utilisateurs",
       "communication": "Communication",
       "blog": "Blog",
@@ -719,9 +718,6 @@
       "reports": "Signalements",
       "allProfessionnels": "Tous les showrooms",
       "reviews": "Avis",
-      "plans": "Formules",
-      "pendingSubs": "Abonnements à valider",
-      "subsHistory": "Historique des abonnements",
       "usersList": "Liste des utilisateurs",
       "contact": "Messages de contact",
       "newsletter": "Abonnés newsletter",
@@ -733,13 +729,8 @@
       "homeSections": "Sections d'accueil",
       "pages": "Pages",
       "generalSettings": "Paramètres généraux",
-      "settingsLogo": "Logo & Favicon",
-      "settingsDuration": "Durée des annonces",
-      "settingsRib": "RIB bancaire",
-      "settingsSeo": "SEO",
       "settingsEmail": "E-mails",
       "settingsSocial": "Connexion sociale",
-      "settingsWatermark": "Filigrane",
       "settingsAuth": "Authentification"
     },
     "dashboard": {
@@ -752,12 +743,23 @@
         "activeAnnonces": "Annonces actives",
         "pendingAnnonces": "Annonces à valider",
         "professionnels": "Showrooms",
-        "pendingSubs": "Abonnements en attente",
-        "pendingReports": "Signalements en attente"
+        "pendingReports": "Signalements en attente",
+        "pendingShowrooms": "Showrooms en attente"
       },
       "needsAttention": "À traiter",
       "noAttention": "Tout est à jour ✓",
-      "review": "Examiner"
+      "review": "Examiner",
+      "pendingShowrooms": {
+        "title": "Showrooms en attente d'approbation",
+        "empty": "Aucun showroom en attente ✓",
+        "viewAll": "Voir les {count}",
+        "approve": "Approuver",
+        "approving": "Approbation...",
+        "toast": {
+          "approved": "{name} a été approuvé",
+          "error": "Une erreur est survenue"
+        }
+      }
     },
     "annoncesQueue": {
       "title": "Annonces à valider",
@@ -1818,7 +1820,11 @@
       "saving": "Enregistrement...",
       "saved": "Paramètres enregistrés",
       "error": "Une erreur est survenue"
-    }
+    },
+    "searchPlaceholder": "Rechercher une page...",
+    "clearSearch": "Effacer la recherche",
+    "noSearchResults": "Aucune page trouvée",
+    "pendingTotal": "{count} élément(s) à traiter"
   },
   "admin": {
     "settings": {

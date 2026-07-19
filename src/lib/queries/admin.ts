@@ -17,6 +17,7 @@ export type AdminCounts = {
   activeAnnonces: number
   pendingAnnonces: number
   professionnels: number
+  pendingShowrooms: number
   pendingReports: number
 }
 
@@ -34,6 +35,7 @@ export async function getAdminCounts(): Promise<AdminCounts> {
     activeRes,
     pendingAnnRes,
     concRes,
+    pendingShowroomsRes,
     reportsRes,
   ] = await Promise.all([
     supabase.from("profiles").select("id", { count: "exact", head: true }),
@@ -52,6 +54,10 @@ export async function getAdminCounts(): Promise<AdminCounts> {
       .eq("status", "pending"),
     supabase.from("professionnels").select("id", { count: "exact", head: true }),
     supabase
+      .from("professionnels")
+      .select("id", { count: "exact", head: true })
+      .eq("is_active", false),
+    supabase
       .from("reports")
       .select("id", { count: "exact", head: true })
       .eq("status", "pending"),
@@ -63,6 +69,7 @@ export async function getAdminCounts(): Promise<AdminCounts> {
     activeAnnonces: activeRes.count ?? 0,
     pendingAnnonces: pendingAnnRes.count ?? 0,
     professionnels: concRes.count ?? 0,
+    pendingShowrooms: pendingShowroomsRes.count ?? 0,
     pendingReports: reportsRes.count ?? 0,
   }
 }
@@ -266,6 +273,53 @@ export async function listAllProfessionnelsAdmin(): Promise<
     city: r.cities,
     owner: r.profiles,
     annonces_count: countMap.get(r.user_id) ?? 0,
+  }))
+}
+
+// ---------------------------------------------------------------------------
+// Showrooms awaiting approval — lightweight list for the dashboard widget
+// ---------------------------------------------------------------------------
+export type PendingShowroomRow = {
+  id: string
+  name: string
+  slug: string
+  logo_url: string | null
+  created_at: string
+  city: { name_ar: string; name_fr: string } | null
+  owner: { id: string; full_name: string | null; avatar_url: string | null } | null
+}
+
+type RawPendingShowroom = Pick<
+  Tables<"professionnels">,
+  "id" | "name" | "slug" | "logo_url" | "created_at"
+> & {
+  cities: { name_ar: string; name_fr: string } | null
+  profiles: { id: string; full_name: string | null; avatar_url: string | null } | null
+}
+
+export async function listPendingShowroomsAdmin(
+  limit = 5,
+): Promise<PendingShowroomRow[]> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from("professionnels")
+    .select(`
+      id, name, slug, logo_url, created_at,
+      cities(name_ar, name_fr),
+      profiles(id, full_name, avatar_url)
+    `)
+    .eq("is_active", false)
+    .order("created_at", { ascending: false })
+    .limit(limit)
+  const rows = (data ?? []) as unknown as RawPendingShowroom[]
+  return rows.map((r) => ({
+    id: r.id,
+    name: r.name,
+    slug: r.slug,
+    logo_url: r.logo_url,
+    created_at: r.created_at,
+    city: r.cities,
+    owner: r.profiles,
   }))
 }
 

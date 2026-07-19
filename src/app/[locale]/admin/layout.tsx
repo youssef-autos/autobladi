@@ -59,6 +59,7 @@ export default async function AdminLayout({
         counts={{
           pendingAnnonces: counts.pendingAnnonces,
           pendingReports: counts.pendingReports,
+          pendingShowrooms: counts.pendingShowrooms,
         }}
       />
       <main className="lg:ps-72 min-h-dvh">{children}</main>

@@ -701,7 +701,6 @@
       "manage": "إدارة عامة",
       "annonces": "الإعلانات",
       "professionnels": "المعارض",
-      "subscriptions": "الاشتراكات",
       "users": "المستخدمون",
       "communication": "التواصل",
       "blog": "المدوّنة",
@@ -719,9 +718,6 @@
       "reports": "البلاغات",
       "allProfessionnels": "كل المعارض",
       "reviews": "التقييمات",
-      "plans": "الباقات",
-      "pendingSubs": "اشتراكات قيد المراجعة",
-      "subsHistory": "سجل الاشتراكات",
       "usersList": "قائمة المستخدمين",
       "contact": "رسائل التواصل",
       "newsletter": "مشتركو النشرة",
@@ -733,13 +729,8 @@
       "homeSections": "أقسام الصفحة الرئيسية",
       "pages": "الصفحات",
       "generalSettings": "إعدادات عامة",
-      "settingsLogo": "اللوغو والـ Favicon",
-      "settingsDuration": "مدة الإعلانات",
-      "settingsRib": "RIB البنكي",
-      "settingsSeo": "SEO",
       "settingsEmail": "الإيميلات",
       "settingsSocial": "تسجيل الدخول الاجتماعي",
-      "settingsWatermark": "العلامة المائية",
       "settingsAuth": "المصادقة"
     },
     "dashboard": {
@@ -752,12 +743,23 @@
         "activeAnnonces": "إعلانات نشطة",
         "pendingAnnonces": "إعلانات قيد المراجعة",
         "professionnels": "المعارض",
-        "pendingSubs": "اشتراكات معلّقة",
-        "pendingReports": "بلاغات معلّقة"
+        "pendingReports": "بلاغات معلّقة",
+        "pendingShowrooms": "معارض بانتظار الموافقة"
       },
       "needsAttention": "تحتاج اهتمامك",
       "noAttention": "كل شيء على ما يرام ✓",
-      "review": "مراجعة"
+      "review": "مراجعة",
+      "pendingShowrooms": {
+        "title": "معارض بانتظار الموافقة",
+        "empty": "لا توجد معارض بانتظار الموافقة ✓",
+        "viewAll": "عرض الكل ({count})",
+        "approve": "موافقة",
+        "approving": "جارٍ الموافقة...",
+        "toast": {
+          "approved": "تمت الموافقة على {name}",
+          "error": "حدث خطأ"
+        }
+      }
     },
     "annoncesQueue": {
       "title": "إعلانات قيد المراجعة",
@@ -1819,7 +1821,11 @@
       "saving": "جارٍ الحفظ...",
       "saved": "تم حفظ الإعدادات",
       "error": "حدث خطأ أثناء الحفظ"
-    }
+    },
+    "searchPlaceholder": "ابحث عن صفحة...",
+    "clearSearch": "مسح البحث",
+    "noSearchResults": "لا توجد صفحة مطابقة",
+    "pendingTotal": "{count} عنصر بحاجة للمراجعة"
   },
   "admin": {
     "settings": {
