@@ -1,10 +1,9 @@
-import { Clock, ExternalLink, Rocket } from "lucide-react"
+import { Clock, ExternalLink } from "lucide-react"
 import { redirect } from "next/navigation"
-import { getTranslations, setRequestLocale } from "next-intl/server"
+import { setRequestLocale, getTranslations } from "next-intl/server"
 
-import { BecomeProButton } from "@/components/dashboard/showroom/BecomeProButton"
+import { CreateShowroomWizard } from "@/components/dashboard/showroom/CreateShowroomWizard"
 import { ShowroomInfoForm } from "@/components/dashboard/showroom/InfoForm"
-import { EmptyState } from "@/components/ui/EmptyState"
 import { Link } from "@/i18n/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { getMyProfessionnel } from "@/lib/queries/professionnels"
@@ -36,14 +35,7 @@ export default async function ShowroomDashboardPage({
   if (!dealer) {
     return (
       <div className="p-4 md:p-6 lg:p-8">
-        <div className="rounded-2xl bg-card border border-border p-12 shadow-soft">
-          <EmptyState
-            icon={Rocket}
-            title={t("notReady.title")}
-            description={t("notReady.desc")}
-            action={<BecomeProButton />}
-          />
-        </div>
+        <CreateShowroomWizard userId={user.id} cities={cities} secteurs={secteurs} />
       </div>
     )
   }

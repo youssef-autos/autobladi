@@ -337,12 +337,40 @@
       "manageHere": "Gérer les annonces",
       "goToAnnonces": "Voir mes annonces →"
     },
-    "notReady": {
-      "title": "Créez votre page professionnelle",
-      "desc": "Activez gratuitement votre compte professionnel pour obtenir une vitrine dédiée et apparaître dans l'annuaire des professionnels.",
-      "activateCta": "Activer gratuitement",
-      "activating": "Activation...",
-      "error": "Échec de l'activation, réessayez"
+    "create": {
+      "title": "Créer un showroom",
+      "subtitle": "Renseignez les informations de votre showroom. Il sera publié après validation par notre équipe.",
+      "steps": {
+        "design": "Design",
+        "info": "Showroom",
+        "contact": "Contact",
+        "preview": "Aperçu"
+      },
+      "advantages": {
+        "title": "Ce que votre showroom vous apporte",
+        "storefront": "Une vitrine professionnelle dédiée",
+        "badge": "Badge « Pro » sur toutes vos annonces",
+        "allCars": "Toutes vos voitures regroupées au même endroit",
+        "reviews": "Avis et notes de vos clients"
+      },
+      "designHint": "Ajoutez votre logo et une photo de couverture (facultatif, mais recommandé).",
+      "infoHint": "Le nom de votre showroom et sa présentation.",
+      "contactHint": "Comment les acheteurs peuvent vous joindre.",
+      "previewTitle": "Aperçu de votre showroom",
+      "previewHint": "Vérifiez vos informations avant l'envoi pour validation.",
+      "noName": "Sans nom",
+      "noDescription": "Aucune présentation.",
+      "back": "Précédent",
+      "next": "Suivant",
+      "submit": "Envoyer pour validation",
+      "submitting": "Envoi...",
+      "successTitle": "Showroom envoyé ✓",
+      "successDesc": "Votre showroom a été soumis. Il apparaîtra dans l'annuaire dès validation par notre équipe.",
+      "nameRequired": "Le nom du showroom est requis (2 caractères min).",
+      "slugRequired": "L'identifiant URL doit contenir au moins 3 caractères (lettres, chiffres, tirets).",
+      "slugTaken": "Cet identifiant URL est déjà utilisé, choisissez-en un autre.",
+      "error": "Échec de l'envoi, réessayez.",
+      "designTitle": "Identité visuelle"
     }
   },
   "dashboard": {
