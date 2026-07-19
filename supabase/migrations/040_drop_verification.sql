@@ -16,12 +16,15 @@ drop table if exists public.verification_requests cascade;
 -- profiles.is_verified — no longer set by anything.
 alter table public.profiles drop column if exists is_verified;
 
--- Storage: policies first, then the bucket itself.
+-- Storage policies (safe to drop via SQL — these are just RLS rules).
 drop policy if exists "verifications_owner_read"   on storage.objects;
 drop policy if exists "verifications_owner_write"  on storage.objects;
 drop policy if exists "verifications_owner_update" on storage.objects;
 drop policy if exists "verifications_owner_delete" on storage.objects;
 drop policy if exists "verifications_admin_read"   on storage.objects;
 
-delete from storage.objects where bucket_id = 'verifications';
-delete from storage.buckets where id = 'verifications';
+-- The "verifications" bucket itself (and the ID-card/RC files inside it)
+-- CANNOT be dropped from SQL — Supabase's storage.protect_delete trigger
+-- rejects direct DELETE on storage.objects/storage.buckets to prevent
+-- orphaned files. Delete it from the Dashboard instead:
+--   Storage → verifications → ⋯ → Delete bucket (this also deletes its files)
