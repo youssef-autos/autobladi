@@ -6,7 +6,6 @@ import { useLocale, useTranslations } from "next-intl"
 
 import { Link } from "@/i18n/navigation"
 import { Badge } from "@/components/ui/badge"
-import { VerifiedBadge } from "@/components/ui/VerifiedBadge"
 import type { DealerCardData } from "@/lib/queries/home"
 import type { Locale } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
@@ -18,13 +17,12 @@ type Props = {
 
 /**
  * Featured dealer card for the homepage "Top dealers" section. Mirrors the
- * public listing card: 3:1 cover, overlapping logo medallion, verified badge,
- * rating + cars count, and a clear CTA.
+ * public listing card: 3:1 cover, overlapping logo medallion, rating + cars
+ * count, and a clear CTA.
  */
 export function ProfessionnelCard({ dealer, className }: Props) {
   const locale = useLocale() as Locale
   const t = useTranslations("home.topDealers")
-  const tBadge = useTranslations("home.badges")
   const cityName = dealer.city
     ? locale === "ar"
       ? dealer.city.name_ar
@@ -62,11 +60,6 @@ export function ProfessionnelCard({ dealer, className }: Props) {
           className="absolute inset-0 bg-gradient-to-t from-brand-dark/25 to-transparent"
           aria-hidden="true"
         />
-        {dealer.is_verified && (
-          <div className="absolute top-3 end-3 z-20">
-            <VerifiedBadge label={tBadge("verified")} tone="solid" size="sm" />
-          </div>
-        )}
       </div>
 
       {/* Logo medallion */}

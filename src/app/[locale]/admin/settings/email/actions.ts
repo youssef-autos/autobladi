@@ -18,8 +18,6 @@ const EMAIL_TYPES: EmailType[] = [
   "annonce_pending",
   "annonce_approved",
   "annonce_rejected",
-  "verification_approved",
-  "verification_rejected",
   "annonce_expiring",
   "contact_notification",
   "report_notification",

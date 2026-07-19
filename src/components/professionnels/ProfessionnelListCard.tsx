@@ -6,7 +6,6 @@ import { useLocale, useTranslations } from "next-intl"
 
 import { Link } from "@/i18n/navigation"
 import { Badge } from "@/components/ui/badge"
-import { VerifiedBadge } from "@/components/ui/VerifiedBadge"
 import type { Locale } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 
@@ -22,7 +21,6 @@ type Props = {
     reviews_count: number
     annonces_count?: number
     is_pro?: boolean
-    is_verified?: boolean
     city: { name_ar: string; name_fr: string } | null
   }
   className?: string
@@ -30,12 +28,11 @@ type Props = {
 
 /**
  * Polished dealer card for the public listing (/professionnels): 3:1 cover
- * with overlapping logo, Pro / verified badges, rating, and a clear CTA.
+ * with overlapping logo, Pro badge, rating, and a clear CTA.
  */
 export function ProfessionnelListCard({ dealer, className }: Props) {
   const locale = useLocale() as Locale
   const t = useTranslations("professionnels.list")
-  const tBadge = useTranslations("home.badges")
   const cityName = dealer.city
     ? locale === "ar"
       ? dealer.city.name_ar
@@ -74,13 +71,6 @@ export function ProfessionnelListCard({ dealer, className }: Props) {
           className="absolute inset-0 bg-gradient-to-t from-brand-dark/30 to-transparent"
           aria-hidden="true"
         />
-
-        {/* Verified badge — solid so it stays legible over the cover photo */}
-        {dealer.is_verified && (
-          <div className="absolute top-3 end-3 z-20">
-            <VerifiedBadge label={tBadge("verified")} tone="solid" size="sm" />
-          </div>
-        )}
       </div>
 
       {/* Logo medallion */}

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useTransition } from "react"
 import Image from "next/image"
-import { ArrowLeft, Camera, MessageCircle, ShieldCheck } from "lucide-react"
+import { ArrowLeft, Camera, MessageCircle } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { markConversationRead } from "@/app/[locale]/dashboard/messages/actions"
@@ -103,12 +103,6 @@ export function ChatWindow({ conversation, currentUserId, onBack }: Props) {
           </p>
           <div className="flex flex-wrap items-center gap-1 mt-0.5">
             {isPro && <Badge variant="pro" className="text-[10px]">Pro</Badge>}
-            {other.is_verified && (
-              <Badge variant="verified" className="text-[10px] gap-1">
-                <ShieldCheck className="size-3" aria-hidden="true" />
-                ✓
-              </Badge>
-            )}
           </div>
         </div>
       </header>

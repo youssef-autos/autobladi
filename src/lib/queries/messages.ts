@@ -8,7 +8,6 @@ export type Participant = {
   full_name: string | null
   avatar_url: string | null
   account_type: Tables<"profiles">["account_type"]
-  is_verified: boolean
 }
 
 export type ConversationAnnonceRef = {
@@ -40,7 +39,7 @@ type ConversationRow = {
 
 type ProfileRow = Pick<
   Tables<"profiles">,
-  "id" | "full_name" | "avatar_url" | "account_type" | "is_verified"
+  "id" | "full_name" | "avatar_url" | "account_type"
 >
 
 type AnnonceRow = {
@@ -89,7 +88,7 @@ export async function listConversationsForUser(
     await Promise.all([
       supabase
         .from("profiles")
-        .select("id, full_name, avatar_url, account_type, is_verified")
+        .select("id, full_name, avatar_url, account_type")
         .in("id", otherIds),
       annonceIds.length > 0
         ? supabase
@@ -149,7 +148,6 @@ export async function listConversationsForUser(
         full_name: null,
         avatar_url: null,
         account_type: "gratuit",
-        is_verified: false,
       },
       annonce,
       last_message: lastMessage

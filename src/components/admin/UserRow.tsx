@@ -23,7 +23,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { VerifiedBadge } from "@/components/ui/VerifiedBadge"
 import type { AdminUserRow } from "@/lib/queries/admin"
 
 type Props = {
@@ -44,7 +43,6 @@ function initials(name?: string | null, fallback?: string): string {
 export function UserRow({ row, currentAdminId }: Props) {
   const t = useTranslations("adminPanel.usersPage")
   const tBadge = useTranslations("dashboard.badge")
-  const tVerif = useTranslations("verification.badge")
   const format = useFormatter()
   const [pending, startTransition] = useTransition()
   const [editOpen, setEditOpen] = useState(false)
@@ -171,18 +169,6 @@ export function UserRow({ row, currentAdminId }: Props) {
         {row.account_type === "pro" && <Badge variant="pro">{tBadge("pro")}</Badge>}
         {row.account_type === "gratuit" && (
           <Badge variant="outline">{tBadge("gratuit")}</Badge>
-        )}
-      </td>
-
-      <td className="px-4 py-3">
-        {row.is_verified ? (
-          <VerifiedBadge
-            label={tVerif("label")}
-            tooltip={tVerif("tooltip")}
-            size="sm"
-          />
-        ) : (
-          <span className="text-xs text-muted-foreground">—</span>
         )}
       </td>
 

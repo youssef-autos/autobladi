@@ -16,7 +16,6 @@ export type ProfessionnelListItem = {
   reviews_count: number
   is_active: boolean
   is_pro: boolean
-  is_verified: boolean
   city: { name_ar: string; name_fr: string; slug: string } | null
   annonces_count: number
   created_at: string
@@ -26,7 +25,6 @@ type ListRow = Tables<"professionnels"> & {
   cities: { name_ar: string; name_fr: string; slug: string } | null
   profiles: {
     account_type: Tables<"profiles">["account_type"]
-    is_verified: boolean
   } | null
 }
 
@@ -74,7 +72,7 @@ export async function listProfessionnels(
       `id, user_id, name, slug, logo_url, cover_url, description, rating,
        reviews_count, is_active, created_at,
        cities(name_ar, name_fr, slug),
-       profiles(account_type, is_verified)`,
+       profiles(account_type)`,
       { count: "exact" },
     )
     .eq("is_active", true)
@@ -133,7 +131,6 @@ export async function listProfessionnels(
     is_pro:
       row.profiles?.account_type === "pro" ||
       row.profiles?.account_type === "admin",
-    is_verified: row.profiles?.is_verified ?? false,
     city: row.cities,
     annonces_count: countsByUser.get(row.user_id) ?? 0,
     created_at: row.created_at,
@@ -181,7 +178,6 @@ export type ProfessionnelDetail = {
   owner: {
     id: string
     full_name: string | null
-    is_verified: boolean
     account_type: Tables<"profiles">["account_type"]
   } | null
 }
@@ -192,7 +188,6 @@ type DetailRow = Tables<"professionnels"> & {
   profiles: {
     id: string
     full_name: string | null
-    is_verified: boolean
     account_type: Tables<"profiles">["account_type"]
   } | null
 }
@@ -207,7 +202,7 @@ export async function getProfessionnelBySlug(
       `*,
        cities(id, name_ar, name_fr, slug),
        secteurs(id, name_ar, name_fr, slug),
-       profiles(id, full_name, is_verified, account_type)`,
+       profiles(id, full_name, account_type)`,
     )
     .eq("slug", slug)
     .eq("is_active", true)
@@ -285,7 +280,7 @@ export async function getMyProfessionnel(): Promise<ProfessionnelDetail | null> 
       `*,
        cities(id, name_ar, name_fr, slug),
        secteurs(id, name_ar, name_fr, slug),
-       profiles(id, full_name, is_verified, account_type)`,
+       profiles(id, full_name, account_type)`,
     )
     .eq("user_id", user.id)
     .maybeSingle()
@@ -410,7 +405,7 @@ export async function listProfessionnelAnnonces(userId: string) {
       cities(name_ar, name_fr, slug),
       brands(name, slug, logo_url),
       car_models(name, slug),
-      profiles(full_name, account_type, is_verified)
+      profiles(full_name, account_type)
     `)
     .eq("user_id", userId)
     .eq("status", "active")
@@ -425,7 +420,6 @@ export async function listProfessionnelAnnonces(userId: string) {
     profiles: {
       full_name: string | null
       account_type: Tables<"profiles">["account_type"]
-      is_verified: boolean
     } | null
   }
   const rows = (data ?? []) as unknown as Row[]
@@ -453,7 +447,6 @@ export async function listProfessionnelAnnonces(userId: string) {
       seller_name: row.profiles?.full_name ?? null,
       is_pro:
         row.profiles?.account_type === "pro" || row.profiles?.account_type === "admin",
-      is_verified: row.profiles?.is_verified ?? false,
     }
   })
 }

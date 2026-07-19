@@ -43,7 +43,6 @@ export const annoncesSearchParams = {
   color: parseAsString.withDefault(""),
   doors: parseAsArrayOf(parseAsInteger).withDefault([]),
   options: parseAsArrayOf(parseAsString).withDefault([]),
-  verified: parseAsBoolean.withDefault(false),
   featured: parseAsBoolean.withDefault(false),
   sort: parseAsStringLiteral(SORT_VALUES).withDefault("newest"),
   view: parseAsStringLiteral(VIEW_VALUES).withDefault("grid"),
@@ -68,7 +67,6 @@ export type AnnoncesFilters = {
   color: string
   doors: number[]
   options: string[]
-  verified: boolean
   featured: boolean
   sort: (typeof SORT_VALUES)[number]
   view: (typeof VIEW_VALUES)[number]

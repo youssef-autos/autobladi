@@ -25,8 +25,8 @@ export async function WhyUs() {
   const items: Array<{ icon: LucideIcon; title: string; desc: string }> = [
     {
       icon: Shield,
-      title: t("verifiedDealersTitle"),
-      desc: t("verifiedDealersDesc"),
+      title: t("dealersTitle"),
+      desc: t("dealersDesc"),
     },
     { icon: Camera, title: t("realPhotosTitle"), desc: t("realPhotosDesc") },
     {

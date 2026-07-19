@@ -18,11 +18,11 @@
     "hero": {
       "badge": "Plateforme 100% marocaine",
       "headline": "Votre prochaine voiture commence ici",
-      "subline": "Des milliers de voitures neuves et d'occasion, des concessions vérifiées et une estimation instantanée des prix — le tout au même endroit.",
+      "subline": "Des milliers de voitures neuves et d'occasion, des concessions professionnelles et une estimation instantanée des prix — le tout au même endroit.",
       "features": {
         "ai": "Estimation instantanée des prix par IA",
-        "verified": "Concessions et professionnels vérifiés",
-        "secure": "Contact direct et sécurisé entre vendeur et acheteur"
+        "secure": "Contact direct et sécurisé entre vendeur et acheteur",
+        "dealers": "Concessions et professionnels dans tout le Maroc"
       },
       "stats": {
         "cars": "10K+",
@@ -141,71 +141,10 @@
     "help": "Aide",
     "forPros": "Pour les pros"
   },
-  "verification": {
-    "title": "Vérification d'identité",
-    "subtitle": "Documents officiels pour activer le badge \"Vérifié\" sur votre page et vos annonces",
-    "notPro": {
-      "title": "Réservé aux comptes professionnels",
-      "desc": "Passez à un compte Pro pour accéder à la vérification",
-      "cta": "Passer en Pro"
-    },
-    "stepper": {
-      "info": "Informations",
-      "documents": "Documents",
-      "review": "Vérification",
-      "approved": "Approuvé"
-    },
-    "infoNotice": "Vos données sont chiffrées et utilisées uniquement pour la vérification. Non visibles publiquement.",
-    "reviewTimeline": "Votre demande sera examinée sous 24 à 48 heures ouvrées.",
-    "status": {
-      "verifiedTitle": "Compte vérifié ✓",
-      "verifiedDesc": "Le badge \"Vérifié\" apparaît sur votre page et vos annonces.",
-      "verifiedAt": "Vérifié le {date}",
-      "pendingTitle": "Votre demande est en cours d'examen",
-      "pendingDesc": "Envoyée le {date} — vous serez notifié dès la décision.",
-      "rejectedTitle": "Demande refusée",
-      "rejectedReason": "Motif : {reason}",
-      "rejectedDesc": "Vous pouvez resoumettre après correction des éléments.",
-      "resubmit": "Resoumettre"
-    },
-    "form": {
-      "companyName": "Nom de la société / concession",
-      "companyPlaceholder": "Ex. : Auto Casa SARL",
-      "managerName": "Nom du gérant",
-      "managerPlaceholder": "Nom complet du responsable",
-      "rcNumber": "Registre de commerce (RC)",
-      "rcPlaceholder": "Chiffres uniquement",
-      "professionalPhone": "Téléphone professionnel",
-      "phonePlaceholder": "+212 5 22 00 00 00",
-      "address": "Adresse complète",
-      "addressPlaceholder": "Rue, ville, code postal",
-      "rcDocument": "Extrait du registre de commerce",
-      "rcDocumentHelp": "PDF ou image, 10 Mo maximum",
-      "idCard": "Pièce d'identité du gérant",
-      "idCardHelp": "PDF contenant recto + verso, ou une image",
-      "submit": "Envoyer la demande",
-      "submitting": "Envoi en cours...",
-      "successTitle": "Demande reçue",
-      "successDesc": "Vous recevrez bientôt le résultat de l'examen",
-      "errorTitle": "Envoi impossible",
-      "uploadFailed": "Échec du téléversement",
-      "fileTypeError": "Format non pris en charge (PDF/JPG/PNG uniquement)",
-      "fileTooLarge": "Fichier supérieur à 10 Mo",
-      "selectFile": "Choisissez un fichier ou glissez-le ici",
-      "uploaded": "Téléversé ✓",
-      "uploading": "Téléversement...",
-      "remove": "Supprimer"
-    },
-    "badge": {
-      "label": "Vérifié",
-      "tooltip": "Identité vérifiée par autobladi.ma"
-    }
-  },
   "professionnels": {
     "metaTitle": "Professionnels automobile au Maroc",
     "metaDescription": "Découvrez les meilleurs professionnels automobile au Maroc — avis, voitures disponibles et coordonnées.",
     "detail": {
-      "verified": "Vérifié",
       "carsAvailable": "Voitures en stock",
       "rating": "Note moyenne",
       "reviews": "Avis clients",
@@ -298,8 +237,7 @@
       "callNow": "Appeler",
       "whatsapp": "WhatsApp",
       "website": "Site web",
-      "email": "E-mail",
-      "verifiedBadge": "Professionnel vérifié par autobladi.ma"
+      "email": "E-mail"
     },
     "similar": {
       "title": "Professionnels similaires",
@@ -419,7 +357,6 @@
       "compte": "Mon compte",
       "upgrade": "Devenir professionnel",
       "showroom": "Ma concession",
-      "verification": "Vérification",
       "adminPanel": "Panneau admin",
       "signOut": "Déconnexion",
       "viewSite": "Voir le site"
@@ -427,8 +364,7 @@
     "badge": {
       "gratuit": "Gratuit",
       "pro": "Pro",
-      "admin": "Admin",
-      "verified": "Vérifié"
+      "admin": "Admin"
     },
     "home": {
       "welcome": "Bienvenue, {name}",
@@ -451,8 +387,6 @@
         "title": "Alertes",
         "expiring": "{count} annonce(s) expire(nt) dans 5 jours",
         "renew": "Renouveler",
-        "notVerified": "Votre compte pro n'est pas encore vérifié",
-        "verifyNow": "Démarrer la vérification",
         "noAlerts": "Aucune alerte ✓"
       },
       "recent": {
@@ -746,7 +680,6 @@
       "pendingAnnonces": "Annonces à valider",
       "featuredAnnonces": "Annonces mises en avant",
       "reports": "Signalements",
-      "verification": "Demandes de vérification",
       "allProfessionnels": "Tous les professionnels",
       "reviews": "Avis",
       "plans": "Formules",
@@ -782,7 +715,6 @@
         "activeAnnonces": "Annonces actives",
         "pendingAnnonces": "Annonces à valider",
         "professionnels": "Concessions",
-        "pendingVerification": "Vérifications en attente",
         "pendingSubs": "Abonnements en attente",
         "pendingReports": "Signalements en attente"
       },
@@ -1039,32 +971,6 @@
       "saved": "Paramètres de connexion sociale enregistrés",
       "error": "Une erreur est survenue",
       "supabaseNote": "⚠️ Le bouton de visibilité affiche/masque les boutons sur la page de connexion. Pour que la connexion fonctionne réellement, activez le fournisseur (Google/Facebook) et saisissez les mêmes clés dans les paramètres Authentication de votre tableau de bord Supabase."
-    },
-    "verificationQueue": {
-      "title": "Vérifications",
-      "subtitle": "Vérifiez les documents avant d'attribuer le badge",
-      "columns": {
-        "user": "Utilisateur",
-        "company": "Société",
-        "rc": "RC",
-        "documents": "Documents",
-        "submitted": "Soumis",
-        "actions": "Actions"
-      },
-      "viewRc": "Voir RC",
-      "viewIdCard": "Voir CIN",
-      "loadingPreview": "...",
-      "approve": "Approuver",
-      "reject": "Refuser",
-      "rejectDialogTitle": "Refuser la demande",
-      "rejectReason": "Motif",
-      "empty": "Aucune demande à valider",
-      "toast": {
-        "approved": "Concession marquée vérifiée",
-        "rejected": "Demande refusée",
-        "error": "Une erreur est survenue",
-        "linkError": "Impossible de générer l'aperçu"
-      }
     },
     "sectionsPage": {
       "title": "Sections de l'accueil",
@@ -1336,7 +1242,6 @@
         "phone": "Téléphone",
         "whatsapp": "WhatsApp",
         "type": "Type",
-        "verified": "Vérifié",
         "joined": "Inscription",
         "actions": "Actions"
       },
@@ -1378,7 +1283,6 @@
         "typeGratuit": "Gratuit",
         "typePro": "Pro",
         "typeAdmin": "Admin",
-        "verified": "Compte vérifié",
         "cancel": "Annuler",
         "save": "Enregistrer",
         "saving": "Enregistrement..."
@@ -2138,7 +2042,6 @@
       "memberSince": "Membre depuis {date}",
       "otherAnnonces": "{count, plural, =0 {Aucune autre annonce} one {1 autre annonce} other {{count} autres annonces}}",
       "pro": "Pro",
-      "verified": "Vérifié",
       "viewProfile": "Voir le profil",
       "viewShowroom": "Visiter la concession"
     },
@@ -2291,7 +2194,6 @@
       "color": "Couleur",
       "doors": "Nombre de portes",
       "options": "Options",
-      "verifiedOnly": "Professionnels vérifiés uniquement",
       "from": "De",
       "to": "À"
     },
@@ -2375,8 +2277,6 @@
     "why": {
       "title": "Pourquoi choisir autobladi.ma ?",
       "subtitle": "Tout ce qu'il faut pour acheter ou vendre votre voiture en toute confiance, partout au Maroc.",
-      "verifiedDealersTitle": "Vendeurs vérifiés",
-      "verifiedDealersDesc": "Professionnels et comptes pro validés par notre équipe pour des transactions en toute sécurité.",
       "realPhotosTitle": "Photos authentiques",
       "realPhotosDesc": "Un filigrane protège chaque annonce et garantit des photos réelles, jamais volées.",
       "directContactTitle": "Contact direct & sécurisé",
@@ -2386,7 +2286,9 @@
       "compareTitle": "Comparateur intelligent",
       "compareDesc": "Comparez jusqu'à 4 voitures côte à côte : prix, kilométrage et équipements.",
       "searchTitle": "Recherche avancée",
-      "searchDesc": "Filtrez par marque, modèle, ville, budget et des dizaines de critères."
+      "searchDesc": "Filtrez par marque, modèle, ville, budget et des dizaines de critères.",
+      "dealersTitle": "Concessions professionnelles",
+      "dealersDesc": "Des concessions et professionnels avec une vitrine dédiée pour chaque activité."
     },
     "topDealers": {
       "title": "Top professionnels",
@@ -2416,7 +2318,6 @@
     "adPlaceholder": "Emplacement publicitaire",
     "badges": {
       "featured": "Mis en avant",
-      "verified": "Vérifié",
       "new": "Nouveau",
       "conditionNew": "Neuve",
       "conditionUsed": "Occasion"

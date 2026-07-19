@@ -30,7 +30,6 @@ export type Database = {
           whatsapp: string | null
           avatar_url: string | null
           account_type: AccountType
-          is_verified: boolean
           city: string | null
           newsletter_subscribed: boolean
           email_unsubscribe_token: string | null
@@ -44,7 +43,6 @@ export type Database = {
           whatsapp?: string | null
           avatar_url?: string | null
           account_type?: AccountType
-          is_verified?: boolean
           city?: string | null
           newsletter_subscribed?: boolean
           email_unsubscribe_token?: string | null
@@ -385,43 +383,6 @@ export type Database = {
         }
         Update: Partial<
           Database["public"]["Tables"]["professionnel_reviews"]["Insert"]
-        >
-      }
-      verification_requests: {
-        Row: {
-          id: string
-          user_id: string
-          company_name: string
-          manager_name: string | null
-          rc_number: string | null
-          rc_document_url: string | null
-          id_card_url: string | null
-          professional_phone: string | null
-          address: string | null
-          status: RequestStatus
-          rejection_reason: string | null
-          reviewed_by: string | null
-          reviewed_at: string | null
-          created_at: string
-        }
-        Insert: {
-          id?: string
-          user_id: string
-          company_name: string
-          manager_name?: string | null
-          rc_number?: string | null
-          rc_document_url?: string | null
-          id_card_url?: string | null
-          professional_phone?: string | null
-          address?: string | null
-          status?: RequestStatus
-          rejection_reason?: string | null
-          reviewed_by?: string | null
-          reviewed_at?: string | null
-          created_at?: string
-        }
-        Update: Partial<
-          Database["public"]["Tables"]["verification_requests"]["Insert"]
         >
       }
       subscription_plans: {

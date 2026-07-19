@@ -1,11 +1,10 @@
 "use client"
 
-import { Crown, Store, ShieldCheck, Star, User as UserIcon } from "lucide-react"
+import { Crown, Store, Star, User as UserIcon } from "lucide-react"
 import { useFormatter, useTranslations } from "next-intl"
 
 import { Link } from "@/i18n/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
 import type { AnnonceDetail } from "@/lib/queries/annonce-detail"
 import { cn } from "@/lib/utils"
 
@@ -72,15 +71,6 @@ export function SellerCard({ seller, otherCount, showroom }: Props) {
           </p>
         </div>
       </header>
-
-      {seller.is_verified && (
-        <div className="mt-4 flex flex-wrap gap-1.5">
-          <Badge variant="verified" className="inline-flex items-center gap-1">
-            <ShieldCheck className="size-3" aria-hidden="true" />
-            {t("verified")}
-          </Badge>
-        </div>
-      )}
 
       <p className="mt-4 text-sm text-muted-foreground inline-flex items-center gap-1.5">
         <Star className="size-4 text-moroccan-gold-500" aria-hidden="true" />

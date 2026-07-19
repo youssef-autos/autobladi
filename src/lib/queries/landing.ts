@@ -156,7 +156,6 @@ export function landingFilters(opts: {
     color: "",
     doors: [],
     options: [],
-    verified: false,
     featured: false,
     sort: "newest",
     view: "grid",

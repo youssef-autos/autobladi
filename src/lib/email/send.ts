@@ -11,8 +11,6 @@ import { ContactNotificationEmail } from "./templates/ContactNotificationEmail"
 import { NewsletterEmail, type NewsletterItem } from "./templates/NewsletterEmail"
 import { PasswordResetEmail } from "./templates/PasswordResetEmail"
 import { ReportNotificationEmail } from "./templates/ReportNotificationEmail"
-import { VerificationApprovedEmail } from "./templates/VerificationApprovedEmail"
-import { VerificationRejectedEmail } from "./templates/VerificationRejectedEmail"
 import { WelcomeEmail } from "./templates/WelcomeEmail"
 
 export type SendResult =
@@ -109,26 +107,6 @@ export function sendAnnonceRejectedEmail(args: { to: string; name: string; annon
     to: args.to,
     subject: lang === "ar" ? "إعلانك بحاجة لتعديل" : "Votre annonce nécessite des modifications",
     html: AnnonceRejectedEmail({ name: args.name, annonceTitle: args.annonceTitle, reason: args.reason, editUrl: `${SITE_URL}/${lang}/dashboard/modifier/${args.annonceId}`, lang }),
-  })
-}
-
-export function sendVerificationApprovedEmail(args: { to: string; name: string; lang?: "ar" | "fr" }) {
-  const lang = args.lang ?? "ar"
-  return sendEmail({
-    type: "verification_approved",
-    to: args.to,
-    subject: lang === "ar" ? "تم توثيق حسابك ✓" : "Votre compte est vérifié ✓",
-    html: VerificationApprovedEmail({ name: args.name, showroomUrl: `${SITE_URL}/${lang}/dashboard/showroom`, lang }),
-  })
-}
-
-export function sendVerificationRejectedEmail(args: { to: string; name: string; reason: string; lang?: "ar" | "fr" }) {
-  const lang = args.lang ?? "ar"
-  return sendEmail({
-    type: "verification_rejected",
-    to: args.to,
-    subject: lang === "ar" ? "طلب التوثيق — يحتاج لمعلومات إضافية" : "Vérification — informations supplémentaires requises",
-    html: VerificationRejectedEmail({ name: args.name, reason: args.reason, retryUrl: `${SITE_URL}/${lang}/dashboard/verification`, lang }),
   })
 }
 

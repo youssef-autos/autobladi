@@ -4,7 +4,6 @@ import {
   CheckCircle2,
   Clock,
   Flag,
-  ShieldCheck,
   Sparkles,
   Tag,
   Users,
@@ -77,14 +76,6 @@ export default async function AdminDashboardPage({
       href: "/admin/professionnels",
     },
     {
-      label: t("stats.pendingVerification"),
-      value: counts.pendingVerification,
-      icon: ShieldCheck,
-      accent: "gold",
-      href: "/admin/verification",
-      urgent: counts.pendingVerification > 0,
-    },
-    {
       label: t("stats.pendingReports"),
       value: counts.pendingReports,
       icon: Flag,
@@ -100,12 +91,6 @@ export default async function AdminDashboardPage({
       label: t("stats.pendingAnnonces"),
       href: "/admin/annonces/pending",
       icon: Clock,
-    },
-    {
-      count: counts.pendingVerification,
-      label: t("stats.pendingVerification"),
-      href: "/admin/verification",
-      icon: ShieldCheck,
     },
     {
       count: counts.pendingReports,

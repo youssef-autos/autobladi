@@ -51,7 +51,6 @@ export type AnnonceDetail = {
     full_name: string | null
     avatar_url: string | null
     account_type: Tables<"profiles">["account_type"]
-    is_verified: boolean
     created_at: string
   } | null
 }
@@ -66,7 +65,6 @@ type AnnonceDetailRow = Tables<"annonces"> & {
     full_name: string | null
     avatar_url: string | null
     account_type: Tables<"profiles">["account_type"]
-    is_verified: boolean
     created_at: string
   } | null
 }
@@ -77,7 +75,7 @@ const detailSelect = `
   brands(id, name, slug, logo_url),
   car_models(id, name, slug),
   cities(id, name_ar, name_fr, slug),
-  profiles(id, full_name, avatar_url, account_type, is_verified, created_at)
+  profiles(id, full_name, avatar_url, account_type, created_at)
 ` as const
 
 function asStringArray(value: unknown): string[] {
@@ -151,7 +149,7 @@ type SimilarRow = Tables<"annonces"> & {
   cities: { name_ar: string; name_fr: string; slug: string } | null
   brands: { name: string; slug: string; logo_url: string | null } | null
   car_models: { name: string; slug: string } | null
-  profiles: { full_name: string | null; account_type: Tables<"profiles">["account_type"]; is_verified: boolean } | null
+  profiles: { full_name: string | null; account_type: Tables<"profiles">["account_type"] } | null
 }
 
 function mapSimilar(row: SimilarRow): AnnonceCardData {
@@ -176,7 +174,6 @@ function mapSimilar(row: SimilarRow): AnnonceCardData {
     model: row.car_models,
     seller_name: row.profiles?.full_name ?? null,
     is_pro: row.profiles?.account_type === "pro" || row.profiles?.account_type === "admin",
-    is_verified: row.profiles?.is_verified ?? false,
   }
 }
 
@@ -194,7 +191,7 @@ export async function getSimilarAnnonces(
        cities(name_ar, name_fr, slug),
        brands(name, slug, logo_url),
        car_models(name, slug),
-       profiles(full_name, account_type, is_verified)`,
+       profiles(full_name, account_type)`,
     )
     .eq("status", "active")
     .neq("id", source.id)

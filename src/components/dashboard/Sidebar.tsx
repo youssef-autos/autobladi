@@ -10,7 +10,6 @@ import {
   Mail,
   Menu,
   Settings,
-  ShieldCheck,
   Store,
   Tag,
   TrendingUp,
@@ -67,7 +66,6 @@ export function DashboardSidebar({ profile, email, unreadMessages, logoUrl }: Pr
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const accountType = profile?.account_type ?? "gratuit"
-  const isVerified = profile?.is_verified ?? false
 
   const items: Item[] = [
     { href: "/dashboard", label: tNav("home"), icon: LayoutDashboard },
@@ -95,13 +93,6 @@ export function DashboardSidebar({ profile, email, unreadMessages, logoUrl }: Pr
 
   if (accountType === "pro" || accountType === "admin") {
     items.push({ href: "/dashboard/showroom", label: tNav("showroom"), icon: Store })
-    if (!isVerified) {
-      items.push({
-        href: "/dashboard/verification",
-        label: tNav("verification"),
-        icon: ShieldCheck,
-      })
-    }
   }
 
   // Admin-only shortcut: jump from the user dashboard straight to /admin.
@@ -207,11 +198,6 @@ export function DashboardSidebar({ profile, email, unreadMessages, logoUrl }: Pr
               {accountType === "admin" && (
                 <Badge variant="featured" className="text-[10px]">
                   {tBadge("admin")}
-                </Badge>
-              )}
-              {isVerified && (
-                <Badge variant="verified" className="text-[10px]">
-                  {tBadge("verified")}
                 </Badge>
               )}
             </div>

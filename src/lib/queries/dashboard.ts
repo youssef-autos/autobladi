@@ -11,7 +11,6 @@ export type DashboardProfile = Pick<
   | "whatsapp"
   | "avatar_url"
   | "account_type"
-  | "is_verified"
   | "city"
 >
 
@@ -24,7 +23,7 @@ export async function getCurrentProfile(): Promise<DashboardProfile | null> {
   const { data } = await supabase
     .from("profiles")
     .select(
-      "id, full_name, phone, whatsapp, avatar_url, account_type, is_verified, city",
+      "id, full_name, phone, whatsapp, avatar_url, account_type, city",
     )
     .eq("id", user.id)
     .maybeSingle<DashboardProfile>()
@@ -192,7 +191,7 @@ type FavoriteRow = {
     cities: { name_ar: string; name_fr: string; slug: string } | null
     brands: { name: string; slug: string; logo_url: string | null } | null
     car_models: { name: string; slug: string } | null
-    profiles: { full_name: string | null; account_type: string; is_verified: boolean } | null
+    profiles: { full_name: string | null; account_type: string } | null
   }
 }
 
@@ -208,7 +207,7 @@ export async function listMyFavorites(userId: string) {
         cities(name_ar, name_fr, slug),
         brands(name, slug, logo_url),
         car_models(name, slug),
-        profiles(full_name, account_type, is_verified)
+        profiles(full_name, account_type)
       )
     `)
     .eq("user_id", userId)
@@ -243,7 +242,6 @@ export async function listMyFavorites(userId: string) {
           seller_name: a.profiles?.full_name ?? null,
           is_pro:
             a.profiles?.account_type === "pro" || a.profiles?.account_type === "admin",
-          is_verified: a.profiles?.is_verified ?? false,
         },
       }
     })

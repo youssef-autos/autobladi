@@ -63,10 +63,9 @@ const updateProfileSchema = z.object({
   whatsapp: nullableTrimmed(40),
   city: nullableTrimmed(80),
   account_type: z.enum(["gratuit", "pro", "admin"]),
-  is_verified: z.boolean(),
 })
 
-// Edit a user's profile (name, contact, city, type, verified flag).
+// Edit a user's profile (name, contact, city, type).
 export async function updateUserProfile(
   input: unknown,
 ): Promise<UserActionResult> {
@@ -102,26 +101,8 @@ export async function updateUserProfile(
       whatsapp: v.whatsapp,
       city: v.city,
       account_type: v.account_type,
-      is_verified: v.is_verified,
     } as never)
     .eq("id", v.id)
-  if (error) return { ok: false, error: error.message }
-
-  revalidatePath("/admin/users")
-  return { ok: true }
-}
-
-export async function setVerifiedFlag(input: unknown): Promise<UserActionResult> {
-  const parsed = z.object({ id: idSchema, is_verified: z.boolean() }).safeParse(input)
-  if (!parsed.success) return { ok: false, error: "invalid_input" }
-  const ctx = await ensureAdmin()
-  if (!ctx) return { ok: false, error: "forbidden" }
-  if (parsed.data.id === ctx.adminId) return { ok: false, error: "cant_self" }
-
-  const { error } = await ctx.supabase
-    .from("profiles")
-    .update({ is_verified: parsed.data.is_verified } as never)
-    .eq("id", parsed.data.id)
   if (error) return { ok: false, error: error.message }
 
   revalidatePath("/admin/users")

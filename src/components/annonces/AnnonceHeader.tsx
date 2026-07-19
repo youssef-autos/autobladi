@@ -3,7 +3,6 @@
 import { CalendarDays, Eye, MapPin } from "lucide-react"
 import { useFormatter, useLocale, useTranslations } from "next-intl"
 
-import { Badge } from "@/components/ui/badge"
 import { PriceTag } from "@/components/ui/PriceTag"
 import type { AnnonceDetail } from "@/lib/queries/annonce-detail"
 import type { Locale } from "@/i18n/routing"
@@ -15,7 +14,6 @@ type Props = {
 export function AnnonceHeader({ annonce }: Props) {
   const locale = useLocale() as Locale
   const t = useTranslations("annonceDetail")
-  const tBadges = useTranslations("home.badges")
   const format = useFormatter()
 
   const cityName = annonce.city
@@ -30,13 +28,6 @@ export function AnnonceHeader({ annonce }: Props) {
 
   return (
     <header className="space-y-4">
-      {/* Verified badge (the "featured" badge now sits over the gallery) */}
-      {annonce.seller?.is_verified && (
-        <div className="flex flex-wrap gap-2">
-          <Badge variant="verified">{tBadges("verified")}</Badge>
-        </div>
-      )}
-
       {/* Price */}
       <div className="flex items-center gap-3 flex-wrap">
         <PriceTag price={annonce.price} size="xl" className="text-4xl md:text-5xl" />

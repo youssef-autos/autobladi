@@ -23,7 +23,7 @@ export async function AuthSplitLayout({ children, className, logoUrl }: Props) {
 
   const features = [
     { icon: Sparkles, label: t("features.ai") },
-    { icon: ShieldCheck, label: t("features.verified") },
+    { icon: ShieldCheck, label: t("features.dealers") },
     { icon: MessagesSquare, label: t("features.secure") },
   ]
 

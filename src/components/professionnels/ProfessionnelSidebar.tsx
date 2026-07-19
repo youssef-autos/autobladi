@@ -8,7 +8,6 @@ import {
   Mail,
   MessageCircle,
   Phone,
-  ShieldCheck,
 } from "lucide-react"
 import { useTranslations } from "next-intl"
 
@@ -147,18 +146,6 @@ export function ProfessionnelSidebar({ dealer }: Props) {
           </div>
         )}
       </div>
-
-      {/* Verified trust card */}
-      {dealer.owner?.is_verified && (
-        <div className="rounded-2xl border border-moroccan-mint-500/30 bg-moroccan-mint-500/5 p-4 flex items-center gap-3">
-          <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl bg-moroccan-mint-500/15 text-moroccan-mint-600">
-            <ShieldCheck className="size-5" aria-hidden="true" />
-          </span>
-          <p className="text-xs font-medium text-moroccan-mint-600 leading-snug">
-            {t("sidebar.verifiedBadge")}
-          </p>
-        </div>
-      )}
 
       {/* All cars from this dealer */}
       <Link

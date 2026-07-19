@@ -14,8 +14,6 @@ import {
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Separator } from "@/components/ui/separator"
-import { Switch } from "@/components/ui/switch"
 import type { Brand, CarModel, City, Secteur } from "@/lib/queries/home"
 import type { Locale } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
@@ -194,7 +192,6 @@ export function FiltersSidebar({
       color: "",
       doors: [],
       options: [],
-      verified: false,
       featured: false,
       page: 1,
     })
@@ -444,17 +441,6 @@ export function FiltersSidebar({
           ))}
         </RadioGroup>
       </FilterGroup>
-
-      <Separator />
-
-      {/* Verified */}
-      <label className="flex items-center justify-between gap-3 cursor-pointer">
-        <span className="text-sm font-medium">{t("fields.verifiedOnly")}</span>
-        <Switch
-          checked={filters.verified}
-          onCheckedChange={(v) => setFilters({ verified: v === true, page: 1 })}
-        />
-      </label>
 
       {onApply && (
         <button

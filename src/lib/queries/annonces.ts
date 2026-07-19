@@ -11,7 +11,7 @@ type AnnonceRow = Tables<"annonces"> & {
   cities: Pick<Tables<"cities">, "name_ar" | "name_fr" | "slug"> | null
   brands: Pick<Tables<"brands">, "name" | "slug" | "logo_url"> | null
   car_models: Pick<Tables<"car_models">, "name" | "slug"> | null
-  profiles: Pick<Tables<"profiles">, "full_name" | "account_type" | "is_verified"> | null
+  profiles: Pick<Tables<"profiles">, "full_name" | "account_type"> | null
 }
 
 function mapAnnonce(row: AnnonceRow): AnnonceCardData {
@@ -37,7 +37,6 @@ function mapAnnonce(row: AnnonceRow): AnnonceCardData {
     seller_name: row.profiles?.full_name ?? null,
     is_pro:
       row.profiles?.account_type === "pro" || row.profiles?.account_type === "admin",
-    is_verified: row.profiles?.is_verified ?? false,
   }
 }
 
@@ -96,18 +95,13 @@ export async function searchAnnonces(
       : Promise.resolve([] as string[]),
   ])
 
-  // Use inner join on profiles only when filtering on verified status
-  const profileJoin = filters.verified
-    ? "profiles!inner(full_name, account_type, is_verified)"
-    : "profiles(full_name, account_type, is_verified)"
-
   const select = `
     id, slug, title, year, mileage, price, fuel_type, transmission, condition, featured, published_at,
     annonce_images(url, is_main, order_index),
     cities(name_ar, name_fr, slug),
     brands(name, slug, logo_url),
     car_models(name, slug),
-    ${profileJoin}
+    profiles(full_name, account_type)
   `
 
   let query = supabase
@@ -120,7 +114,6 @@ export async function searchAnnonces(
   if (filters.transmission) query = query.eq("transmission", filters.transmission)
   if (filters.color) query = query.ilike("color", `%${filters.color}%`)
   if (filters.featured) query = query.eq("featured", true)
-  if (filters.verified) query = query.eq("profiles.is_verified", true)
 
   if (brandIds.length) query = query.in("brand_id", brandIds)
   if (modelIds.length) query = query.in("model_id", modelIds)

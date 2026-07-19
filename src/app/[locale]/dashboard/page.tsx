@@ -43,10 +43,6 @@ export default async function DashboardHomePage({
     listMyAnnonces(user.id).then((rows) => rows.slice(0, 5)),
   ])
 
-  const needsVerification =
-    (profile?.account_type === "pro" || profile?.account_type === "admin") &&
-    !profile.is_verified
-
   return (
     <div className="p-4 md:p-6 lg:p-8 space-y-6">
       <header>
@@ -96,7 +92,7 @@ export default async function DashboardHomePage({
       {/* Chart + alerts */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         <ActivityChart data={topAnnonces} />
-        <AlertsList expiring={expiring} needsVerification={needsVerification} />
+        <AlertsList expiring={expiring} />
       </div>
 
       {/* Recent annonces */}

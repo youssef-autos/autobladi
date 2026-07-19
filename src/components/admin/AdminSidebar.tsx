@@ -25,7 +25,6 @@ import {
   Newspaper,
   Search,
   Send,
-  ShieldCheck,
   Sparkles,
   Star,
   Tag,
@@ -61,7 +60,6 @@ type AdminProfile = {
 type Counts = {
   pendingAnnonces: number
   pendingReports: number
-  pendingVerification: number
 }
 
 function initials(name?: string | null): string {
@@ -117,12 +115,6 @@ function makeGroups(counts: Counts): Group[] {
     {
       labelKey: "professionnels",
       items: [
-        {
-          href: "/admin/verification",
-          labelKey: "verification",
-          icon: ShieldCheck,
-          badge: counts.pendingVerification,
-        },
         {
           href: "/admin/professionnels",
           labelKey: "allProfessionnels",

@@ -38,7 +38,6 @@ export type AnnonceCardData = {
   model: { name: string; slug: string } | null
   seller_name: string | null
   is_pro: boolean
-  is_verified: boolean
 }
 
 type AnnonceRow = Tables<"annonces"> & {
@@ -46,7 +45,7 @@ type AnnonceRow = Tables<"annonces"> & {
   cities: Pick<Tables<"cities">, "name_ar" | "name_fr" | "slug"> | null
   brands: Pick<Tables<"brands">, "name" | "slug" | "logo_url"> | null
   car_models: Pick<Tables<"car_models">, "name" | "slug"> | null
-  profiles: Pick<Tables<"profiles">, "full_name" | "account_type" | "is_verified"> | null
+  profiles: Pick<Tables<"profiles">, "full_name" | "account_type"> | null
 }
 
 function mapAnnonce(row: AnnonceRow): AnnonceCardData {
@@ -71,7 +70,6 @@ function mapAnnonce(row: AnnonceRow): AnnonceCardData {
     model: row.car_models,
     seller_name: row.profiles?.full_name ?? null,
     is_pro: row.profiles?.account_type === "pro" || row.profiles?.account_type === "admin",
-    is_verified: row.profiles?.is_verified ?? false,
   }
 }
 
@@ -81,7 +79,7 @@ const annonceSelect = `
   cities(name_ar, name_fr, slug),
   brands(name, slug, logo_url),
   car_models(name, slug),
-  profiles(full_name, account_type, is_verified)
+  profiles(full_name, account_type)
 ` as const
 
 export async function getFeaturedAnnonces(limit = 4): Promise<AnnonceCardData[]> {
@@ -113,7 +111,6 @@ export type DealerCardData = Pick<
 > & {
   city: { name_ar: string; name_fr: string } | null
   annonces_count: number
-  is_verified: boolean
 }
 
 type DealerRow = {
@@ -126,7 +123,6 @@ type DealerRow = {
   rating: number
   reviews_count: number
   cities: { name_ar: string; name_fr: string } | null
-  profiles: { is_verified: boolean } | null
 }
 
 export async function getTopDealers(limit = 6): Promise<DealerCardData[]> {
@@ -135,8 +131,7 @@ export async function getTopDealers(limit = 6): Promise<DealerCardData[]> {
     .from("professionnels")
     .select(
       `id, user_id, name, slug, logo_url, cover_url, rating, reviews_count,
-       cities(name_ar, name_fr),
-       profiles(is_verified)`,
+       cities(name_ar, name_fr)`,
     )
     .eq("is_active", true)
     .order("rating", { ascending: false })
@@ -171,7 +166,6 @@ export async function getTopDealers(limit = 6): Promise<DealerCardData[]> {
     reviews_count: row.reviews_count,
     city: row.cities,
     annonces_count: countsByUser.get(row.user_id) ?? 0,
-    is_verified: row.profiles?.is_verified ?? false,
   }))
 }
 

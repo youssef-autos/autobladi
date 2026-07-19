@@ -17,7 +17,6 @@ export type AdminCounts = {
   activeAnnonces: number
   pendingAnnonces: number
   professionnels: number
-  pendingVerification: number
   pendingReports: number
 }
 
@@ -35,7 +34,6 @@ export async function getAdminCounts(): Promise<AdminCounts> {
     activeRes,
     pendingAnnRes,
     concRes,
-    verifRes,
     reportsRes,
   ] = await Promise.all([
     supabase.from("profiles").select("id", { count: "exact", head: true }),
@@ -54,10 +52,6 @@ export async function getAdminCounts(): Promise<AdminCounts> {
       .eq("status", "pending"),
     supabase.from("professionnels").select("id", { count: "exact", head: true }),
     supabase
-      .from("verification_requests")
-      .select("id", { count: "exact", head: true })
-      .eq("status", "pending"),
-    supabase
       .from("reports")
       .select("id", { count: "exact", head: true })
       .eq("status", "pending"),
@@ -69,7 +63,6 @@ export async function getAdminCounts(): Promise<AdminCounts> {
     activeAnnonces: activeRes.count ?? 0,
     pendingAnnonces: pendingAnnRes.count ?? 0,
     professionnels: concRes.count ?? 0,
-    pendingVerification: verifRes.count ?? 0,
     pendingReports: reportsRes.count ?? 0,
   }
 }
@@ -89,7 +82,6 @@ export type PendingAnnonceRow = {
     full_name: string | null
     avatar_url: string | null
     account_type: Tables<"profiles">["account_type"]
-    is_verified: boolean
   } | null
   brand: { name: string } | null
   model: { name: string } | null
@@ -103,7 +95,6 @@ type RawPendingAnnonce = Tables<"annonces"> & {
     full_name: string | null
     avatar_url: string | null
     account_type: Tables<"profiles">["account_type"]
-    is_verified: boolean
   } | null
   brands: { name: string } | null
   car_models: { name: string } | null
@@ -117,7 +108,7 @@ export async function listPendingAnnonces(): Promise<PendingAnnonceRow[]> {
     .select(`
       id, slug, title, price, created_at,
       annonce_images(url, is_main, order_index),
-      profiles(id, full_name, avatar_url, account_type, is_verified),
+      profiles(id, full_name, avatar_url, account_type),
       brands(name),
       car_models(name),
       cities(name_ar, name_fr)
@@ -652,54 +643,6 @@ export async function listReports(): Promise<AdminReportRow[]> {
 }
 
 // ---------------------------------------------------------------------------
-// Pending verification queue
-// ---------------------------------------------------------------------------
-export type VerificationReviewRow = {
-  id: string
-  user_id: string
-  company_name: string
-  manager_name: string | null
-  rc_number: string | null
-  rc_document_url: string | null
-  id_card_url: string | null
-  professional_phone: string | null
-  address: string | null
-  created_at: string
-  user: { id: string; full_name: string | null; avatar_url: string | null } | null
-}
-
-type RawVerifRow = Tables<"verification_requests"> & {
-  profiles: { id: string; full_name: string | null; avatar_url: string | null } | null
-}
-
-export async function listPendingVerifications(): Promise<VerificationReviewRow[]> {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("verification_requests")
-    .select(`
-      id, user_id, company_name, manager_name, rc_number,
-      rc_document_url, id_card_url, professional_phone, address, created_at,
-      profiles!user_id(id, full_name, avatar_url)
-    `)
-    .eq("status", "pending")
-    .order("created_at", { ascending: true })
-  const rows = (data ?? []) as unknown as RawVerifRow[]
-  return rows.map((r) => ({
-    id: r.id,
-    user_id: r.user_id,
-    company_name: r.company_name,
-    manager_name: r.manager_name,
-    rc_number: r.rc_number,
-    rc_document_url: r.rc_document_url,
-    id_card_url: r.id_card_url,
-    professional_phone: r.professional_phone,
-    address: r.address,
-    created_at: r.created_at,
-    user: r.profiles,
-  }))
-}
-
-// ---------------------------------------------------------------------------
 // Users
 // ---------------------------------------------------------------------------
 export type AdminUserRow = Pick<
@@ -710,7 +653,6 @@ export type AdminUserRow = Pick<
   | "whatsapp"
   | "avatar_url"
   | "account_type"
-  | "is_verified"
   | "city"
   | "created_at"
 > & { email: string | null }
@@ -728,7 +670,7 @@ export async function listUsers(opts: {
   let q = supabase
     .from("profiles")
     .select(
-      "id, full_name, phone, whatsapp, avatar_url, account_type, is_verified, city, created_at",
+      "id, full_name, phone, whatsapp, avatar_url, account_type, city, created_at",
     )
     // Admin accounts are managed from each admin's own account page, not here.
     .neq("account_type", "admin")

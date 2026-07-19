@@ -68,7 +68,6 @@ export default async function AdminUsersPage({
                   <th className="text-start px-4 py-3">{t("columns.phone")}</th>
                   <th className="text-start px-4 py-3">{t("columns.whatsapp")}</th>
                   <th className="text-start px-4 py-3">{t("columns.type")}</th>
-                  <th className="text-start px-4 py-3">{t("columns.verified")}</th>
                   <th className="text-start px-4 py-3">{t("columns.joined")}</th>
                   <th className="text-end px-4 py-3">{t("columns.actions")}</th>
                 </tr>

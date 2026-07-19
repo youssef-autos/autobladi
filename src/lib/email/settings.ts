@@ -7,8 +7,6 @@ export type EmailType =
   | "annonce_pending"
   | "annonce_approved"
   | "annonce_rejected"
-  | "verification_approved"
-  | "verification_rejected"
   | "annonce_expiring"
   | "contact_notification"
   | "report_notification"
@@ -29,8 +27,6 @@ const DEFAULTS: EmailSettings = {
     annonce_pending: true,
     annonce_approved: true,
     annonce_rejected: true,
-    verification_approved: true,
-    verification_rejected: true,
     annonce_expiring: true,
     contact_notification: true,
     report_notification: true,

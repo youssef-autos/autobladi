@@ -15,8 +15,6 @@ type EmailType =
   | "annonce_pending"
   | "annonce_approved"
   | "annonce_rejected"
-  | "verification_approved"
-  | "verification_rejected"
   | "annonce_expiring"
   | "contact_notification"
   | "report_notification"
@@ -34,8 +32,6 @@ const ALL_TYPES: { key: EmailType; ar: string; fr: string }[] = [
   { key: "annonce_pending", ar: "إعلان قيد المراجعة", fr: "Annonce en revue" },
   { key: "annonce_approved", ar: "إعلان مقبول", fr: "Annonce approuvée" },
   { key: "annonce_rejected", ar: "إعلان مرفوض", fr: "Annonce rejetée" },
-  { key: "verification_approved", ar: "توثيق مقبول", fr: "Vérification approuvée" },
-  { key: "verification_rejected", ar: "توثيق مرفوض", fr: "Vérification rejetée" },
   { key: "annonce_expiring", ar: "إعلان ينتهي قريباً", fr: "Annonce expirant" },
   { key: "contact_notification", ar: "إشعار رسالة تواصل (أدمن)", fr: "Notification contact (admin)" },
   { key: "report_notification", ar: "إشعار بلاغ (أدمن)", fr: "Notification signalement (admin)" },

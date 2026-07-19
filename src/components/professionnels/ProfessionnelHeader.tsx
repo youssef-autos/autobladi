@@ -6,7 +6,6 @@ import { useLocale, useTranslations } from "next-intl"
 
 import { getDealerSocials } from "@/components/professionnels/socials"
 import { Container } from "@/components/ui/Container"
-import { VerifiedBadge } from "@/components/ui/VerifiedBadge"
 import type { ProfessionnelDetail } from "@/lib/queries/professionnels"
 import type { Locale } from "@/i18n/routing"
 
@@ -31,7 +30,6 @@ export function ProfessionnelHeader({ dealer }: Props) {
   const locationLabel = [cityName, secteurName].filter(Boolean).join(" · ")
 
   const isPro = dealer.owner?.account_type === "pro"
-  const isVerified = !!dealer.owner?.is_verified
   const socials = getDealerSocials(dealer)
   const memberYear = new Date(dealer.created_at).getFullYear()
   const rating = Number(dealer.rating).toFixed(1)
@@ -95,14 +93,6 @@ export function ProfessionnelHeader({ dealer }: Props) {
                 <h1 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight truncate">
                   {dealer.name}
                 </h1>
-                {isVerified && (
-                  <VerifiedBadge
-                    label={t("detail.verified")}
-                    tooltip={t("sidebar.verifiedBadge")}
-                    size="lg"
-                    className="shrink-0"
-                  />
-                )}
               </div>
 
               <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-muted-foreground">

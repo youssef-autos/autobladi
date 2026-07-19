@@ -30,7 +30,6 @@ export function UserEditDialog({ open, onOpenChange, user }: Props) {
   const [whatsapp, setWhatsapp] = useState(user.whatsapp ?? "")
   const [city, setCity] = useState(user.city ?? "")
   const [accountType, setAccountType] = useState(user.account_type)
-  const [isVerified, setIsVerified] = useState(user.is_verified)
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -42,7 +41,6 @@ export function UserEditDialog({ open, onOpenChange, user }: Props) {
         whatsapp: whatsapp.trim() || null,
         city: city.trim() || null,
         account_type: accountType,
-        is_verified: isVerified,
       })
       if (!res.ok) {
         toast.error(
@@ -134,18 +132,6 @@ export function UserEditDialog({ open, onOpenChange, user }: Props) {
               </select>
             </Field>
           </div>
-
-          <label className="flex items-center gap-2.5 cursor-pointer select-none">
-            <input
-              type="checkbox"
-              checked={isVerified}
-              onChange={(e) => setIsVerified(e.target.checked)}
-              className="size-4 accent-moroccan-mint-500"
-            />
-            <span className="text-sm font-medium text-foreground">
-              {tForm("verified")}
-            </span>
-          </label>
 
           <div className="flex justify-end gap-2 pt-2">
             <button
