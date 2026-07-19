@@ -33,7 +33,25 @@ export const resetPasswordSchema = z
     message: "validation.passwordMismatch",
   })
 
+export const changeEmailSchema = z.object({
+  newEmail: z.email("validation.invalidEmail"),
+  currentPassword: z.string().min(1, "validation.required"),
+})
+
+export const changePasswordSchema = z
+  .object({
+    currentPassword: z.string().min(1, "validation.required"),
+    newPassword: z.string().min(8, "validation.passwordTooShort"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "validation.passwordMismatch",
+  })
+
 export type SignUpInput = z.infer<typeof signUpSchema>
 export type SignInInput = z.infer<typeof signInSchema>
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>
+export type ChangeEmailInput = z.infer<typeof changeEmailSchema>
+export type ChangePasswordInput = z.infer<typeof changePasswordSchema>

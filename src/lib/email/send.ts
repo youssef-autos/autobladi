@@ -8,6 +8,7 @@ import { AnnonceExpiringEmail } from "./templates/AnnonceExpiringEmail"
 import { AnnoncePendingEmail } from "./templates/AnnoncePendingEmail"
 import { AnnonceRejectedEmail } from "./templates/AnnonceRejectedEmail"
 import { ContactNotificationEmail } from "./templates/ContactNotificationEmail"
+import { EmailChangeEmail } from "./templates/EmailChangeEmail"
 import { NewsletterEmail, type NewsletterItem } from "./templates/NewsletterEmail"
 import { PasswordResetEmail } from "./templates/PasswordResetEmail"
 import { ReportNotificationEmail } from "./templates/ReportNotificationEmail"
@@ -128,6 +129,21 @@ export function sendPasswordResetEmail(args: { to: string; resetUrl: string; lan
     to: args.to,
     subject: lang === "ar" ? "إعادة تعيين كلمة المرور" : "Réinitialisation du mot de passe",
     html: PasswordResetEmail({ resetUrl: args.resetUrl, lang }),
+  })
+}
+
+// Sent to the CURRENT (already-verified) address, not the new one — on this
+// project a single confirmation from the current inbox is what finalizes a
+// Supabase email change, and it doubles as proof the requester really owns
+// the account (see the `email_change_current` link type).
+export function sendEmailChangeEmail(args: { to: string; newEmail: string; confirmUrl: string; lang?: "ar" | "fr" }) {
+  const lang = args.lang ?? "ar"
+  return sendEmail({
+    type: "welcome",
+    alwaysSend: true, // security-critical — never gated behind another toggle
+    to: args.to,
+    subject: lang === "ar" ? "تأكيد تغيير البريد الإلكتروني" : "Confirmer le changement d'e-mail",
+    html: EmailChangeEmail({ newEmail: args.newEmail, confirmUrl: args.confirmUrl, lang }),
   })
 }
 
