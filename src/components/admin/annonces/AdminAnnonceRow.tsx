@@ -11,8 +11,6 @@ import {
   Eye,
   MoreHorizontal,
   Pencil,
-  Sparkles,
-  Star,
   Trash2,
   XCircle,
 } from "lucide-react"
@@ -24,7 +22,6 @@ import {
   deleteAnnonceAdmin,
   rejectAnnonceAdmin,
   setAnnonceStatus,
-  toggleAnnonceFeatured,
 } from "@/app/[locale]/admin/annonces/actions"
 import { Link, useRouter } from "@/i18n/navigation"
 import { RejectDialog } from "@/components/admin/RejectDialog"
@@ -41,7 +38,6 @@ import { PriceTag } from "@/components/ui/PriceTag"
 import type { AdminAnnonceRow as Row } from "@/lib/queries/admin"
 import type { AnnonceStatus } from "@/types/database.types"
 import type { Locale } from "@/i18n/routing"
-import { cn } from "@/lib/utils"
 
 type Props = {
   row: Row
@@ -134,11 +130,6 @@ export function AdminAnnonceRow({ row }: Props) {
                   <Camera className="size-5" strokeWidth={1.2} />
                 </span>
               )}
-              {row.featured && (
-                <span className="absolute top-0.5 start-0.5 inline-flex size-4 items-center justify-center rounded-full bg-moroccan-gold-500 text-white shadow">
-                  <Sparkles className="size-2.5" />
-                </span>
-              )}
             </div>
             <div className="min-w-0">
               <p className="text-sm font-medium text-foreground truncate">
@@ -208,26 +199,6 @@ export function AdminAnnonceRow({ row }: Props) {
               <ExternalLink className="size-4" />
             </Link>
 
-            <button
-              type="button"
-              onClick={() =>
-                run(
-                  () =>
-                    toggleAnnonceFeatured({ id: row.id, featured: !row.featured }),
-                  row.featured ? t("toast.unfeatured") : t("toast.featured"),
-                )
-              }
-              disabled={pending}
-              className={cn(
-                "inline-flex items-center justify-center size-9 rounded-lg hover:bg-moroccan-sand-50 disabled:opacity-50",
-                row.featured ? "text-moroccan-gold-500" : "text-muted-foreground",
-              )}
-              aria-label={row.featured ? t("unfeature") : t("feature")}
-              title={row.featured ? t("unfeature") : t("feature")}
-            >
-              <Star className={cn("size-4", row.featured && "fill-current")} />
-            </button>
-
             <DropdownMenu>
               <DropdownMenuTrigger
                 aria-label={t("columns.actions")}
@@ -294,27 +265,6 @@ export function AdminAnnonceRow({ row }: Props) {
                     </DropdownMenuItem>
                   </>
                 )}
-
-                <DropdownMenuItem
-                  onClick={() =>
-                    run(
-                      () =>
-                        toggleAnnonceFeatured({
-                          id: row.id,
-                          featured: !row.featured,
-                        }),
-                      row.featured ? t("toast.unfeatured") : t("toast.featured"),
-                    )
-                  }
-                  disabled={pending}
-                >
-                  {row.featured ? (
-                    <Star className="size-4 me-2" />
-                  ) : (
-                    <Sparkles className="size-4 me-2 text-moroccan-gold-700" />
-                  )}
-                  {row.featured ? t("unfeature") : t("feature")}
-                </DropdownMenuItem>
 
                 <DropdownMenuSeparator />
                 <DropdownMenuItem

@@ -109,7 +109,7 @@ export function ShowroomInfoForm({ dealer, cities, secteurs }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           brand: name,
-          model: "Concession",
+          model: "Showroom",
           year: new Date().getFullYear(),
           fuelType: "—",
           transmission: "—",

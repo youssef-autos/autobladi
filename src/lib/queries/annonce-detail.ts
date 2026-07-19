@@ -38,7 +38,6 @@ export type AnnonceDetail = {
   video_url: string | null
   status: Tables<"annonces">["status"]
   views_count: number
-  featured: boolean
   published_at: string | null
   created_at: string
   brand_id: string | null
@@ -120,7 +119,6 @@ function mapDetail(row: AnnonceDetailRow): AnnonceDetail {
     video_url: row.video_url,
     status: row.status,
     views_count: row.views_count,
-    featured: row.featured,
     published_at: row.published_at,
     created_at: row.created_at,
     brand_id: row.brand_id,
@@ -165,7 +163,6 @@ function mapSimilar(row: SimilarRow): AnnonceCardData {
     fuel_type: row.fuel_type,
     transmission: row.transmission,
     condition: row.condition,
-    featured: row.featured,
     published_at: row.published_at,
     main_image: main?.url ?? null,
     image_count: images.length,
@@ -186,7 +183,7 @@ export async function getSimilarAnnonces(
   let query = supabase
     .from("annonces")
     .select(
-      `id, slug, title, year, mileage, price, fuel_type, transmission, condition, featured, published_at,
+      `id, slug, title, year, mileage, price, fuel_type, transmission, condition, published_at,
        annonce_images(url, is_main, order_index),
        cities(name_ar, name_fr, slug),
        brands(name, slug, logo_url),
@@ -207,10 +204,7 @@ export async function getSimilarAnnonces(
     query = query.gte("price", source.price * 0.75).lte("price", source.price * 1.25)
   }
 
-  query = query.order("featured", { ascending: false }).order("published_at", {
-    ascending: false,
-    nullsFirst: false,
-  })
+  query = query.order("published_at", { ascending: false, nullsFirst: false })
 
   const { data } = await query
   const rows = (data ?? []) as unknown as SimilarRow[]

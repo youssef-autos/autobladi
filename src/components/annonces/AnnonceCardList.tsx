@@ -12,7 +12,6 @@ import {
 import { useFormatter, useLocale, useTranslations } from "next-intl"
 
 import { Link } from "@/i18n/navigation"
-import { Badge } from "@/components/ui/badge"
 import { FavoriteButton } from "@/components/annonces/FavoriteButton"
 import { PriceTag } from "@/components/ui/PriceTag"
 import { formatMileage } from "@/lib/utils/format"
@@ -97,7 +96,6 @@ export function AnnonceCardList({ annonce, className }: Props) {
                 : t("conditionUsed")}
             </span>
           )}
-          {annonce.featured && <Badge variant="featured">{t("featured")}</Badge>}
         </div>
 
         {annonce.image_count > 1 && (

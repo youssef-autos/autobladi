@@ -7,7 +7,6 @@ import { websiteSchema } from "@/lib/seo/structured-data"
 import { BlogPreview } from "@/components/home/BlogPreview"
 import { BrandsGrid } from "@/components/home/BrandsGrid"
 import { EstimationCTA } from "@/components/home/EstimationCTA"
-import { FeaturedCars } from "@/components/home/FeaturedCars"
 import { HeroSection } from "@/components/home/HeroSection"
 import { LatestCars } from "@/components/home/LatestCars"
 import { Newsletter } from "@/components/home/Newsletter"
@@ -41,11 +40,6 @@ export default async function HomePage({
 
   // Each managed section's rendered node (with its data + Suspense wrapping).
   const sectionNodes: Record<HomeSectionKey, React.ReactNode> = {
-    featured: (
-      <Suspense fallback={<SectionSkeleton />}>
-        <FeaturedCars />
-      </Suspense>
-    ),
     brands: <BrandsGrid brands={popularBrands} />,
     latest: (
       <Suspense fallback={<SectionSkeleton />}>

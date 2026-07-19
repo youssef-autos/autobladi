@@ -115,7 +115,6 @@ export default async function AnnonceDetailPage({
                 images={annonce.images}
                 title={annonce.title}
                 condition={annonce.condition}
-                featured={annonce.featured}
               />
               <h1 className="font-display text-2xl md:text-3xl font-bold text-foreground leading-tight">
                 {annonce.title}

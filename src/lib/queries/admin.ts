@@ -143,7 +143,6 @@ export type AdminAnnonceRow = {
   title: string
   price: number | null
   status: AnnonceStatus
-  featured: boolean
   views_count: number
   created_at: string
   main_image: string | null
@@ -178,7 +177,7 @@ export async function listAllAnnoncesAdmin(
   const { data } = await supabase
     .from("annonces")
     .select(`
-      id, slug, title, price, status, featured, views_count, created_at,
+      id, slug, title, price, status, views_count, created_at,
       annonce_images(url, is_main, order_index),
       profiles(id, full_name, avatar_url, account_type),
       brands(name),
@@ -197,44 +196,6 @@ export async function listAllAnnoncesAdmin(
       title: r.title,
       price: r.price,
       status: r.status,
-      featured: r.featured,
-      views_count: r.views_count,
-      created_at: r.created_at,
-      main_image: main?.url ?? null,
-      user: r.profiles,
-      brand: r.brands,
-      model: r.car_models,
-      city: r.cities,
-    }
-  })
-}
-
-export async function listFeaturedAnnoncesAdmin(): Promise<AdminAnnonceRow[]> {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("annonces")
-    .select(`
-      id, slug, title, price, status, featured, views_count, created_at,
-      annonce_images(url, is_main, order_index),
-      profiles(id, full_name, avatar_url, account_type),
-      brands(name),
-      car_models(name),
-      cities(name_ar, name_fr)
-    `)
-    .eq("featured", true)
-    .order("published_at", { ascending: false, nullsFirst: false })
-    .order("created_at", { ascending: false })
-  const rows = (data ?? []) as unknown as RawAdminAnnonce[]
-  return rows.map((r) => {
-    const images = r.annonce_images ?? []
-    const main = images.find((i) => i.is_main) ?? images[0] ?? null
-    return {
-      id: r.id,
-      slug: r.slug,
-      title: r.title,
-      price: r.price,
-      status: r.status,
-      featured: r.featured,
       views_count: r.views_count,
       created_at: r.created_at,
       main_image: main?.url ?? null,

@@ -179,8 +179,6 @@ export type Database = {
           status: AnnonceStatus
           rejection_reason: string | null
           views_count: number
-          featured: boolean
-          featured_until: string | null
           expires_at: string | null
           published_at: string | null
           created_at: string
@@ -218,8 +216,6 @@ export type Database = {
           status?: AnnonceStatus
           rejection_reason?: string | null
           views_count?: number
-          featured?: boolean
-          featured_until?: string | null
           expires_at?: string | null
           published_at?: string | null
           created_at?: string

@@ -192,7 +192,6 @@ export function FiltersSidebar({
       color: "",
       doors: [],
       options: [],
-      featured: false,
       page: 1,
     })
   }

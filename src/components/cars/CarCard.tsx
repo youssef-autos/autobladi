@@ -12,7 +12,6 @@ import {
 import { useFormatter, useLocale, useTranslations } from "next-intl"
 
 import { Link } from "@/i18n/navigation"
-import { Badge } from "@/components/ui/badge"
 import { CompareButton } from "@/components/compare/CompareButton"
 import { FavoriteButton } from "@/components/annonces/FavoriteButton"
 import { PriceTag } from "@/components/ui/PriceTag"
@@ -101,11 +100,6 @@ export function CarCard({ annonce, className }: Props) {
                 ? t("conditionNew")
                 : t("conditionUsed")}
             </span>
-          )}
-          {annonce.featured && (
-            <Badge variant="featured" className="shadow-sm">
-              {t("featured")}
-            </Badge>
           )}
         </div>
 

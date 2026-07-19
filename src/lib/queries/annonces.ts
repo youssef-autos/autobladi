@@ -27,7 +27,6 @@ function mapAnnonce(row: AnnonceRow): AnnonceCardData {
     fuel_type: row.fuel_type,
     transmission: row.transmission,
     condition: row.condition,
-    featured: row.featured,
     published_at: row.published_at,
     main_image: main?.url ?? null,
     image_count: images.length,
@@ -96,7 +95,7 @@ export async function searchAnnonces(
   ])
 
   const select = `
-    id, slug, title, year, mileage, price, fuel_type, transmission, condition, featured, published_at,
+    id, slug, title, year, mileage, price, fuel_type, transmission, condition, published_at,
     annonce_images(url, is_main, order_index),
     cities(name_ar, name_fr, slug),
     brands(name, slug, logo_url),
@@ -113,7 +112,6 @@ export async function searchAnnonces(
   if (filters.condition) query = query.eq("condition", filters.condition)
   if (filters.transmission) query = query.eq("transmission", filters.transmission)
   if (filters.color) query = query.ilike("color", `%${filters.color}%`)
-  if (filters.featured) query = query.eq("featured", true)
 
   if (brandIds.length) query = query.in("brand_id", brandIds)
   if (modelIds.length) query = query.in("model_id", modelIds)

@@ -29,7 +29,6 @@ export type AnnonceCardData = {
   fuel_type: Tables<"annonces">["fuel_type"]
   transmission: Tables<"annonces">["transmission"]
   condition: Tables<"annonces">["condition"]
-  featured: boolean
   published_at: string | null
   main_image: string | null
   image_count: number
@@ -61,7 +60,6 @@ function mapAnnonce(row: AnnonceRow): AnnonceCardData {
     fuel_type: row.fuel_type,
     transmission: row.transmission,
     condition: row.condition,
-    featured: row.featured,
     published_at: row.published_at,
     main_image: main?.url ?? null,
     image_count: images.length,
@@ -74,25 +72,13 @@ function mapAnnonce(row: AnnonceRow): AnnonceCardData {
 }
 
 const annonceSelect = `
-  id, slug, title, year, mileage, price, fuel_type, transmission, condition, featured, published_at,
+  id, slug, title, year, mileage, price, fuel_type, transmission, condition, published_at,
   annonce_images(url, is_main, order_index),
   cities(name_ar, name_fr, slug),
   brands(name, slug, logo_url),
   car_models(name, slug),
   profiles(full_name, account_type)
 ` as const
-
-export async function getFeaturedAnnonces(limit = 4): Promise<AnnonceCardData[]> {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("annonces")
-    .select(annonceSelect)
-    .eq("status", "active")
-    .eq("featured", true)
-    .order("published_at", { ascending: false, nullsFirst: false })
-    .limit(limit)
-  return (data ?? []).map((r) => mapAnnonce(r as unknown as AnnonceRow))
-}
 
 export async function getLatestAnnonces(limit = 8): Promise<AnnonceCardData[]> {
   const supabase = await createClient()

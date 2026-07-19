@@ -38,29 +38,6 @@ function revalidate() {
 const idSchema = z.uuid()
 
 // ---------------------------------------------------------------------------
-// Toggle "featured" flag
-// ---------------------------------------------------------------------------
-const featuredSchema = z.object({ id: z.uuid(), featured: z.boolean() })
-
-export async function toggleAnnonceFeatured(
-  input: unknown,
-): Promise<AdminAnnonceResult> {
-  const parsed = featuredSchema.safeParse(input)
-  if (!parsed.success) return { ok: false, error: "invalid_input" }
-  const ctx = await adminClient()
-  if (!ctx) return { ok: false, error: "forbidden" }
-
-  const { error } = await ctx.supabase
-    .from("annonces")
-    .update({ featured: parsed.data.featured } as never)
-    .eq("id", parsed.data.id)
-  if (error) return { ok: false, error: error.message }
-
-  revalidate()
-  return { ok: true }
-}
-
-// ---------------------------------------------------------------------------
 // Change status (active / sold / expired / pending / draft)
 // ---------------------------------------------------------------------------
 const statusSchema = z.object({

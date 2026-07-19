@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { Search, Sparkles } from "lucide-react"
+import { Search } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { AdminAnnonceRow } from "@/components/admin/annonces/AdminAnnonceRow"
@@ -30,7 +30,6 @@ export function AnnoncesAdminManager({ annonces }: Props) {
   const t = useTranslations("adminPanel.allAnnoncesPage")
   const [q, setQ] = useState("")
   const [status, setStatus] = useState<StatusFilter>("all")
-  const [featuredOnly, setFeaturedOnly] = useState(false)
 
   const counts = useMemo(() => {
     const map = new Map<StatusFilter, number>()
@@ -44,7 +43,6 @@ export function AnnoncesAdminManager({ annonces }: Props) {
   const filtered = useMemo(() => {
     let rows = annonces
     if (status !== "all") rows = rows.filter((a) => a.status === status)
-    if (featuredOnly) rows = rows.filter((a) => a.featured)
     if (q.trim()) {
       const needle = q.trim().toLowerCase()
       rows = rows.filter(
@@ -56,7 +54,7 @@ export function AnnoncesAdminManager({ annonces }: Props) {
       )
     }
     return rows
-  }, [annonces, status, featuredOnly, q])
+  }, [annonces, status, q])
 
   return (
     <div className="space-y-5">
@@ -108,17 +106,6 @@ export function AnnoncesAdminManager({ annonces }: Props) {
             className="w-full h-11 ps-10 pe-3 rounded-xl border border-border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40 focus:border-moroccan-gold-500/60"
           />
         </div>
-
-        <label className="inline-flex items-center gap-2 h-11 px-3 rounded-xl border border-border bg-card text-sm text-foreground cursor-pointer">
-          <input
-            type="checkbox"
-            checked={featuredOnly}
-            onChange={(e) => setFeaturedOnly(e.target.checked)}
-            className="size-4 accent-moroccan-gold-500"
-          />
-          <Sparkles className="size-4 text-moroccan-gold-500" aria-hidden="true" />
-          {t("featuredOnly")}
-        </label>
       </div>
 
       <p className="text-xs text-muted-foreground">

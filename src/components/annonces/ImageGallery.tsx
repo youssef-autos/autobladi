@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react"
 import Image from "next/image"
-import { Camera, ChevronLeft, ChevronRight, Sparkles, X } from "lucide-react"
+import { Camera, ChevronLeft, ChevronRight, X } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
@@ -14,13 +14,10 @@ type Props = {
   title: string
   /** Vehicle condition — shown as a badge over the main image. */
   condition?: "neuf" | "occasion" | null
-  /** Featured listing — shown as a highlighted badge over the main image. */
-  featured?: boolean
 }
 
-export function ImageGallery({ images, title, condition, featured }: Props) {
+export function ImageGallery({ images, title, condition }: Props) {
   const t = useTranslations("annonceDetail")
-  const tBadges = useTranslations("home.badges")
   const [selected, setSelected] = useState(0)
   const [lightbox, setLightbox] = useState(false)
 
@@ -77,29 +74,21 @@ export function ImageGallery({ images, title, condition, featured }: Props) {
           />
         </button>
 
-        {/* Highlight badges — top start corner (featured first, then condition) */}
-        {(featured || condition) && (
+        {/* Highlight badge — top start corner (vehicle condition) */}
+        {condition && (
           <div className="absolute top-3 start-3 z-20 flex flex-col items-start gap-2">
-            {featured && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-moroccan-gold-500 to-moroccan-gold-600 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-md">
-                <Sparkles className="size-3" aria-hidden="true" />
-                {tBadges("featured")}
-              </span>
-            )}
-            {condition && (
-              <span
-                className={cn(
-                  "inline-flex items-center rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-md",
-                  condition === "neuf"
-                    ? "bg-moroccan-mint-500"
-                    : "bg-moroccan-red-500",
-                )}
-              >
-                {condition === "neuf"
-                  ? t("history.conditionNew")
-                  : t("history.conditionUsed")}
-              </span>
-            )}
+            <span
+              className={cn(
+                "inline-flex items-center rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-md",
+                condition === "neuf"
+                  ? "bg-moroccan-mint-500"
+                  : "bg-moroccan-red-500",
+              )}
+            >
+              {condition === "neuf"
+                ? t("history.conditionNew")
+                : t("history.conditionUsed")}
+            </span>
           </div>
         )}
 

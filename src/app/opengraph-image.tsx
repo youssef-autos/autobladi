@@ -77,7 +77,7 @@ export default function OgImage() {
         >
           <span>10K+ voitures</span>
           <span>•</span>
-          <span>300+ concessions</span>
+          <span>300+ showrooms</span>
           <span>•</span>
           <span>40+ villes</span>
         </div>

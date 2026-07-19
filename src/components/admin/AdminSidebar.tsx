@@ -25,7 +25,6 @@ import {
   Newspaper,
   Search,
   Send,
-  Sparkles,
   Star,
   Tag,
   Users as UsersIcon,
@@ -98,11 +97,6 @@ function makeGroups(counts: Counts): Group[] {
           labelKey: "pendingAnnonces",
           icon: Clock,
           badge: counts.pendingAnnonces,
-        },
-        {
-          href: "/admin/annonces/featured",
-          labelKey: "featuredAnnonces",
-          icon: Sparkles,
         },
         {
           href: "/admin/reports",

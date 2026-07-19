@@ -1,7 +1,6 @@
 import {
   createLoader,
   parseAsArrayOf,
-  parseAsBoolean,
   parseAsInteger,
   parseAsString,
   parseAsStringLiteral,
@@ -43,7 +42,6 @@ export const annoncesSearchParams = {
   color: parseAsString.withDefault(""),
   doors: parseAsArrayOf(parseAsInteger).withDefault([]),
   options: parseAsArrayOf(parseAsString).withDefault([]),
-  featured: parseAsBoolean.withDefault(false),
   sort: parseAsStringLiteral(SORT_VALUES).withDefault("newest"),
   view: parseAsStringLiteral(VIEW_VALUES).withDefault("grid"),
   page: parseAsInteger.withDefault(1),
@@ -67,7 +65,6 @@ export type AnnoncesFilters = {
   color: string
   doors: number[]
   options: string[]
-  featured: boolean
   sort: (typeof SORT_VALUES)[number]
   view: (typeof VIEW_VALUES)[number]
   page: number

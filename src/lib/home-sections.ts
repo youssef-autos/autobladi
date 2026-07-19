@@ -1,7 +1,6 @@
 // Canonical list of toggleable / reorderable home-page sections. The hero,
 // ad banners and decorative dividers are fixed and not managed here.
 export const HOME_SECTION_KEYS = [
-  "featured",
   "brands",
   "latest",
   "why",

@@ -142,7 +142,6 @@ export type DashboardAnnonceRow = {
   published_at: string | null
   created_at: string
   expires_at: string | null
-  featured: boolean
   main_image: string | null
 }
 
@@ -156,7 +155,7 @@ export async function listMyAnnonces(userId: string): Promise<DashboardAnnonceRo
     .from("annonces")
     .select(`
       id, slug, title, price, status, views_count, published_at, created_at,
-      expires_at, featured,
+      expires_at,
       annonce_images(url, is_main, order_index)
     `)
     .eq("user_id", userId)
@@ -176,7 +175,6 @@ export async function listMyAnnonces(userId: string): Promise<DashboardAnnonceRo
       published_at: row.published_at,
       created_at: row.created_at,
       expires_at: row.expires_at,
-      featured: row.featured,
       main_image: main?.url ?? null,
     }
   })
@@ -202,7 +200,7 @@ export async function listMyFavorites(userId: string) {
     .select(`
       id, annonce_id, created_at,
       annonces(
-        id, slug, title, year, mileage, price, fuel_type, transmission, condition, featured, published_at, status,
+        id, slug, title, year, mileage, price, fuel_type, transmission, condition, published_at, status,
         annonce_images(url, is_main, order_index),
         cities(name_ar, name_fr, slug),
         brands(name, slug, logo_url),
@@ -232,7 +230,6 @@ export async function listMyFavorites(userId: string) {
           fuel_type: a.fuel_type,
           transmission: a.transmission,
           condition: a.condition,
-          featured: a.featured,
           published_at: a.published_at,
           main_image: main?.url ?? null,
           image_count: images.length,

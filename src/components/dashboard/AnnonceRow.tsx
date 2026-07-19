@@ -9,7 +9,6 @@ import {
   MoreHorizontal,
   Pencil,
   RotateCcw,
-  Sparkles,
   Trash2,
 } from "lucide-react"
 import { useFormatter, useLocale, useTranslations } from "next-intl"
@@ -19,9 +18,7 @@ import {
   deleteMyAnnonce,
   markAsSold,
   renewAnnonce,
-  toggleFeatured,
 } from "@/app/[locale]/dashboard/annonces/actions"
-import { useUser } from "@/hooks/use-user"
 import { Link } from "@/i18n/navigation"
 import {
   Dialog,
@@ -64,9 +61,6 @@ export function AnnonceRow({ row }: Props) {
   const t = useTranslations("dashboard.annoncesPage")
   const locale = useLocale() as Locale
   const format = useFormatter()
-  const { profile } = useUser()
-  const isPro =
-    profile?.account_type === "pro" || profile?.account_type === "admin"
   const [pending, startTransition] = useTransition()
   const [confirmOpen, setConfirmOpen] = useState(false)
 
@@ -102,14 +96,6 @@ export function AnnonceRow({ row }: Props) {
             ) : (
               <span className="absolute inset-0 grid place-items-center text-moroccan-sand-200">
                 <Camera className="size-5" strokeWidth={1.2} aria-hidden="true" />
-              </span>
-            )}
-            {row.featured && (
-              <span
-                aria-hidden
-                className="absolute -top-1 -end-1 inline-flex items-center justify-center size-4 rounded-full bg-moroccan-gold-500 ring-2 ring-background"
-              >
-                <Sparkles className="size-2.5 text-white" />
               </span>
             )}
           </div>
@@ -177,32 +163,6 @@ export function AnnonceRow({ row }: Props) {
                 >
                   <RotateCcw className="size-4 me-2 text-moroccan-red-500" />
                   {t("actions.renew")}
-                </DropdownMenuItem>
-              )}
-              {isPro ? (
-                <DropdownMenuItem
-                  onClick={() =>
-                    handleAction(
-                      () => toggleFeatured(row.id),
-                      row.featured ? "unfeatured" : "featured",
-                    )
-                  }
-                  disabled={pending}
-                >
-                  <Sparkles
-                    className={cn(
-                      "size-4 me-2",
-                      row.featured
-                        ? "text-muted-foreground"
-                        : "text-moroccan-gold-700",
-                    )}
-                  />
-                  {row.featured ? t("actions.unfeature") : t("actions.feature")}
-                </DropdownMenuItem>
-              ) : (
-                <DropdownMenuItem render={<Link href="/dashboard/showroom" />}>
-                  <Sparkles className="size-4 me-2 text-moroccan-gold-700" />
-                  {t("actions.featureProOnly")}
                 </DropdownMenuItem>
               )}
               <DropdownMenuSeparator />

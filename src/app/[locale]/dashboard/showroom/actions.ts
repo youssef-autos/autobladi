@@ -50,8 +50,8 @@ export async function becomeProfessional(): Promise<UpdateResult> {
     .from("professionnels")
     .insert({
       user_id: user.id,
-      name: `Concession ${shortId}`,
-      slug: `concession-${shortId}`,
+      name: `Showroom ${shortId}`,
+      slug: `showroom-${shortId}`,
       is_active: false,
     } as never)
     .select("slug")
