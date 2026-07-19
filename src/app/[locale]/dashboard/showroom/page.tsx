@@ -49,7 +49,7 @@ export default async function ShowroomDashboardPage({
         </div>
         {dealer.is_active && (
           <Link
-            href={`/professionnel/${dealer.slug}`}
+            href={`/showroom/${dealer.slug}`}
             className="inline-flex items-center gap-1.5 text-sm font-medium text-moroccan-red-500 hover:underline"
           >
             <ExternalLink className="size-4" aria-hidden="true" />

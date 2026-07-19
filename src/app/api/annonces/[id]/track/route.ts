@@ -56,7 +56,7 @@ function inferSource(referrer: unknown, requestOrigin: string): string {
   const path = url.pathname.replace(/^\/(ar|fr)(?=\/|$)/, "")
   if (path === "" || path === "/") return "homepage"
   if (path === "/annonces" || path.startsWith("/annonces?")) return "search"
-  if (url.pathname.includes("/professionnel/")) return "dealer_page"
+  if (url.pathname.includes("/showroom/")) return "dealer_page"
   return "other"
 }
 

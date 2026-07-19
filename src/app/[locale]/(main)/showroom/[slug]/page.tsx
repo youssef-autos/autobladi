@@ -42,7 +42,7 @@ export async function generateMetadata({
   return {
     title: dealer.name,
     description,
-    alternates: localeAlternates(locale, `/professionnel/${dealer.slug}`),
+    alternates: localeAlternates(locale, `/showroom/${dealer.slug}`),
     openGraph: {
       title: dealer.name,
       description,
@@ -170,12 +170,12 @@ export default async function ProfessionnelDetailPage({
             url: `${SITE_URL}/${locale}`,
           },
           {
-            name: locale === "fr" ? "Professionnels" : "التجار المحترفون",
-            url: `${SITE_URL}/${locale}/professionnels`,
+            name: locale === "fr" ? "Showrooms" : "المعارض",
+            url: `${SITE_URL}/${locale}/showrooms`,
           },
           {
             name: dealer.name,
-            url: `${SITE_URL}/${locale}/professionnel/${dealer.slug}`,
+            url: `${SITE_URL}/${locale}/showroom/${dealer.slug}`,
           },
         ])}
       />

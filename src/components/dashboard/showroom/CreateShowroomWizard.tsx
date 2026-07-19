@@ -741,7 +741,7 @@ function PreviewCard({
       <div className="px-5 pb-5 pt-3 space-y-2">
         <h3 className="font-display text-lg font-bold text-foreground">{name}</h3>
         <p className="text-xs text-muted-foreground font-mono" dir="ltr">
-          /professionnel/{slug}
+          /showroom/{slug}
         </p>
         {cityName && (
           <p className="inline-flex items-center gap-1 text-xs text-muted-foreground">

@@ -79,7 +79,7 @@ export async function generateMetadata({
     : "autobladi.ma — Achat et vente de voitures au Maroc"
   const description = ar
     ? "موقعك الأول لبيع وشراء السيارات الجديدة والمستعملة في المغرب. تقدير مجاني بالذكاء الاصطناعي، معارض احترافية، تواصل آمن مباشر."
-    : "La 1ère plateforme pour acheter et vendre des voitures neuves et d'occasion au Maroc. Estimation gratuite par IA, showrooms professionnels, contact direct sécurisé."
+    : "La 1ère plateforme pour acheter et vendre des voitures neuves et d'occasion au Maroc. Estimation gratuite par IA, showrooms auto, contact direct sécurisé."
 
   return {
     metadataBase: new URL(SITE_URL),
@@ -105,7 +105,7 @@ export async function generateMetadata({
           "vente voiture",
           "occasion Maroc",
           "voiture neuve",
-          "professionnel Maroc",
+          "showroom Maroc",
           "estimation prix voiture",
           "autobladi",
         ],

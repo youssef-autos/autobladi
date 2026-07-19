@@ -31,7 +31,7 @@ export async function generateMetadata({
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
-    alternates: localeAlternates(locale, `/professionnels`),
+    alternates: localeAlternates(locale, `/showrooms`),
   }
 }
 
@@ -102,7 +102,7 @@ export default async function ProfessionnelsPage({
       <JsonLd
         data={itemListSchema(
           result.items.map((d) => ({
-            url: `${SITE_URL}/${locale}/professionnel/${d.slug}`,
+            url: `${SITE_URL}/${locale}/showroom/${d.slug}`,
             name: d.name,
           })),
         )}

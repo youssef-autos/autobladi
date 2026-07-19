@@ -79,7 +79,7 @@ export function SellerCard({ seller, otherCount, showroom }: Props) {
 
       {showroom && (
         <Link
-          href={`/professionnel/${showroom.slug}`}
+          href={`/showroom/${showroom.slug}`}
           className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-moroccan-red-500/30 bg-moroccan-red-50 px-4 h-10 text-sm font-semibold text-moroccan-red-600 hover:bg-moroccan-red-500 hover:text-white transition-colors"
         >
           <Store className="size-4" aria-hidden="true" />

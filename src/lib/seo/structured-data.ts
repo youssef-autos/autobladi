@@ -160,7 +160,7 @@ export function autoDealerSchema(d: AutoDealerInput) {
     "@context": "https://schema.org",
     "@type": "AutoDealer",
     name: d.name,
-    url: `${SITE_URL}/${d.locale}/professionnel/${d.slug}`,
+    url: `${SITE_URL}/${d.locale}/showroom/${d.slug}`,
   }
   if (d.description) data.description = d.description.slice(0, 5000)
   if (d.logoUrl) data.image = d.logoUrl

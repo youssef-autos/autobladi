@@ -21,6 +21,22 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }]
   },
+  async redirects() {
+    // The dealer pages were renamed from /professionnel(s) to /showroom(s).
+    // Keep old shared/indexed links working with permanent redirects.
+    return [
+      {
+        source: "/:locale(ar|fr)/professionnels",
+        destination: "/:locale/showrooms",
+        permanent: true,
+      },
+      {
+        source: "/:locale(ar|fr)/professionnel/:slug",
+        destination: "/:locale/showroom/:slug",
+        permanent: true,
+      },
+    ]
+  },
   async rewrites() {
     // Ad-blocker evasion: serve storage images from a neutral first-party path
     // (`/media/*`) that proxies to the Supabase `ads` bucket. The browser never

@@ -110,7 +110,7 @@ function makeGroups(counts: Counts): Group[] {
       labelKey: "professionnels",
       items: [
         {
-          href: "/admin/professionnels",
+          href: "/admin/showrooms",
           labelKey: "allProfessionnels",
           icon: Building2,
         },

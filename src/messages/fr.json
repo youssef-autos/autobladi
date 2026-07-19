@@ -18,17 +18,17 @@
     "hero": {
       "badge": "Plateforme 100% marocaine",
       "headline": "Votre prochaine voiture commence ici",
-      "subline": "Des milliers de voitures neuves et d'occasion, des showrooms professionnels et une estimation instantanée des prix — le tout au même endroit.",
+      "subline": "Des milliers de voitures neuves et d'occasion, des showrooms et une estimation instantanée des prix — le tout au même endroit.",
       "features": {
         "ai": "Estimation instantanée des prix par IA",
         "secure": "Contact direct et sécurisé entre vendeur et acheteur",
-        "dealers": "Showrooms et professionnels dans tout le Maroc"
+        "dealers": "Des showrooms dans tout le Maroc"
       },
       "stats": {
         "cars": "10K+",
         "carsLabel": "voitures en ligne",
         "dealers": "300+",
-        "dealersLabel": "showrooms professionnels",
+        "dealersLabel": "showrooms",
         "cities": "40+",
         "citiesLabel": "villes marocaines"
       }
@@ -113,7 +113,7 @@
     "byBrand": "Par marque",
     "byCategory": "Par catégorie",
     "byCity": "Par ville",
-    "professionnels": "Professionnels",
+    "professionnels": "Showrooms",
     "estimation": "Estimation",
     "compare": "Comparer",
     "blog": "Blog",
@@ -142,8 +142,8 @@
     "forPros": "Pour les pros"
   },
   "professionnels": {
-    "metaTitle": "Professionnels automobile au Maroc",
-    "metaDescription": "Découvrez les meilleurs professionnels automobile au Maroc — avis, voitures disponibles et coordonnées.",
+    "metaTitle": "Showrooms automobile au Maroc",
+    "metaDescription": "Découvrez les meilleurs showrooms automobile au Maroc — avis, voitures disponibles et coordonnées.",
     "detail": {
       "carsAvailable": "Voitures en stock",
       "rating": "Note moyenne",
@@ -158,13 +158,13 @@
       "filterNew": "Neuf",
       "filterUsed": "Occasion",
       "proCtaTitle": "Vous gérez un showroom ?",
-      "proCtaText": "Créez votre vitrine professionnelle sur autobladi.ma et présentez tout votre stock à des milliers d'acheteurs chaque mois.",
+      "proCtaText": "Créez votre showroom sur autobladi.ma et présentez tout votre stock à des milliers d'acheteurs chaque mois.",
       "proCtaButton": "Devenir partenaire"
     },
     "list": {
-      "title": "Découvrez les meilleurs professionnels au Maroc",
-      "subtitle": "Professionnels avec des avis authentiques",
-      "search": "Rechercher un professionnel...",
+      "title": "Découvrez les meilleurs showrooms au Maroc",
+      "subtitle": "Showrooms avec des avis authentiques",
+      "search": "Rechercher un showroom...",
       "filters": "Filtres",
       "filterCity": "Ville",
       "filterMinRating": "Note minimale",
@@ -173,11 +173,11 @@
       "sortMostCars": "Plus de voitures",
       "sortBestRating": "Mieux notés",
       "sortNewest": "Plus récents",
-      "resultsCount": "{count} professionnel(s)",
+      "resultsCount": "{count} showroom(s)",
       "carsCount": "{count} voiture(s)",
       "reviewsCount": "{count} avis",
       "visit": "Visiter",
-      "empty": "Aucun professionnel trouvé",
+      "empty": "Aucun showroom trouvé",
       "emptyDesc": "Essayez de modifier ou d'effacer les filtres",
       "noCityResults": "Aucune ville trouv?e"
     },
@@ -189,7 +189,7 @@
     },
     "about": {
       "description": "Présentation",
-      "noDescription": "Le professionnel n'a pas encore ajouté de description.",
+      "noDescription": "Le showroom n'a pas encore ajouté de description.",
       "hours": "Horaires d'ouverture",
       "address": "Adresse",
       "contact": "Contact",
@@ -217,7 +217,7 @@
       "submit": "Publier l'avis",
       "submitting": "Publication...",
       "loginRequired": "Connectez-vous pour laisser un avis",
-      "alreadyReviewed": "Vous avez déjà évalué ce professionnel",
+      "alreadyReviewed": "Vous avez déjà évalué ce showroom",
       "successTitle": "Merci pour votre avis",
       "successDesc": "Vous aidez les futurs acheteurs",
       "error": "Publication impossible",
@@ -232,7 +232,7 @@
       "comingSoon": "Statistiques détaillées bientôt"
     },
     "sidebar": {
-      "contactCta": "Contacter le professionnel",
+      "contactCta": "Contacter le showroom",
       "follow": "Suivre",
       "callNow": "Appeler",
       "whatsapp": "WhatsApp",
@@ -240,13 +240,13 @@
       "email": "E-mail"
     },
     "similar": {
-      "title": "Professionnels similaires",
-      "empty": "Aucun professionnel similaire"
+      "title": "Showrooms similaires",
+      "empty": "Aucun showroom similaire"
     },
     "notFound": {
-      "title": "Professionnel introuvable",
+      "title": "Showroom introuvable",
       "desc": "Peut-être supprimé ou pas encore activé",
-      "back": "Tous les professionnels"
+      "back": "Tous les showrooms"
     }
   },
   "showroom": {
@@ -267,7 +267,7 @@
       "title": "Informations",
       "name": "Nom du showroom",
       "slug": "Identifiant URL",
-      "slugHelp": "Apparaît dans l'URL : /professionnel/{slug}",
+      "slugHelp": "Apparaît dans l'URL : /showroom/{slug}",
       "logo": "Logo",
       "uploadLogo": "Changer le logo",
       "logoHint": "Carré · PNG transparent recommandé · 400×400 px",
@@ -348,7 +348,7 @@
       },
       "advantages": {
         "title": "Ce que votre showroom vous apporte",
-        "storefront": "Une vitrine professionnelle dédiée",
+        "storefront": "Une vitrine dédiée",
         "badge": "Badge « Pro » sur toutes vos annonces",
         "allCars": "Toutes vos voitures regroupées au même endroit",
         "reviews": "Avis et notes de vos clients"
@@ -383,7 +383,7 @@
       "favoris": "Favoris",
       "messages": "Messages",
       "compte": "Mon compte",
-      "upgrade": "Devenir professionnel",
+      "upgrade": "Créer un showroom",
       "showroom": "Mon showroom",
       "adminPanel": "Panneau admin",
       "signOut": "Déconnexion",
@@ -700,7 +700,7 @@
       "allAnnonces": "Toutes les annonces",
       "pendingAnnonces": "Annonces à valider",
       "reports": "Signalements",
-      "allProfessionnels": "Tous les professionnels",
+      "allProfessionnels": "Tous les showrooms",
       "reviews": "Avis",
       "plans": "Formules",
       "pendingSubs": "Abonnements à valider",
@@ -870,18 +870,18 @@
       }
     },
     "professionnelsPage": {
-      "title": "Professionnels",
+      "title": "Showrooms",
       "subtitle": "Gérez les showrooms et leur visibilité sur le site",
       "search": "Rechercher par nom ou propriétaire...",
       "showInactive": "Inclure les inactifs",
-      "count": "{count} professionnel(s)",
+      "count": "{count} showroom(s)",
       "active": "Actif",
       "inactive": "Inactif",
-      "empty": "Aucun professionnel",
+      "empty": "Aucun showroom",
       "emptyDesc": "Les showrooms créés par les comptes Pro apparaîtront ici",
-      "noResults": "Aucun professionnel ne correspond à votre recherche",
+      "noResults": "Aucun showroom ne correspond à votre recherche",
       "columns": {
-        "name": "Professionnel",
+        "name": "Showroom",
         "city": "Ville",
         "owner": "Propriétaire",
         "rating": "Note",
@@ -894,11 +894,11 @@
       "activate": "Activer",
       "deactivate": "Désactiver",
       "delete": "Supprimer",
-      "deleteConfirm": "Supprimer définitivement le professionnel « {name} » ?",
+      "deleteConfirm": "Supprimer définitivement le showroom « {name} » ?",
       "toast": {
-        "activated": "Professionnel activé",
-        "deactivated": "Professionnel désactivé",
-        "deleted": "Professionnel supprimé",
+        "activated": "Showroom activé",
+        "deactivated": "Showroom désactivé",
+        "deleted": "Showroom supprimé",
         "error": "Une erreur est survenue"
       }
     },
@@ -1000,7 +1000,7 @@
         "brands": "Marques",
         "latest": "Dernières annonces",
         "why": "Pourquoi autobladi.ma",
-        "dealers": "Top professionnels",
+        "dealers": "Top showrooms",
         "estimation": "Estimation de prix",
         "blog": "Blog",
         "newsletter": "Newsletter"
@@ -1208,19 +1208,19 @@
       }
     },
     "reviewsPage": {
-      "title": "Avis sur les professionnels",
+      "title": "Avis sur les showrooms",
       "subtitle": "Modérez les avis abusifs ou inappropriés",
       "ratingTabs": {
         "all": "Tous"
       },
-      "search": "Rechercher par professionnel, auteur ou texte...",
+      "search": "Rechercher par showroom, auteur ou texte...",
       "count": "{count} avis",
       "empty": "Aucun avis",
       "emptyDesc": "Les avis laissés par les utilisateurs apparaîtront ici.",
       "noResults": "Aucun avis ne correspond à votre recherche",
       "noComment": "Sans commentaire",
       "columns": {
-        "dealer": "Professionnel",
+        "dealer": "Showroom",
         "author": "Auteur",
         "rating": "Note",
         "comment": "Commentaire",
@@ -1841,7 +1841,7 @@
       "durationHelp": "L'annonce reste publiée pendant cette durée avant expiration automatique. Définissez une durée distincte selon le type de compte.",
       "durationGratuit": "Comptes gratuits (jours)",
       "durationGratuitHelp": "Durée des annonces des particuliers",
-      "durationPro": "Comptes professionnels (jours)",
+      "durationPro": "Comptes pro (jours)",
       "durationProHelp": "Durée des annonces des comptes pro",
       "aiProvider": "Intelligence artificielle",
       "aiProviderLabel": "Modèle utilisé pour l'estimation et les descriptions",
@@ -2146,7 +2146,7 @@
       "q1": "Quel est le prix des voitures {brand} au Maroc ?",
       "a1": "Le prix des voitures {brand} varie selon le modèle, l'année, le kilométrage et l'état. Consultez les annonces ci-dessus pour les prix actuels, ou utilisez l'outil d'estimation gratuit sur autobladi.ma.",
       "q2": "Où trouver des voitures {brand} à vendre au Maroc ?",
-      "a2": "Sur autobladi.ma, vous trouvez des annonces de voitures {brand} de particuliers et de professionnels dans plusieurs villes marocaines, avec photos, détails et contact direct.",
+      "a2": "Sur autobladi.ma, vous trouvez des annonces de voitures {brand} de particuliers et de showrooms dans plusieurs villes marocaines, avec photos, détails et contact direct.",
       "q3": "Puis-je vendre ma voiture {brand} sur autobladi ?",
       "a3": "Oui, vous pouvez publier gratuitement une annonce pour vendre votre voiture {brand}, avec la possibilité d'estimer son prix par IA au préalable."
     },
@@ -2161,7 +2161,7 @@
     "metaDescCityHub": "Parcourez les annonces de voitures à vendre à {city} : occasion et neuf de toutes les marques, prix à jour, photos et contact direct sur autobladi.ma.",
     "cityFaq": {
       "q1": "Où trouver des voitures à vendre à {city} ?",
-      "a1": "Sur autobladi.ma, vous trouvez des annonces de voitures à vendre à {city} de particuliers et de professionnels, avec photos, prix et contact direct.",
+      "a1": "Sur autobladi.ma, vous trouvez des annonces de voitures à vendre à {city} de particuliers et de showrooms, avec photos, prix et contact direct.",
       "q2": "Quels sont les prix des voitures d'occasion à {city} ?",
       "a2": "Les prix varient selon la marque, le modèle, l'année et l'état. Consultez les annonces ci-dessus pour les prix actuels à {city}, ou utilisez l'outil d'estimation gratuit.",
       "q3": "Puis-je vendre ma voiture à {city} sur autobladi ?",
@@ -2261,7 +2261,7 @@
       "searchNow": "Rechercher",
       "advancedSearch": "Recherche avancée",
       "statsCars": "annonces",
-      "statsDealers": "professionnels",
+      "statsDealers": "showrooms",
       "statsCities": "villes"
     },
     "brands": {
@@ -2287,16 +2287,16 @@
       "compareDesc": "Comparez jusqu'à 4 voitures côte à côte : prix, kilométrage et équipements.",
       "searchTitle": "Recherche avancée",
       "searchDesc": "Filtrez par marque, modèle, ville, budget et des dizaines de critères.",
-      "dealersTitle": "Showrooms professionnels",
-      "dealersDesc": "Des showrooms et professionnels avec une vitrine dédiée pour chaque activité."
+      "dealersTitle": "Showrooms",
+      "dealersDesc": "Des showrooms avec une vitrine dédiée pour chaque activité."
     },
     "topDealers": {
-      "title": "Top professionnels",
-      "subtitle": "Les professionnels les mieux notés sur le site",
+      "title": "Top showrooms",
+      "subtitle": "Les showrooms les mieux notés sur le site",
       "visit": "Visiter",
       "carsCount": "{count} voitures",
       "reviews": "{count} avis",
-      "empty": "Aucun professionnel pour le moment"
+      "empty": "Aucun showroom pour le moment"
     },
     "estimationCta": {
       "title": "Vous voulez vendre votre voiture ?",
@@ -2328,7 +2328,7 @@
     "exploreItems": {
       "all": "Toutes les annonces",
       "popular": "Voitures populaires",
-      "dealers": "Professionnels",
+      "dealers": "Showrooms",
       "estimation": "Estimer un prix"
     },
     "company": "Société",
@@ -2454,7 +2454,7 @@
       "visitsValue": "+250K",
       "annoncesLabel": "Annonces actives",
       "annoncesValue": "+10K",
-      "dealersLabel": "Showrooms professionnels",
+      "dealersLabel": "Showrooms",
       "dealersValue": "+300",
       "citiesLabel": "Villes couvertes",
       "citiesValue": "+40"
@@ -2473,7 +2473,7 @@
     },
     "placements": {
       "title": "Où apparaît votre publicité",
-      "subtitle": "15 emplacements stratégiques sur l'accueil, les pages annonces, les professionnels et le blog",
+      "subtitle": "15 emplacements stratégiques sur l'accueil, les pages annonces, les showrooms et le blog",
       "items": {
         "home": "Page d'accueil",
         "homeDesc": "Haut, milieu et bas de la page — visibilité maximale",
@@ -2481,7 +2481,7 @@
         "listingsDesc": "Dans les filtres, entre les annonces ou au-dessus des résultats",
         "annonce": "Pages de détail",
         "annonceDesc": "À côté des coordonnées du vendeur, en haut ou en bas",
-        "professionnel": "Pages professionnel",
+        "professionnel": "Pages showroom",
         "professionnelDesc": "Devant des utilisateurs prêts à acheter",
         "blog": "Blog",
         "blogDesc": "Contenu automobile, conseils et actualités du marché",

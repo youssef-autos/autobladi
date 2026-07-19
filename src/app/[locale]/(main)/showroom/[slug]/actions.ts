@@ -44,7 +44,7 @@ export async function addReview(input: unknown): Promise<ReviewActionResult> {
     return { ok: false, error: error.message }
   }
 
-  revalidatePath(`/professionnel/${dealer.slug}`)
+  revalidatePath(`/showroom/${dealer.slug}`)
   return { ok: true }
 }
 

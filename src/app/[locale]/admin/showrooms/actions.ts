@@ -23,9 +23,9 @@ async function adminClient() {
 }
 
 function revalidate() {
-  revalidatePath("/admin/professionnels")
+  revalidatePath("/admin/showrooms")
   revalidatePath("/admin")
-  revalidatePath("/professionnels")
+  revalidatePath("/showrooms")
 }
 
 const toggleSchema = z.object({ id: z.uuid(), is_active: z.boolean() })

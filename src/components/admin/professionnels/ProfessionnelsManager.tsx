@@ -17,7 +17,7 @@ import { toast } from "sonner"
 import {
   deleteProfessionnel,
   toggleProfessionnelActive,
-} from "@/app/[locale]/admin/professionnels/actions"
+} from "@/app/[locale]/admin/showrooms/actions"
 import { Link } from "@/i18n/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -284,7 +284,7 @@ export function ProfessionnelsManager({ professionnels }: Props) {
                       <td className="px-4 py-3">
                         <div className="flex items-center justify-end gap-1">
                           <Link
-                            href={`/professionnel/${row.slug}`}
+                            href={`/showroom/${row.slug}`}
                             target="_blank"
                             className="inline-flex items-center justify-center size-9 rounded-lg text-muted-foreground hover:bg-moroccan-sand-50 hover:text-foreground"
                             aria-label={t("preview")}

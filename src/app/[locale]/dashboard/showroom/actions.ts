@@ -58,7 +58,7 @@ export async function submitProfessionnel(input: unknown): Promise<UpdateResult>
     return { ok: false, error: error.message }
   }
 
-  revalidatePath("/professionnels")
+  revalidatePath("/showrooms")
   revalidatePath("/dashboard/showroom")
   return { ok: true, slug: payload.slug }
 }
@@ -98,9 +98,9 @@ export async function updateMyProfessionnel(
     return { ok: false, error: error.message }
   }
 
-  revalidatePath(`/professionnel/${payload.slug}`)
-  revalidatePath(`/professionnel/${existing.slug}`)
-  revalidatePath("/professionnels")
+  revalidatePath(`/showroom/${payload.slug}`)
+  revalidatePath(`/showroom/${existing.slug}`)
+  revalidatePath("/showrooms")
   revalidatePath("/dashboard/showroom")
   return { ok: true, slug: payload.slug }
 }

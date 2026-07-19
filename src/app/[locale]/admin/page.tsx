@@ -73,7 +73,7 @@ export default async function AdminDashboardPage({
       value: counts.professionnels,
       icon: Building2,
       accent: "default",
-      href: "/admin/professionnels",
+      href: "/admin/showrooms",
     },
     {
       label: t("stats.pendingReports"),

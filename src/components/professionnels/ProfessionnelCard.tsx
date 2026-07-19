@@ -38,7 +38,7 @@ export function ProfessionnelCard({ dealer, className }: Props) {
       )}
     >
       <Link
-        href={`/professionnel/${dealer.slug}`}
+        href={`/showroom/${dealer.slug}`}
         className="absolute inset-0 z-10"
         aria-label={dealer.name}
       />

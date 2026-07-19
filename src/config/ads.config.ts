@@ -182,10 +182,10 @@ export const AD_SLOTS: Record<string, AdSlotConfig> = {
     lazy: true,
   },
 
-  // ---- Professionnel detail ---------------------------------------------
+  // ---- Showroom detail --------------------------------------------------
   professionnel_top: {
     id: "professionnel_top",
-    label: "Professionnel — Haut",
+    label: "Showroom — Haut",
     enabled: true,
     device: "both",
     defaultProvider: "direct",
@@ -195,7 +195,7 @@ export const AD_SLOTS: Record<string, AdSlotConfig> = {
   },
   professionnel_sidebar: {
     id: "professionnel_sidebar",
-    label: "Professionnel — Colonne latérale",
+    label: "Showroom — Colonne latérale",
     enabled: true,
     device: "desktop",
     defaultProvider: "direct",

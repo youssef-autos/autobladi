@@ -80,7 +80,7 @@ export function Header({ logoUrl }: HeaderProps) {
           <nav className="hidden lg:flex items-center gap-1 ms-6">
             <NavLink href="/">{t("home")}</NavLink>
             <NavLink href="/annonces">{t("annonces")}</NavLink>
-            <NavLink href="/professionnels">{t("professionnels")}</NavLink>
+            <NavLink href="/showrooms">{t("professionnels")}</NavLink>
             <NavLink href="/estimation">{t("estimation")}</NavLink>
             <NavLink href="/comparer">{t("compare")}</NavLink>
             <NavLink href="/blog">{t("blog")}</NavLink>

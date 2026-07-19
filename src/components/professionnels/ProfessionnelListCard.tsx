@@ -27,7 +27,7 @@ type Props = {
 }
 
 /**
- * Polished dealer card for the public listing (/professionnels): 3:1 cover
+ * Polished dealer card for the public listing (/showrooms): 3:1 cover
  * with overlapping logo, Pro badge, rating, and a clear CTA.
  */
 export function ProfessionnelListCard({ dealer, className }: Props) {
@@ -49,7 +49,7 @@ export function ProfessionnelListCard({ dealer, className }: Props) {
       )}
     >
       <Link
-        href={`/professionnel/${dealer.slug}`}
+        href={`/showroom/${dealer.slug}`}
         className="absolute inset-0 z-10"
         aria-label={dealer.name}
       />

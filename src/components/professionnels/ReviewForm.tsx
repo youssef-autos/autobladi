@@ -5,7 +5,7 @@ import { Star } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 
-import { addReview } from "@/app/[locale]/(main)/professionnel/[slug]/actions"
+import { addReview } from "@/app/[locale]/(main)/showroom/[slug]/actions"
 import { Link } from "@/i18n/navigation"
 import { Textarea } from "@/components/ui/textarea"
 import { useUser } from "@/hooks/use-user"

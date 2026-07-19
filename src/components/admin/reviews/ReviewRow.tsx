@@ -48,7 +48,7 @@ export function ReviewRow({ row }: Props) {
       <td className="px-4 py-3">
         {row.dealer ? (
           <Link
-            href={`/professionnel/${row.dealer.slug}`}
+            href={`/showroom/${row.dealer.slug}`}
             className="flex items-center gap-2.5 min-w-0 group"
           >
             <span className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-moroccan-sand-100">

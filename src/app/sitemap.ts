@@ -9,7 +9,7 @@ const LOCALES = ["ar", "fr"] as const
 const STATIC_PATHS = [
   "",
   "/annonces",
-  "/professionnels",
+  "/showrooms",
   "/estimation",
   "/blog",
 ] as const
@@ -119,7 +119,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   type DealerRow = { slug: string; updated_at: string }
   const dealerEntries = ((dealers ?? []) as unknown as DealerRow[]).flatMap((d) =>
     entriesFor({
-      path: `/professionnel/${d.slug}`,
+      path: `/showroom/${d.slug}`,
       lastModified: new Date(d.updated_at ?? now),
       changeFrequency: "weekly",
       priority: 0.6,
