@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl"
 
 import { Link } from "@/i18n/navigation"
 import { useCompare } from "@/hooks/use-compare"
-import { origineLabel } from "@/lib/vehicle-options"
+import { colorLabel, origineLabel, transmissionLabel } from "@/lib/vehicle-options"
 import { formatMileage, formatPrice } from "@/lib/utils/format"
 import type { CompareCar } from "@/app/[locale]/(main)/comparer/actions"
 import type { Locale } from "@/i18n/routing"
@@ -49,7 +49,11 @@ export function CompareTable({ cars }: Props) {
     {
       label: t("rows.price"),
       render: (c) =>
-        c.price != null ? (
+        c.price_on_request ? (
+          <span className="font-medium text-foreground/80">
+            {isAr ? "السعر عند الطلب" : "Prix sur demande"}
+          </span>
+        ) : c.price != null ? (
           <span className="font-bold text-moroccan-red-600">
             {formatPrice(c.price, locale)}
           </span>
@@ -72,16 +76,7 @@ export function CompareTable({ cars }: Props) {
     },
     {
       label: t("rows.transmission"),
-      render: (c) =>
-        c.transmission
-          ? c.transmission === "automatique"
-            ? isAr
-              ? "أوتوماتيك"
-              : "Automatique"
-            : isAr
-              ? "عادي"
-              : "Manuelle"
-          : dash,
+      render: (c) => transmissionLabel(c.transmission, locale) ?? dash,
     },
     {
       label: t("rows.condition"),
@@ -96,7 +91,7 @@ export function CompareTable({ cars }: Props) {
               : "Occasion"
           : dash,
     },
-    { label: t("rows.color"), render: (c) => c.color || dash },
+    { label: t("rows.color"), render: (c) => colorLabel(c.color, locale) ?? dash },
     { label: t("rows.doors"), render: (c) => c.doors ?? dash },
     { label: t("rows.seats"), render: (c) => c.seats ?? dash },
     {

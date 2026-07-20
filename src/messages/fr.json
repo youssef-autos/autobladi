@@ -1924,20 +1924,18 @@
       "mileagePlaceholder": "en kilomètres",
       "fuelType": "Carburant",
       "transmission": "Boîte de vitesses",
-      "transmissionManual": "Manuelle",
-      "transmissionAuto": "Automatique",
       "doors": "Nombre de portes",
       "seats": "Nombre de places",
       "color": "Couleur",
-      "colorPlaceholder": "Blanc, noir, gris...",
-      "enginePower": "Puissance (CV)",
+      "enginePower": "Puissance (ch)",
       "engineSize": "Cylindrée",
       "engineSizePlaceholder": "1.6L, 2.0L...",
       "origine": "Origine du véhicule",
-      "firstOwner": "Première main",
-      "accidentFree": "Sans accident",
       "optionsTitle": "Équipements",
-      "optional": "(optionnel)"
+      "sections": {
+        "mainInfo": "Informations principales"
+      },
+      "selectPlaceholder": "Sélectionner"
     },
     "step2": {
       "title": "Description et prix",
@@ -1951,6 +1949,8 @@
       "aiError": "Impossible de générer, réessayez",
       "price": "Prix (DH)",
       "negotiable": "Prix négociable",
+      "priceOnRequest": "Cacher le prix (Afficher \"Prix sur demande\")",
+      "priceOnRequestHint": "Le prix restera visible pour vous dans votre tableau de bord, mais les acheteurs devront vous contacter pour le connaître.",
       "contactPhone": "Téléphone de contact",
       "contactWhatsapp": "WhatsApp (facultatif)",
       "proBadge": "Fonction Pro",
@@ -2213,8 +2213,6 @@
       "mileage": "Kilométrage",
       "fuel": "Carburant",
       "transmission": "Boîte de vitesses",
-      "transmissionManual": "Manuelle",
-      "transmissionAuto": "Automatique",
       "color": "Couleur",
       "doors": "Nombre de portes",
       "options": "Options",

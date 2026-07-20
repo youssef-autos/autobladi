@@ -160,6 +160,7 @@ export type Database = {
           year: number | null
           mileage: number | null
           price: number | null
+          price_on_request: boolean
           fuel_type: FuelType | null
           transmission: Transmission | null
           body_type: string | null
@@ -197,6 +198,7 @@ export type Database = {
           year?: number | null
           mileage?: number | null
           price?: number | null
+          price_on_request?: boolean
           fuel_type?: FuelType | null
           transmission?: Transmission | null
           body_type?: string | null

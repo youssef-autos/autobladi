@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import { PriceTag } from "@/components/ui/PriceTag"
 import { equipmentLabel } from "@/lib/equipments"
-import { origineLabel } from "@/lib/vehicle-options"
+import { colorLabel, origineLabel, transmissionLabel } from "@/lib/vehicle-options"
 import { formatMileage } from "@/lib/utils/format"
 import type { Brand, CarModel, City } from "@/lib/queries/home"
 import type { AnnonceFormValues } from "@/lib/validations/annonce"
@@ -62,24 +62,21 @@ export function Step4Review({ brands, models, cities }: Props) {
                   val={v.mileage != null ? formatMileage(v.mileage, locale) : "—"}
                 />
               )}
-              <Row k={tStep1("fuelType")} val={v.fuelType ? tFuel(v.fuelType) : "—"} />
-              <Row
-                k={tStep1("transmission")}
-                val={
-                  v.transmission === "automatique"
-                    ? tStep1("transmissionAuto")
-                    : v.transmission === "manuelle"
-                      ? tStep1("transmissionManual")
-                      : "—"
-                }
-              />
-              <Row k={tStep1("doors")} val={v.doors} />
-              <Row k={tStep1("seats")} val={v.seats} />
-              <Row k={tStep1("color")} val={v.color} />
+              {v.color && (
+                <Row k={tStep1("color")} val={colorLabel(v.color, locale)} />
+              )}
               {v.origine && (
                 <Row k={tStep1("origine")} val={origineLabel(v.origine, locale)} />
               )}
-              {v.enginePower != null && <Row k={tStep1("enginePower")} val={`${v.enginePower} CV`} />}
+              {/* Only shown when editing an older listing that still has this
+                  data — the publish form no longer collects it. */}
+              {v.fuelType && <Row k={tStep1("fuelType")} val={tFuel(v.fuelType)} />}
+              {v.transmission && (
+                <Row k={tStep1("transmission")} val={transmissionLabel(v.transmission, locale)} />
+              )}
+              {v.doors != null && <Row k={tStep1("doors")} val={v.doors} />}
+              {v.seats != null && <Row k={tStep1("seats")} val={v.seats} />}
+              {v.enginePower != null && <Row k={tStep1("enginePower")} val={`${v.enginePower} ch`} />}
               {v.engineSize && <Row k={tStep1("engineSize")} val={v.engineSize} />}
             </dl>
 

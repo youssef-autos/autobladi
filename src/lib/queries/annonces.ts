@@ -23,7 +23,8 @@ function mapAnnonce(row: AnnonceRow): AnnonceCardData {
     title: row.title,
     year: row.year,
     mileage: row.mileage,
-    price: row.price,
+    price: row.price_on_request ? null : row.price,
+    price_on_request: row.price_on_request,
     fuel_type: row.fuel_type,
     transmission: row.transmission,
     condition: row.condition,
@@ -95,7 +96,7 @@ export async function searchAnnonces(
   ])
 
   const select = `
-    id, slug, title, year, mileage, price, fuel_type, transmission, condition, published_at,
+    id, slug, title, year, mileage, price, price_on_request, fuel_type, transmission, condition, published_at,
     annonce_images(url, is_main, order_index),
     cities(name_ar, name_fr, slug),
     brands(name, slug, logo_url),

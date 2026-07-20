@@ -30,7 +30,12 @@ export function AnnonceHeader({ annonce }: Props) {
     <header className="space-y-4">
       {/* Price */}
       <div className="flex items-center gap-3 flex-wrap">
-        <PriceTag price={annonce.price} size="xl" className="text-4xl md:text-5xl" />
+        <PriceTag
+          price={annonce.price}
+          priceOnRequest={annonce.price_on_request}
+          size="xl"
+          className="text-4xl md:text-5xl"
+        />
       </div>
 
       {/* Meta row */}

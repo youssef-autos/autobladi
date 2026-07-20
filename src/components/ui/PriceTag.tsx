@@ -16,15 +16,31 @@ const sizes: Record<Size, string> = {
 
 type Props = {
   price: number | null | undefined
+  /** Seller chose to hide the price — show "Prix sur demande" instead. */
+  priceOnRequest?: boolean
   size?: Size
   className?: string
   /** Override locale (otherwise inferred from next-intl context) */
   locale?: Locale
 }
 
-export function PriceTag({ price, size = "lg", className, locale }: Props) {
+export function PriceTag({
+  price,
+  priceOnRequest,
+  size = "lg",
+  className,
+  locale,
+}: Props) {
   const inferred = (useLocale() as Locale | undefined) ?? "fr"
   const effectiveLocale = locale ?? inferred
+
+  if (priceOnRequest) {
+    return (
+      <span className={cn("font-semibold text-foreground/80", sizes[size], className)}>
+        {effectiveLocale === "ar" ? "السعر عند الطلب" : "Prix sur demande"}
+      </span>
+    )
+  }
 
   return (
     <span

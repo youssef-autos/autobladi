@@ -26,6 +26,7 @@ export type AnnonceCardData = {
   year: number | null
   mileage: number | null
   price: number | null
+  price_on_request: boolean
   fuel_type: Tables<"annonces">["fuel_type"]
   transmission: Tables<"annonces">["transmission"]
   condition: Tables<"annonces">["condition"]
@@ -56,7 +57,10 @@ function mapAnnonce(row: AnnonceRow): AnnonceCardData {
     title: row.title,
     year: row.year,
     mileage: row.mileage,
-    price: row.price,
+    // The real number never reaches public-facing pages when hidden — never
+    // just toggled client-side, or it'd still leak via view-source/devtools.
+    price: row.price_on_request ? null : row.price,
+    price_on_request: row.price_on_request,
     fuel_type: row.fuel_type,
     transmission: row.transmission,
     condition: row.condition,
@@ -72,7 +76,7 @@ function mapAnnonce(row: AnnonceRow): AnnonceCardData {
 }
 
 const annonceSelect = `
-  id, slug, title, year, mileage, price, fuel_type, transmission, condition, published_at,
+  id, slug, title, year, mileage, price, price_on_request, fuel_type, transmission, condition, published_at,
   annonce_images(url, is_main, order_index),
   cities(name_ar, name_fr, slug),
   brands(name, slug, logo_url),

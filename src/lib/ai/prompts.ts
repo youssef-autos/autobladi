@@ -14,8 +14,8 @@ function arabicDescriptionPrompt(v: DescriptionInput): string {
 - الموديل: ${v.model}
 - السنة: ${v.year}
 ${v.mileage ? `- الكيلومتراج: ${v.mileage} كم` : ""}
-- نوع الوقود: ${v.fuelType}
-- ناقل الحركة: ${v.transmission}
+${v.fuelType ? `- نوع الوقود: ${v.fuelType}` : ""}
+${v.transmission ? `- ناقل الحركة: ${v.transmission}` : ""}
 - الحالة: ${v.condition === "neuf" ? "جديدة" : "مستعملة"}
 ${v.firstOwner ? "- مالك أول" : ""}
 ${v.accidentFree ? "- خالية من الحوادث" : ""}
@@ -31,8 +31,8 @@ function frenchDescriptionPrompt(v: DescriptionInput): string {
 - Modèle : ${v.model}
 - Année : ${v.year}
 ${v.mileage ? `- Kilométrage : ${v.mileage} km` : ""}
-- Carburant : ${v.fuelType}
-- Transmission : ${v.transmission}
+${v.fuelType ? `- Carburant : ${v.fuelType}` : ""}
+${v.transmission ? `- Transmission : ${v.transmission}` : ""}
 - État : ${v.condition === "neuf" ? "Neuve" : "Occasion"}
 ${v.firstOwner ? "- Premier propriétaire" : ""}
 ${v.accidentFree ? "- Sans accident" : ""}

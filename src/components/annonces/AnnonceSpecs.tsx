@@ -10,7 +10,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { presentEquipmentGroups } from "@/lib/equipments"
-import { origineLabel } from "@/lib/vehicle-options"
+import {
+  colorLabel,
+  origineLabel,
+  transmissionLabel as getTransmissionLabel,
+} from "@/lib/vehicle-options"
 import { formatMileage } from "@/lib/utils/format"
 import { cn } from "@/lib/utils"
 import type { AnnonceDetail } from "@/lib/queries/annonce-detail"
@@ -32,7 +36,7 @@ const fuelLabels: Record<string, { ar: string; fr: string }> = {
 const GROUP_ACCENT: Record<string, string> = {
   confort: "text-moroccan-mint-500",
   exterieur: "text-moroccan-gold-700",
-  interieur: "text-moroccan-clay-600",
+  infotainment: "text-moroccan-clay-600",
   securite: "text-moroccan-red-500",
 }
 
@@ -50,16 +54,7 @@ export function AnnonceSpecs({ annonce }: Props) {
     ? (fuelLabels[annonce.fuel_type]?.[locale] ?? annonce.fuel_type)
     : null
 
-  const transmissionLabel =
-    annonce.transmission === "automatique"
-      ? locale === "ar"
-        ? "أوتوماتيك"
-        : "Automatique"
-      : annonce.transmission === "manuelle"
-        ? locale === "ar"
-          ? "عادي"
-          : "Manuelle"
-        : null
+  const transmissionLabel = getTransmissionLabel(annonce.transmission, locale)
 
   // Every candidate row; empty values are dropped before rendering.
   const rows: Array<{ label: string; value: string | number | null }> = [
@@ -79,7 +74,7 @@ export function AnnonceSpecs({ annonce }: Props) {
     },
     { label: tKey("doors"), value: annonce.doors },
     { label: tSpecs("seats"), value: annonce.seats },
-    { label: tKey("color"), value: annonce.color },
+    { label: tKey("color"), value: colorLabel(annonce.color, locale) },
     { label: tSpecs("origine"), value: origineLabel(annonce.origine, locale) },
     {
       label: tHist("firstOwner"),

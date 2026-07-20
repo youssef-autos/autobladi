@@ -14,6 +14,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { transmissionLabel } from "@/lib/vehicle-options"
 import type { Brand, CarModel, City, Secteur } from "@/lib/queries/home"
 import type { Locale } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
@@ -429,13 +430,7 @@ export function FiltersSidebar({
               )}
             >
               <RadioGroupItem value={tr} id={`tr-${tr}`} />
-              <span>
-                {t(
-                  tr === "manuelle"
-                    ? "fields.transmissionManual"
-                    : "fields.transmissionAuto",
-                )}
-              </span>
+              <span>{transmissionLabel(tr, locale)}</span>
             </label>
           ))}
         </RadioGroup>

@@ -136,7 +136,12 @@ export function ChatWindow({ conversation, currentUserId, onBack }: Props) {
               {annonce.title}
             </p>
           </div>
-          <PriceTag price={annonce.price} size="sm" className="shrink-0" />
+          <PriceTag
+            price={annonce.price}
+            priceOnRequest={annonce.price_on_request}
+            size="sm"
+            className="shrink-0"
+          />
         </Link>
       )}
 

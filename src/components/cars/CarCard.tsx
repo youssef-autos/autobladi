@@ -34,6 +34,12 @@ const fuelLabels: Record<string, { ar: string; fr: string }> = {
   lpg: { ar: "غاز", fr: "GPL" },
 }
 
+// Abbreviated for the compact card badge — full labels live in vehicle-options.ts
+const transmissionShortLabels: Record<string, { ar: string; fr: string }> = {
+  manuelle: { ar: "عادي", fr: "Manuelle" },
+  automatique: { ar: "أوتوماتيك", fr: "Auto" },
+}
+
 export function CarCard({ annonce, className }: Props) {
   const locale = useLocale() as Locale
   const t = useTranslations("home.badges")
@@ -133,7 +139,7 @@ export function CarCard({ annonce, className }: Props) {
           )}
         </div>
 
-        <PriceTag price={annonce.price} size="lg" />
+        <PriceTag price={annonce.price} priceOnRequest={annonce.price_on_request} size="lg" />
 
         <ul className="grid grid-cols-2 gap-y-1.5 gap-x-3 text-xs text-muted-foreground">
           {annonce.year && (
@@ -157,13 +163,7 @@ export function CarCard({ annonce, className }: Props) {
           {annonce.transmission && (
             <li className="inline-flex items-center gap-1.5 capitalize">
               <Cog className="size-3.5 text-moroccan-mint-500" aria-hidden="true" />
-              {annonce.transmission === "automatique"
-                ? locale === "ar"
-                  ? "أوتوماتيك"
-                  : "Auto"
-                : locale === "ar"
-                  ? "عادي"
-                  : "Manuelle"}
+              {transmissionShortLabels[annonce.transmission]?.[locale] ?? annonce.transmission}
             </li>
           )}
         </ul>

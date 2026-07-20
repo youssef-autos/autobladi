@@ -200,7 +200,7 @@ export async function listMyFavorites(userId: string) {
     .select(`
       id, annonce_id, created_at,
       annonces(
-        id, slug, title, year, mileage, price, fuel_type, transmission, condition, published_at, status,
+        id, slug, title, year, mileage, price, price_on_request, fuel_type, transmission, condition, published_at, status,
         annonce_images(url, is_main, order_index),
         cities(name_ar, name_fr, slug),
         brands(name, slug, logo_url),
@@ -226,7 +226,8 @@ export async function listMyFavorites(userId: string) {
           title: a.title,
           year: a.year,
           mileage: a.mileage,
-          price: a.price,
+          price: a.price_on_request ? null : a.price,
+          price_on_request: a.price_on_request,
           fuel_type: a.fuel_type,
           transmission: a.transmission,
           condition: a.condition,

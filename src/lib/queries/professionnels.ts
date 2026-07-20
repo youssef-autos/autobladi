@@ -400,7 +400,7 @@ export async function listProfessionnelAnnonces(userId: string) {
   const { data } = await supabase
     .from("annonces")
     .select(`
-      id, slug, title, year, mileage, price, fuel_type, transmission, condition, published_at,
+      id, slug, title, year, mileage, price, price_on_request, fuel_type, transmission, condition, published_at,
       annonce_images(url, is_main, order_index),
       cities(name_ar, name_fr, slug),
       brands(name, slug, logo_url),
@@ -433,7 +433,8 @@ export async function listProfessionnelAnnonces(userId: string) {
       title: row.title,
       year: row.year,
       mileage: row.mileage,
-      price: row.price,
+      price: row.price_on_request ? null : row.price,
+      price_on_request: row.price_on_request,
       fuel_type: row.fuel_type,
       transmission: row.transmission,
       condition: row.condition,

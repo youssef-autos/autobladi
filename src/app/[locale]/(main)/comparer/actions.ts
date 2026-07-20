@@ -8,6 +8,7 @@ export type CompareCar = {
   title: string
   main_image: string | null
   price: number | null
+  price_on_request: boolean
   year: number | null
   mileage: number | null
   fuel_type: string | null
@@ -31,6 +32,7 @@ type RawRow = {
   slug: string
   title: string
   price: number | null
+  price_on_request: boolean
   year: number | null
   mileage: number | null
   fuel_type: string | null
@@ -65,7 +67,7 @@ export async function fetchCompareAnnonces(
   const { data } = await supabase
     .from("annonces")
     .select(`
-      id, slug, title, price, year, mileage, fuel_type, transmission, condition,
+      id, slug, title, price, price_on_request, year, mileage, fuel_type, transmission, condition,
       color, doors, seats, engine_power, engine_size, origine, first_owner, accident_free,
       annonce_images(url, is_main, order_index),
       brands(name, slug),
@@ -84,7 +86,8 @@ export async function fetchCompareAnnonces(
       slug: r.slug,
       title: r.title,
       main_image: main?.url ?? null,
-      price: r.price,
+      price: r.price_on_request ? null : r.price,
+      price_on_request: r.price_on_request,
       year: r.year,
       mileage: r.mileage,
       fuel_type: r.fuel_type,

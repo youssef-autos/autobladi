@@ -15,6 +15,7 @@ export type ConversationAnnonceRef = {
   slug: string
   title: string
   price: number | null
+  price_on_request: boolean
   main_image: string | null
 }
 
@@ -47,6 +48,7 @@ type AnnonceRow = {
   slug: string
   title: string
   price: number | null
+  price_on_request: boolean
   annonce_images: { url: string; is_main: boolean; order_index: number }[] | null
 }
 
@@ -94,7 +96,7 @@ export async function listConversationsForUser(
         ? supabase
             .from("annonces")
             .select(
-              "id, slug, title, price, annonce_images(url, is_main, order_index)",
+              "id, slug, title, price, price_on_request, annonce_images(url, is_main, order_index)",
             )
             .in("id", annonceIds)
         : Promise.resolve({ data: [] as unknown as AnnonceRow[] }),
@@ -122,7 +124,8 @@ export async function listConversationsForUser(
           id: a.id,
           slug: a.slug,
           title: a.title,
-          price: a.price,
+          price: a.price_on_request ? null : a.price,
+          price_on_request: a.price_on_request,
           main_image: main?.url ?? null,
         },
       ]

@@ -1925,20 +1925,18 @@
       "mileagePlaceholder": "بالكيلومتر",
       "fuelType": "نوع الوقود",
       "transmission": "ناقل الحركة",
-      "transmissionManual": "عادي",
-      "transmissionAuto": "أوتوماتيك",
       "doors": "عدد الأبواب",
       "seats": "عدد المقاعد",
       "color": "اللون",
-      "colorPlaceholder": "أبيض، أسود، فضي...",
-      "enginePower": "قوة المحرك (CV)",
+      "enginePower": "قوة المحرك (ch)",
       "engineSize": "حجم المحرك",
       "engineSizePlaceholder": "1.6L, 2.0L...",
       "origine": "أصل السيارة",
-      "firstOwner": "مالك أول",
-      "accidentFree": "خالٍ من الحوادث",
       "optionsTitle": "الخيارات المتوفرة",
-      "optional": "(اختياري)"
+      "sections": {
+        "mainInfo": "المعلومات الأساسية"
+      },
+      "selectPlaceholder": "اختر"
     },
     "step2": {
       "title": "الوصف والسعر",
@@ -1952,6 +1950,8 @@
       "aiError": "تعذّر التوليد، حاول مرة أخرى",
       "price": "السعر (DH)",
       "negotiable": "قابل للتفاوض",
+      "priceOnRequest": "إخفاء السعر (سيظهر بدلاً منه \"السعر عند الطلب\")",
+      "priceOnRequestHint": "سيبقى السعر ظاهراً لك في لوحة التحكم الخاصة بك، لكن على المشترين التواصل معك لمعرفته.",
       "contactPhone": "هاتف للتواصل",
       "contactWhatsapp": "WhatsApp (اختياري)",
       "proBadge": "ميزة للمحترفين",
@@ -2214,8 +2214,6 @@
       "mileage": "الكيلومتراج",
       "fuel": "نوع الوقود",
       "transmission": "ناقل الحركة",
-      "transmissionManual": "عادي",
-      "transmissionAuto": "أوتوماتيك",
       "color": "اللون",
       "doors": "عدد الأبواب",
       "options": "الخيارات",

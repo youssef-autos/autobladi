@@ -7,6 +7,7 @@ import { useLocale } from "next-intl"
 import { useTranslations } from "next-intl"
 
 import { GenerateDescriptionButton } from "@/components/ai/GenerateDescriptionButton"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
@@ -133,6 +134,25 @@ export function Step2DescriptionPrice({ brands, models, isPro = false }: Props) 
                 />
               </span>
             </label>
+          )}
+        />
+
+        <Controller
+          control={form.control}
+          name="priceOnRequest"
+          render={({ field }) => (
+            <div className="md:col-span-2 space-y-1.5">
+              <label className="flex items-center gap-2.5 cursor-pointer group">
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={(v) => field.onChange(v === true)}
+                />
+                <span className="text-sm font-medium text-foreground">
+                  {t("priceOnRequest")}
+                </span>
+              </label>
+              <p className="text-xs text-muted-foreground">{t("priceOnRequestHint")}</p>
+            </div>
           )}
         />
 

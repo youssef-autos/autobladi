@@ -17,6 +17,32 @@ export const ORIGINES: VehicleOption[] = [
   { key: "non_dedouanee", ar: "غير مُخلَّصة بعد", fr: "Pas encore dédouanée" },
 ]
 
+/** Couleur du véhicule — stored in annonces.color */
+export const COLORS: VehicleOption[] = [
+  { key: "blanc", ar: "أبيض", fr: "Blanc" },
+  { key: "noir", ar: "أسود", fr: "Noir" },
+  { key: "gris", ar: "رمادي", fr: "Gris" },
+  { key: "argent", ar: "فضي", fr: "Argent" },
+  { key: "rouge", ar: "أحمر", fr: "Rouge" },
+  { key: "bordeaux", ar: "عنابي", fr: "Bordeaux" },
+  { key: "bleu", ar: "أزرق", fr: "Bleu" },
+  { key: "bleu_marine", ar: "كحلي", fr: "Bleu marine" },
+  { key: "vert", ar: "أخضر", fr: "Vert" },
+  { key: "jaune", ar: "أصفر", fr: "Jaune" },
+  { key: "orange", ar: "برتقالي", fr: "Orange" },
+  { key: "marron", ar: "بني", fr: "Marron" },
+  { key: "beige", ar: "بيج", fr: "Beige" },
+  { key: "or", ar: "ذهبي", fr: "Or" },
+  { key: "violet", ar: "بنفسجي", fr: "Violet" },
+  { key: "autre", ar: "أخرى", fr: "Autre" },
+]
+
+/** Boîte de vitesses — stored in annonces.transmission (a Postgres enum) */
+export const TRANSMISSIONS: VehicleOption[] = [
+  { key: "manuelle", ar: "عادي", fr: "Manuelle" },
+  { key: "automatique", ar: "أوتوماتيك", fr: "Automatique" },
+]
+
 function labelFrom(
   list: VehicleOption[],
   key: string | null | undefined,
@@ -33,4 +59,18 @@ export function origineLabel(
   locale: string,
 ): string | null {
   return labelFrom(ORIGINES, key, locale)
+}
+
+export function colorLabel(
+  key: string | null | undefined,
+  locale: string,
+): string | null {
+  return labelFrom(COLORS, key, locale)
+}
+
+export function transmissionLabel(
+  key: string | null | undefined,
+  locale: string,
+): string | null {
+  return labelFrom(TRANSMISSIONS, key, locale)
 }

@@ -23,8 +23,8 @@ export type DescriptionInput = {
   model: string
   year: number
   mileage?: number | null
-  fuelType: string
-  transmission: string
+  fuelType: string | null
+  transmission: string | null
   options: string[]
   firstOwner: boolean
   accidentFree: boolean

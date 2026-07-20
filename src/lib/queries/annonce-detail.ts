@@ -20,6 +20,7 @@ export type AnnonceDetail = {
   year: number | null
   mileage: number | null
   price: number | null
+  price_on_request: boolean
   fuel_type: Tables<"annonces">["fuel_type"]
   transmission: Tables<"annonces">["transmission"]
   body_type: string | null
@@ -100,7 +101,12 @@ function mapDetail(row: AnnonceDetailRow): AnnonceDetail {
     description: row.description,
     year: row.year,
     mileage: row.mileage,
-    price: row.price,
+    // Nulled here (not just hidden client-side) so it never reaches the
+    // client payload, page metadata, JSON-LD, or OG image when hidden — every
+    // downstream consumer (AnnonceHeader, generateMetadata, vehicleSchema,
+    // opengraph-image) reads this same sanitized object.
+    price: row.price_on_request ? null : row.price,
+    price_on_request: row.price_on_request,
     fuel_type: row.fuel_type,
     transmission: row.transmission,
     body_type: row.body_type,
@@ -159,7 +165,8 @@ function mapSimilar(row: SimilarRow): AnnonceCardData {
     title: row.title,
     year: row.year,
     mileage: row.mileage,
-    price: row.price,
+    price: row.price_on_request ? null : row.price,
+    price_on_request: row.price_on_request,
     fuel_type: row.fuel_type,
     transmission: row.transmission,
     condition: row.condition,
@@ -183,7 +190,7 @@ export async function getSimilarAnnonces(
   let query = supabase
     .from("annonces")
     .select(
-      `id, slug, title, year, mileage, price, fuel_type, transmission, condition, published_at,
+      `id, slug, title, year, mileage, price, price_on_request, fuel_type, transmission, condition, published_at,
        annonce_images(url, is_main, order_index),
        cities(name_ar, name_fr, slug),
        brands(name, slug, logo_url),

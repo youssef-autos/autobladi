@@ -106,7 +106,11 @@ export function Combobox({
                 className="h-9 w-full rounded-lg border border-border bg-background ps-9 pe-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-moroccan-gold-500/60"
               />
             </div>
-            <ComboboxPrimitive.Empty className="px-3 py-6 text-center text-sm text-muted-foreground">
+            {/* Base UI keeps this mounted at all times for screen-reader announcements
+                (its own docs warn against display:none/hidden/conditional rendering here),
+                but it renders no children when the list isn't empty — so the py-6 padding
+                must collapse via :empty instead of always reserving space. */}
+            <ComboboxPrimitive.Empty className="empty:p-0 px-3 py-6 text-center text-sm text-muted-foreground">
               {emptyText}
             </ComboboxPrimitive.Empty>
             <ComboboxPrimitive.List className="max-h-60 overflow-y-auto p-1">
