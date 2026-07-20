@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo } from "react"
 import { Controller, useFormContext } from "react-hook-form"
-import { Video } from "lucide-react"
 import { useLocale } from "next-intl"
 import { useTranslations } from "next-intl"
 
@@ -20,11 +19,9 @@ import { cn } from "@/lib/utils"
 type Props = {
   brands: Brand[]
   models: CarModel[]
-  /** Pro accounts unlock the promo-video field. */
-  isPro?: boolean
 }
 
-export function Step2DescriptionPrice({ brands, models, isPro = false }: Props) {
+export function Step2DescriptionPrice({ brands, models }: Props) {
   const t = useTranslations("ajouter.step2")
   const tValidation = useTranslations("ajouter.validation")
   const locale = useLocale() as Locale
@@ -176,35 +173,6 @@ export function Step2DescriptionPrice({ brands, models, isPro = false }: Props) 
           />
         </Field>
       </div>
-
-      {/* Promo video — professionals only */}
-      {isPro && (
-        <div className="rounded-xl border border-moroccan-gold-500/30 bg-moroccan-gold-50/40 p-4 space-y-3">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex size-7 items-center justify-center rounded-lg bg-moroccan-gold-500/15 text-moroccan-gold-600">
-              <Video className="size-4" aria-hidden="true" />
-            </span>
-            <span className="text-xs font-semibold uppercase tracking-wide text-moroccan-gold-700">
-              {t("proBadge")}
-            </span>
-          </div>
-          <Field
-            label={t("videoUrl")}
-            hint={t("videoUrlHint")}
-            error={tr(errors.videoUrl?.message)}
-          >
-            <Input
-              type="url"
-              dir="ltr"
-              placeholder="https://youtube.com/watch?v=…"
-              className="h-11 rounded-xl"
-              {...form.register("videoUrl", {
-                setValueAs: (v: string) => (v === "" ? null : v),
-              })}
-            />
-          </Field>
-        </div>
-      )}
     </div>
   )
 }

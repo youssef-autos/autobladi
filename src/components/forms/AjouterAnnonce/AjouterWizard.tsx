@@ -60,8 +60,8 @@ const stepFields: Record<number, Array<keyof AnnonceFormValues>> = {
     "origine",
     "options",
   ],
-  2: ["title", "description", "price", "contactPhone", "videoUrl"],
-  3: ["images"],
+  2: ["title", "description", "price", "contactPhone"],
+  3: ["images", "videoUrl"],
   4: ["acceptTerms"],
 }
 
@@ -252,9 +252,9 @@ export function AjouterWizard({
               />
             )}
             {step === 2 && (
-              <Step2DescriptionPrice brands={brands} models={models} isPro={isPro} />
+              <Step2DescriptionPrice brands={brands} models={models} />
             )}
-            {step === 3 && <Step3Images />}
+            {step === 3 && <Step3Images isPro={isPro} />}
             {step === 4 && (
               <Step4Review brands={brands} models={models} cities={cities} />
             )}
