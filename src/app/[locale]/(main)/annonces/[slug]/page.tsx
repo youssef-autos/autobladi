@@ -7,7 +7,6 @@ import { AdSlot } from "@/components/ads/AdSlot"
 import { JsonLd } from "@/components/seo/JsonLd"
 import { breadcrumbSchema, vehicleSchema } from "@/lib/seo/structured-data"
 import { AnnonceHeader } from "@/components/annonces/AnnonceHeader"
-import { AnnonceMap } from "@/components/annonces/AnnonceMap"
 import { AnnonceSpecs } from "@/components/annonces/AnnonceSpecs"
 import { AnnonceVideo } from "@/components/annonces/AnnonceVideo"
 import { ContactSidebar } from "@/components/annonces/ContactSidebar"
@@ -130,8 +129,6 @@ export default async function AnnonceDetailPage({
               {/* In-article slot — different size on mobile vs desktop, one call. */}
               <AdSlot slotId="annonce_bottom" />
             </Suspense>
-
-            <AnnonceMap annonce={annonce} />
           </div>
 
           {/* Sidebar */}

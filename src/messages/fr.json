@@ -2136,11 +2136,6 @@
       "tip3": "Ne versez aucun acompte avant d'avoir vu le véhicule.",
       "tip4": "Demandez une expertise technique indépendante si nécessaire."
     },
-    "map": {
-      "title": "Localisation approximative",
-      "desc": "Seule la ville est affichée pour préserver la vie privée du vendeur.",
-      "noCity": "Le vendeur n'a pas précisé de ville."
-    },
     "similar": {
       "title": "Voitures similaires qui pourraient vous intéresser",
       "empty": "Aucune voiture similaire trouvée."
