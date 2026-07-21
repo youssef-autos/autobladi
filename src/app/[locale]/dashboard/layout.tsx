@@ -8,6 +8,11 @@ import { getSiteLogos } from "@/lib/queries/home"
 
 export const dynamic = "force-dynamic"
 
+// SEO: personal dashboard pages should never be indexed
+export const metadata = {
+  robots: { index: false, follow: false },
+}
+
 export default async function DashboardLayout({
   children,
   params,

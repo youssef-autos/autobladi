@@ -39,7 +39,7 @@ export function NotificationBell({ className }: Props) {
       href="/dashboard/messages"
       aria-label={tNav("messages")}
       className={cn(
-        "relative inline-flex items-center justify-center rounded-lg p-2 text-foreground hover:bg-moroccan-sand-50 hover:text-moroccan-red-500 transition-colors",
+        "relative inline-flex items-center justify-center rounded-lg p-2.5 text-foreground hover:bg-moroccan-sand-50 hover:text-moroccan-red-500 transition-colors",
         className,
       )}
     >

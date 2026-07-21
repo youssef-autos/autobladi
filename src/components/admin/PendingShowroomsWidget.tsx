@@ -6,6 +6,7 @@ import { useFormatter, useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
 
 import { toggleProfessionnelActive } from "@/app/[locale]/admin/showrooms/actions"
+import { Card } from "@/components/ui/Card"
 import { Link, useRouter } from "@/i18n/navigation"
 import type { PendingShowroomRow } from "@/lib/queries/admin"
 import type { Locale } from "@/i18n/routing"
@@ -38,7 +39,7 @@ export function PendingShowroomsWidget({ rows, total }: Props) {
   }
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-6 shadow-card">
+    <Card as="section" padding="none" className="p-6">
       <header className="flex items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-2">
           <Store className="size-5 text-moroccan-red-500" aria-hidden="true" />
@@ -111,6 +112,6 @@ export function PendingShowroomsWidget({ rows, total }: Props) {
           })}
         </ul>
       )}
-    </section>
+    </Card>
   )
 }

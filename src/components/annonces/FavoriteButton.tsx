@@ -67,7 +67,7 @@ export function FavoriteButton({ annonceId, variant = "icon", className }: Props
       aria-label={t("favorite")}
       title={t("favorite")}
       className={cn(
-        "relative z-30 inline-flex size-8 items-center justify-center rounded-full bg-white/90 backdrop-blur transition-colors hover:bg-white",
+        "relative z-30 inline-flex size-10 items-center justify-center rounded-full bg-white/90 backdrop-blur transition-colors hover:bg-white",
         active
           ? "text-moroccan-red-500"
           : "text-foreground/70 hover:text-moroccan-red-500",

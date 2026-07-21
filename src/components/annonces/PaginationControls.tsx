@@ -35,7 +35,7 @@ export function PaginationControls({ page, totalPages }: Props) {
         type="button"
         onClick={() => go(page - 1)}
         disabled={page <= 1}
-        className="inline-flex items-center gap-1 h-9 px-3 rounded-lg border border-border bg-background text-sm font-medium text-foreground hover:bg-moroccan-sand-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="inline-flex items-center gap-1 h-10 px-3 rounded-lg border border-border bg-background text-sm font-medium text-foreground hover:bg-moroccan-sand-50 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <ChevronLeft className="size-4 rtl:rotate-180" aria-hidden="true" />
         <span className="hidden sm:inline">{t("previous")}</span>
@@ -43,7 +43,7 @@ export function PaginationControls({ page, totalPages }: Props) {
 
       {pages.map((p, i) =>
         p === "…" ? (
-          <span key={`gap-${i}`} className="size-9 inline-flex items-center justify-center text-muted-foreground">
+          <span key={`gap-${i}`} className="size-10 inline-flex items-center justify-center text-muted-foreground">
             …
           </span>
         ) : (
@@ -53,7 +53,7 @@ export function PaginationControls({ page, totalPages }: Props) {
             onClick={() => go(p)}
             aria-current={p === page ? "page" : undefined}
             className={cn(
-              "size-9 inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors",
+              "size-10 inline-flex items-center justify-center rounded-lg text-sm font-medium transition-colors",
               p === page
                 ? "bg-moroccan-gradient text-white shadow-moroccan"
                 : "border border-border bg-background text-foreground hover:bg-moroccan-sand-50",
@@ -68,7 +68,7 @@ export function PaginationControls({ page, totalPages }: Props) {
         type="button"
         onClick={() => go(page + 1)}
         disabled={page >= totalPages}
-        className="inline-flex items-center gap-1 h-9 px-3 rounded-lg border border-border bg-background text-sm font-medium text-foreground hover:bg-moroccan-sand-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="inline-flex items-center gap-1 h-10 px-3 rounded-lg border border-border bg-background text-sm font-medium text-foreground hover:bg-moroccan-sand-50 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <span className="hidden sm:inline">{t("next")}</span>
         <ChevronRight className="size-4 rtl:rotate-180" aria-hidden="true" />

@@ -5,6 +5,7 @@ import { useFormatter, useTranslations } from "next-intl"
 
 import { Link } from "@/i18n/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card } from "@/components/ui/Card"
 import type { AnnonceDetail } from "@/lib/queries/annonce-detail"
 import { cn } from "@/lib/utils"
 
@@ -35,7 +36,7 @@ export function SellerCard({ seller, otherCount, showroom }: Props) {
   const isPro = seller.account_type === "pro" || seller.account_type === "admin"
 
   return (
-    <section className="rounded-2xl border border-border bg-card p-5 shadow-card">
+    <Card as="section" padding="sm">
       <header className="flex items-center gap-3">
         <div className="relative shrink-0">
           <Avatar
@@ -86,6 +87,6 @@ export function SellerCard({ seller, otherCount, showroom }: Props) {
           {t("viewShowroom")}
         </Link>
       )}
-    </section>
+    </Card>
   )
 }

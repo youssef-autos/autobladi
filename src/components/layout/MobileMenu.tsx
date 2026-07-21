@@ -62,7 +62,7 @@ export function MobileMenu({
       <SheetTrigger
         aria-label={t("openMenu")}
         className={cn(
-          "lg:hidden inline-flex items-center justify-center rounded-lg p-2 text-foreground hover:bg-muted transition-colors",
+          "lg:hidden inline-flex items-center justify-center rounded-lg p-2.5 text-foreground hover:bg-muted transition-colors",
           className,
         )}
       >

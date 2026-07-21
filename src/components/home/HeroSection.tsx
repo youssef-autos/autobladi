@@ -2,7 +2,7 @@ import { getLocale, getTranslations } from "next-intl/server"
 
 import { QuickSearch } from "@/components/home/QuickSearch"
 import { Container } from "@/components/ui/Container"
-import { getHomeCounts, type Brand, type CarModel } from "@/lib/queries/home"
+import { getCities, getHomeCounts, type Brand, type CarModel } from "@/lib/queries/home"
 
 type Props = {
   brands: Brand[]
@@ -12,7 +12,7 @@ type Props = {
 export async function HeroSection({ brands, models }: Props) {
   const t = await getTranslations("home.hero")
   const locale = await getLocale()
-  const counts = await getHomeCounts()
+  const [counts, cities] = await Promise.all([getHomeCounts(), getCities()])
 
   // Real counts, formatted with Latin digits (consistent with the listings UI).
   const nf = new Intl.NumberFormat(
@@ -23,46 +23,54 @@ export async function HeroSection({ brands, models }: Props) {
   const citiesFmt = nf.format(counts.cities)
 
   return (
-    <section className="relative isolate overflow-hidden bg-brand-dark">
-      {/* Background gradient (no photo asset — keeps the dark branded look) */}
-      <div className="absolute inset-0 -z-20">
+    <section className="relative">
+      {/* Branded hero panel — its own box so the floating search card below
+          can overlap its bottom edge while sitting on the page's white bg. */}
+      <div className="relative isolate overflow-hidden bg-brand-dark">
         <div
-          className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/85 to-brand-dark/40 rtl:bg-gradient-to-l rtl:from-brand-dark rtl:via-brand-dark/85 rtl:to-brand-dark/40"
+          className="absolute inset-0 -z-20 bg-gradient-to-br from-brand-dark via-[#241512] to-brand-dark"
           aria-hidden="true"
         />
-      </div>
+        <ZelligePattern className="absolute inset-0 -z-10 text-white opacity-[0.05]" />
+        <div
+          className="absolute -top-28 start-1/4 -z-10 size-[26rem] rounded-full bg-moroccan-gold-500/10 blur-3xl"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute -bottom-32 end-0 -z-10 size-[28rem] rounded-full bg-moroccan-red-500/15 blur-3xl"
+          aria-hidden="true"
+        />
 
-      {/* Decorative gold glow */}
-      <div
-        className="absolute -top-24 start-1/3 -z-10 size-96 rounded-full bg-moroccan-gold-500/10 blur-3xl"
-        aria-hidden="true"
-      />
-
-      <Container className="relative py-16 md:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-          {/* Title + motivational line — on the side */}
-          <div className="text-white space-y-6 max-w-xl">
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1]">
+        <Container className="relative pt-14 md:pt-20 lg:pt-24 pb-24 md:pb-28 lg:pb-32">
+          <div className="max-w-2xl text-white">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-[1.1]">
               {t("title")}
             </h1>
-            <p className="text-base md:text-lg lg:text-xl text-white/80 leading-relaxed">
+            <p className="mt-5 max-w-xl text-base md:text-lg text-white/75 leading-relaxed">
               {t("subtitle")}
             </p>
 
-            {/* Real stats */}
-            <dl className="flex items-center divide-x divide-white/10 rtl:divide-x-reverse pt-2">
+            <dl className="mt-8 flex items-center divide-x divide-white/10 rtl:divide-x-reverse">
               <Stat value={annoncesFmt} label={t("statsCars")} first />
               <Stat value={dealersFmt} label={t("statsDealers")} />
               <Stat value={citiesFmt} label={t("statsCities")} />
             </dl>
           </div>
+        </Container>
+      </div>
 
-          {/* Search card — on the other side */}
-          <div className="w-full lg:justify-self-end">
-            <QuickSearch brands={brands} models={models} count={annoncesFmt} />
-          </div>
-        </div>
-      </Container>
+      {/* Search card — floats over the panel's lower edge, spills onto the
+          page's white background beneath it. */}
+      <div className="relative z-10 -mt-16 md:-mt-20 lg:-mt-24 pb-10 md:pb-14">
+        <Container>
+          <QuickSearch
+            brands={brands}
+            models={models}
+            cities={cities}
+            count={annoncesFmt}
+          />
+        </Container>
+      </div>
     </section>
   )
 }
@@ -83,5 +91,37 @@ function Stat({
         {value}
       </dd>
     </div>
+  )
+}
+
+/** Subtle interlocking-star lattice, evoking Moroccan zellige tilework. */
+function ZelligePattern({ className }: { className?: string }) {
+  return (
+    <svg className={className} aria-hidden="true">
+      <defs>
+        <pattern
+          id="zellige-lattice"
+          width="64"
+          height="64"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(15)"
+        >
+          <path
+            d="M32 2 L62 32 L32 62 L2 32 Z"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+          />
+          <path
+            d="M32 16 L48 32 L32 48 L16 32 Z"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1"
+          />
+          <circle cx="32" cy="32" r="2" fill="currentColor" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#zellige-lattice)" />
+    </svg>
   )
 }

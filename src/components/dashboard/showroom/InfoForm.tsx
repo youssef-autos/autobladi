@@ -9,6 +9,7 @@ import { toast } from "sonner"
 import { updateMyProfessionnel } from "@/app/[locale]/dashboard/showroom/actions"
 import { MapPicker } from "@/components/dashboard/showroom/MapPicker"
 import { OpeningHoursEditor } from "@/components/dashboard/showroom/OpeningHoursEditor"
+import { Card } from "@/components/ui/Card"
 import { Combobox } from "@/components/ui/combobox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -170,7 +171,7 @@ export function ShowroomInfoForm({ dealer, cities, secteurs }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Images section */}
-      <section className="rounded-2xl border border-border bg-card p-6 shadow-card space-y-6">
+      <Card as="section" padding="none" className="p-6 space-y-6">
         <h2 className="font-semibold text-foreground">{t("title")}</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-6 items-start">
@@ -246,10 +247,10 @@ export function ShowroomInfoForm({ dealer, cities, secteurs }: Props) {
             </p>
           </div>
         </div>
-      </section>
+      </Card>
 
       {/* Basic info */}
-      <section className="rounded-2xl border border-border bg-card p-6 shadow-card space-y-5">
+      <Card as="section" padding="none" className="p-6 space-y-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Field label={t("name")}>
             <Input
@@ -424,10 +425,10 @@ export function ShowroomInfoForm({ dealer, cities, secteurs }: Props) {
             />
           </Field>
         </div>
-      </section>
+      </Card>
 
       {/* Location */}
-      <section className="rounded-2xl border border-border bg-card p-6 shadow-card space-y-4">
+      <Card as="section" padding="none" className="p-6 space-y-4">
         <h3 className="font-semibold text-foreground">{t("location")}</h3>
         <MapPicker
           latitude={lat}
@@ -437,16 +438,16 @@ export function ShowroomInfoForm({ dealer, cities, secteurs }: Props) {
             setLng(ln)
           }}
         />
-      </section>
+      </Card>
 
       {/* Opening hours */}
-      <section className="rounded-2xl border border-border bg-card p-6 shadow-card space-y-3">
+      <Card as="section" padding="none" className="p-6 space-y-3">
         <header>
           <h3 className="font-semibold text-foreground">{tHours("title")}</h3>
           <p className="text-xs text-muted-foreground">{tHours("subtitle")}</p>
         </header>
         <OpeningHoursEditor value={hours} onChange={setHours} />
-      </section>
+      </Card>
 
       <div className="pt-2">
         <button

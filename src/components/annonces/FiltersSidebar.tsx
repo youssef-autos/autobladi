@@ -204,7 +204,7 @@ export function FiltersSidebar({
         <button
           type="button"
           onClick={clearAll}
-          className="inline-flex items-center gap-1 text-xs text-moroccan-red-500 hover:underline"
+          className="inline-flex items-center gap-1 p-2 -m-2 text-xs text-moroccan-red-500 hover:underline"
         >
           <X className="size-3.5" />
           {t("clearFilters")}

@@ -2,102 +2,64 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function Card({
+type Padding = "none" | "sm" | "md" | "lg" | "xl"
+type Shadow = "card" | "soft" | "none"
+
+const paddingStyles: Record<Padding, string> = {
+  none: "",
+  sm: "p-4",
+  md: "p-5",
+  lg: "p-6 md:p-8",
+  xl: "p-8 md:p-12",
+}
+
+const shadowStyles: Record<Shadow, string> = {
+  card: "shadow-card",
+  soft: "shadow-soft",
+  none: "",
+}
+
+type OwnProps<T extends React.ElementType> = {
+  /**
+   * Underlying element or component — a string tag ("article", "li", ...) or
+   * a component like next-intl's `Link` for cards that are themselves the
+   * clickable element. Defaults to "div".
+   */
+  as?: T
+  padding?: Padding
+  shadow?: Shadow
+  /** Clips children to the rounded corners (e.g. for an edge-to-edge image). */
+  clip?: boolean
+  className?: string
+  children?: React.ReactNode
+}
+
+type Props<T extends React.ElementType> = OwnProps<T> &
+  Omit<React.ComponentPropsWithoutRef<T>, keyof OwnProps<T>>
+
+/**
+ * The one card surface for the whole app: `rounded-2xl bg-card border shadow`.
+ * Replaces the ~90 hand-copied variants of this exact class string.
+ */
+export function Card<T extends React.ElementType = "div">({
+  as,
+  padding = "lg",
+  shadow = "card",
+  clip = false,
   className,
-  size = "default",
   ...props
-}: React.ComponentProps<"div"> & { size?: "default" | "sm" }) {
+}: Props<T>) {
+  const Tag = as || "div"
   return (
-    <div
-      data-slot="card"
-      data-size={size}
+    <Tag
       className={cn(
-        "group/card flex flex-col gap-4 overflow-hidden rounded-xl bg-card py-4 text-sm text-card-foreground ring-1 ring-foreground/10 has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-        className
+        "rounded-2xl border border-border bg-card",
+        shadowStyles[shadow],
+        paddingStyles[padding],
+        clip && "overflow-hidden",
+        className,
       )}
       {...props}
     />
   )
-}
-
-function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-header"
-      className={cn(
-        "group/card-header @container/card-header grid auto-rows-min items-start gap-1 rounded-t-xl px-4 group-data-[size=sm]/card:px-3 has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto] [.border-b]:pb-4 group-data-[size=sm]/card:[.border-b]:pb-3",
-        className
-      )}
-      {...props}
-    />
-  )
-}
-
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-title"
-      className={cn(
-        "font-heading text-base leading-snug font-medium group-data-[size=sm]/card:text-sm",
-        className
-      )}
-      {...props}
-    />
-  )
-}
-
-function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-description"
-      className={cn("text-sm text-muted-foreground", className)}
-      {...props}
-    />
-  )
-}
-
-function CardAction({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-action"
-      className={cn(
-        "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
-        className
-      )}
-      {...props}
-    />
-  )
-}
-
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-content"
-      className={cn("px-4 group-data-[size=sm]/card:px-3", className)}
-      {...props}
-    />
-  )
-}
-
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-footer"
-      className={cn(
-        "flex items-center rounded-b-xl border-t bg-muted/50 p-4 group-data-[size=sm]/card:p-3",
-        className
-      )}
-      {...props}
-    />
-  )
-}
-
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardAction,
-  CardDescription,
-  CardContent,
 }

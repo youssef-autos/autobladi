@@ -38,7 +38,7 @@ export default async function AdminEditAnnoncePage({
       `id, condition, brand_id, model_id, city_id, secteur_id, year,
        mileage, fuel_type, transmission, doors, seats, color, origine,
        engine_power, engine_size, first_owner, accident_free, options, title,
-       description, price, price_on_request, contact_phone, contact_whatsapp, video_url,
+       description, price, price_on_request, negotiable, contact_phone, contact_whatsapp, video_url,
        annonce_images(url, thumbnail_url, is_main, order_index)`,
     )
     .eq("id", id)
@@ -93,7 +93,7 @@ export default async function AdminEditAnnoncePage({
     title: a.title ?? "",
     description: a.description ?? "",
     price: a.price ?? 0,
-    negotiable: false,
+    negotiable: a.negotiable ?? false,
     priceOnRequest: a.price_on_request ?? false,
     contactPhone: a.contact_phone ?? "",
     contactWhatsapp: a.contact_whatsapp ?? null,

@@ -9,6 +9,7 @@ import {
 } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 
+import { Card } from "@/components/ui/Card"
 import { Container } from "@/components/ui/Container"
 import { SectionTitle } from "@/components/ui/SectionTitle"
 import { cn } from "@/lib/utils"
@@ -45,9 +46,12 @@ export async function WhyUs() {
         <SectionTitle title={t("title")} subtitle={t("subtitle")} />
         <ul className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {items.map(({ icon: Icon, title, desc }, i) => (
-            <li
+            <Card
+              as="li"
               key={title}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-card transition-all duration-200 hover:-translate-y-1 hover:shadow-soft hover:border-moroccan-gold-500/40"
+              padding="none"
+              clip
+              className="group relative p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-soft hover:border-moroccan-gold-500/40"
             >
               {/* Decorative corner glow on hover */}
               <span
@@ -68,7 +72,7 @@ export async function WhyUs() {
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                 {desc}
               </p>
-            </li>
+            </Card>
           ))}
         </ul>
       </Container>

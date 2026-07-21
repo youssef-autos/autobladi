@@ -3,6 +3,7 @@
 import { CalendarDays, Eye, MapPin } from "lucide-react"
 import { useFormatter, useLocale, useTranslations } from "next-intl"
 
+import { Badge } from "@/components/ui/badge"
 import { PriceTag } from "@/components/ui/PriceTag"
 import type { AnnonceDetail } from "@/lib/queries/annonce-detail"
 import type { Locale } from "@/i18n/routing"
@@ -36,6 +37,9 @@ export function AnnonceHeader({ annonce }: Props) {
           size="xl"
           className="text-4xl md:text-5xl"
         />
+        {annonce.negotiable && (
+          <Badge variant="verified">{t("negotiable")}</Badge>
+        )}
       </div>
 
       {/* Meta row */}

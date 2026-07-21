@@ -6,6 +6,7 @@ import { ActivityChart } from "@/components/dashboard/ActivityChartWrapper"
 import { AdvancedStats } from "@/components/dashboard/AdvancedStatsWrapper"
 import { AlertsList } from "@/components/dashboard/AlertsList"
 import { StatsCard } from "@/components/dashboard/StatsCard"
+import { Card } from "@/components/ui/Card"
 import { Link } from "@/i18n/navigation"
 import {
   getCurrentProfile,
@@ -96,7 +97,7 @@ export default async function DashboardHomePage({
       </div>
 
       {/* Recent annonces */}
-      <section className="rounded-2xl bg-card border border-border p-6 shadow-soft">
+      <Card as="section" padding="none" shadow="soft" className="p-6">
         <header className="flex items-center justify-between mb-4">
           <h2 className="font-semibold text-foreground">{t("recent.annoncesTitle")}</h2>
           <Link
@@ -140,7 +141,7 @@ export default async function DashboardHomePage({
             ))}
           </ul>
         )}
-      </section>
+      </Card>
 
       {/* Advanced statistics — free for every user */}
       <AdvancedStats />

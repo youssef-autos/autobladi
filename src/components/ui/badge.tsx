@@ -26,7 +26,7 @@ const badgeVariants = cva(
         pro:
           "bg-moroccan-red-50 text-moroccan-red-600 border-moroccan-red-500/30",
         new:
-          "bg-blue-50 text-blue-700 border-blue-300",
+          "bg-moroccan-clay-500/10 text-moroccan-clay-600 border-moroccan-clay-500/30",
       },
     },
     defaultVariants: {

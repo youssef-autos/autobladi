@@ -30,7 +30,7 @@ export function SortDropdown() {
         if (v) setSort(v as (typeof SORT_VALUES)[number])
       }}
     >
-      <SelectTrigger className="h-10 w-[200px] rounded-xl">
+      <SelectTrigger className="h-10 w-full sm:w-[200px] rounded-xl">
         <span className="flex-1 text-start text-sm truncate text-foreground">
           {label}
         </span>

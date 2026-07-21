@@ -240,12 +240,12 @@ export function SettingsForm({
             <p className="text-xs text-muted-foreground mt-0.5">{tSeo("indexNowDesc")}</p>
             <div className="mt-2 flex flex-wrap items-center gap-2">
               {indexNowReady ? (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 border border-emerald-200">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-moroccan-mint-500/10 px-3 py-1 text-xs font-medium text-moroccan-mint-500 border border-moroccan-mint-500/30">
                   <CheckCircle2 className="size-3.5" aria-hidden="true" />
                   {tSeo("indexNowOn")}
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700 border border-amber-200">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-moroccan-gold-50 px-3 py-1 text-xs font-medium text-moroccan-gold-700 border border-moroccan-gold-500/40">
                   {tSeo("indexNowOff")}
                 </span>
               )}

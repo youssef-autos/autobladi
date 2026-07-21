@@ -1,14 +1,18 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { setRequestLocale } from "next-intl/server"
+import { getTranslations, setRequestLocale } from "next-intl/server"
 
 import { BlogContent } from "@/components/blog/BlogContent"
+import { JsonLd } from "@/components/seo/JsonLd"
 import { Container } from "@/components/ui/Container"
 import { GoldAccent } from "@/components/ui/GoldAccent"
 import { getPageBySlug } from "@/lib/queries/pages"
 import { localeAlternates } from "@/lib/seo/alternates"
+import { breadcrumbSchema } from "@/lib/seo/structured-data"
 
 export const dynamic = "force-dynamic"
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://autobladi.ma"
 
 export async function generateMetadata({
   params,
@@ -38,6 +42,7 @@ export default async function ContentPageView({
   const isAr = locale === "ar"
   const title = isAr ? page.title_ar : page.title_fr
   const content = (isAr ? page.content_ar : page.content_fr) ?? ""
+  const tNav = await getTranslations("nav")
 
   return (
     <article className="py-10 md:py-16">
@@ -55,6 +60,13 @@ export default async function ContentPageView({
           <p className="text-muted-foreground">—</p>
         )}
       </Container>
+
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: tNav("home"), url: `${SITE_URL}/${locale}` },
+          { name: title, url: `${SITE_URL}/${locale}/p/${slug}` },
+        ])}
+      />
     </article>
   )
 }

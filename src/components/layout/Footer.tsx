@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone } from "lucide-react"
 import { getLocale, getTranslations } from "next-intl/server"
 
 import { AdBanner } from "@/components/ads/AdBanner"
+import { Container } from "@/components/ui/Container"
 import { Link } from "@/i18n/navigation"
 import { Logo } from "@/components/layout/Logo"
 import { getSiteContact } from "@/lib/queries/home"
@@ -27,16 +28,16 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
   return (
     <footer className="mt-auto bg-brand-dark text-white/80">
       {/* Site-wide footer banner */}
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 pt-6">
+      <Container className="pt-6">
         <Suspense fallback={<div className="h-[100px] md:h-[120px] rounded-2xl bg-white/5 animate-pulse" />}>
           <AdBanner placement="footer_banner" heightClass="h-[100px] md:h-[120px]" />
         </Suspense>
-      </div>
+      </Container>
 
       {/* Thin gold separator at top */}
       <div className="mt-6 h-px bg-gradient-to-r from-transparent via-moroccan-gold-500/60 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 lg:py-16">
+      <Container className="py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Column 1 — Brand */}
           <div className="space-y-4">
@@ -121,13 +122,13 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
             </ul>
           </div>
         </div>
-      </div>
+      </Container>
 
       {/* Bottom strip */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-5 text-xs text-white/50 text-center">
+        <Container className="py-5 text-xs text-white/50 text-center">
           © {year} autobladi.ma — {t("rights")}
-        </div>
+        </Container>
       </div>
     </footer>
   )

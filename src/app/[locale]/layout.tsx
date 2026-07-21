@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic"
 
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Cairo, Inter, Playfair_Display, Tajawal } from "next/font/google"
 import Script from "next/script"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
@@ -55,6 +55,16 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
+// `viewportFit: "cover"` lets content opt into the iOS safe-area insets
+// (env(safe-area-inset-*)) — without it, MobileContactBar's bottom padding
+// resolves to 0 and the sticky call/WhatsApp bar can sit under the home
+// indicator.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+}
+
 /**
  * Per-locale metadata. The root [locale]/layout owns everything except
  * page-specific overrides; pages then narrow title / description /
@@ -78,8 +88,8 @@ export async function generateMetadata({
     ? "autobladi.ma — بيع وشراء السيارات في المغرب"
     : "autobladi.ma — Achat et vente de voitures au Maroc"
   const description = ar
-    ? "موقعك الأول لبيع وشراء السيارات الجديدة والمستعملة في المغرب. تقدير مجاني بالذكاء الاصطناعي، معارض احترافية، تواصل آمن مباشر."
-    : "La 1ère plateforme pour acheter et vendre des voitures neuves et d'occasion au Maroc. Estimation gratuite par IA, showrooms auto, contact direct sécurisé."
+    ? "بيع وشراء السيارات الجديدة والمستعملة في المغرب. تقدير مجاني بالذكاء الاصطناعي، معارض موثوقة، وتواصل مباشر وآمن."
+    : "Achetez et vendez des voitures neuves et d'occasion au Maroc. Estimation gratuite par IA, showrooms vérifiés, contact direct et sécurisé."
 
   return {
     metadataBase: new URL(SITE_URL),

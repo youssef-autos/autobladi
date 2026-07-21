@@ -8,7 +8,7 @@ import { useLocale, useTranslations } from "next-intl"
 import { CheckCircle2 } from "lucide-react"
 
 import { updatePassword } from "@/app/[locale]/auth/actions"
-import { Button } from "@/components/ui/button"
+import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -111,13 +111,9 @@ export function ResetPasswordForm() {
           </p>
         )}
 
-        <Button
-          type="submit"
-          disabled={pending}
-          className="h-11 w-full rounded-xl bg-moroccan-gradient hover:brightness-105 text-base font-semibold"
-        >
+        <MoroccanButton type="submit" disabled={pending} className="w-full">
           {pending ? t("submitting") : t("submit")}
-        </Button>
+        </MoroccanButton>
       </form>
     </div>
   )

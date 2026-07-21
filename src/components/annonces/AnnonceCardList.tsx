@@ -13,6 +13,8 @@ import { useFormatter, useLocale, useTranslations } from "next-intl"
 
 import { Link } from "@/i18n/navigation"
 import { FavoriteButton } from "@/components/annonces/FavoriteButton"
+import { Badge } from "@/components/ui/badge"
+import { Card } from "@/components/ui/Card"
 import { PriceTag } from "@/components/ui/PriceTag"
 import { formatMileage } from "@/lib/utils/format"
 import type { AnnonceCardData } from "@/lib/queries/home"
@@ -41,6 +43,7 @@ const transmissionShortLabels: Record<string, { ar: string; fr: string }> = {
 export function AnnonceCardList({ annonce, className }: Props) {
   const locale = useLocale() as Locale
   const t = useTranslations("home.badges")
+  const tDetail = useTranslations("annonceDetail")
   const format = useFormatter()
 
   const cityName = annonce.city
@@ -58,9 +61,12 @@ export function AnnonceCardList({ annonce, className }: Props) {
     : null
 
   return (
-    <article
+    <Card
+      as="article"
+      padding="none"
+      clip
       className={cn(
-        "group relative flex flex-col sm:flex-row gap-0 sm:gap-5 rounded-2xl bg-card border border-border shadow-card overflow-hidden",
+        "group relative flex flex-col sm:flex-row gap-0 sm:gap-5",
         "transition-all duration-200 hover:-translate-y-0.5 hover:shadow-soft",
         className,
       )}
@@ -167,13 +173,18 @@ export function AnnonceCardList({ annonce, className }: Props) {
         </ul>
 
         <div className="mt-auto flex flex-wrap items-end justify-between gap-3 pt-3 border-t border-border/60">
-          <PriceTag price={annonce.price} priceOnRequest={annonce.price_on_request} size="xl" />
+          <div className="flex items-center gap-2 flex-wrap">
+            <PriceTag price={annonce.price} priceOnRequest={annonce.price_on_request} size="xl" />
+            {annonce.negotiable && (
+              <Badge variant="verified">{tDetail("negotiable")}</Badge>
+            )}
+          </div>
           <div className="text-xs text-muted-foreground space-y-0.5 text-end">
             {annonce.seller_name && <p className="font-medium text-foreground">{annonce.seller_name}</p>}
             {publishedRelative && <p>{publishedRelative}</p>}
           </div>
         </div>
       </div>
-    </article>
+    </Card>
   )
 }

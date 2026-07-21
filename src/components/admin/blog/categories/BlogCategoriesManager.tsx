@@ -8,6 +8,7 @@ import { toast } from "sonner"
 import { deleteBlogCategory } from "@/app/[locale]/admin/blog/categories/actions"
 import { BlogCategoryFormDialog } from "@/components/admin/blog/categories/BlogCategoryFormDialog"
 import { EmptyState } from "@/components/ui/EmptyState"
+import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import type { AdminBlogCategoryRow } from "@/lib/queries/admin"
 
 type Props = {
@@ -65,17 +66,16 @@ export function BlogCategoriesManager({ categories }: Props) {
           />
         </div>
 
-        <button
+        <MoroccanButton
           type="button"
           onClick={() => {
             setEditing(null)
             setCreateOpen(true)
           }}
-          className="inline-flex items-center gap-2 h-11 px-4 rounded-xl bg-moroccan-gradient text-white text-sm font-semibold shadow-moroccan hover:brightness-105"
         >
           <Plus className="size-4" aria-hidden="true" />
           {t("addManual")}
-        </button>
+        </MoroccanButton>
       </div>
 
       <p className="text-xs text-muted-foreground">

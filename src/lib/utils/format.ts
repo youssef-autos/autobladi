@@ -41,10 +41,3 @@ export function formatPhone(phone: string | null | undefined): string {
   if (normalized.length !== 10) return phone
   return normalized.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3-$4")
 }
-
-const ARABIC_DIGITS = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"] as const
-
-/** Converts ASCII digits to Arabic-Indic digits. */
-export function arabicNumerals(input: string | number): string {
-  return String(input).replace(/\d/g, (d) => ARABIC_DIGITS[Number(d)])
-}

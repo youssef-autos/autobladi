@@ -1,4 +1,5 @@
 import { Fragment, Suspense } from "react"
+import type { Metadata } from "next"
 import { setRequestLocale } from "next-intl/server"
 
 import { AdSlot } from "@/components/ads/AdSlot"
@@ -13,15 +14,40 @@ import { Newsletter } from "@/components/home/Newsletter"
 import { TopDealers } from "@/components/home/TopDealers"
 import { WhyUs } from "@/components/home/WhyUs"
 import { Container } from "@/components/ui/Container"
-import type { HomeSectionKey } from "@/lib/home-sections"
+import { HOME_SECTION_KEYS, type HomeSectionKey } from "@/lib/home-sections"
 import {
   getActiveBrands,
   getActiveModels,
-  getHomeSectionsConfig,
   getPopularBrands,
 } from "@/lib/queries/home"
+import { localeAlternates } from "@/lib/seo/alternates"
 
 export const revalidate = 60
+
+// Independent from the root layout's fallback — same intent, but editable
+// here without touching every other page that still relies on that default.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const ar = locale === "ar"
+  const title = ar
+    ? "autobladi.ma — بيع وشراء السيارات في المغرب"
+    : "autobladi.ma — Achat et vente de voitures au Maroc"
+  const description = ar
+    ? "بيع وشراء السيارات الجديدة والمستعملة في المغرب. تقدير مجاني بالذكاء الاصطناعي، معارض موثوقة، وتواصل مباشر وآمن."
+    : "Achetez et vendez des voitures neuves et d'occasion au Maroc. Estimation gratuite par IA, showrooms vérifiés, contact direct et sécurisé."
+  return {
+    // `absolute` bypasses the root layout's `%s · autobladi.ma` template —
+    // this title is already fully branded and shouldn't get suffixed again.
+    title: { absolute: title },
+    description,
+    alternates: localeAlternates(locale, ""),
+    openGraph: { title, description },
+  }
+}
 
 export default async function HomePage({
   params,
@@ -31,11 +57,10 @@ export default async function HomePage({
   const { locale } = await params
   setRequestLocale(locale)
 
-  const [allBrands, popularBrands, models, sections] = await Promise.all([
+  const [allBrands, popularBrands, models] = await Promise.all([
     getActiveBrands(),
     getPopularBrands(12),
     getActiveModels(),
-    getHomeSectionsConfig(),
   ])
 
   // Each managed section's rendered node (with its data + Suspense wrapping).
@@ -61,7 +86,7 @@ export default async function HomePage({
     newsletter: <Newsletter />,
   }
 
-  const visible = sections.filter((s) => s.visible).map((s) => s.key)
+  const visible = HOME_SECTION_KEYS
   // Distribute the two extra ad slots through the section list.
   const midPos = Math.floor((visible.length - 1) / 2)
   const bottomPos = visible.length - 2

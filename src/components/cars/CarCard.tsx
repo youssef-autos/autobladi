@@ -14,6 +14,8 @@ import { useFormatter, useLocale, useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import { CompareButton } from "@/components/compare/CompareButton"
 import { FavoriteButton } from "@/components/annonces/FavoriteButton"
+import { Badge } from "@/components/ui/badge"
+import { Card } from "@/components/ui/Card"
 import { PriceTag } from "@/components/ui/PriceTag"
 import { mediaUrl } from "@/lib/media"
 import { formatMileage, formatPhone } from "@/lib/utils/format"
@@ -43,6 +45,7 @@ const transmissionShortLabels: Record<string, { ar: string; fr: string }> = {
 export function CarCard({ annonce, className }: Props) {
   const locale = useLocale() as Locale
   const t = useTranslations("home.badges")
+  const tDetail = useTranslations("annonceDetail")
   const format = useFormatter()
   // formatPhone is imported but kept here for tree-shaking parity with list view
   void formatPhone
@@ -62,9 +65,12 @@ export function CarCard({ annonce, className }: Props) {
     : null
 
   return (
-    <article
+    <Card
+      as="article"
+      padding="none"
+      clip
       className={cn(
-        "group relative flex flex-col rounded-2xl bg-card border border-border shadow-card overflow-hidden",
+        "group relative flex flex-col",
         "transition-all duration-200 hover:-translate-y-0.5 hover:shadow-soft",
         className,
       )}
@@ -139,7 +145,12 @@ export function CarCard({ annonce, className }: Props) {
           )}
         </div>
 
-        <PriceTag price={annonce.price} priceOnRequest={annonce.price_on_request} size="lg" />
+        <div className="flex items-center gap-2 flex-wrap">
+          <PriceTag price={annonce.price} priceOnRequest={annonce.price_on_request} size="lg" />
+          {annonce.negotiable && (
+            <Badge variant="verified">{tDetail("negotiable")}</Badge>
+          )}
+        </div>
 
         <ul className="grid grid-cols-2 gap-y-1.5 gap-x-3 text-xs text-muted-foreground">
           {annonce.year && (
@@ -178,6 +189,6 @@ export function CarCard({ annonce, className }: Props) {
           {publishedRelative && <span>{publishedRelative}</span>}
         </div>
       </div>
-    </article>
+    </Card>
   )
 }

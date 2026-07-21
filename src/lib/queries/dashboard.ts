@@ -2,6 +2,7 @@ import "server-only"
 
 import { createClient } from "@/lib/supabase/server"
 import type { Tables } from "@/types/database.types"
+import { mapAnnonceCard, type AnnonceCardRow } from "@/lib/queries/annonce-card"
 
 export type DashboardProfile = Pick<
   Tables<"profiles">,
@@ -200,7 +201,7 @@ export async function listMyFavorites(userId: string) {
     .select(`
       id, annonce_id, created_at,
       annonces(
-        id, slug, title, year, mileage, price, price_on_request, fuel_type, transmission, condition, published_at, status,
+        id, slug, title, year, mileage, price, price_on_request, negotiable, fuel_type, transmission, condition, published_at, status,
         annonce_images(url, is_main, order_index),
         cities(name_ar, name_fr, slug),
         brands(name, slug, logo_url),
@@ -214,33 +215,8 @@ export async function listMyFavorites(userId: string) {
   const rows = (data ?? []) as unknown as FavoriteRow[]
   return rows
     .filter((r) => r.annonces && r.annonces.status === "active")
-    .map((r) => {
-      const a = r.annonces
-      const images = a.annonce_images ?? []
-      const main = images.find((i) => i.is_main) ?? images[0] ?? null
-      return {
-        favoriteId: r.id,
-        annonce: {
-          id: a.id,
-          slug: a.slug,
-          title: a.title,
-          year: a.year,
-          mileage: a.mileage,
-          price: a.price_on_request ? null : a.price,
-          price_on_request: a.price_on_request,
-          fuel_type: a.fuel_type,
-          transmission: a.transmission,
-          condition: a.condition,
-          published_at: a.published_at,
-          main_image: main?.url ?? null,
-          image_count: images.length,
-          city: a.cities,
-          brand: a.brands,
-          model: a.car_models,
-          seller_name: a.profiles?.full_name ?? null,
-          is_pro:
-            a.profiles?.account_type === "pro" || a.profiles?.account_type === "admin",
-        },
-      }
-    })
+    .map((r) => ({
+      favoriteId: r.id,
+      annonce: mapAnnonceCard(r.annonces as unknown as AnnonceCardRow),
+    }))
 }

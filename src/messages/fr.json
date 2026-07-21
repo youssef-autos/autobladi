@@ -726,7 +726,6 @@
       "blogComments": "Commentaires",
       "adPlacements": "Emplacements pubs",
       "ads": "Publicités",
-      "homeSections": "Sections d'accueil",
       "pages": "Pages",
       "generalSettings": "Paramètres généraux",
       "settingsEmail": "E-mails",
@@ -997,33 +996,6 @@
       "saved": "Paramètres de connexion sociale enregistrés",
       "error": "Une erreur est survenue",
       "supabaseNote": "⚠️ Le bouton de visibilité affiche/masque les boutons sur la page de connexion. Pour que la connexion fonctionne réellement, activez le fournisseur (Google/Facebook) et saisissez les mêmes clés dans les paramètres Authentication de votre tableau de bord Supabase."
-    },
-    "sectionsPage": {
-      "title": "Sections de l'accueil",
-      "subtitle": "Affichez, masquez et réorganisez les sections de la page d'accueil",
-      "hint": "Les changements s'appliquent à la page d'accueil après enregistrement. L'en-tête de recherche et les bannières publicitaires restent fixes.",
-      "count": "{visible} sur {total} sections visibles",
-      "save": "Enregistrer",
-      "saving": "Enregistrement...",
-      "visible": "Affichée",
-      "hidden": "Masquée",
-      "show": "Afficher",
-      "hide": "Masquer",
-      "moveUp": "Monter",
-      "moveDown": "Descendre",
-      "toast": {
-        "saved": "Sections mises à jour",
-        "error": "Une erreur est survenue"
-      },
-      "labels": {
-        "brands": "Marques",
-        "latest": "Dernières annonces",
-        "why": "Pourquoi autobladi.ma",
-        "dealers": "Top showrooms",
-        "estimation": "Estimation de prix",
-        "blog": "Blog",
-        "newsletter": "Newsletter"
-      }
     },
     "pagesPage": {
       "title": "Pages du site",
@@ -2263,7 +2235,7 @@
       "noResults": "Aucun résultat",
       "found": "Nous avons trouvé <strong>{count}</strong> annonces pour vous",
       "liveCount": "{count} annonces en ligne",
-      "trust": "Contact direct · Achat en toute confiance",
+      "trust": "Publication gratuite · Sans intermédiaire · Photos vérifiées",
       "tabUsed": "Occasion",
       "tabNew": "Neuve",
       "brand": "Marque",
@@ -2278,7 +2250,8 @@
       "advancedSearch": "Recherche avancée",
       "statsCars": "annonces",
       "statsDealers": "showrooms",
-      "statsCities": "villes"
+      "statsCities": "villes",
+      "reset": "Réinitialiser"
     },
     "brands": {
       "title": "Parcourir par marque",
@@ -2304,11 +2277,11 @@
       "searchTitle": "Recherche avancée",
       "searchDesc": "Filtrez par marque, modèle, ville, budget et des dizaines de critères.",
       "dealersTitle": "Showrooms",
-      "dealersDesc": "Des showrooms avec une vitrine dédiée pour chaque activité."
+      "dealersDesc": "Des vitrines professionnelles pour les concessionnaires et garages, avec toutes leurs annonces réunies au même endroit."
     },
     "topDealers": {
       "title": "Top showrooms",
-      "subtitle": "Les showrooms les mieux notés sur le site",
+      "subtitle": "Les showrooms les mieux notés par notre communauté",
       "visit": "Visiter",
       "carsCount": "{count} voitures",
       "reviews": "{count} avis",
@@ -2326,8 +2299,8 @@
       "empty": "Aucun article pour le moment"
     },
     "newsletter": {
-      "title": "Abonnez-vous à la newsletter",
-      "subtitle": "Recevez les nouvelles offres et annonces directement dans votre boîte mail",
+      "title": "Ne ratez plus une bonne affaire",
+      "subtitle": "Recevez les nouvelles annonces et des offres exclusives directement par e-mail.",
       "placeholder": "Votre adresse e-mail",
       "subscribe": "S'abonner"
     },
@@ -2339,7 +2312,7 @@
     }
   },
   "footer": {
-    "tagline": "Le premier marché automobile au Maroc. Achetez, vendez, comparez et estimez en un seul endroit.",
+    "tagline": "Achetez, vendez, comparez et estimez votre voiture — tout en un seul endroit, partout au Maroc.",
     "explore": "Explorer",
     "exploreItems": {
       "all": "Toutes les annonces",
@@ -2458,8 +2431,8 @@
     "hero": {
       "eyebrow": "Annoncez avec autobladi.ma",
       "title": "Votre marque devant ceux qui vont acheter une voiture",
-      "subtitle": "autobladi.ma est la destination des Marocains pour acheter et vendre une voiture. Une audience à forte intention d'achat — pas des impressions perdues.",
-      "trust": "La plateforme marocaine spécialisée dans l'automobile",
+      "subtitle": "autobladi.ma connecte les Marocains qui achètent et vendent une voiture. Une audience à forte intention d'achat — pas des impressions perdues.",
+      "trust": "Une plateforme marocaine spécialisée dans l'automobile",
       "cta": "Réservez votre emplacement",
       "ctaSecondary": "Voir les emplacements"
     },

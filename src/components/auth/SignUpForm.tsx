@@ -8,7 +8,7 @@ import { useLocale, useTranslations } from "next-intl"
 import { CheckCircle2 } from "lucide-react"
 
 import { signUp } from "@/app/[locale]/auth/actions"
-import { Button } from "@/components/ui/button"
+import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -145,15 +145,9 @@ export function SignUpForm() {
           </p>
         )}
 
-        <Button
-          type="submit"
-          disabled={pending}
-          className={cn(
-            "h-11 w-full rounded-xl bg-moroccan-gradient hover:brightness-105 text-base font-semibold"
-          )}
-        >
+        <MoroccanButton type="submit" disabled={pending} className="w-full">
           {pending ? t("submitting") : t("submit")}
-        </Button>
+        </MoroccanButton>
 
         <p className="text-center text-sm text-muted-foreground">
           {t("hasAccount")}{" "}

@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from "next-intl"
 
 import { FiltersSidebar } from "@/components/annonces/FiltersSidebar"
 import { SortDropdown } from "@/components/annonces/SortDropdown"
+import { Container } from "@/components/ui/Container"
 import {
   Sheet,
   SheetContent,
@@ -32,7 +33,7 @@ export function MobileFilters(props: Props) {
     <>
       {/* Bottom bar visible on mobile only */}
       <div className="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-background/95 backdrop-blur border-t border-border">
-        <div className="max-w-7xl mx-auto px-4 py-3 grid grid-cols-2 gap-3">
+        <Container className="py-3 grid grid-cols-2 gap-3">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
               aria-label={t("openFilters")}
@@ -57,7 +58,7 @@ export function MobileFilters(props: Props) {
           <div className="inline-flex items-center justify-center">
             <SortDropdown />
           </div>
-        </div>
+        </Container>
       </div>
     </>
   )

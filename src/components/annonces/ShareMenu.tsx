@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { Link2, Share2 } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
@@ -17,11 +18,20 @@ type Props = {
   url: string
   title: string
   className?: string
+  /** Icon-only square button, for tight spaces like the mobile contact bar. */
+  compact?: boolean
 }
 
-export function ShareMenu({ url, title, className }: Props) {
+export function ShareMenu({ url, title, className, compact }: Props) {
   const t = useTranslations("annonceDetail.share")
   const tContact = useTranslations("annonceDetail.contact")
+  // Defaults to the dropdown (SSR-safe); upgrades to the OS-native share
+  // sheet after mount when the browser supports the Web Share API.
+  const [canShare, setCanShare] = useState(false)
+
+  useEffect(() => {
+    setCanShare(typeof navigator.share === "function")
+  }, [])
 
   const text = `${t("shareText")} — ${title}`
   const waUrl = `https://wa.me/?text=${encodeURIComponent(`${text}\n${url}`)}`
@@ -36,16 +46,41 @@ export function ShareMenu({ url, title, className }: Props) {
     }
   }
 
+  async function nativeShare() {
+    try {
+      await navigator.share({ title, text: t("shareText"), url })
+    } catch {
+      // User dismissed the native share sheet — nothing to do.
+    }
+  }
+
+  const triggerClassName = cn(
+    compact
+      ? "inline-flex items-center justify-center size-12 shrink-0 rounded-xl border border-border bg-background text-foreground hover:bg-moroccan-sand-50"
+      : "inline-flex items-center justify-center gap-2 h-11 w-full rounded-xl border border-border bg-background font-medium text-sm text-foreground hover:bg-moroccan-sand-50",
+    className,
+  )
+
+  const label = compact ? (
+    <span className="sr-only">{tContact("share")}</span>
+  ) : (
+    tContact("share")
+  )
+
+  if (canShare) {
+    return (
+      <button type="button" onClick={nativeShare} className={triggerClassName}>
+        <Share2 className="size-4" aria-hidden="true" />
+        {label}
+      </button>
+    )
+  }
+
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        className={cn(
-          "inline-flex items-center justify-center gap-2 h-11 w-full rounded-xl border border-border bg-background font-medium text-sm text-foreground hover:bg-moroccan-sand-50",
-          className,
-        )}
-      >
+      <DropdownMenuTrigger className={triggerClassName}>
         <Share2 className="size-4" aria-hidden="true" />
-        {tContact("share")}
+        {label}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-44">
         <DropdownMenuItem

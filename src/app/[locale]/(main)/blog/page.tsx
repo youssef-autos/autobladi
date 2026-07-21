@@ -10,6 +10,7 @@ import { BlogSearch } from "@/components/blog/BlogSearch"
 import { BlogSidebar } from "@/components/blog/BlogSidebar"
 import { CategoriesNav } from "@/components/blog/CategoriesNav"
 import { FeaturedPost } from "@/components/blog/FeaturedPost"
+import { JsonLd } from "@/components/seo/JsonLd"
 import { Container } from "@/components/ui/Container"
 import { EmptyState } from "@/components/ui/EmptyState"
 import { GoldAccent } from "@/components/ui/GoldAccent"
@@ -19,8 +20,15 @@ import {
   listPosts,
 } from "@/lib/queries/blog"
 import { localeAlternates } from "@/lib/seo/alternates"
+import {
+  breadcrumbSchema,
+  collectionSchema,
+  itemListSchema,
+} from "@/lib/seo/structured-data"
 
 export const revalidate = 60
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://autobladi.ma"
 
 type SearchParams = Record<string, string | string[] | undefined>
 
@@ -59,6 +67,7 @@ export default async function BlogIndexPage({
   const [{ locale }, sp] = await Promise.all([params, searchParams])
   setRequestLocale(locale)
   const t = await getTranslations("blog")
+  const tNav = await getTranslations("nav")
 
   const pageParam = readStringParam(sp.page)
   const page = Math.max(1, parseInt(pageParam ?? "1", 10) || 1)
@@ -74,6 +83,10 @@ export default async function BlogIndexPage({
     featured && page === 1
       ? result.posts.filter((p) => p.id !== featured.id)
       : result.posts
+
+  // ItemList should mirror exactly what's rendered — featured post first
+  // (it's visually first on the page), then the grid.
+  const allListedPosts = featured ? [featured, ...gridPosts] : gridPosts
 
   return (
     <>
@@ -174,6 +187,31 @@ export default async function BlogIndexPage({
           <BlogSidebar showAd={false} hideSearch />
         </div>
       </Container>
+
+      <JsonLd
+        data={collectionSchema({
+          locale,
+          path: "/blog",
+          name: t("metaTitle"),
+          description: t("metaDescription"),
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: tNav("home"), url: `${SITE_URL}/${locale}` },
+          { name: tNav("blog"), url: `${SITE_URL}/${locale}/blog` },
+        ])}
+      />
+      {allListedPosts.length > 0 && (
+        <JsonLd
+          data={itemListSchema(
+            allListedPosts.map((p) => ({
+              url: `${SITE_URL}/${locale}/blog/${p.slug}`,
+              name: p.title,
+            })),
+          )}
+        />
+      )}
     </>
   )
 }

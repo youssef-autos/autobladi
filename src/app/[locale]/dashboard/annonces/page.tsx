@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 
 import { AnnonceRow } from "@/components/dashboard/AnnonceRow"
+import { Card } from "@/components/ui/Card"
 import { EmptyState } from "@/components/ui/EmptyState"
 import { Link } from "@/i18n/navigation"
 import { createClient } from "@/lib/supabase/server"
@@ -46,7 +47,7 @@ export default async function MyAnnoncesPage({
       </header>
 
       {rows.length === 0 ? (
-        <div className="rounded-2xl bg-card border border-border p-12 shadow-soft">
+        <Card padding="none" shadow="soft" className="p-12">
           <EmptyState
             icon={Tag}
             title={t("empty")}
@@ -61,9 +62,9 @@ export default async function MyAnnoncesPage({
               </Link>
             }
           />
-        </div>
+        </Card>
       ) : (
-        <div className="rounded-2xl bg-card border border-border shadow-soft overflow-hidden">
+        <Card padding="none" shadow="soft" clip>
           <div className="overflow-x-auto">
             <table className="w-full text-start">
               <thead className="bg-moroccan-sand-50/60 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
@@ -85,7 +86,7 @@ export default async function MyAnnoncesPage({
               </tbody>
             </table>
           </div>
-        </div>
+        </Card>
       )}
     </div>
   )

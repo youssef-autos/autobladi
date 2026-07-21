@@ -24,7 +24,7 @@ export function ViewToggle() {
         aria-label={t("grid")}
         onClick={() => setView("grid")}
         className={cn(
-          "inline-flex items-center justify-center size-9 rounded-lg transition-colors",
+          "inline-flex items-center justify-center size-10 rounded-lg transition-colors",
           view === "grid"
             ? "bg-moroccan-red-50 text-moroccan-red-500"
             : "text-muted-foreground hover:text-foreground",
@@ -39,7 +39,7 @@ export function ViewToggle() {
         aria-label={t("list")}
         onClick={() => setView("list")}
         className={cn(
-          "inline-flex items-center justify-center size-9 rounded-lg transition-colors",
+          "inline-flex items-center justify-center size-10 rounded-lg transition-colors",
           view === "list"
             ? "bg-moroccan-red-50 text-moroccan-red-500"
             : "text-muted-foreground hover:text-foreground",

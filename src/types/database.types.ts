@@ -161,6 +161,7 @@ export type Database = {
           mileage: number | null
           price: number | null
           price_on_request: boolean
+          negotiable: boolean
           fuel_type: FuelType | null
           transmission: Transmission | null
           body_type: string | null
@@ -199,6 +200,7 @@ export type Database = {
           mileage?: number | null
           price?: number | null
           price_on_request?: boolean
+          negotiable?: boolean
           fuel_type?: FuelType | null
           transmission?: Transmission | null
           body_type?: string | null

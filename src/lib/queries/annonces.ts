@@ -1,44 +1,14 @@
 import "server-only"
 
 import { createClient } from "@/lib/supabase/server"
-import type { AnnonceCardData } from "@/lib/queries/home"
+import {
+  ANNONCE_CARD_SELECT,
+  mapAnnonceCard,
+  type AnnonceCardData,
+  type AnnonceCardRow,
+} from "@/lib/queries/annonce-card"
 import type { AnnoncesFilters } from "@/components/annonces/searchParams"
 import { PAGE_SIZE } from "@/components/annonces/searchParams"
-import type { Tables } from "@/types/database.types"
-
-type AnnonceRow = Tables<"annonces"> & {
-  annonce_images: Pick<Tables<"annonce_images">, "url" | "is_main" | "order_index">[] | null
-  cities: Pick<Tables<"cities">, "name_ar" | "name_fr" | "slug"> | null
-  brands: Pick<Tables<"brands">, "name" | "slug" | "logo_url"> | null
-  car_models: Pick<Tables<"car_models">, "name" | "slug"> | null
-  profiles: Pick<Tables<"profiles">, "full_name" | "account_type"> | null
-}
-
-function mapAnnonce(row: AnnonceRow): AnnonceCardData {
-  const images = row.annonce_images ?? []
-  const main = images.find((i) => i.is_main) ?? images[0] ?? null
-  return {
-    id: row.id,
-    slug: row.slug,
-    title: row.title,
-    year: row.year,
-    mileage: row.mileage,
-    price: row.price_on_request ? null : row.price,
-    price_on_request: row.price_on_request,
-    fuel_type: row.fuel_type,
-    transmission: row.transmission,
-    condition: row.condition,
-    published_at: row.published_at,
-    main_image: main?.url ?? null,
-    image_count: images.length,
-    city: row.cities,
-    brand: row.brands,
-    model: row.car_models,
-    seller_name: row.profiles?.full_name ?? null,
-    is_pro:
-      row.profiles?.account_type === "pro" || row.profiles?.account_type === "admin",
-  }
-}
 
 export type AnnoncesListResult = {
   annonces: AnnonceCardData[]
@@ -95,18 +65,9 @@ export async function searchAnnonces(
       : Promise.resolve([] as string[]),
   ])
 
-  const select = `
-    id, slug, title, year, mileage, price, price_on_request, fuel_type, transmission, condition, published_at,
-    annonce_images(url, is_main, order_index),
-    cities(name_ar, name_fr, slug),
-    brands(name, slug, logo_url),
-    car_models(name, slug),
-    profiles(full_name, account_type)
-  `
-
   let query = supabase
     .from("annonces")
-    .select(select, { count: "exact" })
+    .select(ANNONCE_CARD_SELECT, { count: "exact" })
     .eq("status", "active")
 
   if (filters.q) query = query.ilike("title", `%${filters.q}%`)
@@ -138,8 +99,8 @@ export async function searchAnnonces(
   query = query.range(from, to)
 
   const { data, count } = await query
-  const rows = (data ?? []) as unknown as AnnonceRow[]
-  const annonces = rows.map(mapAnnonce)
+  const rows = (data ?? []) as unknown as AnnonceCardRow[]
+  const annonces = rows.map(mapAnnonceCard)
   const total = count ?? 0
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE))
 

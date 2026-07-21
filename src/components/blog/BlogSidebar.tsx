@@ -5,6 +5,7 @@ import { getFormatter, getLocale, getTranslations } from "next-intl/server"
 
 import { AdBanner } from "@/components/ads/AdBanner"
 import { BlogSearch } from "@/components/blog/BlogSearch"
+import { Card } from "@/components/ui/Card"
 import { Link } from "@/i18n/navigation"
 import {
   listCategoriesWithCounts,
@@ -68,7 +69,7 @@ async function CategoriesBox({
   const locale = await getLocale()
   if (categories.length === 0) return null
   return (
-    <section className="rounded-2xl border border-border bg-card p-5 shadow-card">
+    <Card as="section" padding="sm">
       <h3 className="font-display text-base font-bold text-foreground mb-3">
         {t("categories")}
       </h3>
@@ -91,7 +92,7 @@ async function CategoriesBox({
           </li>
         ))}
       </ul>
-    </section>
+    </Card>
   )
 }
 
@@ -100,7 +101,7 @@ async function LatestPosts({ posts }: { posts: BlogPostCard[] }) {
   const fmt = await getFormatter()
   if (posts.length === 0) return null
   return (
-    <section className="rounded-2xl border border-border bg-card p-5 shadow-card">
+    <Card as="section" padding="sm">
       <h3 className="font-display text-base font-bold text-foreground mb-3">
         {t("latest")}
       </h3>
@@ -140,7 +141,7 @@ async function LatestPosts({ posts }: { posts: BlogPostCard[] }) {
           </li>
         ))}
       </ul>
-    </section>
+    </Card>
   )
 }
 

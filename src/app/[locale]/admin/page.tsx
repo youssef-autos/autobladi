@@ -15,6 +15,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 import { PendingShowroomsWidget } from "@/components/admin/PendingShowroomsWidget"
 import { StatsCard } from "@/components/dashboard/StatsCard"
+import { Card } from "@/components/ui/Card"
 import { getAdminCounts, listPendingShowroomsAdmin } from "@/lib/queries/admin"
 import { cn } from "@/lib/utils"
 
@@ -157,7 +158,7 @@ export default async function AdminDashboardPage({
       </div>
 
       {/* Needs attention */}
-      <section className="rounded-2xl border border-border bg-card p-6 shadow-card">
+      <Card as="section" padding="none" className="p-6">
         <header className="flex items-center gap-2 mb-4">
           <AlertTriangle
             className="size-5 text-moroccan-gold-700"
@@ -204,7 +205,7 @@ export default async function AdminDashboardPage({
             })}
           </ul>
         )}
-      </section>
+      </Card>
 
       {/* Showrooms awaiting approval — quick-approve without leaving the dashboard */}
       <PendingShowroomsWidget rows={pendingShowrooms} total={counts.pendingShowrooms} />

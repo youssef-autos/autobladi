@@ -9,6 +9,7 @@ import { deleteCity } from "@/app/[locale]/admin/cities/actions"
 import { CityFormDialog } from "@/components/admin/cities/CityFormDialog"
 import { CityImportDialog } from "@/components/admin/cities/CityImportDialog"
 import { EmptyState } from "@/components/ui/EmptyState"
+import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import type { AdminCityRow } from "@/lib/queries/admin"
 
 type Props = {
@@ -80,17 +81,16 @@ export function CitiesManager({ cities }: Props) {
             <Upload className="size-4" aria-hidden="true" />
             {t("uploadJson")}
           </button>
-          <button
+          <MoroccanButton
             type="button"
             onClick={() => {
               setEditing(null)
               setCreateOpen(true)
             }}
-            className="inline-flex items-center gap-2 h-11 px-4 rounded-xl bg-moroccan-gradient text-white text-sm font-semibold shadow-moroccan hover:brightness-105"
           >
             <Plus className="size-4" aria-hidden="true" />
             {t("addManual")}
-          </button>
+          </MoroccanButton>
         </div>
       </div>
 

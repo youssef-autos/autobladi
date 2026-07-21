@@ -338,7 +338,7 @@ export async function listApprovedComments(
 // ---------------------------------------------------------------------------
 // RSS feed source
 // ---------------------------------------------------------------------------
-export type RssItem = {
+type RssItem = {
   id: string
   title: string
   slug: string

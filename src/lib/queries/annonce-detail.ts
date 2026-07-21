@@ -1,7 +1,12 @@
 import "server-only"
 
 import { createClient } from "@/lib/supabase/server"
-import type { AnnonceCardData } from "@/lib/queries/home"
+import {
+  ANNONCE_CARD_SELECT,
+  mapAnnonceCard,
+  type AnnonceCardData,
+  type AnnonceCardRow,
+} from "@/lib/queries/annonce-card"
 import type { Tables } from "@/types/database.types"
 
 export type AnnonceImage = {
@@ -21,6 +26,7 @@ export type AnnonceDetail = {
   mileage: number | null
   price: number | null
   price_on_request: boolean
+  negotiable: boolean
   fuel_type: Tables<"annonces">["fuel_type"]
   transmission: Tables<"annonces">["transmission"]
   body_type: string | null
@@ -107,6 +113,7 @@ function mapDetail(row: AnnonceDetailRow): AnnonceDetail {
     // opengraph-image) reads this same sanitized object.
     price: row.price_on_request ? null : row.price,
     price_on_request: row.price_on_request,
+    negotiable: row.negotiable,
     fuel_type: row.fuel_type,
     transmission: row.transmission,
     body_type: row.body_type,
@@ -148,39 +155,6 @@ export async function getAnnonceBySlug(slug: string): Promise<AnnonceDetail | nu
   return mapDetail(data as unknown as AnnonceDetailRow)
 }
 
-type SimilarRow = Tables<"annonces"> & {
-  annonce_images: { url: string; is_main: boolean; order_index: number }[] | null
-  cities: { name_ar: string; name_fr: string; slug: string } | null
-  brands: { name: string; slug: string; logo_url: string | null } | null
-  car_models: { name: string; slug: string } | null
-  profiles: { full_name: string | null; account_type: Tables<"profiles">["account_type"] } | null
-}
-
-function mapSimilar(row: SimilarRow): AnnonceCardData {
-  const images = row.annonce_images ?? []
-  const main = images.find((i) => i.is_main) ?? images[0] ?? null
-  return {
-    id: row.id,
-    slug: row.slug,
-    title: row.title,
-    year: row.year,
-    mileage: row.mileage,
-    price: row.price_on_request ? null : row.price,
-    price_on_request: row.price_on_request,
-    fuel_type: row.fuel_type,
-    transmission: row.transmission,
-    condition: row.condition,
-    published_at: row.published_at,
-    main_image: main?.url ?? null,
-    image_count: images.length,
-    city: row.cities,
-    brand: row.brands,
-    model: row.car_models,
-    seller_name: row.profiles?.full_name ?? null,
-    is_pro: row.profiles?.account_type === "pro" || row.profiles?.account_type === "admin",
-  }
-}
-
 export async function getSimilarAnnonces(
   source: AnnonceDetail,
   limit = 4,
@@ -189,14 +163,7 @@ export async function getSimilarAnnonces(
 
   let query = supabase
     .from("annonces")
-    .select(
-      `id, slug, title, year, mileage, price, price_on_request, fuel_type, transmission, condition, published_at,
-       annonce_images(url, is_main, order_index),
-       cities(name_ar, name_fr, slug),
-       brands(name, slug, logo_url),
-       car_models(name, slug),
-       profiles(full_name, account_type)`,
-    )
+    .select(ANNONCE_CARD_SELECT)
     .eq("status", "active")
     .neq("id", source.id)
     .limit(limit)
@@ -214,8 +181,8 @@ export async function getSimilarAnnonces(
   query = query.order("published_at", { ascending: false, nullsFirst: false })
 
   const { data } = await query
-  const rows = (data ?? []) as unknown as SimilarRow[]
-  return rows.map(mapSimilar)
+  const rows = (data ?? []) as unknown as AnnonceCardRow[]
+  return rows.map(mapAnnonceCard)
 }
 
 export async function countOtherAnnoncesByUser(

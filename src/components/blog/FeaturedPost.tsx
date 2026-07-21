@@ -3,6 +3,7 @@ import { ArrowRight, Calendar, Clock } from "lucide-react"
 import { getFormatter, getLocale, getTranslations } from "next-intl/server"
 
 import { Link } from "@/i18n/navigation"
+import { Card } from "@/components/ui/Card"
 import type { BlogPostCard } from "@/lib/queries/blog"
 
 type Props = {
@@ -17,10 +18,13 @@ export async function FeaturedPost({ post }: Props) {
     locale === "fr" ? post.category?.name_fr : post.category?.name_ar
 
   return (
-    <Link
+    <Card
+      as={Link}
       href={`/blog/${post.slug}`}
       aria-label={post.title}
-      className="group grid grid-cols-1 overflow-hidden rounded-2xl md:rounded-3xl border border-border bg-card shadow-card transition-all hover:border-moroccan-red-200 hover:shadow-soft lg:grid-cols-2"
+      padding="none"
+      clip
+      className="group grid grid-cols-1 md:rounded-3xl transition-all hover:border-moroccan-red-200 hover:shadow-soft lg:grid-cols-2"
     >
       {/* Image — on top (mobile) / to the side (desktop). Text never sits over it. */}
       <div className="relative aspect-[16/10] overflow-hidden bg-muted lg:aspect-auto lg:min-h-[300px]">
@@ -80,6 +84,6 @@ export async function FeaturedPost({ post }: Props) {
           />
         </span>
       </div>
-    </Link>
+    </Card>
   )
 }

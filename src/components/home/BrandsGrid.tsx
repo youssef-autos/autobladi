@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useTranslations } from "next-intl"
 
 import { Link } from "@/i18n/navigation"
+import { Card } from "@/components/ui/Card"
 import { Container } from "@/components/ui/Container"
 import { SectionTitle } from "@/components/ui/SectionTitle"
 import type { Brand } from "@/lib/queries/home"
@@ -23,9 +24,12 @@ export function BrandsGrid({ brands }: Props) {
         <ul className="mt-10 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
           {top.map((brand) => (
             <li key={brand.id}>
-              <Link
+              <Card
+                as={Link}
                 href={`/annonces?brand=${brand.slug}`}
-                className="group flex flex-col items-center gap-2 rounded-2xl bg-card border border-border p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-moroccan-gold-500 hover:shadow-card"
+                padding="sm"
+                shadow="none"
+                className="group flex flex-col items-center gap-2 transition-all duration-200 hover:-translate-y-0.5 hover:border-moroccan-gold-500 hover:shadow-card"
               >
                 <span className="inline-flex items-center justify-center size-16 rounded-full bg-moroccan-sand-50 overflow-hidden">
                   {brand.logo_url ? (
@@ -45,7 +49,7 @@ export function BrandsGrid({ brands }: Props) {
                 <span className="text-sm font-medium text-foreground group-hover:text-moroccan-red-500 transition-colors">
                   {brand.name}
                 </span>
-              </Link>
+              </Card>
             </li>
           ))}
         </ul>

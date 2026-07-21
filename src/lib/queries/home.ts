@@ -5,94 +5,33 @@ import { cache } from "react"
 import { createClient } from "@/lib/supabase/server"
 import { mediaUrl } from "@/lib/media"
 import {
-  mergeHomeSections,
-  type HomeSectionConfig,
-} from "@/lib/home-sections"
-import {
   resolveAdSlot,
   type AdSlotOverrides,
   type ResolvedAdSlot,
 } from "@/config/ads.config"
 import type { Tables } from "@/types/database.types"
+import {
+  ANNONCE_CARD_SELECT,
+  mapAnnonceCard,
+  type AnnonceCardData,
+  type AnnonceCardRow,
+} from "@/lib/queries/annonce-card"
 
 export type Brand = Tables<"brands">
 export type CarModel = Tables<"car_models">
 export type City = Tables<"cities">
 
-export type AnnonceCardData = {
-  id: string
-  slug: string
-  title: string
-  year: number | null
-  mileage: number | null
-  price: number | null
-  price_on_request: boolean
-  fuel_type: Tables<"annonces">["fuel_type"]
-  transmission: Tables<"annonces">["transmission"]
-  condition: Tables<"annonces">["condition"]
-  published_at: string | null
-  main_image: string | null
-  image_count: number
-  city: { name_ar: string; name_fr: string; slug: string } | null
-  brand: { name: string; slug: string; logo_url: string | null } | null
-  model: { name: string; slug: string } | null
-  seller_name: string | null
-  is_pro: boolean
-}
-
-type AnnonceRow = Tables<"annonces"> & {
-  annonce_images: Pick<Tables<"annonce_images">, "url" | "is_main" | "order_index">[] | null
-  cities: Pick<Tables<"cities">, "name_ar" | "name_fr" | "slug"> | null
-  brands: Pick<Tables<"brands">, "name" | "slug" | "logo_url"> | null
-  car_models: Pick<Tables<"car_models">, "name" | "slug"> | null
-  profiles: Pick<Tables<"profiles">, "full_name" | "account_type"> | null
-}
-
-function mapAnnonce(row: AnnonceRow): AnnonceCardData {
-  const images = row.annonce_images ?? []
-  const main = images.find((i) => i.is_main) ?? images[0] ?? null
-  return {
-    id: row.id,
-    slug: row.slug,
-    title: row.title,
-    year: row.year,
-    mileage: row.mileage,
-    // The real number never reaches public-facing pages when hidden — never
-    // just toggled client-side, or it'd still leak via view-source/devtools.
-    price: row.price_on_request ? null : row.price,
-    price_on_request: row.price_on_request,
-    fuel_type: row.fuel_type,
-    transmission: row.transmission,
-    condition: row.condition,
-    published_at: row.published_at,
-    main_image: main?.url ?? null,
-    image_count: images.length,
-    city: row.cities,
-    brand: row.brands,
-    model: row.car_models,
-    seller_name: row.profiles?.full_name ?? null,
-    is_pro: row.profiles?.account_type === "pro" || row.profiles?.account_type === "admin",
-  }
-}
-
-const annonceSelect = `
-  id, slug, title, year, mileage, price, price_on_request, fuel_type, transmission, condition, published_at,
-  annonce_images(url, is_main, order_index),
-  cities(name_ar, name_fr, slug),
-  brands(name, slug, logo_url),
-  car_models(name, slug),
-  profiles(full_name, account_type)
-` as const
+export type { AnnonceCardData }
 
 export async function getLatestAnnonces(limit = 8): Promise<AnnonceCardData[]> {
   const supabase = await createClient()
   const { data } = await supabase
     .from("annonces")
-    .select(annonceSelect)
+    .select(ANNONCE_CARD_SELECT)
     .eq("status", "active")
     .order("published_at", { ascending: false, nullsFirst: false })
     .limit(limit)
-  return (data ?? []).map((r) => mapAnnonce(r as unknown as AnnonceRow))
+  return (data ?? []).map((r) => mapAnnonceCard(r as unknown as AnnonceCardRow))
 }
 
 export type DealerCardData = Pick<
@@ -159,7 +98,7 @@ export async function getTopDealers(limit = 6): Promise<DealerCardData[]> {
   }))
 }
 
-export type BlogPostCardData = Pick<
+type BlogPostCardData = Pick<
   Tables<"blog_posts">,
   "id" | "title" | "slug" | "excerpt" | "cover_image" | "published_at"
 > & {
@@ -206,7 +145,7 @@ export async function getLatestBlogPosts(limit = 3): Promise<BlogPostCardData[]>
   }))
 }
 
-export type AdvertisementData = Pick<
+type AdvertisementData = Pick<
   Tables<"advertisements">,
   "id" | "title" | "image_url" | "link_url"
 >
@@ -476,19 +415,6 @@ export async function getSiteAnalyticsId(): Promise<string | null> {
     .maybeSingle<{ value: unknown }>()
   const v = data?.value
   return typeof v === "string" && v.trim() ? v.trim() : null
-}
-
-// ---------------------------------------------------------------------------
-// Home sections layout (admin-managed visibility + order)
-// ---------------------------------------------------------------------------
-export async function getHomeSectionsConfig(): Promise<HomeSectionConfig[]> {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("site_settings")
-    .select("value")
-    .eq("key", "home_sections")
-    .maybeSingle<{ value: unknown }>()
-  return mergeHomeSections(data?.value)
 }
 
 /**

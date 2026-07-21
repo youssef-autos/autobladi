@@ -3,6 +3,11 @@ import "server-only"
 import { createClient } from "@/lib/supabase/server"
 import type { Tables } from "@/types/database.types"
 import type { OpeningHoursMap } from "@/lib/validations/professionnel"
+import {
+  ANNONCE_CARD_SELECT,
+  mapAnnonceCard,
+  type AnnonceCardRow,
+} from "@/lib/queries/annonce-card"
 
 export type ProfessionnelListItem = {
   id: string
@@ -28,7 +33,7 @@ type ListRow = Tables<"professionnels"> & {
   } | null
 }
 
-export type ProfessionnelListFilters = {
+type ProfessionnelListFilters = {
   q?: string
   city?: string
   minRating?: number
@@ -390,63 +395,17 @@ export async function getMyReviewFor(
   }
 }
 
-export type CarsByUser = Awaited<ReturnType<typeof listProfessionnelAnnonces>>
-
 export async function listProfessionnelAnnonces(userId: string) {
-  // Reuse the AnnonceCardData shape from queries/home
-  const { searchAnnonces } = await import("@/lib/queries/annonces")
-  // We don't expose owner filter on searchAnnonces yet — do an inline query
+  // We don't expose an owner filter on searchAnnonces yet — do an inline query.
   const supabase = await createClient()
   const { data } = await supabase
     .from("annonces")
-    .select(`
-      id, slug, title, year, mileage, price, price_on_request, fuel_type, transmission, condition, published_at,
-      annonce_images(url, is_main, order_index),
-      cities(name_ar, name_fr, slug),
-      brands(name, slug, logo_url),
-      car_models(name, slug),
-      profiles(full_name, account_type)
-    `)
+    .select(ANNONCE_CARD_SELECT)
     .eq("user_id", userId)
     .eq("status", "active")
     .order("published_at", { ascending: false, nullsFirst: false })
     .limit(48)
 
-  type Row = Tables<"annonces"> & {
-    annonce_images: { url: string; is_main: boolean; order_index: number }[] | null
-    cities: { name_ar: string; name_fr: string; slug: string } | null
-    brands: { name: string; slug: string; logo_url: string | null } | null
-    car_models: { name: string; slug: string } | null
-    profiles: {
-      full_name: string | null
-      account_type: Tables<"profiles">["account_type"]
-    } | null
-  }
-  const rows = (data ?? []) as unknown as Row[]
-  void searchAnnonces // silence unused import while keeping API parity for future
-  return rows.map((row) => {
-    const images = row.annonce_images ?? []
-    const main = images.find((i) => i.is_main) ?? images[0] ?? null
-    return {
-      id: row.id,
-      slug: row.slug,
-      title: row.title,
-      year: row.year,
-      mileage: row.mileage,
-      price: row.price_on_request ? null : row.price,
-      price_on_request: row.price_on_request,
-      fuel_type: row.fuel_type,
-      transmission: row.transmission,
-      condition: row.condition,
-      published_at: row.published_at,
-      main_image: main?.url ?? null,
-      image_count: images.length,
-      city: row.cities,
-      brand: row.brands,
-      model: row.car_models,
-      seller_name: row.profiles?.full_name ?? null,
-      is_pro:
-        row.profiles?.account_type === "pro" || row.profiles?.account_type === "admin",
-    }
-  })
+  const rows = (data ?? []) as unknown as AnnonceCardRow[]
+  return rows.map(mapAnnonceCard)
 }

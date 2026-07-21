@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 
 import { FavoriteCard } from "@/components/dashboard/FavoriteCard"
+import { Card } from "@/components/ui/Card"
 import { EmptyState } from "@/components/ui/EmptyState"
 import { Link } from "@/i18n/navigation"
 import { createClient } from "@/lib/supabase/server"
@@ -35,7 +36,7 @@ export default async function FavorisPage({
       </header>
 
       {favorites.length === 0 ? (
-        <div className="rounded-2xl bg-card border border-border p-12 shadow-soft">
+        <Card padding="none" shadow="soft" className="p-12">
           <EmptyState
             icon={Heart}
             title={t("empty")}
@@ -49,7 +50,7 @@ export default async function FavorisPage({
               </Link>
             }
           />
-        </div>
+        </Card>
       ) : (
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {favorites.map((f) => (

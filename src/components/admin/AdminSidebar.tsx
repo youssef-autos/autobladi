@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState, useTransition } from "react"
 import {
-  BarChart3,
   Building2,
   Car,
   ChevronDown,
@@ -149,10 +148,7 @@ function makeGroups(counts: Counts): Group[] {
     },
     {
       labelKey: "sections",
-      items: [
-        { href: "/admin/sections", labelKey: "homeSections", icon: BarChart3 },
-        { href: "/admin/pages", labelKey: "pages", icon: FileText },
-      ],
+      items: [{ href: "/admin/pages", labelKey: "pages", icon: FileText }],
     },
     {
       labelKey: "settings",
@@ -279,7 +275,7 @@ export function AdminSidebar({ profile, counts }: Props) {
             href="/admin"
             onClick={() => setOpen(false)}
             className={cn(
-              "mb-2 flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+              "mb-2 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
               isItemActive("/admin", pathname)
                 ? "bg-white/10 text-white"
                 : "text-white/80 hover:bg-white/5 hover:text-white",
@@ -312,7 +308,7 @@ export function AdminSidebar({ profile, counts }: Props) {
                       href={item.href}
                       onClick={() => setOpen(false)}
                       className={cn(
-                        "group flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+                        "group flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm transition-colors",
                         isActive
                           ? "bg-white/10 text-white font-medium"
                           : "text-white/70 hover:bg-white/5 hover:text-white",
@@ -367,7 +363,7 @@ export function AdminSidebar({ profile, counts }: Props) {
                   }
                   aria-expanded={isOpen}
                   className={cn(
-                    "w-full flex items-center gap-2 rounded-lg px-3 py-2 text-[10px] uppercase tracking-widest font-semibold transition-colors",
+                    "w-full flex items-center gap-2 rounded-xl px-3 py-2 text-[10px] uppercase tracking-widest font-semibold transition-colors",
                     isOpen ? "text-white/70" : "text-white/40",
                     "hover:text-white/70 hover:bg-white/5",
                   )}
@@ -410,7 +406,7 @@ export function AdminSidebar({ profile, counts }: Props) {
                             href={item.href}
                             onClick={() => setOpen(false)}
                             className={cn(
-                              "group flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+                              "group flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm transition-colors",
                               isActive
                                 ? "bg-white/10 text-white font-medium"
                                 : "text-white/70 hover:bg-white/5 hover:text-white",

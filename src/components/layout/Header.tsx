@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Heart, Plus } from "lucide-react"
 import { useTranslations } from "next-intl"
 
+import { Container } from "@/components/ui/Container"
 import { Link } from "@/i18n/navigation"
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher"
 import { Logo } from "@/components/layout/Logo"
@@ -65,9 +66,9 @@ export function Header({ logoUrl }: HeaderProps) {
           scrolled && "shadow-soft",
         )}
       >
-        <div
+        <Container
           className={cn(
-            "max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex items-center gap-4 transition-all duration-200",
+            "flex items-center gap-4 transition-all duration-200",
             scrolled ? "h-14" : "h-20",
           )}
         >
@@ -97,7 +98,7 @@ export function Header({ logoUrl }: HeaderProps) {
             <Link
               href={favoritesHref}
               aria-label={t("favorites")}
-              className="hidden sm:inline-flex relative items-center justify-center rounded-lg p-2 text-foreground hover:bg-moroccan-sand-50 hover:text-moroccan-red-500 transition-colors"
+              className="hidden sm:inline-flex relative items-center justify-center rounded-lg p-2.5 text-foreground hover:bg-moroccan-sand-50 hover:text-moroccan-red-500 transition-colors"
             >
               <Heart className="size-5" />
             </Link>
@@ -112,7 +113,7 @@ export function Header({ logoUrl }: HeaderProps) {
             <Link
               href={publishHref}
               aria-label={t("postAd")}
-              className="order-first sm:order-none inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-moroccan-gradient h-9 px-3 sm:px-4 text-sm font-semibold text-white shadow-moroccan hover:brightness-105 transition-all"
+              className="order-first sm:order-none inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-moroccan-gradient h-10 px-3 sm:px-4 text-sm font-semibold text-white shadow-moroccan hover:brightness-105 transition-all"
             >
               <Plus className="size-4" aria-hidden="true" />
               <span className="hidden sm:inline">{t("postAd")}</span>
@@ -121,7 +122,7 @@ export function Header({ logoUrl }: HeaderProps) {
             {/* Language switcher — beside the "post ad" button */}
             <LanguageSwitcher className="ms-1 shrink-0" />
           </div>
-        </div>
+        </Container>
       </div>
     </header>
   )

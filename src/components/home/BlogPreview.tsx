@@ -4,6 +4,7 @@ import { getFormatter, getLocale, getTranslations } from "next-intl/server"
 
 import { Link } from "@/i18n/navigation"
 import { Badge } from "@/components/ui/badge"
+import { Card } from "@/components/ui/Card"
 import { Container } from "@/components/ui/Container"
 import { EmptyState } from "@/components/ui/EmptyState"
 import { SectionTitle } from "@/components/ui/SectionTitle"
@@ -48,9 +49,12 @@ export async function BlogPreview() {
 
               return (
                 <li key={post.id}>
-                  <Link
+                  <Card
+                    as={Link}
                     href={`/blog/${post.slug}`}
-                    className="group flex flex-col rounded-2xl bg-card border border-border overflow-hidden shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-soft"
+                    padding="none"
+                    clip
+                    className="group flex flex-col transition-all duration-200 hover:-translate-y-0.5 hover:shadow-soft"
                   >
                     <div className="relative aspect-[16/10] bg-moroccan-sand-50">
                       {post.cover_image ? (
@@ -85,7 +89,7 @@ export async function BlogPreview() {
                         <p className="mt-auto pt-3 text-xs text-muted-foreground">{dateLabel}</p>
                       )}
                     </div>
-                  </Link>
+                  </Card>
                 </li>
               )
             })}

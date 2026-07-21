@@ -192,7 +192,7 @@ export function AdminAnnonceRow({ row }: Props) {
             <Link
               href={`/annonces/${row.slug}`}
               target="_blank"
-              className="inline-flex items-center justify-center size-9 rounded-lg text-muted-foreground hover:bg-moroccan-sand-50 hover:text-foreground"
+              className="inline-flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:bg-moroccan-sand-50 hover:text-foreground"
               aria-label={t("preview")}
               title={t("preview")}
             >
@@ -203,7 +203,7 @@ export function AdminAnnonceRow({ row }: Props) {
               <DropdownMenuTrigger
                 aria-label={t("columns.actions")}
                 disabled={pending}
-                className="inline-flex items-center justify-center size-9 rounded-lg text-muted-foreground hover:bg-moroccan-sand-50 hover:text-foreground disabled:opacity-50"
+                className="inline-flex items-center justify-center size-10 rounded-lg text-muted-foreground hover:bg-moroccan-sand-50 hover:text-foreground disabled:opacity-50"
               >
                 <MoreHorizontal className="size-4" />
               </DropdownMenuTrigger>
@@ -248,7 +248,7 @@ export function AdminAnnonceRow({ row }: Props) {
                       }
                       disabled={pending}
                     >
-                      <BadgeCheck className="size-4 me-2 text-blue-600" />
+                      <BadgeCheck className="size-4 me-2 text-moroccan-gold-600" />
                       {t("markSold")}
                     </DropdownMenuItem>
                     <DropdownMenuItem

@@ -13,6 +13,7 @@ import { ModelFormDialog } from "@/components/admin/models/ModelFormDialog"
 import { ModelImportDialog } from "@/components/admin/models/ModelImportDialog"
 import { Badge } from "@/components/ui/badge"
 import { EmptyState } from "@/components/ui/EmptyState"
+import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import type { AdminBrandRow, AdminModelRow } from "@/lib/queries/admin"
 import { cn } from "@/lib/utils"
 
@@ -132,17 +133,16 @@ export function ModelsManager({ models, brands }: Props) {
             <Upload className="size-4" aria-hidden="true" />
             {t("uploadJson")}
           </button>
-          <button
+          <MoroccanButton
             type="button"
             onClick={() => {
               setEditing(null)
               setCreateOpen(true)
             }}
-            className="inline-flex items-center gap-2 h-11 px-4 rounded-xl bg-moroccan-gradient text-white text-sm font-semibold shadow-moroccan hover:brightness-105"
           >
             <Plus className="size-4" aria-hidden="true" />
             {t("addManual")}
-          </button>
+          </MoroccanButton>
         </div>
       </div>
 
