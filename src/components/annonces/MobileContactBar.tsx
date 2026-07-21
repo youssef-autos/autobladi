@@ -2,41 +2,27 @@
 
 import { useState } from "react"
 import { Phone } from "lucide-react"
-import { useLocale, useTranslations } from "next-intl"
+import { useTranslations } from "next-intl"
 
-import { ShareMenu } from "@/components/annonces/ShareMenu"
 import { trackAdEvent } from "@/lib/track-ad-event"
 import { formatPhone } from "@/lib/utils/format"
 
 type Props = {
   annonceId: string
-  annonceSlug: string
-  title: string
   contactPhone: string | null
   contactWhatsapp: string | null
 }
 
 /**
  * Sticky bottom action bar shown on mobile only (the desktop layout already
- * keeps ContactSidebar visible in the sticky aside). Keeps Call + WhatsApp +
- * Share always reachable without scrolling on the annonce detail page.
+ * keeps ContactSidebar visible in the sticky aside). Keeps Call + WhatsApp
+ * always reachable without scrolling on the annonce detail page.
  */
-export function MobileContactBar({
-  annonceId,
-  annonceSlug,
-  title,
-  contactPhone,
-  contactWhatsapp,
-}: Props) {
+export function MobileContactBar({ annonceId, contactPhone, contactWhatsapp }: Props) {
   const t = useTranslations("annonceDetail.contact")
-  const locale = useLocale()
   const [revealed, setRevealed] = useState(false)
 
   const wa = contactWhatsapp ? contactWhatsapp.replace(/\D/g, "") : null
-  const shareUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/${locale}/annonces/${annonceSlug}`
-      : `https://autobladi.ma/${locale}/annonces/${annonceSlug}`
 
   if (!contactPhone && !wa) return null
 
@@ -83,8 +69,6 @@ export function MobileContactBar({
             {t("whatsapp")}
           </a>
         )}
-
-        <ShareMenu url={shareUrl} title={title} compact />
       </div>
     </div>
   )

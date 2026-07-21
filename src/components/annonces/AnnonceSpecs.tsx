@@ -109,17 +109,17 @@ export function AnnonceSpecs({ annonce }: Props) {
         <SectionTitle>{tInfo("vehicleInfo")}</SectionTitle>
         {/* A real table: one bordered frame with shared grid lines. 4 columns
             on desktop (label | value | label | value), 1 pair per row on
-            mobile. Gray label cells, white value cells. */}
-        <dl className="mt-5 grid grid-cols-1 overflow-hidden rounded-xl border border-border sm:grid-cols-2">
+            mobile. Every cell shares the same off-white background. */}
+        <dl className="mt-5 grid grid-cols-1 overflow-hidden rounded-xl border border-border bg-[#FFFCFB] sm:grid-cols-2">
           {visibleRows.map((row) => (
             <div
               key={row.label}
               className="grid grid-cols-[50%_1fr] sm:grid-cols-[40%_1fr] border-b border-border/60"
             >
-              <dt className="flex items-center border-e border-border/60 bg-moroccan-sand-100 px-4 py-2.5 text-sm font-medium text-foreground/80">
+              <dt className="flex items-center border-e border-border/60 px-4 py-2.5 text-sm font-bold text-foreground/80">
                 {row.label}
               </dt>
-              <dd className="flex items-center border-e border-border/60 px-4 py-2.5 text-sm font-semibold text-foreground">
+              <dd className="flex items-center border-e border-border/60 px-4 py-2.5 text-sm font-normal text-foreground">
                 {row.value}
               </dd>
             </div>
@@ -129,7 +129,7 @@ export function AnnonceSpecs({ annonce }: Props) {
 
       {/* 2 — Description */}
       {annonce.description && (
-        <div className="border-t border-border bg-moroccan-sand-50 p-5 md:p-7">
+        <div className="border-t border-border bg-[#FFFCFB] p-5 md:p-7">
           <SectionTitle>{t("tabs.description")}</SectionTitle>
           <p className="mt-4 whitespace-pre-wrap leading-relaxed text-sm text-foreground/90">
             {annonce.description}
@@ -139,7 +139,7 @@ export function AnnonceSpecs({ annonce }: Props) {
 
       {/* 3 — Équipements et options */}
       {groups.length > 0 && (
-        <div className="border-t border-border bg-moroccan-sand-100 p-5 md:p-7">
+        <div className="border-t border-border bg-[#FFFCFB] p-5 md:p-7">
           <SectionTitle>{tInfo("equipments")}</SectionTitle>
           {/* Each category is a collapsible accordion item. First one open. */}
           <Accordion

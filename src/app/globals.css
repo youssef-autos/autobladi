@@ -74,14 +74,13 @@
   /* ============================================================
    * Fonts
    * ============================================================ */
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-outfit);
   --font-arabic: var(--font-cairo), var(--font-tajawal);
   --font-cairo: var(--font-cairo);
-  --font-inter: var(--font-inter);
   --font-tajawal: var(--font-tajawal);
-  --font-display: var(--font-playfair);
+  --font-display: var(--font-outfit);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-playfair);
+  --font-heading: var(--font-outfit);
 
   /* ============================================================
    * Radii (explicit, matches design spec)
@@ -188,7 +187,7 @@
     font-family: var(--font-cairo), var(--font-tajawal), system-ui, sans-serif;
   }
   html[lang="fr"] {
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-outfit), system-ui, sans-serif;
   }
   body {
     @apply bg-background text-foreground;

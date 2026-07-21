@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic"
 
 import type { Metadata, Viewport } from "next"
-import { Cairo, Inter, Playfair_Display, Tajawal } from "next/font/google"
+import { Cairo, Outfit, Tajawal } from "next/font/google"
 import Script from "next/script"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
@@ -39,14 +39,10 @@ const tajawal = Tajawal({
   display: "swap",
 })
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-})
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+// Matches the Latin/French typeface used on autohouse.ma — Arabic keeps
+// Cairo/Tajawal untouched.
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
   display: "swap",
 })
@@ -231,8 +227,7 @@ export default async function LocaleLayout({
       className={cn(
         cairo.variable,
         tajawal.variable,
-        inter.variable,
-        playfair.variable,
+        outfit.variable,
         "h-full antialiased overflow-x-hidden",
       )}
     >

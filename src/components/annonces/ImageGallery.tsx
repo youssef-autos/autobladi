@@ -1,9 +1,9 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Camera, ChevronLeft, ChevronRight, X } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import type { AnnonceImage } from "@/lib/queries/annonce-detail"
@@ -16,10 +16,18 @@ type Props = {
   condition?: "neuf" | "occasion" | null
 }
 
+// Minimum horizontal drag (px) before a touch gesture counts as a swipe
+// rather than a tap that opens the lightbox.
+const SWIPE_THRESHOLD = 40
+
 export function ImageGallery({ images, title, condition }: Props) {
   const t = useTranslations("annonceDetail")
+  const isRtl = useLocale() === "ar"
   const [selected, setSelected] = useState(0)
   const [lightbox, setLightbox] = useState(false)
+  const touchStart = useRef<{ x: number; y: number } | null>(null)
+  const didSwipe = useRef(false)
+  const thumbRefs = useRef<Array<HTMLButtonElement | null>>([])
 
   const hasImages = images.length > 0
   const safeIndex = Math.min(selected, Math.max(0, images.length - 1))
@@ -45,6 +53,47 @@ export function ImageGallery({ images, title, condition }: Props) {
     return () => window.removeEventListener("keydown", handler)
   }, [lightbox, next, prev])
 
+  // Keep the active thumbnail in view when selection changes via swipe/arrows.
+  useEffect(() => {
+    thumbRefs.current[safeIndex]?.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    })
+  }, [safeIndex])
+
+  function handleTouchStart(e: React.TouchEvent) {
+    const touch = e.touches[0]
+    touchStart.current = { x: touch.clientX, y: touch.clientY }
+    didSwipe.current = false
+  }
+
+  function handleTouchEnd(e: React.TouchEvent) {
+    if (!touchStart.current) return
+    const touch = e.changedTouches[0]
+    const dx = touch.clientX - touchStart.current.x
+    const dy = touch.clientY - touchStart.current.y
+    touchStart.current = null
+
+    if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+      didSwipe.current = true
+      // Swiping left physically reveals what comes after in reading order —
+      // that's "next" in LTR, but "prev" in RTL (mirrors the nav arrows,
+      // which already flip via rtl:scale-x-[-1]).
+      const swipedLeft = dx < 0
+      if (swipedLeft === !isRtl) next()
+      else prev()
+    }
+  }
+
+  function handleFrameClick() {
+    if (didSwipe.current) {
+      didSwipe.current = false
+      return
+    }
+    setLightbox(true)
+  }
+
   if (!hasImages) {
     return (
       <div className="relative aspect-[16/10] rounded-2xl bg-moroccan-sand-50 border border-border flex items-center justify-center">
@@ -57,92 +106,121 @@ export function ImageGallery({ images, title, condition }: Props) {
 
   return (
     <div className="space-y-3">
-      <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-moroccan-sand-50 border border-border group">
-        <button
-          type="button"
-          onClick={() => setLightbox(true)}
-          className="absolute inset-0 z-10 cursor-zoom-in"
+      {/* One seamless rounded frame: main photo on top, edge-to-edge
+          scrollable filmstrip directly below — no gap between them. */}
+      <div className="rounded-2xl overflow-hidden border border-border bg-moroccan-sand-50">
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={handleFrameClick}
+          onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setLightbox(true)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           aria-label={t("viewAllPhotos", { count: images.length })}
+          className="relative aspect-[16/10] overflow-hidden group cursor-zoom-in touch-pan-y select-none"
         >
+          {/* Blurred fill so photos of any aspect ratio never look cropped or
+              letterboxed with dead space. */}
           <Image
+            key={`bg-${main.id}`}
+            src={main.url}
+            alt=""
+            fill
+            aria-hidden="true"
+            sizes="(max-width: 1024px) 100vw, 800px"
+            className="object-cover scale-110 blur-2xl opacity-60 animate-in fade-in duration-300"
+          />
+          <Image
+            key={main.id}
             src={main.url}
             alt={title}
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 800px"
-            className="object-cover"
+            className="relative object-contain animate-in fade-in duration-300"
           />
-        </button>
 
-        {/* Highlight badge — top start corner (vehicle condition) */}
-        {condition && (
-          <div className="absolute top-3 start-3 z-20 flex flex-col items-start gap-2">
-            <span
-              className={cn(
-                "inline-flex items-center rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-md",
-                condition === "neuf"
-                  ? "bg-moroccan-mint-500"
-                  : "bg-moroccan-red-500",
-              )}
-            >
-              {condition === "neuf"
-                ? t("history.conditionNew")
-                : t("history.conditionUsed")}
-            </span>
+          {/* Highlight badge — top start corner (vehicle condition) */}
+          {condition && (
+            <div className="absolute top-3 start-3 z-20 flex flex-col items-start gap-2">
+              <span
+                className={cn(
+                  "inline-flex items-center rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-md",
+                  condition === "neuf"
+                    ? "bg-moroccan-mint-500"
+                    : "bg-moroccan-red-500",
+                )}
+              >
+                {condition === "neuf"
+                  ? t("history.conditionNew")
+                  : t("history.conditionUsed")}
+              </span>
+            </div>
+          )}
+
+          {images.length > 1 && (
+            <>
+              <NavButton side="start" onClick={prev} label={t("previousImage")} />
+              <NavButton side="end" onClick={next} label={t("nextImage")} />
+            </>
+          )}
+
+          <span className="absolute bottom-3 end-3 z-20 inline-flex items-center gap-1 rounded-full bg-black/55 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+            <Camera className="size-3" aria-hidden="true" />
+            {t("imageCounter", { current: safeIndex + 1, total: images.length })}
+          </span>
+        </div>
+
+        {/* Filmstrip — thumbnails sit flush against each other, scrollable
+            horizontally; the active one gets an inset ring, the rest dim
+            slightly until hovered or tapped. */}
+        {images.length > 1 && (
+          <div className="flex overflow-x-auto snap-x border-t border-border">
+            {images.map((img, idx) => (
+              <button
+                key={img.id}
+                ref={(el) => {
+                  thumbRefs.current[idx] = el
+                }}
+                type="button"
+                onClick={() => setSelected(idx)}
+                aria-label={`${idx + 1}`}
+                aria-current={idx === safeIndex ? "true" : undefined}
+                className={cn(
+                  "relative aspect-[4/3] w-20 sm:w-24 shrink-0 snap-start transition-opacity",
+                  idx === safeIndex
+                    ? "z-10 opacity-100 ring-2 ring-inset ring-moroccan-red-500"
+                    : "opacity-70 hover:opacity-100",
+                )}
+              >
+                <Image
+                  src={img.thumbnail_url ?? img.url}
+                  alt=""
+                  fill
+                  sizes="120px"
+                  className="object-cover"
+                />
+              </button>
+            ))}
           </div>
         )}
-
-        {images.length > 1 && (
-          <>
-            <NavButton side="start" onClick={prev} label={t("previousImage")} />
-            <NavButton side="end" onClick={next} label={t("nextImage")} />
-          </>
-        )}
-
-        <span className="absolute bottom-3 end-3 z-20 inline-flex items-center gap-1 rounded-full bg-black/55 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
-          <Camera className="size-3" aria-hidden="true" />
-          {t("imageCounter", { current: safeIndex + 1, total: images.length })}
-        </span>
       </div>
-
-      {images.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 snap-x">
-          {images.map((img, idx) => (
-            <button
-              key={img.id}
-              type="button"
-              onClick={() => setSelected(idx)}
-              aria-label={`${idx + 1}`}
-              aria-current={idx === safeIndex ? "true" : undefined}
-              className={cn(
-                "relative aspect-[4/3] w-24 sm:w-28 shrink-0 rounded-lg overflow-hidden bg-moroccan-sand-50 border-2 transition-all snap-start",
-                idx === safeIndex
-                  ? "border-moroccan-red-500 ring-2 ring-moroccan-red-500/20"
-                  : "border-transparent hover:border-moroccan-gold-500/50",
-              )}
-            >
-              <Image
-                src={img.thumbnail_url ?? img.url}
-                alt=""
-                fill
-                sizes="120px"
-                className="object-cover"
-              />
-            </button>
-          ))}
-        </div>
-      )}
 
       <Dialog open={lightbox} onOpenChange={setLightbox}>
         <DialogContent className="max-w-screen-lg p-0 bg-transparent border-0 shadow-none">
           <DialogTitle className="sr-only">{title}</DialogTitle>
-          <div className="relative w-full aspect-video bg-black/95 rounded-2xl overflow-hidden">
+          <div
+            className="relative w-full aspect-video bg-black/95 rounded-2xl overflow-hidden touch-pan-y"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             <Image
+              key={main.id}
               src={main.url}
               alt={title}
               fill
               sizes="100vw"
-              className="object-contain"
+              className="object-contain animate-in fade-in duration-300"
             />
             <button
               type="button"
@@ -191,11 +269,11 @@ function NavButton({
       }}
       aria-label={label}
       className={cn(
-        "absolute top-1/2 -translate-y-1/2 z-20 inline-flex items-center justify-center size-10 rounded-full backdrop-blur-sm transition-opacity rtl:scale-x-[-1]",
+        "absolute top-1/2 -translate-y-1/2 z-20 inline-flex items-center justify-center size-10 rounded-full backdrop-blur-sm transition-colors rtl:scale-x-[-1]",
         side === "start" ? "start-3" : "end-3",
         variant === "lightbox"
           ? "bg-white/10 text-white hover:bg-white/20"
-          : "bg-white/90 text-foreground opacity-0 group-hover:opacity-100 hover:bg-white",
+          : "bg-white/80 text-foreground hover:bg-white",
       )}
     >
       <Icon className="size-5" />

@@ -5,6 +5,7 @@ import { useFormatter, useLocale, useTranslations } from "next-intl"
 
 import { Badge } from "@/components/ui/badge"
 import { PriceTag } from "@/components/ui/PriceTag"
+import { ShareMenu } from "@/components/annonces/ShareMenu"
 import type { AnnonceDetail } from "@/lib/queries/annonce-detail"
 import type { Locale } from "@/i18n/routing"
 
@@ -27,6 +28,11 @@ export function AnnonceHeader({ annonce }: Props) {
     ? format.relativeTime(new Date(annonce.published_at), new Date())
     : null
 
+  const shareUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/${locale}/annonces/${annonce.slug}`
+      : `https://autobladi.ma/${locale}/annonces/${annonce.slug}`
+
   return (
     <header className="space-y-4">
       {/* Price */}
@@ -40,6 +46,12 @@ export function AnnonceHeader({ annonce }: Props) {
         {annonce.negotiable && (
           <Badge variant="verified">{t("negotiable")}</Badge>
         )}
+        <ShareMenu
+          url={shareUrl}
+          title={annonce.title}
+          compact
+          className="ms-auto lg:hidden"
+        />
       </div>
 
       {/* Meta row */}

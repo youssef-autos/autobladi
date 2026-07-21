@@ -171,8 +171,6 @@ export default async function AnnonceDetailPage({
       {annonce.seller && (
         <MobileContactBar
           annonceId={annonce.id}
-          annonceSlug={annonce.slug}
-          title={annonce.title}
           contactPhone={annonce.contact_phone}
           contactWhatsapp={annonce.contact_whatsapp}
         />
