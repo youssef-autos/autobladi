@@ -116,7 +116,7 @@ export function AnnonceSpecs({ annonce }: Props) {
               key={row.label}
               className="grid grid-cols-[50%_1fr] sm:grid-cols-[40%_1fr] border-b border-border/60"
             >
-              <dt className="flex items-center border-e border-border/60 bg-muted px-4 py-2.5 text-sm font-medium text-foreground/80">
+              <dt className="flex items-center border-e border-border/60 bg-moroccan-sand-100 px-4 py-2.5 text-sm font-medium text-foreground/80">
                 {row.label}
               </dt>
               <dd className="flex items-center border-e border-border/60 px-4 py-2.5 text-sm font-semibold text-foreground">
@@ -129,7 +129,7 @@ export function AnnonceSpecs({ annonce }: Props) {
 
       {/* 2 — Description */}
       {annonce.description && (
-        <div className="border-t border-border bg-muted p-5 md:p-7">
+        <div className="border-t border-border bg-moroccan-sand-50 p-5 md:p-7">
           <SectionTitle>{t("tabs.description")}</SectionTitle>
           <p className="mt-4 whitespace-pre-wrap leading-relaxed text-sm text-foreground/90">
             {annonce.description}
@@ -139,7 +139,7 @@ export function AnnonceSpecs({ annonce }: Props) {
 
       {/* 3 — Équipements et options */}
       {groups.length > 0 && (
-        <div className="border-t border-border bg-muted p-5 md:p-7">
+        <div className="border-t border-border bg-moroccan-sand-100 p-5 md:p-7">
           <SectionTitle>{tInfo("equipments")}</SectionTitle>
           {/* Each category is a collapsible accordion item. First one open. */}
           <Accordion
