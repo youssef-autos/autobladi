@@ -4,6 +4,7 @@ import { setRequestLocale } from "next-intl/server"
 import { AdminSidebar } from "@/components/admin/AdminSidebar"
 import { createClient } from "@/lib/supabase/server"
 import { getAdminCounts } from "@/lib/queries/admin"
+import { getSiteLogos } from "@/lib/queries/home"
 import type { Tables } from "@/types/database.types"
 
 export const dynamic = "force-dynamic"
@@ -46,7 +47,10 @@ export default async function AdminLayout({
     redirect(`/${locale}`)
   }
 
-  const counts = await getAdminCounts()
+  const [counts, logos] = await Promise.all([
+    getAdminCounts(),
+    getSiteLogos().catch(() => ({ light: null, dark: null })),
+  ])
 
   return (
     <div className="min-h-dvh bg-moroccan-sand-50/40">
@@ -61,8 +65,9 @@ export default async function AdminLayout({
           pendingReports: counts.pendingReports,
           pendingShowrooms: counts.pendingShowrooms,
         }}
+        logoUrl={logos.dark}
       />
-      <main className="lg:ps-72 min-h-dvh">{children}</main>
+      <main className="min-h-dvh lg:ps-(--admin-sidebar-w)">{children}</main>
     </div>
   )
 }

@@ -105,6 +105,9 @@
 }
 
 :root {
+  /* Admin layout reserves this much start-padding for the sidebar; the
+     sidebar itself overrides it once mounted (collapsed vs expanded). */
+  --admin-sidebar-w: 18rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

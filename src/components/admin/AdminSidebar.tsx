@@ -5,6 +5,8 @@ import {
   Building2,
   Car,
   ChevronDown,
+  ChevronsLeft,
+  ChevronsRight,
   Clock,
   Cog,
   ExternalLink,
@@ -35,9 +37,14 @@ import { useLocale, useTranslations } from "next-intl"
 import { signOut } from "@/app/[locale]/auth/actions"
 import { CacheClearButton } from "@/components/admin/CacheClearButton"
 import { Link, usePathname } from "@/i18n/navigation"
-import { Logo } from "@/components/layout/Logo"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import {
   Sheet,
   SheetContent,
@@ -61,6 +68,10 @@ type Counts = {
   pendingReports: number
   pendingShowrooms: number
 }
+
+const COLLAPSE_KEY = "admin-sidebar-collapsed"
+// Pill highlight used for the active nav item/group, everywhere.
+const ACTIVE_PILL = "bg-moroccan-gradient text-white shadow-moroccan"
 
 function initials(name?: string | null): string {
   if (!name) return "A"
@@ -165,9 +176,11 @@ function makeGroups(counts: Counts): Group[] {
 type Props = {
   profile: AdminProfile
   counts: Counts
+  /** Admin-uploaded logo (dark-background variant). Falls back to the text wordmark. */
+  logoUrl?: string | null
 }
 
-export function AdminSidebar({ profile, counts }: Props) {
+export function AdminSidebar({ profile, counts, logoUrl }: Props) {
   const t = useTranslations("adminPanel")
   const tNav = useTranslations("adminPanel.nav")
   const tGroups = useTranslations("adminPanel.groups")
@@ -175,9 +188,34 @@ export function AdminSidebar({ profile, counts }: Props) {
   const locale = useLocale()
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState("")
+  const [collapsed, setCollapsed] = useState(false)
   const groups = useMemo(() => makeGroups(counts), [counts])
   const totalPending =
     counts.pendingAnnonces + counts.pendingReports + counts.pendingShowrooms
+
+  // Restore the admin's collapse preference (localStorage-only, so this
+  // deliberately runs post-mount rather than during the initial render).
+  useEffect(() => {
+    try {
+      setCollapsed(localStorage.getItem(COLLAPSE_KEY) === "1")
+    } catch {
+      // Storage unavailable (private mode, etc.) — default expanded is fine.
+    }
+  }, [])
+
+  // The desktop <main> reads this to know how much start-padding to reserve
+  // — see [locale]/admin/layout.tsx's `lg:ps-(--admin-sidebar-w)`.
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--admin-sidebar-w",
+      collapsed ? "5rem" : "18rem",
+    )
+    try {
+      localStorage.setItem(COLLAPSE_KEY, collapsed ? "1" : "0")
+    } catch {
+      // Non-fatal — just won't persist across reloads.
+    }
+  }, [collapsed])
 
   // Which group contains the current route — kept open by default.
   const activeKey =
@@ -219,20 +257,33 @@ export function AdminSidebar({ profile, counts }: Props) {
       ? searchIndex.filter((item) => item.label.toLowerCase().includes(trimmedQuery))
       : null
 
-  const content = (
+  // Full-width content — always used on mobile (the sheet), and on desktop
+  // when the rail isn't collapsed.
+  const expandedContent = (
     <div className="flex flex-col h-full text-white">
       <header className="px-5 py-5 border-b border-white/10">
         <div className="flex items-center justify-between gap-2">
-          <Logo size="md" variant="light" />
-          {totalPending > 0 && (
-            <Badge
-              variant="pro"
-              className="text-[10px] h-5 min-w-5 px-1.5 bg-moroccan-red-500 text-white border-0 shrink-0"
-              title={t("pendingTotal", { count: totalPending })}
+          <BrandMark logoUrl={logoUrl} />
+          <div className="flex items-center gap-1.5">
+            {totalPending > 0 && (
+              <Badge
+                variant="pro"
+                className="text-[10px] h-5 min-w-5 px-1.5 bg-moroccan-red-500 text-white border-0 shrink-0"
+                title={t("pendingTotal", { count: totalPending })}
+              >
+                {totalPending}
+              </Badge>
+            )}
+            <button
+              type="button"
+              onClick={() => setCollapsed(true)}
+              title={t("collapseSidebar")}
+              aria-label={t("collapseSidebar")}
+              className="hidden lg:inline-flex size-7 items-center justify-center rounded-lg text-white/50 hover:bg-white/10 hover:text-white transition-colors"
             >
-              {totalPending}
-            </Badge>
-          )}
+              <ChevronsLeft className="size-4 rtl:-scale-x-100" aria-hidden="true" />
+            </button>
+          </div>
         </div>
         <p className="mt-2 text-[10px] uppercase tracking-widest text-white/40">
           Admin panel
@@ -251,7 +302,7 @@ export function AdminSidebar({ profile, counts }: Props) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("searchPlaceholder")}
-            className="w-full h-9 ps-9 pe-8 rounded-lg bg-white/5 border border-white/10 text-sm text-white placeholder:text-white/40 outline-none focus:border-moroccan-gold-500/50 focus:bg-white/10 transition-colors"
+            className="w-full h-9 ps-9 pe-8 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder:text-white/40 outline-none focus:border-moroccan-gold-500/50 focus:bg-white/10 transition-colors"
           />
           {query && (
             <button
@@ -277,17 +328,11 @@ export function AdminSidebar({ profile, counts }: Props) {
             className={cn(
               "mb-2 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
               isItemActive("/admin", pathname)
-                ? "bg-white/10 text-white"
+                ? ACTIVE_PILL
                 : "text-white/80 hover:bg-white/5 hover:text-white",
             )}
           >
-            <LayoutDashboard
-              className={cn(
-                "size-4 shrink-0",
-                isItemActive("/admin", pathname) ? "text-moroccan-gold-500" : "text-white/50",
-              )}
-              aria-hidden="true"
-            />
+            <LayoutDashboard className="size-4 shrink-0" aria-hidden="true" />
             {tNav("dashboard")}
           </Link>
         )}
@@ -310,21 +355,20 @@ export function AdminSidebar({ profile, counts }: Props) {
                       className={cn(
                         "group flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm transition-colors",
                         isActive
-                          ? "bg-white/10 text-white font-medium"
+                          ? ACTIVE_PILL + " font-medium"
                           : "text-white/70 hover:bg-white/5 hover:text-white",
                       )}
                     >
                       <span className="inline-flex items-center gap-3 min-w-0">
-                        <Icon
-                          className={cn(
-                            "size-4 shrink-0",
-                            isActive ? "text-moroccan-gold-500" : "text-white/50",
-                          )}
-                          aria-hidden="true"
-                        />
+                        <Icon className="size-4 shrink-0" aria-hidden="true" />
                         <span className="min-w-0">
                           <span className="block truncate">{item.label}</span>
-                          <span className="block text-[10px] text-white/35 truncate">
+                          <span
+                            className={cn(
+                              "block text-[10px] truncate",
+                              isActive ? "text-white/70" : "text-white/35",
+                            )}
+                          >
                             {item.groupLabel}
                           </span>
                         </span>
@@ -408,20 +452,12 @@ export function AdminSidebar({ profile, counts }: Props) {
                             className={cn(
                               "group flex items-center justify-between gap-3 rounded-xl px-3 py-2 text-sm transition-colors",
                               isActive
-                                ? "bg-white/10 text-white font-medium"
+                                ? ACTIVE_PILL + " font-medium"
                                 : "text-white/70 hover:bg-white/5 hover:text-white",
                             )}
                           >
                             <span className="inline-flex items-center gap-3 min-w-0">
-                              <Icon
-                                className={cn(
-                                  "size-4 shrink-0",
-                                  isActive
-                                    ? "text-moroccan-gold-500"
-                                    : "text-white/50",
-                                )}
-                                aria-hidden="true"
-                              />
+                              <Icon className="size-4 shrink-0" aria-hidden="true" />
                               <span className="truncate">{tNav(item.labelKey)}</span>
                             </span>
                             {item.badge != null && item.badge > 0 && (
@@ -484,15 +520,140 @@ export function AdminSidebar({ profile, counts }: Props) {
 
         <CacheClearButton />
 
-        <SignOutItem locale={locale} label={t("signOut")} />
+        <SignOutRow locale={locale} label={t("signOut")} />
       </footer>
+    </div>
+  )
+
+  // Icon-only rail — desktop-only alternate view. Single-item groups link
+  // straight through; multi-item groups open a flyout of their items.
+  const collapsedContent = (
+    <div className="flex flex-col h-full items-center text-white">
+      <div className="w-full px-3 py-5 border-b border-white/10 flex flex-col items-center gap-3">
+        <BrandMark compact logoUrl={logoUrl} />
+        <button
+          type="button"
+          onClick={() => setCollapsed(false)}
+          title={t("expandSidebar")}
+          aria-label={t("expandSidebar")}
+          className="inline-flex size-7 items-center justify-center rounded-lg text-white/50 hover:bg-white/10 hover:text-white transition-colors"
+        >
+          <ChevronsRight className="size-4 rtl:-scale-x-100" aria-hidden="true" />
+        </button>
+      </div>
+
+      <nav className="flex-1 overflow-y-auto w-full px-2.5 py-3 flex flex-col items-center gap-1.5">
+        <RailLink
+          href="/admin"
+          icon={LayoutDashboard}
+          label={tNav("dashboard")}
+          active={isItemActive("/admin", pathname)}
+        />
+
+        {groups.map((group) => {
+          const groupLabel = tGroups(group.labelKey)
+          const groupBadge = group.items.reduce((sum, it) => sum + (it.badge ?? 0), 0)
+
+          if (group.items.length === 1) {
+            const item = group.items[0]!
+            return (
+              <RailLink
+                key={group.labelKey}
+                href={item.href}
+                icon={item.icon}
+                label={tNav(item.labelKey)}
+                active={isItemActive(item.href, pathname)}
+                badge={item.badge}
+              />
+            )
+          }
+
+          const hasActive = group.labelKey === activeKey
+          const GroupIcon = group.items[0]!.icon
+
+          return (
+            <DropdownMenu key={group.labelKey}>
+              <RailTrigger
+                icon={GroupIcon}
+                label={groupLabel}
+                active={hasActive}
+                badge={groupBadge}
+              />
+              <DropdownMenuContent side="inline-end" align="start" sideOffset={12} className="w-56">
+                <div className="px-2 py-1.5 text-[10px] uppercase tracking-widest text-muted-foreground">
+                  {groupLabel}
+                </div>
+                {group.items.map((item) => {
+                  const isActive = isItemActive(item.href, pathname)
+                  const Icon = item.icon
+                  return (
+                    <DropdownMenuItem
+                      key={item.href}
+                      render={<Link href={item.href} />}
+                      className={cn(isActive && "bg-moroccan-sand-50 font-medium")}
+                    >
+                      <Icon className="size-4 me-2" aria-hidden="true" />
+                      {tNav(item.labelKey)}
+                      {item.badge != null && item.badge > 0 && (
+                        <Badge
+                          variant="pro"
+                          className="ms-auto text-[10px] h-5 min-w-5 px-1.5 bg-moroccan-red-500 text-white border-0"
+                        >
+                          {item.badge}
+                        </Badge>
+                      )}
+                    </DropdownMenuItem>
+                  )
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )
+        })}
+      </nav>
+
+      <div className="w-full border-t border-white/10 p-2.5 flex flex-col items-center gap-1.5">
+        <Link
+          href="/admin/compte"
+          title={t("editProfile")}
+          aria-label={t("editProfile")}
+          className={cn(
+            "inline-flex size-11 items-center justify-center rounded-xl transition-colors",
+            pathname === "/admin/compte" ? "bg-white/10" : "hover:bg-white/10",
+          )}
+        >
+          <Avatar className="size-8">
+            {profile.avatar_url && (
+              <AvatarImage src={profile.avatar_url} alt={profile.full_name ?? ""} />
+            )}
+            <AvatarFallback className="bg-white/10 text-white text-xs font-semibold">
+              {initials(profile.full_name)}
+            </AvatarFallback>
+          </Avatar>
+        </Link>
+
+        <Link
+          href="/"
+          title={t("viewSite")}
+          aria-label={t("viewSite")}
+          className="inline-flex size-11 items-center justify-center rounded-xl text-white/60 hover:bg-white/10 hover:text-white transition-colors"
+        >
+          <ExternalLink className="size-4" aria-hidden="true" />
+        </Link>
+
+        <SignOutRow locale={locale} label={t("signOut")} compact />
+      </div>
     </div>
   )
 
   return (
     <>
-      <aside className="hidden lg:flex fixed top-0 bottom-0 z-30 w-72 bg-brand-dark start-0 flex-col">
-        {content}
+      <aside
+        className={cn(
+          "hidden lg:flex fixed top-0 bottom-0 z-30 bg-brand-dark start-0 flex-col transition-[width] duration-200",
+          collapsed ? "w-20" : "w-72",
+        )}
+      >
+        {collapsed ? collapsedContent : expandedContent}
       </aside>
 
       <div className="lg:hidden sticky top-0 z-30 bg-brand-dark/95 backdrop-blur border-b border-white/10 h-14 flex items-center px-4 gap-3 text-white">
@@ -513,17 +674,157 @@ export function AdminSidebar({ profile, counts }: Props) {
             <SheetHeader className="sr-only">
               <SheetTitle>Admin</SheetTitle>
             </SheetHeader>
-            {content}
+            {expandedContent}
           </SheetContent>
         </Sheet>
-        <Logo size="sm" variant="light" />
+        <BrandMark logoUrl={logoUrl} />
       </div>
     </>
   )
 }
 
-function SignOutItem({ locale, label }: { locale: string; label: string }) {
+/**
+ * Brand mark — the admin-uploaded logo when set (dark-background variant),
+ * otherwise the text wordmark. Full wordmark/image when expanded, a
+ * single glyph or contained image when collapsed.
+ */
+function BrandMark({ compact, logoUrl }: { compact?: boolean; logoUrl?: string | null }) {
+  if (compact) {
+    if (logoUrl) {
+      return (
+        <Link href="/" aria-label="autobladi.ma" className="inline-flex items-center justify-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={logoUrl} alt="autobladi.ma" className="h-8 w-auto max-w-14 object-contain" />
+        </Link>
+      )
+    }
+    return (
+      <Link
+        href="/"
+        aria-label="autobladi.ma"
+        className="inline-flex size-9 items-center justify-center rounded-xl bg-moroccan-gradient font-display text-base font-bold text-white shadow-moroccan"
+      >
+        a
+      </Link>
+    )
+  }
+
+  if (logoUrl) {
+    return (
+      <Link href="/" aria-label="autobladi.ma" className="inline-flex items-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logoUrl} alt="autobladi.ma" className="h-8 w-auto max-w-[170px] object-contain" />
+      </Link>
+    )
+  }
+  return (
+    <Link
+      href="/"
+      aria-label="autobladi.ma"
+      className="inline-flex items-baseline font-display text-xl font-bold tracking-tight text-white"
+    >
+      <span>autoblad</span>
+      <span className="relative inline-block">
+        <span>i</span>
+        <span
+          aria-hidden="true"
+          className="absolute left-1/2 -translate-x-1/2 -top-[0.05em] size-[0.22em] rounded-full bg-moroccan-gold-500"
+        />
+      </span>
+      <span className="text-moroccan-gold-500">.ma</span>
+    </Link>
+  )
+}
+
+/** Single icon-only nav link for the collapsed rail. */
+function RailLink({
+  href,
+  icon: Icon,
+  label,
+  active,
+  badge,
+}: {
+  href: string
+  icon: LucideIcon
+  label: string
+  active: boolean
+  badge?: number
+}) {
+  return (
+    <Link
+      href={href}
+      title={label}
+      aria-label={label}
+      className={cn(
+        "relative inline-flex size-11 items-center justify-center rounded-xl transition-colors",
+        active ? ACTIVE_PILL : "text-white/60 hover:bg-white/10 hover:text-white",
+      )}
+    >
+      <Icon className="size-[18px]" aria-hidden="true" />
+      {badge != null && badge > 0 && (
+        <span className="absolute -top-0.5 -end-0.5 inline-flex size-4 items-center justify-center rounded-full bg-moroccan-red-500 text-[9px] font-bold text-white ring-2 ring-brand-dark">
+          {badge > 9 ? "9+" : badge}
+        </span>
+      )}
+    </Link>
+  )
+}
+
+/** Icon-only group trigger for the collapsed rail's flyout menus. */
+function RailTrigger({
+  icon: Icon,
+  label,
+  active,
+  badge,
+}: {
+  icon: LucideIcon
+  label: string
+  active: boolean
+  badge: number
+}) {
+  return (
+    <DropdownMenuTrigger
+      title={label}
+      aria-label={label}
+      className={cn(
+        "relative inline-flex size-11 items-center justify-center rounded-xl transition-colors",
+        active ? ACTIVE_PILL : "text-white/60 hover:bg-white/10 hover:text-white",
+      )}
+    >
+      <Icon className="size-[18px]" aria-hidden="true" />
+      {badge > 0 && (
+        <span className="absolute -top-0.5 -end-0.5 inline-flex size-4 items-center justify-center rounded-full bg-moroccan-red-500 text-[9px] font-bold text-white ring-2 ring-brand-dark">
+          {badge > 9 ? "9+" : badge}
+        </span>
+      )}
+    </DropdownMenuTrigger>
+  )
+}
+
+function SignOutRow({
+  locale,
+  label,
+  compact,
+}: {
+  locale: string
+  label: string
+  compact?: boolean
+}) {
   const [pending, startTransition] = useTransition()
+  if (compact) {
+    return (
+      <button
+        type="button"
+        onClick={() => startTransition(() => signOut(locale))}
+        disabled={pending}
+        title={label}
+        aria-label={label}
+        className="inline-flex size-11 items-center justify-center rounded-xl text-destructive/80 hover:bg-destructive/10 hover:text-destructive transition-colors"
+      >
+        <LogOut className="size-4" aria-hidden="true" />
+      </button>
+    )
+  }
   return (
     <button
       type="button"

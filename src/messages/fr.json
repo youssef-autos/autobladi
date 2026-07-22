@@ -1796,7 +1796,9 @@
     "searchPlaceholder": "Rechercher une page...",
     "clearSearch": "Effacer la recherche",
     "noSearchResults": "Aucune page trouvée",
-    "pendingTotal": "{count} élément(s) à traiter"
+    "pendingTotal": "{count} élément(s) à traiter",
+    "collapseSidebar": "Réduire le menu",
+    "expandSidebar": "Agrandir le menu"
   },
   "admin": {
     "settings": {
@@ -2244,8 +2246,6 @@
       "anyModel": "Tous les modèles",
       "city": "Ville",
       "anyCity": "Toutes les villes",
-      "minPrice": "Prix min.",
-      "maxPrice": "Prix max.",
       "searchNow": "Rechercher",
       "advancedSearch": "Recherche avancée",
       "statsCars": "annonces",

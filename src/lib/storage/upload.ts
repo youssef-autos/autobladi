@@ -1,7 +1,7 @@
 /**
  * Client-side helper to upload an image to the watermark pipeline.
  * Calls /api/watermark, which:
- *   - applies the diagonal watermark via Sharp
+ *   - stamps a single centered brand watermark via Sharp
  *   - resizes to 1200×900 (main) and 400×300 (thumb), WebP
  *   - uploads both to Supabase Storage in the user's folder
  * Returns the public URLs of the processed assets.

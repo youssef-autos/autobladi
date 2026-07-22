@@ -28,8 +28,6 @@ export function QuickSearch({ brands, models, cities, count }: Props) {
   const [brand, setBrand] = useState<string>("")
   const [model, setModel] = useState<string>("")
   const [city, setCity] = useState<string>("")
-  const [priceMin, setPriceMin] = useState<string>("")
-  const [priceMax, setPriceMax] = useState<string>("")
 
   // brand/model/city states hold slugs (not UUIDs) so URL params are
   // human-readable and compatible with the annonces page FiltersSidebar.
@@ -61,8 +59,7 @@ export function QuickSearch({ brands, models, cities, count }: Props) {
     [cities, locale],
   )
 
-  const hasFilters =
-    condition !== "all" || brand || model || city || priceMin || priceMax
+  const hasFilters = condition !== "all" || brand || model || city
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -71,8 +68,6 @@ export function QuickSearch({ brands, models, cities, count }: Props) {
     if (brand) params.set("brand", brand)
     if (model) params.set("model", model)
     if (city) params.set("city", city)
-    if (priceMin) params.set("priceMin", priceMin)
-    if (priceMax) params.set("priceMax", priceMax)
     router.push(`/annonces?${params.toString()}`)
   }
 
@@ -81,8 +76,6 @@ export function QuickSearch({ brands, models, cities, count }: Props) {
     setBrand("")
     setModel("")
     setCity("")
-    setPriceMin("")
-    setPriceMax("")
   }
 
   return (
@@ -118,7 +111,7 @@ export function QuickSearch({ brands, models, cities, count }: Props) {
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <Field label={t("brand")}>
           <Combobox
             items={brandItems}
@@ -151,32 +144,6 @@ export function QuickSearch({ brands, models, cities, count }: Props) {
             placeholder={t("anyCity")}
             emptyText={t("noResults")}
           />
-        </Field>
-
-        <Field label={t("minPrice") + " / " + t("maxPrice")}>
-          <div className="flex items-center gap-2">
-            <input
-              type="number"
-              inputMode="numeric"
-              min="0"
-              step="1000"
-              value={priceMin}
-              onChange={(e) => setPriceMin(e.target.value)}
-              placeholder={t("minPrice")}
-              className="w-full h-11 rounded-xl border border-input bg-background px-3 text-sm focus:outline-none focus:border-moroccan-red-500/40 focus:ring-2 focus:ring-moroccan-red-500/15"
-            />
-            <span aria-hidden className="text-muted-foreground">—</span>
-            <input
-              type="number"
-              inputMode="numeric"
-              min="0"
-              step="1000"
-              value={priceMax}
-              onChange={(e) => setPriceMax(e.target.value)}
-              placeholder={t("maxPrice")}
-              className="w-full h-11 rounded-xl border border-input bg-background px-3 text-sm focus:outline-none focus:border-moroccan-red-500/40 focus:ring-2 focus:ring-moroccan-red-500/15"
-            />
-          </div>
         </Field>
       </div>
 

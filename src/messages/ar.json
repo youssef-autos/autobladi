@@ -1797,7 +1797,9 @@
     "searchPlaceholder": "ابحث عن صفحة...",
     "clearSearch": "مسح البحث",
     "noSearchResults": "لا توجد صفحة مطابقة",
-    "pendingTotal": "{count} عنصر بحاجة للمراجعة"
+    "pendingTotal": "{count} عنصر بحاجة للمراجعة",
+    "collapseSidebar": "طي القائمة",
+    "expandSidebar": "توسيع القائمة"
   },
   "admin": {
     "settings": {
@@ -2245,8 +2247,6 @@
       "anyModel": "كل الموديلات",
       "city": "المدينة",
       "anyCity": "كل المدن",
-      "minPrice": "السعر من",
-      "maxPrice": "السعر إلى",
       "searchNow": "ابحث الآن",
       "advancedSearch": "بحث متقدم",
       "statsCars": "إعلان",

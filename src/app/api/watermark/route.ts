@@ -63,62 +63,62 @@ function fontFaceStyle(): string {
 }
 
 /**
- * Diagonal tiled watermark — repeats brand text across the whole image
- * at ~25 % opacity, rotated -30°. Per spec: simple, no stroke.
+ * Single centered watermark, avito.ma-style: one large bold line of brand
+ * text across the middle of the image at moderate opacity — not a tiled,
+ * rotated repeat. A soft dark stroke keeps it legible over both light and
+ * dark parts of the photo.
  */
-function buildPatternSvg({
+function buildWatermarkSvg({
   text,
   width,
   height,
-  tileW,
-  tileH,
-  fontSize,
-  textX,
-  textY,
 }: {
   text: string
   width: number
   height: number
-  tileW: number
-  tileH: number
-  fontSize: number
-  textX: number
-  textY: number
 }): Buffer {
-  const safe = escapeForSvg(text)
+  const safe = escapeForSvg(text.toUpperCase())
   const face = fontFaceStyle()
   const fontFamily = face ? WM_FONT_FAMILY : "system-ui, Arial, sans-serif"
+
+  // Size the text to span ~70% of the image width regardless of length,
+  // within sane bounds so very short/long watermark text still looks right.
+  const targetWidth = width * 0.7
+  const estCharWidth = 0.58
+  const fontSize = Math.min(
+    height * 0.22,
+    Math.max(height * 0.06, targetWidth / (safe.length * estCharWidth)),
+  )
+
   return Buffer.from(`<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
     <defs>
       ${face ? `<style>${face}</style>` : ""}
-      <pattern id="wm" patternUnits="userSpaceOnUse" width="${tileW}" height="${tileH}" patternTransform="rotate(-30)">
-        <text
-          x="${textX}"
-          y="${textY}"
-          font-family="${fontFamily}"
-          font-size="${fontSize}"
-          font-weight="bold"
-          fill="white"
-          fill-opacity="0.25"
-        >${safe}</text>
-      </pattern>
     </defs>
-    <rect width="100%" height="100%" fill="url(#wm)"/>
+    <text
+      x="50%"
+      y="50%"
+      text-anchor="middle"
+      dominant-baseline="middle"
+      font-family="${fontFamily}"
+      font-size="${fontSize.toFixed(1)}"
+      font-weight="bold"
+      letter-spacing="${(fontSize * 0.04).toFixed(1)}"
+      fill="white"
+      fill-opacity="0.45"
+      stroke="black"
+      stroke-opacity="0.15"
+      stroke-width="1"
+    >${safe}</text>
   </svg>`)
 }
 
 async function processImage(buffer: ArrayBuffer, watermark: string) {
   const input = Buffer.from(buffer)
 
-  const mainOverlay = buildPatternSvg({
+  const mainOverlay = buildWatermarkSvg({
     text: watermark,
     width: MAIN.width,
     height: MAIN.height,
-    tileW: 400,
-    tileH: 300,
-    fontSize: 32,
-    textX: 50,
-    textY: 150,
   })
 
   const main = await sharp(input)
@@ -128,15 +128,10 @@ async function processImage(buffer: ArrayBuffer, watermark: string) {
     .webp({ quality: 85 })
     .toBuffer()
 
-  const thumbOverlay = buildPatternSvg({
+  const thumbOverlay = buildWatermarkSvg({
     text: watermark,
     width: THUMB.width,
     height: THUMB.height,
-    tileW: 200,
-    tileH: 150,
-    fontSize: 16,
-    textX: 20,
-    textY: 80,
   })
 
   const thumb = await sharp(input)
