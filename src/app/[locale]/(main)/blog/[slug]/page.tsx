@@ -93,30 +93,11 @@ export default async function BlogDetailPage({
     <>
       <BlogViewTracker postId={post.id} />
 
-      {/* Cover image — no text over it */}
-      {post.cover_image && (
-        <div className="relative w-full h-[220px] sm:h-[320px] md:h-[440px] overflow-hidden bg-muted">
-          <Image
-            src={post.cover_image}
-            alt={post.title}
-            fill
-            sizes="100vw"
-            className="object-cover"
-            priority
-          />
-          {categoryName && (
-            <span className="absolute top-4 start-4 md:top-6 md:start-6 inline-flex items-center rounded-full bg-moroccan-red-500 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-sm">
-              {categoryName}
-            </span>
-          )}
-        </div>
-      )}
-
-      {/* Title + meta — below the image, dark text on the page background */}
+      {/* Title + meta first, then a properly-sized cover image below them */}
       <header>
         <Container className="pt-8 md:pt-10">
           <div className="max-w-3xl">
-            {!post.cover_image && categoryName && (
+            {categoryName && (
               <Badge variant="pro" className="mb-3">
                 {categoryName}
               </Badge>
@@ -158,6 +139,19 @@ export default async function BlogDetailPage({
                 {t("detail.viewsCount", { count: post.views_count })}
               </span>
             </div>
+
+            {post.cover_image && (
+              <div className="relative mt-6 md:mt-8 aspect-video w-full overflow-hidden rounded-2xl bg-muted">
+                <Image
+                  src={post.cover_image}
+                  alt={post.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 720px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            )}
           </div>
         </Container>
       </header>
