@@ -248,7 +248,8 @@
       "title": "Showroom introuvable",
       "desc": "Peut-être supprimé ou pas encore activé",
       "back": "Tous les showrooms"
-    }
+    },
+    "verified": "Vérifié"
   },
   "showroom": {
     "title": "Mon showroom",

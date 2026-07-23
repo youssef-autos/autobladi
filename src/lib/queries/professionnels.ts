@@ -176,6 +176,7 @@ export type ProfessionnelDetail = {
   rating: number
   reviews_count: number
   is_active: boolean
+  is_verified: boolean
   created_at: string
   city: { id: string; name_ar: string; name_fr: string; slug: string } | null
   secteur: { id: string; name_ar: string; name_fr: string; slug: string } | null
@@ -248,6 +249,7 @@ export async function getProfessionnelBySlug(
     rating: row.rating,
     reviews_count: row.reviews_count,
     is_active: row.is_active,
+    is_verified: row.is_verified,
     created_at: row.created_at,
     city: row.cities,
     secteur: row.secteurs,
@@ -323,6 +325,7 @@ export async function getMyProfessionnel(): Promise<ProfessionnelDetail | null> 
     rating: row.rating,
     reviews_count: row.reviews_count,
     is_active: row.is_active,
+    is_verified: row.is_verified,
     created_at: row.created_at,
     city: row.cities,
     secteur: row.secteurs,
