@@ -225,6 +225,7 @@ export type AdminProfessionnelRow = {
   rating: number
   reviews_count: number
   is_active: boolean
+  is_verified: boolean
   created_at: string
   city: { name_ar: string; name_fr: string } | null
   owner: { id: string; full_name: string | null; avatar_url: string | null } | null
@@ -243,7 +244,7 @@ export async function listAllProfessionnelsAdmin(): Promise<
   const { data } = await supabase
     .from("professionnels")
     .select(`
-      id, user_id, name, slug, logo_url, rating, reviews_count, is_active, created_at,
+      id, user_id, name, slug, logo_url, rating, reviews_count, is_active, is_verified, created_at,
       cities(name_ar, name_fr),
       profiles(id, full_name, avatar_url)
     `)
@@ -269,6 +270,7 @@ export async function listAllProfessionnelsAdmin(): Promise<
     rating: r.rating,
     reviews_count: r.reviews_count,
     is_active: r.is_active,
+    is_verified: r.is_verified,
     created_at: r.created_at,
     city: r.cities,
     owner: r.profiles,

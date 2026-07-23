@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react"
 import {
+  BadgeCheck,
   Building2,
   Car,
   ExternalLink,
@@ -17,6 +18,7 @@ import { toast } from "sonner"
 import {
   deleteProfessionnel,
   toggleProfessionnelActive,
+  toggleProfessionnelVerified,
 } from "@/app/[locale]/admin/showrooms/actions"
 import { Link } from "@/i18n/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -77,6 +79,22 @@ export function ProfessionnelsManager({ professionnels }: Props) {
         return
       }
       toast.success(row.is_active ? t("toast.deactivated") : t("toast.activated"))
+    })
+  }
+
+  function onToggleVerified(row: AdminProfessionnelRow) {
+    setPendingId(row.id)
+    startTransition(async () => {
+      const res = await toggleProfessionnelVerified({
+        id: row.id,
+        is_verified: !row.is_verified,
+      })
+      setPendingId(null)
+      if (!res.ok) {
+        toast.error(t("toast.error"))
+        return
+      }
+      toast.success(row.is_verified ? t("toast.unverified") : t("toast.verified"))
     })
   }
 
@@ -196,8 +214,16 @@ export function ProfessionnelsManager({ professionnels }: Props) {
                             )}
                           </div>
                           <div className="min-w-0">
-                            <p className="text-sm font-medium text-foreground truncate">
+                            <p className="flex items-center gap-1.5 text-sm font-medium text-foreground truncate">
                               {row.name}
+                              {row.is_verified && (
+                                <BadgeCheck
+                                  className="size-3.5 shrink-0 text-moroccan-gold-500 fill-moroccan-gold-500/15"
+                                  aria-hidden="true"
+                                >
+                                  <title>{t("verified")}</title>
+                                </BadgeCheck>
+                              )}
                             </p>
                             <p className="text-xs font-mono text-muted-foreground truncate">
                               {row.slug}
@@ -308,6 +334,21 @@ export function ProfessionnelsManager({ professionnels }: Props) {
                             title={row.is_active ? t("deactivate") : t("activate")}
                           >
                             <Power className="size-4" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => onToggleVerified(row)}
+                            disabled={pendingId === row.id}
+                            className={cn(
+                              "inline-flex items-center justify-center size-9 rounded-lg hover:bg-moroccan-sand-50 disabled:opacity-50",
+                              row.is_verified
+                                ? "text-moroccan-gold-500"
+                                : "text-muted-foreground",
+                            )}
+                            aria-label={row.is_verified ? t("unverify") : t("verify")}
+                            title={row.is_verified ? t("unverify") : t("verify")}
+                          >
+                            <BadgeCheck className="size-4" />
                           </button>
                           <button
                             type="button"

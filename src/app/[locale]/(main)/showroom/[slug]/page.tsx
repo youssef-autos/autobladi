@@ -81,8 +81,9 @@ export default async function ProfessionnelDetailPage({
 
       <Container className="py-8 md:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,320px)_1fr] gap-6">
-          {/* Info column: about (with contact) → hours → location → reviews */}
-          <div className="space-y-6">
+          {/* Info column: about (with contact) → hours → location → reviews.
+              Below the cars on mobile, beside them (left) on desktop. */}
+          <div className="order-2 lg:order-1 lg:col-start-1 space-y-6">
             <section>
               <SectionHeading title={t("tabs.about")} />
               <DealerAbout dealer={dealer} />
@@ -109,8 +110,9 @@ export default async function ProfessionnelDetailPage({
             </Suspense>
           </div>
 
-          {/* Cars — beside the info column, with a New/Used/All filter */}
-          <div className="min-w-0">
+          {/* Cars — beside the info column, with a New/Used/All filter.
+              Above the info column on mobile, right of it on desktop. */}
+          <div className="order-1 lg:order-2 lg:col-start-2 min-w-0">
             <DealerCars cars={cars} />
           </div>
         </div>

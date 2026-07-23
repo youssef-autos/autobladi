@@ -38,32 +38,24 @@ function CardHeading({
   )
 }
 
-const accentStyles: Record<"red" | "mint" | "gold", { chip: string; hover: string }> = {
-  red: {
-    chip: "bg-moroccan-red-500 text-white",
-    hover: "hover:border-moroccan-red-500/40 hover:bg-moroccan-red-50/50",
-  },
-  mint: {
-    chip: "bg-moroccan-mint-500 text-white",
-    hover: "hover:border-moroccan-mint-500/40 hover:bg-moroccan-mint-500/5",
-  },
-  gold: {
-    chip: "bg-moroccan-gold-500 text-white",
-    hover: "hover:border-moroccan-gold-500/40 hover:bg-moroccan-gold-50/50",
-  },
+const contactVariants: Record<"phone" | "whatsapp" | "email", string> = {
+  phone:
+    "border-2 border-moroccan-red-500 text-moroccan-red-500 bg-background hover:bg-moroccan-red-50",
+  whatsapp: "bg-moroccan-mint-500 text-white hover:brightness-105",
+  email: "border-2 border-border text-foreground bg-background hover:bg-moroccan-sand-50",
 }
 
-/** Simple contact action — icon chip + label, without revealing the value. */
+/** Full-width contact action button — outlined Call, solid WhatsApp, etc. */
 function ContactButton({
   href,
   icon: Icon,
-  accent,
+  variant,
   label,
   external = false,
 }: {
   href: string
   icon: ComponentType<{ className?: string }>
-  accent: "red" | "mint" | "gold"
+  variant: "phone" | "whatsapp" | "email"
   label: string
   external?: boolean
 }) {
@@ -71,21 +63,13 @@ function ContactButton({
     <a
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      aria-label={label}
       className={cn(
-        "group flex flex-1 min-w-[88px] flex-col items-center justify-center gap-2.5 rounded-2xl border border-border bg-card px-2 py-4 transition-all hover:shadow-card",
-        accentStyles[accent].hover,
+        "flex w-full items-center justify-center gap-2 h-12 rounded-xl text-base font-bold transition-colors",
+        contactVariants[variant],
       )}
     >
-      <span
-        className={cn(
-          "inline-flex size-11 items-center justify-center rounded-2xl shadow-sm transition-transform group-hover:scale-110",
-          accentStyles[accent].chip,
-        )}
-      >
-        <Icon className="size-5" />
-      </span>
-      <span className="text-xs font-semibold text-foreground text-center">{label}</span>
+      <Icon className="size-5" aria-hidden="true" />
+      {label}
     </a>
   )
 }
@@ -134,13 +118,13 @@ export function DealerAbout({ dealer }: Props) {
       {hasContact && (
         <div className="mt-5 border-t border-border pt-5">
           <CardHeading icon={Headset} title={t("about.contact")} />
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-3 flex flex-col gap-3">
             {dealer.phone && (
               <ContactButton
                 href={`tel:${dealer.phone.replace(/\s/g, "")}`}
                 icon={Phone}
-                accent="red"
-                label={t("detail.phone")}
+                variant="phone"
+                label={t("detail.callAction")}
               />
             )}
             {wa && (
@@ -148,7 +132,7 @@ export function DealerAbout({ dealer }: Props) {
                 href={`https://wa.me/${wa.replace(/^0/, "212")}`}
                 external
                 icon={MessageCircle}
-                accent="mint"
+                variant="whatsapp"
                 label={t("detail.whatsapp")}
               />
             )}
@@ -156,7 +140,7 @@ export function DealerAbout({ dealer }: Props) {
               <ContactButton
                 href={`mailto:${dealer.email}`}
                 icon={Mail}
-                accent="gold"
+                variant="email"
                 label={t("detail.email")}
               />
             )}

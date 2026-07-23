@@ -330,6 +330,7 @@ export type Database = {
           rating: number
           reviews_count: number
           is_active: boolean
+          is_verified: boolean
           created_at: string
           updated_at: string
         }
@@ -359,6 +360,7 @@ export type Database = {
           rating?: number
           reviews_count?: number
           is_active?: boolean
+          is_verified?: boolean
           created_at?: string
           updated_at?: string
         }

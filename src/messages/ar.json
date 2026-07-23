@@ -159,7 +159,8 @@
       "filterUsed": "مستعملة",
       "proCtaTitle": "هل تدير معرض سيارات؟",
       "proCtaText": "أنشئ واجهتك الاحترافية على autobladi.ma واعرض مخزونك كاملاً أمام آلاف المشترين كل شهر.",
-      "proCtaButton": "كن شريكاً"
+      "proCtaButton": "كن شريكاً",
+      "callAction": "اتصل"
     },
     "list": {
       "title": "اكتشف أبرز معارض السيارات في المغرب",
@@ -917,8 +918,13 @@
         "activated": "تم تفعيل المعرض",
         "deactivated": "تم تعطيل المعرض",
         "deleted": "تم حذف المعرض",
-        "error": "حدث خطأ"
-      }
+        "error": "حدث خطأ",
+        "verified": "تم توثيق المعرض",
+        "unverified": "تم إلغاء التوثيق"
+      },
+      "verified": "موثّق",
+      "verify": "توثيق",
+      "unverify": "إلغاء التوثيق"
     },
     "contactPage": {
       "title": "رسائل التواصل",

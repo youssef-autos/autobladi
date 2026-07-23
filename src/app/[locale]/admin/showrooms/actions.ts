@@ -48,6 +48,26 @@ export async function toggleProfessionnelActive(
   return { ok: true }
 }
 
+const toggleVerifiedSchema = z.object({ id: z.uuid(), is_verified: z.boolean() })
+
+export async function toggleProfessionnelVerified(
+  input: unknown,
+): Promise<ProfessionnelResult> {
+  const parsed = toggleVerifiedSchema.safeParse(input)
+  if (!parsed.success) return { ok: false, error: "invalid_input" }
+  const ctx = await adminClient()
+  if (!ctx) return { ok: false, error: "forbidden" }
+
+  const { error } = await ctx.supabase
+    .from("professionnels")
+    .update({ is_verified: parsed.data.is_verified } as never)
+    .eq("id", parsed.data.id)
+  if (error) return { ok: false, error: error.message }
+
+  revalidate()
+  return { ok: true }
+}
+
 const idSchema = z.uuid()
 
 export async function deleteProfessionnel(

@@ -159,7 +159,8 @@
       "filterUsed": "Occasion",
       "proCtaTitle": "Vous gérez un showroom ?",
       "proCtaText": "Créez votre showroom sur autobladi.ma et présentez tout votre stock à des milliers d'acheteurs chaque mois.",
-      "proCtaButton": "Devenir partenaire"
+      "proCtaButton": "Devenir partenaire",
+      "callAction": "Appeler"
     },
     "list": {
       "title": "Découvrez les meilleurs showrooms au Maroc",
@@ -917,8 +918,13 @@
         "activated": "Showroom activé",
         "deactivated": "Showroom désactivé",
         "deleted": "Showroom supprimé",
-        "error": "Une erreur est survenue"
-      }
+        "error": "Une erreur est survenue",
+        "verified": "Showroom vérifié",
+        "unverified": "Vérification retirée"
+      },
+      "verified": "Vérifié",
+      "verify": "Vérifier",
+      "unverify": "Retirer la vérification"
     },
     "contactPage": {
       "title": "Messages de contact",
