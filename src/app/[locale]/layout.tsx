@@ -152,7 +152,7 @@ export async function generateMetadata({
       languages: {
         ar: `${SITE_URL}/ar`,
         fr: `${SITE_URL}/fr`,
-        "x-default": `${SITE_URL}/ar`,
+        "x-default": `${SITE_URL}/fr`,
       },
     },
     // Search-engine ownership verification (google-site-verification + Bing's

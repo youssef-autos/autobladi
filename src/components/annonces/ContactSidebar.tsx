@@ -63,7 +63,7 @@ export function ContactSidebar({
             <button
               type="button"
               onClick={handleReveal}
-              className="inline-flex items-center justify-center gap-2 h-12 w-full rounded-xl bg-moroccan-gradient text-white text-base font-semibold shadow-moroccan hover:brightness-105 transition-all"
+              className="inline-flex items-center justify-center gap-2 h-12 w-full rounded-xl border-2 border-moroccan-red-500 bg-background text-moroccan-red-500 text-base font-bold hover:bg-moroccan-red-50 transition-colors"
             >
               <Phone className="size-4" aria-hidden="true" />
               {t("revealPhone")}
@@ -71,7 +71,7 @@ export function ContactSidebar({
           ) : (
             <a
               href={`tel:${contactPhone.replace(/\s/g, "")}`}
-              className="inline-flex items-center justify-center gap-2 h-12 w-full rounded-xl bg-moroccan-gradient text-white text-base font-semibold shadow-moroccan hover:brightness-105 transition-all tabular-nums"
+              className="inline-flex items-center justify-center gap-2 h-12 w-full rounded-xl border-2 border-moroccan-red-500 bg-background text-moroccan-red-500 text-base font-bold hover:bg-moroccan-red-50 transition-colors tabular-nums"
             >
               <Phone className="size-4" aria-hidden="true" />
               {phone}
@@ -86,7 +86,7 @@ export function ContactSidebar({
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackAdEvent(annonceId, "whatsapp_click")}
-          className="inline-flex items-center justify-center gap-2 h-11 w-full rounded-xl bg-moroccan-mint-500 text-white font-semibold hover:brightness-105 transition-all"
+          className="inline-flex items-center justify-center gap-2 h-12 w-full rounded-xl bg-moroccan-mint-500 text-white text-base font-bold hover:brightness-105 transition-all"
         >
           <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden="true">
             <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1s-.8.9-1 1.1c-.2.2-.4.2-.7.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1-1.1 2.5 0 1.5 1.1 2.9 1.2 3.1.1.2 2.2 3.3 5.3 4.6 2.6 1 3 .8 3.6.8.6 0 1.7-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.1-.6-.2zM12 2C6.5 2 2 6.5 2 12c0 1.7.4 3.4 1.2 4.8L2 22l5.3-1.2C8.7 21.6 10.3 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2z" />

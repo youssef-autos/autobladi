@@ -21,6 +21,7 @@ export type ProfessionnelListItem = {
   reviews_count: number
   is_active: boolean
   is_pro: boolean
+  is_verified: boolean
   city: { name_ar: string; name_fr: string; slug: string } | null
   annonces_count: number
   created_at: string
@@ -75,7 +76,7 @@ export async function listProfessionnels(
     .from("professionnels")
     .select(
       `id, user_id, name, slug, logo_url, cover_url, description, rating,
-       reviews_count, is_active, created_at,
+       reviews_count, is_active, is_verified, created_at,
        cities(name_ar, name_fr, slug),
        profiles(account_type)`,
       { count: "exact" },
@@ -133,6 +134,7 @@ export async function listProfessionnels(
     rating: row.rating,
     reviews_count: row.reviews_count,
     is_active: row.is_active,
+    is_verified: row.is_verified,
     is_pro:
       row.profiles?.account_type === "pro" ||
       row.profiles?.account_type === "admin",

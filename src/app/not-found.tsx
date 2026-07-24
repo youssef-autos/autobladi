@@ -8,7 +8,7 @@ import "./globals.css"
  */
 export default function RootNotFound() {
   return (
-    <html lang="ar" dir="rtl">
+    <html lang="fr" dir="ltr">
       <body className="flex min-h-screen flex-col items-center justify-center bg-brand-dark px-6 py-16 text-center text-white">
         <p className="font-display text-7xl font-bold text-moroccan-gold-500 tabular-nums">
           404
@@ -21,7 +21,7 @@ export default function RootNotFound() {
             the app router, so next/link isn't applicable here. */}
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
-          href="/ar"
+          href="/fr"
           className="mt-6 inline-flex h-11 items-center rounded-xl bg-moroccan-gradient px-6 text-sm font-semibold text-white shadow-moroccan hover:brightness-105"
         >
           autobladi.ma

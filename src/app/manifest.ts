@@ -10,7 +10,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "autobladi",
     description:
       "Achat et vente de voitures au Maroc. Estimation gratuite par IA, showrooms auto.",
-    start_url: "/ar",
+    start_url: "/fr",
     display: "standalone",
     background_color: "#fdfaf5",
     theme_color: "#c1272d",

@@ -1,11 +1,10 @@
 "use client"
 
 import Image from "next/image"
-import { ArrowUpRight, Building2, MapPin, Star } from "lucide-react"
+import { ArrowUpRight, Building2, Car, Check, MapPin } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
 
 import { Link } from "@/i18n/navigation"
-import { Badge } from "@/components/ui/badge"
 import type { Locale } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 
@@ -21,14 +20,15 @@ type Props = {
     reviews_count: number
     annonces_count?: number
     is_pro?: boolean
+    is_verified?: boolean
     city: { name_ar: string; name_fr: string } | null
   }
   className?: string
 }
 
 /**
- * Polished dealer card for the public listing (/showrooms): 3:1 cover
- * with overlapping logo, Pro badge, rating, and a clear CTA.
+ * Dealer card for the public directory (/showrooms): 3:1 cover with an
+ * overlapping logo medallion, name + verified badge, city and listing count.
  */
 export function ProfessionnelListCard({ dealer, className }: Props) {
   const locale = useLocale() as Locale
@@ -55,7 +55,7 @@ export function ProfessionnelListCard({ dealer, className }: Props) {
       />
 
       {/* Cover */}
-      <div className="relative aspect-[3/1] overflow-hidden bg-moroccan-sand-100">
+      <div className="relative aspect-[3/1] overflow-hidden bg-brand-dark">
         {dealer.cover_url ? (
           <Image
             src={dealer.cover_url}
@@ -65,12 +65,20 @@ export function ProfessionnelListCard({ dealer, className }: Props) {
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-moroccan-sand-100 via-moroccan-gold-50 to-moroccan-sand-100" />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-dark via-moroccan-red-900/40 to-brand-dark" />
         )}
         <div
-          className="absolute inset-0 bg-gradient-to-t from-brand-dark/30 to-transparent"
+          className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/10"
           aria-hidden="true"
         />
+
+        {/* Reveal-on-hover affordance — the whole card is already the link. */}
+        <span
+          className="absolute top-3 end-3 z-20 inline-flex size-8 items-center justify-center rounded-full bg-white/90 text-foreground opacity-0 shadow-sm backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 rtl:-scale-x-100"
+          aria-hidden="true"
+        >
+          <ArrowUpRight className="size-4" />
+        </span>
       </div>
 
       {/* Logo medallion */}
@@ -96,45 +104,30 @@ export function ProfessionnelListCard({ dealer, className }: Props) {
 
       {/* Body */}
       <div className="flex flex-1 flex-col gap-2 px-5 pb-5 pt-3">
-        <h3 className="line-clamp-1 font-display text-lg font-bold text-foreground">
-          {dealer.name}
+        <h3 className="flex items-center gap-1.5 min-w-0">
+          <span className="line-clamp-1 font-display text-lg font-bold text-foreground">
+            {dealer.name}
+          </span>
+          {dealer.is_verified && (
+            <span
+              title={t("verified")}
+              className="inline-flex shrink-0 items-center justify-center size-4 rounded-full bg-blue-500 text-white"
+            >
+              <Check className="size-2.5" strokeWidth={3} aria-hidden="true" />
+            </span>
+          )}
         </h3>
 
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+        <div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
           {cityName && (
-            <span className="inline-flex items-center gap-1">
+            <span className="inline-flex items-center gap-1.5">
               <MapPin className="size-3.5 text-moroccan-gold-500" aria-hidden="true" />
               {cityName}
             </span>
           )}
-          <span className="inline-flex items-center gap-1">
-            <Star
-              className="size-3.5 fill-moroccan-gold-500 text-moroccan-gold-500"
-              aria-hidden="true"
-            />
-            <span className="font-semibold text-foreground">
-              {Number(dealer.rating).toFixed(1)}
-            </span>
-            <span>({dealer.reviews_count})</span>
-          </span>
-        </div>
-
-        {dealer.description && (
-          <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-            {dealer.description}
-          </p>
-        )}
-
-        <div className="mt-auto flex items-center justify-between gap-2 border-t border-border/60 pt-3">
-          <Badge variant="outline" className="text-xs">
+          <span className="inline-flex items-center gap-1.5">
+            <Car className="size-3.5 text-moroccan-gold-500" aria-hidden="true" />
             {t("carsCount", { count: carsCount })}
-          </Badge>
-          <span className="inline-flex items-center gap-1 text-sm font-semibold text-moroccan-red-600 transition-colors group-hover:text-moroccan-red-500">
-            {t("visit")}
-            <ArrowUpRight
-              className="size-4 transition-transform group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
-              aria-hidden="true"
-            />
           </span>
         </div>
       </div>

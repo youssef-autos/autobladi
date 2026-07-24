@@ -24,7 +24,7 @@ type EntryOpts = {
 /**
  * One `<url>` per locale, each carrying the full hreflang set (ar + fr +
  * x-default) so search engines serve the right language version and the
- * copies don't compete. x-default points at Arabic (the default locale).
+ * copies don't compete. x-default points at French (the default locale).
  */
 function entriesFor({
   path,
@@ -35,7 +35,7 @@ function entriesFor({
   const languages: Record<string, string> = {
     ar: `${SITE_URL}/ar${path}`,
     fr: `${SITE_URL}/fr${path}`,
-    "x-default": `${SITE_URL}/ar${path}`,
+    "x-default": `${SITE_URL}/fr${path}`,
   }
   return LOCALES.map((locale) => ({
     url: `${SITE_URL}/${locale}${path}`,

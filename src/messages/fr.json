@@ -180,7 +180,8 @@
       "visit": "Visiter",
       "empty": "Aucun showroom trouvé",
       "emptyDesc": "Essayez de modifier ou d'effacer les filtres",
-      "noCityResults": "Aucune ville trouv?e"
+      "noCityResults": "Aucune ville trouv?e",
+      "verified": "Vérifié"
     },
     "tabs": {
       "cars": "Voitures",
