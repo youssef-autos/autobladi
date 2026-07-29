@@ -749,23 +749,6 @@ export async function listAllCitiesAdmin(): Promise<AdminCityRow[]> {
 }
 
 // ---------------------------------------------------------------------------
-// Secteurs — list for a specific city
-// ---------------------------------------------------------------------------
-export type AdminSecteurRow = Tables<"secteurs">
-
-export async function listSecteursForCity(
-  cityId: string,
-): Promise<AdminSecteurRow[]> {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("secteurs")
-    .select("*")
-    .eq("city_id", cityId)
-    .order("name_fr", { ascending: true })
-  return (data ?? []) as AdminSecteurRow[]
-}
-
-// ---------------------------------------------------------------------------
 // Brands — admin list (sorted by manual order_index, ~50-100 rows expected)
 // ---------------------------------------------------------------------------
 export type AdminBrandRow = Tables<"brands">

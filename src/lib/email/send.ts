@@ -4,7 +4,6 @@ import { getResend, isResendConfigured } from "./client"
 import { getEmailSettings, type EmailType } from "./settings"
 
 import { AnnonceApprovedEmail } from "./templates/AnnonceApprovedEmail"
-import { AnnonceExpiringEmail } from "./templates/AnnonceExpiringEmail"
 import { AnnoncePendingEmail } from "./templates/AnnoncePendingEmail"
 import { AnnonceRejectedEmail } from "./templates/AnnonceRejectedEmail"
 import { ContactNotificationEmail } from "./templates/ContactNotificationEmail"
@@ -108,16 +107,6 @@ export function sendAnnonceRejectedEmail(args: { to: string; name: string; annon
     to: args.to,
     subject: lang === "ar" ? "إعلانك بحاجة لتعديل" : "Votre annonce nécessite des modifications",
     html: AnnonceRejectedEmail({ name: args.name, annonceTitle: args.annonceTitle, reason: args.reason, editUrl: `${SITE_URL}/${lang}/dashboard/modifier/${args.annonceId}`, lang }),
-  })
-}
-
-export function sendAnnonceExpiringEmail(args: { to: string; name: string; annonceTitle: string; annonceId: string; daysLeft: number; lang?: "ar" | "fr" }) {
-  const lang = args.lang ?? "ar"
-  return sendEmail({
-    type: "annonce_expiring",
-    to: args.to,
-    subject: lang === "ar" ? "إعلانك ينتهي قريباً — جدّده الآن" : "Votre annonce expire bientôt — renouvelez-la",
-    html: AnnonceExpiringEmail({ name: args.name, annonceTitle: args.annonceTitle, daysLeft: args.daysLeft, renewUrl: `${SITE_URL}/${lang}/dashboard/modifier/${args.annonceId}`, lang }),
   })
 }
 

@@ -33,13 +33,3 @@ export async function getPageBySlug(slug: string): Promise<ContentPage | null> {
     .maybeSingle()
   return (data as ContentPage | null) ?? null
 }
-
-// Slugs of every published page — used by the sitemap / static generation.
-export async function listPublishedPageSlugs(): Promise<string[]> {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("pages")
-    .select("slug")
-    .eq("is_published", true)
-  return ((data ?? []) as Array<{ slug: string }>).map((r) => r.slug)
-}

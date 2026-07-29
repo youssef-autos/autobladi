@@ -1,7 +1,6 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { z } from "zod"
 
 import { createClient } from "@/lib/supabase/server"
 import { reviewSchema } from "@/lib/validations/professionnel"
@@ -47,12 +46,3 @@ export async function addReview(input: unknown): Promise<ReviewActionResult> {
   revalidatePath(`/showroom/${dealer.slug}`)
   return { ok: true }
 }
-
-export async function followProfessionnel(_id: unknown) {
-  void _id
-  // Stub — follow/unfollow requires a new "professionnel_follows" table.
-  // Returning ok lets the UI show a toast without crashing.
-  return { ok: true as const, stub: true }
-}
-
-void z

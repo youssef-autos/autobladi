@@ -174,12 +174,3 @@ export function presentEquipmentGroups(
     items: group.items.filter((item) => set.has(item.key)),
   })).filter((g) => g.items.length > 0)
 }
-
-/** Total number of catalog options present (for the header counter). */
-export function countPresentEquipments(options: string[]): number {
-  const set = new Set(options)
-  return EQUIPMENT_GROUPS.reduce(
-    (acc, g) => acc + g.items.filter((i) => set.has(i.key)).length,
-    0,
-  )
-}

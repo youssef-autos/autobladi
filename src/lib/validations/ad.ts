@@ -44,11 +44,6 @@ export const placementUpdateSchema = z.object({
 
 export type PlacementUpdateInput = z.infer<typeof placementUpdateSchema>
 
-export const placementVisibilitySchema = z.object({
-  id: z.uuid(),
-  is_active: z.boolean(),
-})
-
 const dimension = z.coerce.number().int().min(1).max(9999)
 
 /**

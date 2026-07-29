@@ -10,7 +10,6 @@ import {
   adUpdateSchema,
   adSlotSettingsSchema,
   adsenseClientSchema,
-  placementVisibilitySchema,
 } from "@/lib/validations/ad"
 
 export type ActionResult<T = void> =
@@ -137,28 +136,6 @@ export async function deleteAd(id: unknown): Promise<ActionResult> {
   const { error } = await admin.from("advertisements").delete().eq("id", parsed.data)
   if (error) return { ok: false, error: error.message }
   revalidatePath("/admin/ads")
-  return { ok: true }
-}
-
-// ---------------------------------------------------------------------------
-// Show / hide a placement on the public site
-// ---------------------------------------------------------------------------
-export async function setPlacementVisibility(
-  input: unknown,
-): Promise<ActionResult> {
-  const parsed = placementVisibilitySchema.safeParse(input)
-  if (!parsed.success) return { ok: false, error: "validation" }
-  if (!(await ensureAdmin())) return { ok: false, error: "forbidden" }
-
-  const admin = createAdminClient()
-  const { error } = await admin
-    .from("ad_placements")
-    .update({ is_active: parsed.data.is_active } as never)
-    .eq("id", parsed.data.id)
-  if (error) return { ok: false, error: error.message }
-  revalidatePath("/admin/ads/placements")
-  // Bust ISR cache for every page under the [locale] layout (e.g. /ar, /fr, /ar/annonces …)
-  revalidatePath("/[locale]", "layout")
   return { ok: true }
 }
 

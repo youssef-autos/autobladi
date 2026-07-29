@@ -92,19 +92,6 @@ export function getCitiesWithListingsForBrand(
   return getCitiesWithListings({ brandId }, limit)
 }
 
-/** All active brand slugs + city slugs for the sitemap / internal linking. */
-export async function getActiveBrandSlugs(): Promise<
-  { slug: string; name: string }[]
-> {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("brands")
-    .select("slug, name")
-    .eq("is_active", true)
-    .order("order_index", { ascending: true })
-  return (data ?? []) as { slug: string; name: string }[]
-}
-
 export type LandingBrandRef = { id: string; name: string; slug: string }
 
 /** Brands that have active listings in a city — used to cross-link a city hub

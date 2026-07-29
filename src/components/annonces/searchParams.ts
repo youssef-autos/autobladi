@@ -11,17 +11,6 @@ export const VIEW_VALUES = ["grid", "list"] as const
 export const CONDITION_VALUES = ["occasion", "neuf"] as const
 export const TRANSMISSION_VALUES = ["manuelle", "automatique"] as const
 export const FUEL_VALUES = ["essence", "diesel", "hybrid", "electric", "lpg"] as const
-export const OPTION_KEYS = [
-  "climatisation",
-  "gps",
-  "camera",
-  "toit_ouvrant",
-  "abs",
-  "esp",
-  "bluetooth",
-  "cuir",
-] as const
-
 export const PAGE_SIZE = 24
 
 export const annoncesSearchParams = {

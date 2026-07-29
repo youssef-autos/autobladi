@@ -1,6 +1,3 @@
-import { format as dfFormat } from "date-fns"
-import { ar, fr } from "date-fns/locale"
-
 export type Locale = "ar" | "fr"
 
 const numberFormatter = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 })
@@ -15,17 +12,6 @@ export function formatMileage(km: number | null | undefined, locale: Locale = "f
   if (km == null || Number.isNaN(km)) return "—"
   const value = numberFormatter.format(km)
   return locale === "ar" ? `${value} كم` : `${value} km`
-}
-
-export function formatDate(
-  date: Date | string | null | undefined,
-  locale: Locale = "fr",
-  pattern = "PPP",
-): string {
-  if (!date) return "—"
-  const d = typeof date === "string" ? new Date(date) : date
-  if (Number.isNaN(d.getTime())) return "—"
-  return dfFormat(d, pattern, { locale: locale === "ar" ? ar : fr })
 }
 
 /**

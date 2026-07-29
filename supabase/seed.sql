@@ -1,19 +1,14 @@
 -- ============================================================================
--- autobladi.ma — seed data
+-- autobladi.ma — seed data (reference tables)
 -- ============================================================================
-
--- ---------------------------------------------------------------------------
--- Categories
--- ---------------------------------------------------------------------------
-insert into public.categories (name_ar, name_fr, slug, icon, order_index) values
-  ('سيارة مدينة',    'Citadine',   'citadine',   'car',         1),
-  ('صالون',          'Berline',    'berline',    'car-front',   2),
-  ('دفع رباعي خفيف', 'SUV',        'suv',        'truck',       3),
-  ('دفع رباعي',      '4x4',        '4x4',        'mountain',    4),
-  ('بريك',           'Break',      'break',      'caravan',     5),
-  ('كوبيه',          'Coupé',      'coupe',      'car-sport',   6),
-  ('مكشوفة',         'Cabriolet',  'cabriolet',  'sun',         7),
-  ('نفعية',          'Utilitaire', 'utilitaire', 'truck-pickup',8);
+--
+-- Run AFTER schema.sql, on a fresh project. Safe to re-run: every insert is
+-- guarded with `on conflict do nothing`.
+--
+-- Ad placements and the core site_settings defaults are seeded by schema.sql
+-- itself — this file only carries the Moroccan reference data (cities,
+-- brands, models) plus the optional settings an admin edits later.
+-- ============================================================================
 
 -- ---------------------------------------------------------------------------
 -- Cities
@@ -30,7 +25,8 @@ insert into public.cities (name_ar, name_fr, slug, region) values
   ('القنيطرة',      'Kenitra',    'kenitra',    'Rabat-Salé-Kénitra'),
   ('تطوان',         'Tétouan',    'tetouan',    'Tanger-Tétouan-Al Hoceïma'),
   ('سلا',           'Salé',       'sale',       'Rabat-Salé-Kénitra'),
-  ('الناظور',       'Nador',      'nador',      'Oriental');
+  ('الناظور',       'Nador',      'nador',      'Oriental')
+on conflict (slug) do nothing;
 
 -- ---------------------------------------------------------------------------
 -- Brands
@@ -55,7 +51,8 @@ insert into public.brands (name, slug, order_index) values
   ('Opel',        'opel',       17),
   ('Mazda',       'mazda',      18),
   ('Honda',       'honda',      19),
-  ('Suzuki',      'suzuki',     20);
+  ('Suzuki',      'suzuki',     20)
+on conflict (slug) do nothing;
 
 -- ---------------------------------------------------------------------------
 -- Car models
@@ -224,28 +221,16 @@ join (values
   ('suzuki', 'Ignis',         'ignis'),
   ('suzuki', 'S-Cross',       's-cross'),
   ('suzuki', 'Celerio',       'celerio')
-) as m(brand_slug, name, slug) on b.slug = m.brand_slug;
+) as m(brand_slug, name, slug) on b.slug = m.brand_slug
+on conflict (brand_id, slug) do nothing;
 
 -- ---------------------------------------------------------------------------
--- Ad placements
--- ---------------------------------------------------------------------------
-insert into public.ad_placements (name, slug, width, height, description) values
-  ('Home — Top banner',     'home_top',          970, 250, 'Bannière en haut de la page d''accueil'),
-  ('Home — Middle banner',  'home_middle',       970, 250, 'Bannière au milieu de la page d''accueil'),
-  ('Listings — Sidebar',    'listings_sidebar',  300, 600, 'Encart latéral sur la page des annonces'),
-  ('Annonce detail',        'annonce_detail',    728,  90, 'Bannière sur la page de détail d''une annonce'),
-  ('Footer banner',         'footer',            970, 120, 'Bannière en pied de page (toutes pages)');
-
--- ---------------------------------------------------------------------------
--- Default site settings
+-- Optional site settings (the core ones are seeded by schema.sql).
+-- All admin-editable afterwards from /admin/parametres.
 -- ---------------------------------------------------------------------------
 insert into public.site_settings (key, value) values
-  ('watermark_text',         '"autobladi.ma"'::jsonb),
-  ('rib',                    '""'::jsonb),
-  ('annonce_duration_days',  '60'::jsonb),
-  ('annonce_duration_days_pro', '90'::jsonb),
-  ('free_max_annonces',      '3'::jsonb),
-  ('seo_default',            '{"title":"autobladi.ma — Annonces voitures au Maroc","description":"Achetez et vendez votre voiture au Maroc sur autobladi.ma","og_image":"/images/og-default.jpg"}'::jsonb),
-  ('contact_email',          '"contact@autobladi.ma"'::jsonb),
-  ('contact_phone',          '""'::jsonb),
-  ('social_links',           '{"facebook":"","instagram":"","youtube":"","tiktok":""}'::jsonb);
+  ('contact_email', '"contact@autobladi.ma"'::jsonb),
+  ('contact_phone', '""'::jsonb),
+  ('social_links',  '{"facebook":"","instagram":"","youtube":"","tiktok":""}'::jsonb),
+  ('seo_default',   '{"title":"autobladi.ma — Annonces voitures au Maroc","description":"Achetez et vendez votre voiture au Maroc sur autobladi.ma","og_image":"/images/og-default.jpg"}'::jsonb)
+on conflict (key) do nothing;

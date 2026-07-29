@@ -90,6 +90,12 @@ function buildWatermarkSvg({
     Math.max(height * 0.06, targetWidth / (safe.length * estCharWidth)),
   )
 
+  // A thin, low-opacity stroke reads fine over a dark photo but nearly
+  // vanishes over light backgrounds (white/silver cars, bright skies) — the
+  // main complaint this fixes. A thick, more opaque dark outline behind a
+  // brighter fill keeps the mark legible over *any* background.
+  const strokeWidth = fontSize * 0.045
+
   return Buffer.from(`<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
     <defs>
       ${face ? `<style>${face}</style>` : ""}
@@ -103,11 +109,13 @@ function buildWatermarkSvg({
       font-size="${fontSize.toFixed(1)}"
       font-weight="bold"
       letter-spacing="${(fontSize * 0.04).toFixed(1)}"
+      paint-order="stroke fill"
       fill="white"
-      fill-opacity="0.45"
+      fill-opacity="0.6"
       stroke="black"
-      stroke-opacity="0.15"
-      stroke-width="1"
+      stroke-opacity="0.4"
+      stroke-width="${strokeWidth.toFixed(1)}"
+      stroke-linejoin="round"
     >${safe}</text>
   </svg>`)
 }

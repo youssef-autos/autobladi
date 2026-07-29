@@ -62,21 +62,6 @@ export interface AdSlotConfig {
 }
 
 /**
- * Global AdSense account configuration. The publisher id is read from the
- * environment so it never has to be hard-coded, and AdSense is automatically
- * disabled (no script, no <ins>) when the id is absent — handy for local dev.
- *
- *   NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-XXXXXXXXXXXXXXXX
- */
-const ADSENSE_CLIENT_ID = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID ?? ""
-
-export const ADSENSE = {
-  clientId: ADSENSE_CLIENT_ID,
-  /** Only treat AdSense as configured when a real publisher id is present. */
-  enabled: ADSENSE_CLIENT_ID.startsWith("ca-pub-"),
-} as const
-
-/**
  * The slot registry. Keyed by id for O(1) lookup.
  *
  * Sizes use standard IAB units so both AdSense and direct creatives fit:
@@ -352,13 +337,3 @@ export function resolveAdSlot(
   }
 }
 
-/**
- * Whether a slot can render on a given concrete device.
- * `both` matches everything; otherwise an exact match is required.
- */
-export function deviceMatches(
-  slotDevice: AdDevice,
-  current: "desktop" | "mobile",
-): boolean {
-  return slotDevice === "both" || slotDevice === current
-}
