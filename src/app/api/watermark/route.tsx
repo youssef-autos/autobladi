@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto"
 import { readFileSync } from "node:fs"
 import { join } from "node:path"
 import { NextResponse, type NextRequest } from "next/server"
+import { ImageResponse } from "next/og"
 import sharp from "sharp"
 
 import { createClient } from "@/lib/supabase/server"
@@ -37,38 +38,36 @@ async function getWatermarkText(): Promise<string> {
   return extractWatermarkText(data?.value)
 }
 
-function escapeForSvg(text: string): string {
-  return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;")
-}
+// Serverless hosts (Vercel/Lambda) ship almost no fonts, and sharp's SVG
+// compositing (librsvg) does not reliably honor a CSS @font-face embedded as
+// a base64 data URI — it silently falls back to missing-glyph "tofu" boxes
+// there, even though it looks fine on a dev machine with system font
+// fallbacks to mask the failure. `next/og`'s ImageResponse (Satori) embeds
+// the provided font buffer directly for text shaping/rendering, independent
+// of the OS font stack, so it's used here instead — the overlay is rendered
+// to a transparent PNG, then composited with sharp exactly as the old SVG
+// buffer was. Read the font file once, then cache the buffer.
+let cachedFont: Buffer | null = null
 
-// Serverless hosts (Vercel/Lambda) ship almost no fonts, so `system-ui`/`Arial`
-// referenced by the SVG resolve to nothing and the watermark text renders
-// broken or invisible. Embedding a bundled font as a base64 @font-face makes
-// rendering deterministic on any environment. Read once, then cache.
-const WM_FONT_FAMILY = "AutobladiWM"
-let cachedFontFace: string | null = null
-
-function fontFaceStyle(): string {
-  if (cachedFontFace !== null) return cachedFontFace
+function loadFont(): Buffer | null {
+  if (cachedFont !== null) return cachedFont
   try {
     const fontPath = join(process.cwd(), "src", "assets", "watermark-font.ttf")
-    const b64 = readFileSync(fontPath).toString("base64")
-    cachedFontFace = `@font-face{font-family:"${WM_FONT_FAMILY}";src:url(data:font/ttf;base64,${b64}) format("truetype");}`
+    cachedFont = readFileSync(fontPath)
   } catch (err) {
-    // Fall back to system fonts (works on dev machines that have them).
     console.error("[watermark] embedded font unavailable:", err)
-    cachedFontFace = ""
+    cachedFont = Buffer.alloc(0)
   }
-  return cachedFontFace
+  return cachedFont.length > 0 ? cachedFont : null
 }
 
 /**
  * Single centered watermark, avito.ma-style: one large bold line of brand
  * text across the middle of the image at moderate opacity — not a tiled,
- * rotated repeat. A soft dark stroke keeps it legible over both light and
- * dark parts of the photo.
+ * rotated repeat. A 4-directional text-shadow acts as a soft dark outline,
+ * keeping it legible over both light and dark parts of the photo.
  */
-function buildWatermarkSvg({
+async function buildWatermarkOverlay({
   text,
   width,
   height,
@@ -76,10 +75,8 @@ function buildWatermarkSvg({
   text: string
   width: number
   height: number
-}): Buffer {
-  const safe = escapeForSvg(text.toUpperCase())
-  const face = fontFaceStyle()
-  const fontFamily = face ? WM_FONT_FAMILY : "system-ui, Arial, sans-serif"
+}): Promise<Buffer> {
+  const safe = text.toUpperCase()
 
   // Size the text to span ~70% of the image width regardless of length,
   // within sane bounds so very short/long watermark text still looks right.
@@ -89,65 +86,74 @@ function buildWatermarkSvg({
     height * 0.22,
     Math.max(height * 0.06, targetWidth / (safe.length * estCharWidth)),
   )
+  const shadow = Math.max(1, fontSize * 0.045)
 
-  // A thin, low-opacity stroke reads fine over a dark photo but nearly
-  // vanishes over light backgrounds (white/silver cars, bright skies) — the
-  // main complaint this fixes. A thick, more opaque dark outline behind a
-  // brighter fill keeps the mark legible over *any* background.
-  const strokeWidth = fontSize * 0.045
+  const font = loadFont()
 
-  return Buffer.from(`<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      ${face ? `<style>${face}</style>` : ""}
-    </defs>
-    <text
-      x="50%"
-      y="50%"
-      text-anchor="middle"
-      dominant-baseline="middle"
-      font-family="${fontFamily}"
-      font-size="${fontSize.toFixed(1)}"
-      font-weight="bold"
-      letter-spacing="${(fontSize * 0.04).toFixed(1)}"
-      paint-order="stroke fill"
-      fill="white"
-      fill-opacity="0.6"
-      stroke="black"
-      stroke-opacity="0.4"
-      stroke-width="${strokeWidth.toFixed(1)}"
-      stroke-linejoin="round"
-    >${safe}</text>
-  </svg>`)
+  const image = new ImageResponse(
+    (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            fontSize,
+            fontWeight: 700,
+            fontFamily: font ? "AutobladiWM" : "sans-serif",
+            letterSpacing: fontSize * 0.04,
+            color: "rgba(255,255,255,0.6)",
+            textShadow: [
+              `${shadow}px ${shadow}px 0 rgba(0,0,0,0.4)`,
+              `-${shadow}px -${shadow}px 0 rgba(0,0,0,0.4)`,
+              `${shadow}px -${shadow}px 0 rgba(0,0,0,0.4)`,
+              `-${shadow}px ${shadow}px 0 rgba(0,0,0,0.4)`,
+            ].join(", "),
+          }}
+        >
+          {safe}
+        </div>
+      </div>
+    ),
+    {
+      width,
+      height,
+      fonts: font
+        ? [{ name: "AutobladiWM", data: font, weight: 700, style: "normal" }]
+        : undefined,
+    },
+  )
+
+  return Buffer.from(await image.arrayBuffer())
 }
 
 async function processImage(buffer: ArrayBuffer, watermark: string) {
   const input = Buffer.from(buffer)
 
-  const mainOverlay = buildWatermarkSvg({
-    text: watermark,
-    width: MAIN.width,
-    height: MAIN.height,
-  })
+  const [mainOverlay, thumbOverlay] = await Promise.all([
+    buildWatermarkOverlay({ text: watermark, width: MAIN.width, height: MAIN.height }),
+    buildWatermarkOverlay({ text: watermark, width: THUMB.width, height: THUMB.height }),
+  ])
 
-  const main = await sharp(input)
-    .rotate()
-    .resize(MAIN.width, MAIN.height, { fit: "cover", position: "center" })
-    .composite([{ input: mainOverlay, blend: "over" }])
-    .webp({ quality: 85 })
-    .toBuffer()
-
-  const thumbOverlay = buildWatermarkSvg({
-    text: watermark,
-    width: THUMB.width,
-    height: THUMB.height,
-  })
-
-  const thumb = await sharp(input)
-    .rotate()
-    .resize(THUMB.width, THUMB.height, { fit: "cover", position: "center" })
-    .composite([{ input: thumbOverlay, blend: "over" }])
-    .webp({ quality: 80 })
-    .toBuffer()
+  const [main, thumb] = await Promise.all([
+    sharp(input)
+      .rotate()
+      .resize(MAIN.width, MAIN.height, { fit: "cover", position: "center" })
+      .composite([{ input: mainOverlay, blend: "over" }])
+      .webp({ quality: 85 })
+      .toBuffer(),
+    sharp(input)
+      .rotate()
+      .resize(THUMB.width, THUMB.height, { fit: "cover", position: "center" })
+      .composite([{ input: thumbOverlay, blend: "over" }])
+      .webp({ quality: 80 })
+      .toBuffer(),
+  ])
 
   return { main, thumb }
 }
