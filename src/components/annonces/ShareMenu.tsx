@@ -17,12 +17,14 @@ import { cn } from "@/lib/utils"
 type Props = {
   url: string
   title: string
+  /** Blurb prepended to the shared text/WhatsApp message, e.g. "Check out this car on autobladi.ma". */
+  shareText: string
   className?: string
   /** Icon-only square button, for tight spaces like the mobile contact bar. */
   compact?: boolean
 }
 
-export function ShareMenu({ url, title, className, compact }: Props) {
+export function ShareMenu({ url, title, shareText, className, compact }: Props) {
   const t = useTranslations("annonceDetail.share")
   const tContact = useTranslations("annonceDetail.contact")
   // Defaults to the dropdown (SSR-safe); upgrades to the OS-native share
@@ -33,7 +35,7 @@ export function ShareMenu({ url, title, className, compact }: Props) {
     setCanShare(typeof navigator.share === "function")
   }, [])
 
-  const text = `${t("shareText")} — ${title}`
+  const text = `${shareText} — ${title}`
   const waUrl = `https://wa.me/?text=${encodeURIComponent(`${text}\n${url}`)}`
   const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
 
@@ -48,7 +50,7 @@ export function ShareMenu({ url, title, className, compact }: Props) {
 
   async function nativeShare() {
     try {
-      await navigator.share({ title, text: t("shareText"), url })
+      await navigator.share({ title, text: shareText, url })
     } catch {
       // User dismissed the native share sheet — nothing to do.
     }

@@ -33,6 +33,7 @@ export function ContactSidebar({
   className,
 }: Props) {
   const t = useTranslations("annonceDetail.contact")
+  const tShare = useTranslations("annonceDetail.share")
   const locale = useLocale()
   const [revealed, setRevealed] = useState(false)
 
@@ -109,7 +110,7 @@ export function ContactSidebar({
         </button>
       </div>
 
-      <ShareMenu url={shareUrl} title={title} />
+      <ShareMenu url={shareUrl} title={title} shareText={tShare("shareText")} />
 
       <div className="flex justify-center pt-2">
         <ReportDialog annonceId={annonceId} />

@@ -2585,9 +2585,9 @@
       "title": "شارك المقال",
       "whatsapp": "واتساب",
       "facebook": "فيسبوك",
-      "twitter": "تويتر",
       "copyLink": "نسخ الرابط",
-      "linkCopied": "تم نسخ الرابط ✓"
+      "linkCopied": "تم نسخ الرابط ✓",
+      "shareText": "شاهد هذا المقال على autobladi.ma"
     },
     "author": {
       "title": "عن الكاتب",

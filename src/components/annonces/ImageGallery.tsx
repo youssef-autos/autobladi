@@ -207,10 +207,13 @@ export function ImageGallery({ images, title, condition }: Props) {
       </div>
 
       <Dialog open={lightbox} onOpenChange={setLightbox}>
-        <DialogContent className="max-w-screen-lg p-0 bg-transparent border-0 shadow-none">
+        <DialogContent
+          showCloseButton={false}
+          className="max-w-none sm:max-w-none w-screen h-dvh p-0 bg-transparent border-0 shadow-none rounded-none"
+        >
           <DialogTitle className="sr-only">{title}</DialogTitle>
           <div
-            className="relative w-full aspect-video bg-black/95 rounded-2xl overflow-hidden touch-pan-y"
+            className="relative w-full h-full bg-black touch-pan-y"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >

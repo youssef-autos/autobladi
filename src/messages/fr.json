@@ -2584,9 +2584,9 @@
       "title": "Partager l'article",
       "whatsapp": "WhatsApp",
       "facebook": "Facebook",
-      "twitter": "Twitter",
       "copyLink": "Copier le lien",
-      "linkCopied": "Lien copié ✓"
+      "linkCopied": "Lien copié ✓",
+      "shareText": "Découvrez cet article sur autobladi.ma"
     },
     "author": {
       "title": "À propos de l'auteur",

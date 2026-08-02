@@ -1,6 +1,6 @@
 "use client"
 
-import { CalendarDays, Eye, MapPin } from "lucide-react"
+import { CalendarDays, MapPin } from "lucide-react"
 import { useFormatter, useLocale, useTranslations } from "next-intl"
 
 import { Badge } from "@/components/ui/badge"
@@ -49,6 +49,7 @@ export function AnnonceHeader({ annonce }: Props) {
         <ShareMenu
           url={shareUrl}
           title={annonce.title}
+          shareText={t("share.shareText")}
           compact
           className="ms-auto lg:hidden"
         />
@@ -68,10 +69,6 @@ export function AnnonceHeader({ annonce }: Props) {
             {t("publishedRelative", { when: publishedRelative })}
           </li>
         )}
-        <li className="inline-flex items-center gap-1.5">
-          <Eye className="size-4 text-moroccan-mint-500" aria-hidden="true" />
-          {t("viewCount", { count: annonce.views_count })}
-        </li>
       </ul>
     </header>
   )

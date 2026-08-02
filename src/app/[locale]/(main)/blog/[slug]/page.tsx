@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { Calendar, Clock, Eye } from "lucide-react"
+import { Calendar, Clock } from "lucide-react"
 import {
   getFormatter,
   getLocale,
@@ -14,7 +14,7 @@ import { BlogSidebar } from "@/components/blog/BlogSidebar"
 import { BlogViewTracker } from "@/components/blog/BlogViewTracker"
 import { CommentsList } from "@/components/blog/CommentsList"
 import { RelatedPosts } from "@/components/blog/RelatedPosts"
-import { ShareButtons } from "@/components/blog/ShareButtons"
+import { ShareMenu } from "@/components/annonces/ShareMenu"
 import { JsonLd } from "@/components/seo/JsonLd"
 import { articleSchema, breadcrumbSchema } from "@/lib/seo/structured-data"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -134,10 +134,6 @@ export default async function BlogDetailPage({
                 <Clock className="size-4" aria-hidden="true" />
                 {t("detail.readingTime", { minutes: post.reading_minutes })}
               </span>
-              <span className="inline-flex items-center gap-1">
-                <Eye className="size-4" aria-hidden="true" />
-                {t("detail.viewsCount", { count: post.views_count })}
-              </span>
             </div>
 
             {post.cover_image && (
@@ -179,7 +175,7 @@ export default async function BlogDetailPage({
                 </div>
               )}
 
-              <ShareButtons url={fullUrl} title={post.title} />
+              <ShareMenu url={fullUrl} title={post.title} shareText={t("share.shareText")} />
 
               <MoroccanDivider />
 
