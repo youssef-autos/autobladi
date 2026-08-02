@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState, useTransition } from "react"
-import { ArrowLeft, Eye, Loader2, Pencil, Upload, X } from "lucide-react"
+import { ArrowLeft, Loader2, Upload, X } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 
@@ -10,7 +10,7 @@ import {
   updateBlogPost,
 } from "@/app/[locale]/admin/blog/actions"
 import { uploadBlogImage } from "@/app/[locale]/admin/blog/upload-action"
-import { MarkdownPreview } from "@/components/admin/blog/posts/MarkdownPreview"
+import { RichTextEditor } from "@/components/admin/RichTextEditor"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import { Link, useRouter } from "@/i18n/navigation"
 import { slugify } from "@/lib/validations/blog-post"
@@ -45,12 +45,10 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
   const [tagsText, setTagsText] = useState((initial?.tags ?? []).join(", "))
   const [isPublished, setIsPublished] = useState(initial?.is_published ?? false)
 
-  const [tab, setTab] = useState<"write" | "preview">("write")
   const [uploadingCover, setUploadingCover] = useState(false)
   const [uploadingInline, setUploadingInline] = useState(false)
   const coverInputRef = useRef<HTMLInputElement>(null)
   const inlineInputRef = useRef<HTMLInputElement>(null)
-  const contentRef = useRef<HTMLTextAreaElement>(null)
 
   const isEdit = mode === "edit"
 
@@ -98,17 +96,10 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
         toast.error(res.error)
         return
       }
-      // Insert markdown image at the cursor position (into the active language).
-      const md = `\n\n![](${res.url})\n\n`
-      const el = contentRef.current
-      if (el) {
-        const start = el.selectionStart ?? activeContent.length
-        const next =
-          activeContent.slice(0, start) + md + activeContent.slice(start)
-        setActiveContent(next)
-      } else {
-        setActiveContent(activeContent + md)
-      }
+      // Append to the end of the active language's content (the editor
+      // doesn't expose a cursor position to insert at).
+      const img = `<p><img src="${res.url}" alt="" /></p>`
+      setActiveContent(activeContent + img)
       toast.success(tForm("imageInserted"))
     } finally {
       setUploadingInline(false)
@@ -243,74 +234,47 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
             />
           </Field>
 
-          {/* Content: write / preview tabs */}
+          {/* Content: rich text editor */}
           <div className="space-y-2">
-            <div className="flex items-center justify-between gap-2">
-              <span className="text-sm font-medium text-foreground">
-                {tForm("content")}
-              </span>
-              <div className="flex items-center gap-1">
-                <TabButton
-                  active={tab === "write"}
-                  onClick={() => setTab("write")}
-                  icon={Pencil}
-                  label={tForm("write")}
-                />
-                <TabButton
-                  active={tab === "preview"}
-                  onClick={() => setTab("preview")}
-                  icon={Eye}
-                  label={tForm("preview")}
-                />
-              </div>
+            <span className="text-sm font-medium text-foreground">
+              {tForm("content")}
+            </span>
+            <RichTextEditor
+              value={activeContent}
+              onChange={setActiveContent}
+              dir={lang === "ar" ? "rtl" : "ltr"}
+              height={500}
+              placeholder={tForm("contentPlaceholder")}
+            />
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <p className="text-xs text-muted-foreground">
+                {tForm("editorHelp")}
+              </p>
+              <button
+                type="button"
+                disabled={uploadingInline}
+                onClick={() => inlineInputRef.current?.click()}
+                className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border border-dashed border-moroccan-gold-500/60 bg-moroccan-gold-50/40 text-xs font-medium text-moroccan-gold-700 hover:bg-moroccan-gold-50 disabled:opacity-60"
+              >
+                {uploadingInline ? (
+                  <Loader2 className="size-3.5 animate-spin" />
+                ) : (
+                  <Upload className="size-3.5" />
+                )}
+                {tForm("insertImage")}
+              </button>
+              <input
+                ref={inlineInputRef}
+                type="file"
+                accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
+                className="sr-only"
+                onChange={(e) => {
+                  const file = e.target.files?.[0]
+                  if (file) void handleInlineUpload(file)
+                  e.target.value = ""
+                }}
+              />
             </div>
-
-            {tab === "write" ? (
-              <>
-                <textarea
-                  ref={contentRef}
-                  value={activeContent}
-                  dir={lang === "ar" ? "rtl" : "ltr"}
-                  onChange={(e) => setActiveContent(e.target.value)}
-                  placeholder={tForm("contentPlaceholder")}
-                  rows={20}
-                  className={`${inputCls} h-auto py-3 font-mono text-[13px] leading-relaxed resize-y`}
-                />
-                <div className="flex items-center justify-between gap-2 flex-wrap">
-                  <p className="text-xs text-muted-foreground">
-                    {tForm("markdownHelp")}
-                  </p>
-                  <button
-                    type="button"
-                    disabled={uploadingInline}
-                    onClick={() => inlineInputRef.current?.click()}
-                    className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg border border-dashed border-moroccan-gold-500/60 bg-moroccan-gold-50/40 text-xs font-medium text-moroccan-gold-700 hover:bg-moroccan-gold-50 disabled:opacity-60"
-                  >
-                    {uploadingInline ? (
-                      <Loader2 className="size-3.5 animate-spin" />
-                    ) : (
-                      <Upload className="size-3.5" />
-                    )}
-                    {tForm("insertImage")}
-                  </button>
-                  <input
-                    ref={inlineInputRef}
-                    type="file"
-                    accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
-                    className="sr-only"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0]
-                      if (file) void handleInlineUpload(file)
-                      e.target.value = ""
-                    }}
-                  />
-                </div>
-              </>
-            ) : (
-              <div className="rounded-xl border border-border bg-card p-5 min-h-[300px]" dir={lang === "ar" ? "rtl" : "ltr"}>
-                <MarkdownPreview content={activeContent} />
-              </div>
-            )}
           </div>
         </div>
 
@@ -452,34 +416,6 @@ function LangButton({
           : "text-muted-foreground hover:bg-moroccan-sand-50")
       }
     >
-      {label}
-    </button>
-  )
-}
-
-function TabButton({
-  active,
-  onClick,
-  icon: Icon,
-  label,
-}: {
-  active: boolean
-  onClick: () => void
-  icon: React.ComponentType<{ className?: string }>
-  label: string
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={
-        "inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg text-xs font-medium transition-colors " +
-        (active
-          ? "bg-moroccan-red-50 text-moroccan-red-600"
-          : "text-muted-foreground hover:bg-moroccan-sand-50")
-      }
-    >
-      <Icon className="size-3.5" />
       {label}
     </button>
   )
