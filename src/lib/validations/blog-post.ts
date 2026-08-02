@@ -30,10 +30,12 @@ export const blogPostSchema = z.object({
     .max(200)
     .regex(/^[a-z0-9-]+$/, "invalid_slug"),
   excerpt: nullableTrimmed(500),
+  meta_description: nullableTrimmed(160),
   content: nullableMarkdown(),
   // French translation (optional — public reads fall back to the primary).
   title_fr: nullableTrimmed(200),
   excerpt_fr: nullableTrimmed(500),
+  meta_description_fr: nullableTrimmed(160),
   content_fr: nullableMarkdown(),
   cover_image: nullableTrimmed(1000),
   category_id: z

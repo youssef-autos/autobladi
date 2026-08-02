@@ -574,6 +574,8 @@ create table if not exists public.blog_posts (
   slug text not null unique,
   excerpt text,
   excerpt_fr text,
+  meta_description text,
+  meta_description_fr text,
   content text,
   content_fr text,
   cover_image text,

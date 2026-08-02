@@ -38,6 +38,12 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
   const [slugTouched, setSlugTouched] = useState(mode === "edit")
   const [excerpt, setExcerpt] = useState(initial?.excerpt ?? "")
   const [excerptFr, setExcerptFr] = useState(initial?.excerpt_fr ?? "")
+  const [metaDescription, setMetaDescription] = useState(
+    initial?.meta_description ?? "",
+  )
+  const [metaDescriptionFr, setMetaDescriptionFr] = useState(
+    initial?.meta_description_fr ?? "",
+  )
   const [content, setContent] = useState(initial?.content ?? "")
   const [contentFr, setContentFr] = useState(initial?.content_fr ?? "")
   const [coverImage, setCoverImage] = useState(initial?.cover_image ?? "")
@@ -55,9 +61,12 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
   // The title/excerpt/content editors bind to whichever language tab is active.
   const activeTitle = lang === "ar" ? title : titleFr
   const activeExcerpt = lang === "ar" ? excerpt : excerptFr
+  const activeMetaDescription = lang === "ar" ? metaDescription : metaDescriptionFr
   const activeContent = lang === "ar" ? content : contentFr
   const setActiveTitle = lang === "ar" ? setTitle : setTitleFr
   const setActiveExcerpt = lang === "ar" ? setExcerpt : setExcerptFr
+  const setActiveMetaDescription =
+    lang === "ar" ? setMetaDescription : setMetaDescriptionFr
   const setActiveContent = lang === "ar" ? setContent : setContentFr
 
   function onTitleChange(v: string) {
@@ -116,9 +125,11 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
       title: title.trim(),
       slug: slug.trim() || slugify(titleFr),
       excerpt: excerpt.trim() || null,
+      meta_description: metaDescription.trim() || null,
       content: content.trim() ? content : null,
       title_fr: titleFr.trim() || null,
       excerpt_fr: excerptFr.trim() || null,
+      meta_description_fr: metaDescriptionFr.trim() || null,
       content_fr: contentFr.trim() ? contentFr : null,
       cover_image: coverImage.trim() || null,
       category_id: categoryId || null,
@@ -233,6 +244,29 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
               className={`${inputCls} h-auto py-2.5 resize-y`}
             />
           </Field>
+
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-sm font-medium text-foreground">
+                {tForm("metaDescription")}
+              </span>
+              <span className="text-xs text-muted-foreground tabular-nums">
+                {activeMetaDescription.length}/160
+              </span>
+            </div>
+            <textarea
+              value={activeMetaDescription}
+              dir={lang === "ar" ? "rtl" : "ltr"}
+              onChange={(e) => setActiveMetaDescription(e.target.value)}
+              placeholder={tForm("metaDescriptionPlaceholder")}
+              rows={2}
+              maxLength={160}
+              className={`${inputCls} h-auto py-2.5 resize-y`}
+            />
+            <span className="block text-xs text-muted-foreground">
+              {tForm("metaDescriptionHint")}
+            </span>
+          </div>
 
           {/* Content: rich text editor */}
           <div className="space-y-2">

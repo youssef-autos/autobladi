@@ -50,13 +50,14 @@ export async function generateMetadata({
   const { locale, slug } = await params
   const post = await getPostBySlug(slug)
   if (!post) return { title: "Not found" }
+  const description = post.meta_description ?? post.excerpt ?? undefined
   return {
     title: post.title,
-    description: post.excerpt ?? undefined,
+    description,
     alternates: localeAlternates(locale, `/blog/${slug}`),
     openGraph: {
       title: post.title,
-      description: post.excerpt ?? undefined,
+      description,
       type: "article",
       publishedTime: post.published_at ?? undefined,
       authors: post.author?.full_name ? [post.author.full_name] : undefined,
@@ -201,7 +202,7 @@ export default async function BlogDetailPage({
           locale,
           slug: post.slug,
           title: post.title,
-          description: post.excerpt,
+          description: post.meta_description ?? post.excerpt,
           imageUrl: post.cover_image,
           authorName: post.author?.full_name ?? null,
           publishedAt: post.published_at,

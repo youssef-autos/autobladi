@@ -553,6 +553,8 @@ export type Database = {
           content: string | null
           title_fr: string | null
           excerpt_fr: string | null
+          meta_description: string | null
+          meta_description_fr: string | null
           content_fr: string | null
           cover_image: string | null
           is_published: boolean
@@ -573,6 +575,8 @@ export type Database = {
           content?: string | null
           title_fr?: string | null
           excerpt_fr?: string | null
+          meta_description?: string | null
+          meta_description_fr?: string | null
           content_fr?: string | null
           cover_image?: string | null
           is_published?: boolean

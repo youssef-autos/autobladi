@@ -34,6 +34,7 @@ export type BlogPostCard = {
 
 export type BlogPostDetail = BlogPostCard & {
   content: string | null
+  meta_description: string | null
 }
 
 export type BlogCategoryWithCount = BlogCategory & {
@@ -110,9 +111,9 @@ function mapPostCard(row: RawPostRow, locale: PostLocale): BlogPostCard {
 }
 
 const cardSelect = `
-  id, title, slug, excerpt, cover_image, published_at,
+  id, title, slug, excerpt, meta_description, cover_image, published_at,
   views_count, comments_count, content, tags,
-  title_fr, excerpt_fr, content_fr,
+  title_fr, excerpt_fr, meta_description_fr, content_fr,
   blog_categories(id, name_ar, name_fr, slug),
   profiles(id, full_name, avatar_url)
 ` as const
@@ -220,7 +221,11 @@ export async function getPostBySlug(
   if (!data) return null
   const locale = (await getLocale()) as PostLocale
   const row = data as unknown as RawPostRow
-  return { ...mapPostCard(row, locale), content: localizedContent(row, locale) }
+  return {
+    ...mapPostCard(row, locale),
+    content: localizedContent(row, locale),
+    meta_description: pick(locale, row.meta_description, row.meta_description_fr),
+  }
 }
 
 // ---------------------------------------------------------------------------
