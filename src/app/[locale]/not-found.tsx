@@ -3,9 +3,13 @@ import { getTranslations } from "next-intl/server"
 
 import { Logo } from "@/components/layout/Logo"
 import { Link } from "@/i18n/navigation"
+import { getSiteLogos } from "@/lib/queries/home"
 
 export default async function NotFound() {
-  const t = await getTranslations("notFound")
+  const [t, logos] = await Promise.all([
+    getTranslations("notFound"),
+    getSiteLogos().catch(() => ({ light: null, dark: null })),
+  ])
 
   return (
     <main className="relative isolate flex min-h-screen flex-col items-center justify-center overflow-hidden bg-brand-dark px-6 py-16 text-center text-white">
@@ -15,7 +19,7 @@ export default async function NotFound() {
         aria-hidden="true"
       />
 
-      <Logo variant="light" size="lg" className="mb-10" />
+      <Logo variant="light" size="lg" className="mb-10" imageUrl={logos.dark} />
 
       <p className="font-display text-7xl md:text-9xl font-bold leading-none text-moroccan-gold-500 tabular-nums">
         404
