@@ -61,7 +61,7 @@ export function Newsletter() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={t("placeholder")}
-                className="flex-1 h-12 rounded-xl border border-border bg-background px-4 text-sm focus:outline-none focus:border-moroccan-red-500/40 focus:ring-2 focus:ring-moroccan-red-500/15"
+                className="sm:flex-1 h-12 rounded-xl border border-border bg-background px-4 text-sm focus:outline-none focus:border-moroccan-red-500/40 focus:ring-2 focus:ring-moroccan-red-500/15"
               />
               <button
                 type="submit"

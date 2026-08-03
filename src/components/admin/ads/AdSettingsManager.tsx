@@ -83,7 +83,7 @@ function AdsenseCard({ initial }: { initial: string }) {
           onChange={(e) => setValue(e.target.value)}
           placeholder="ca-pub-XXXXXXXXXXXXXXXX"
           dir="ltr"
-          className="flex-1 h-10 px-3 rounded-lg border border-border bg-background text-sm font-mono focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40"
+          className="sm:flex-1 h-10 px-3 rounded-lg border border-border bg-background text-sm font-mono focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40"
         />
         <button
           type="button"

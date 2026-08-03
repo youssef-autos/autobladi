@@ -157,7 +157,7 @@ async function NewsletterBox() {
           name="email"
           required
           placeholder={t("placeholder")}
-          className="flex-1 min-w-0 rounded-lg bg-white/10 border border-white/20 px-3 h-9 text-sm text-white placeholder:text-white/60 focus:outline-none focus:border-moroccan-gold-500/70"
+          className="sm:flex-1 min-w-0 rounded-lg bg-white/10 border border-white/20 px-3 h-9 text-sm text-white placeholder:text-white/60 focus:outline-none focus:border-moroccan-gold-500/70"
         />
         <button
           type="submit"
