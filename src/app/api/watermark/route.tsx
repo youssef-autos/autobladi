@@ -18,14 +18,14 @@ const ALLOWED_TYPES = new Set(["image/jpeg", "image/jpg", "image/png", "image/we
 const MAIN = { width: 1200, height: 900 }
 const THUMB = { width: 400, height: 300 }
 
-/** Accepts either a plain JSON string ("autobladi.ma") or {text: "..."}. */
+/** Accepts either a plain JSON string ("AutoBladi.ma") or {text: "..."}. */
 function extractWatermarkText(raw: unknown): string {
   if (typeof raw === "string" && raw.length > 0) return raw
   if (raw && typeof raw === "object" && "text" in raw) {
     const t = (raw as { text: unknown }).text
     if (typeof t === "string" && t.length > 0) return t
   }
-  return "autobladi.ma"
+  return "AutoBladi.ma"
 }
 
 async function getWatermarkText(): Promise<string> {
@@ -76,7 +76,7 @@ async function buildWatermarkOverlay({
   width: number
   height: number
 }): Promise<Buffer> {
-  const safe = text.toUpperCase()
+  const label = text
 
   // Size the text to span ~35% of the image width regardless of length,
   // within sane bounds so very short/long watermark text still looks right.
@@ -84,7 +84,7 @@ async function buildWatermarkOverlay({
   const estCharWidth = 0.58
   const fontSize = Math.min(
     height * 0.11,
-    Math.max(height * 0.035, targetWidth / (safe.length * estCharWidth)),
+    Math.max(height * 0.035, targetWidth / (label.length * estCharWidth)),
   )
   const shadow = Math.max(1, fontSize * 0.045)
 
@@ -107,16 +107,16 @@ async function buildWatermarkOverlay({
             fontWeight: 700,
             fontFamily: font ? "AutobladiWM" : "sans-serif",
             letterSpacing: fontSize * 0.04,
-            color: "rgba(255,255,255,0.35)",
+            color: "rgba(255,255,255,0.5)",
             textShadow: [
-              `${shadow}px ${shadow}px 0 rgba(0,0,0,0.22)`,
-              `-${shadow}px -${shadow}px 0 rgba(0,0,0,0.22)`,
-              `${shadow}px -${shadow}px 0 rgba(0,0,0,0.22)`,
-              `-${shadow}px ${shadow}px 0 rgba(0,0,0,0.22)`,
+              `${shadow}px ${shadow}px 0 rgba(0,0,0,0.32)`,
+              `-${shadow}px -${shadow}px 0 rgba(0,0,0,0.32)`,
+              `${shadow}px -${shadow}px 0 rgba(0,0,0,0.32)`,
+              `-${shadow}px ${shadow}px 0 rgba(0,0,0,0.32)`,
             ].join(", "),
           }}
         >
-          {safe}
+          {label}
         </div>
       </div>
     ),
