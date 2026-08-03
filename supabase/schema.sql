@@ -580,6 +580,7 @@ create table if not exists public.blog_posts (
   content_fr text,
   cover_image text,
   tags text[] not null default '{}',
+  tags_fr text[] not null default '{}',
   is_published boolean not null default false,
   published_at timestamptz,
   views_count integer not null default 0,
@@ -922,6 +923,7 @@ create index if not exists idx_estimations_user        on public.estimations (us
 create index if not exists idx_blog_posts_category     on public.blog_posts (category_id);
 create index if not exists idx_blog_posts_published    on public.blog_posts (is_published, published_at desc);
 create index if not exists idx_blog_posts_tags         on public.blog_posts using gin (tags);
+create index if not exists idx_blog_posts_tags_fr      on public.blog_posts using gin (tags_fr);
 create index if not exists idx_blog_comments_post      on public.blog_comments (post_id);
 create index if not exists idx_blog_comments_parent    on public.blog_comments (parent_id);
 create index if not exists idx_reports_annonce         on public.reports (annonce_id);

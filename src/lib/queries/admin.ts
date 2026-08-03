@@ -460,6 +460,7 @@ export type AdminBlogPostFull = Pick<
   | "cover_image"
   | "category_id"
   | "tags"
+  | "tags_fr"
   | "is_published"
 >
 
@@ -470,7 +471,7 @@ export async function getBlogPostAdmin(
   const { data } = await supabase
     .from("blog_posts")
     .select(
-      "id, title, slug, excerpt, meta_description, content, title_fr, excerpt_fr, meta_description_fr, content_fr, cover_image, category_id, tags, is_published",
+      "id, title, slug, excerpt, meta_description, content, title_fr, excerpt_fr, meta_description_fr, content_fr, cover_image, category_id, tags, tags_fr, is_published",
     )
     .eq("id", id)
     .maybeSingle()

@@ -561,6 +561,7 @@ export type Database = {
           published_at: string | null
           views_count: number
           tags: string[]
+          tags_fr: string[]
           comments_count: number
           created_at: string
           updated_at: string
@@ -583,6 +584,7 @@ export type Database = {
           published_at?: string | null
           views_count?: number
           tags?: string[]
+          tags_fr?: string[]
           comments_count?: number
           created_at?: string
           updated_at?: string

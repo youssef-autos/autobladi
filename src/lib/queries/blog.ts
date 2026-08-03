@@ -92,6 +92,12 @@ function localizedContent(row: RawPostRow, locale: PostLocale): string | null {
   return mediaHtml(pick(locale, row.content, row.content_fr))
 }
 
+/** Same fallback rule as {@link pick}, for the tags array. */
+function pickTags(locale: PostLocale, primary: string[], fr: string[]): string[] {
+  if (locale === "fr") return fr.length > 0 ? fr : primary
+  return primary
+}
+
 function mapPostCard(row: RawPostRow, locale: PostLocale): BlogPostCard {
   const excerpt = pick(locale, row.excerpt, row.excerpt_fr)
   return {
@@ -104,7 +110,7 @@ function mapPostCard(row: RawPostRow, locale: PostLocale): BlogPostCard {
     views_count: row.views_count,
     comments_count: row.comments_count,
     reading_minutes: computeReadingMinutes(localizedContent(row, locale) ?? excerpt),
-    tags: row.tags ?? [],
+    tags: pickTags(locale, row.tags ?? [], row.tags_fr ?? []),
     category: row.blog_categories,
     author: row.profiles,
   }
@@ -112,7 +118,7 @@ function mapPostCard(row: RawPostRow, locale: PostLocale): BlogPostCard {
 
 const cardSelect = `
   id, title, slug, excerpt, meta_description, cover_image, published_at,
-  views_count, comments_count, content, tags,
+  views_count, comments_count, content, tags, tags_fr,
   title_fr, excerpt_fr, meta_description_fr, content_fr,
   blog_categories(id, name_ar, name_fr, slug),
   profiles(id, full_name, avatar_url)

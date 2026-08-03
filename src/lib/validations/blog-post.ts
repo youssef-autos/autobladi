@@ -44,6 +44,7 @@ export const blogPostSchema = z.object({
     .optional()
     .transform((v) => v ?? null),
   tags: z.array(z.string().trim().min(1).max(40)).max(20).default([]),
+  tags_fr: z.array(z.string().trim().min(1).max(40)).max(20).default([]),
   is_published: z.boolean().default(false),
 })
 

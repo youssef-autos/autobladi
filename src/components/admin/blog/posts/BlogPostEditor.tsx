@@ -50,6 +50,9 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
   const [coverImage, setCoverImage] = useState(initial?.cover_image ?? "")
   const [categoryId, setCategoryId] = useState(initial?.category_id ?? "")
   const [tagsText, setTagsText] = useState((initial?.tags ?? []).join(", "))
+  const [tagsTextFr, setTagsTextFr] = useState(
+    (initial?.tags_fr ?? []).join(", "),
+  )
   const [isPublished, setIsPublished] = useState(initial?.is_published ?? false)
 
   const [uploadingCover, setUploadingCover] = useState(false)
@@ -119,11 +122,8 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
   }
 
   function buildPayload() {
-    const tags = tagsText
-      .split(",")
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .slice(0, 20)
+    const tags = parseTags(tagsText)
+    const tagsFr = parseTags(tagsTextFr)
     return {
       title: title.trim(),
       slug: slug.trim() || slugify(titleFr),
@@ -137,6 +137,7 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
       cover_image: coverImage.trim() || null,
       category_id: categoryId || null,
       tags,
+      tags_fr: tagsFr,
       is_published: isPublished,
     }
   }
@@ -396,13 +397,25 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
             </select>
           </Field>
 
-          {/* Tags */}
-          <Field label={tForm("tags")} hint={tForm("tagsHelp")}>
+          {/* Tags — separate lists per language, each shown on the site
+              when reading in that language. */}
+          <Field label={tForm("tagsAr")} hint={tForm("tagsHelp")}>
             <input
               type="text"
+              dir="rtl"
               value={tagsText}
               onChange={(e) => setTagsText(e.target.value)}
-              placeholder={tForm("tagsPlaceholder")}
+              placeholder={tForm("tagsArPlaceholder")}
+              className={inputCls}
+            />
+          </Field>
+
+          <Field label={tForm("tagsFr")} hint={tForm("tagsHelp")}>
+            <input
+              type="text"
+              value={tagsTextFr}
+              onChange={(e) => setTagsTextFr(e.target.value)}
+              placeholder={tForm("tagsFrPlaceholder")}
               className={inputCls}
             />
           </Field>
@@ -414,6 +427,14 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
 
 const inputCls =
   "w-full h-11 px-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40 focus:border-moroccan-gold-500/60"
+
+function parseTags(text: string): string[] {
+  return text
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .slice(0, 20)
+}
 
 function Field({
   label,
