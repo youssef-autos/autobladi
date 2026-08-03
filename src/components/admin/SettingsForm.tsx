@@ -30,6 +30,7 @@ import {
 import { uploadSiteLogo } from "@/app/[locale]/admin/parametres/upload-action"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { mediaUrl } from "@/lib/media"
 
 type Props = {
   initial: SettingsInput
@@ -524,7 +525,7 @@ function LogoUploader({
         {value ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={value}
+            src={mediaUrl(value)}
             alt={label}
             className="max-h-full max-w-full object-contain"
           />

@@ -13,6 +13,7 @@ import { uploadBlogImage } from "@/app/[locale]/admin/blog/upload-action"
 import { RichTextEditor } from "@/components/admin/RichTextEditor"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import { Link, useRouter } from "@/i18n/navigation"
+import { mediaUrl } from "@/lib/media"
 import { slugify } from "@/lib/validations/blog-post"
 import type { AdminBlogPostFull } from "@/lib/queries/admin"
 
@@ -106,8 +107,10 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
         return
       }
       // Append to the end of the active language's content (the editor
-      // doesn't expose a cursor position to insert at).
-      const img = `<p><img src="${res.url}" alt="" /></p>`
+      // doesn't expose a cursor position to insert at). Rewritten to the
+      // ad-blocker-safe /media/ path so the image also renders live inside
+      // the editor itself, not just after a later mediaHtml() pass.
+      const img = `<p><img src="${mediaUrl(res.url)}" alt="" /></p>`
       setActiveContent(activeContent + img)
       toast.success(tForm("imageInserted"))
     } finally {
@@ -328,7 +331,7 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
               {coverImage ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={coverImage}
+                  src={mediaUrl(coverImage)}
                   alt=""
                   className="size-full object-cover"
                 />

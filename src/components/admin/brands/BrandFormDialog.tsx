@@ -17,6 +17,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
+import { mediaUrl } from "@/lib/media"
 import { slugify } from "@/lib/validations/brand"
 import type { AdminBrandRow } from "@/lib/queries/admin"
 
@@ -129,7 +130,7 @@ function InnerForm({
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 key={logoUrl}
-                src={logoUrl}
+                src={mediaUrl(logoUrl)}
                 alt="logo"
                 loading="eager"
                 style={{ width: "100%", height: "100%", objectFit: "contain" }}
