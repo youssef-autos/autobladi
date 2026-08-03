@@ -62,10 +62,10 @@ function loadFont(): Buffer | null {
 }
 
 /**
- * Single centered watermark, avito.ma-style: one large bold line of brand
- * text across the middle of the image at moderate opacity — not a tiled,
- * rotated repeat. A 4-directional text-shadow acts as a soft dark outline,
- * keeping it legible over both light and dark parts of the photo.
+ * Single centered watermark, avito.ma-style: one small, mostly-transparent
+ * line of brand text across the middle of the image — not a tiled, rotated
+ * repeat. A 4-directional text-shadow acts as a soft dark outline, keeping
+ * it legible (but unobtrusive) over both light and dark parts of the photo.
  */
 async function buildWatermarkOverlay({
   text,
@@ -78,13 +78,13 @@ async function buildWatermarkOverlay({
 }): Promise<Buffer> {
   const safe = text.toUpperCase()
 
-  // Size the text to span ~70% of the image width regardless of length,
+  // Size the text to span ~35% of the image width regardless of length,
   // within sane bounds so very short/long watermark text still looks right.
-  const targetWidth = width * 0.7
+  const targetWidth = width * 0.35
   const estCharWidth = 0.58
   const fontSize = Math.min(
-    height * 0.22,
-    Math.max(height * 0.06, targetWidth / (safe.length * estCharWidth)),
+    height * 0.11,
+    Math.max(height * 0.035, targetWidth / (safe.length * estCharWidth)),
   )
   const shadow = Math.max(1, fontSize * 0.045)
 
@@ -107,12 +107,12 @@ async function buildWatermarkOverlay({
             fontWeight: 700,
             fontFamily: font ? "AutobladiWM" : "sans-serif",
             letterSpacing: fontSize * 0.04,
-            color: "rgba(255,255,255,0.6)",
+            color: "rgba(255,255,255,0.35)",
             textShadow: [
-              `${shadow}px ${shadow}px 0 rgba(0,0,0,0.4)`,
-              `-${shadow}px -${shadow}px 0 rgba(0,0,0,0.4)`,
-              `${shadow}px -${shadow}px 0 rgba(0,0,0,0.4)`,
-              `-${shadow}px ${shadow}px 0 rgba(0,0,0,0.4)`,
+              `${shadow}px ${shadow}px 0 rgba(0,0,0,0.22)`,
+              `-${shadow}px -${shadow}px 0 rgba(0,0,0,0.22)`,
+              `${shadow}px -${shadow}px 0 rgba(0,0,0,0.22)`,
+              `-${shadow}px ${shadow}px 0 rgba(0,0,0,0.22)`,
             ].join(", "),
           }}
         >
