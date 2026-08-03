@@ -1,8 +1,8 @@
-import { getLocale, getTranslations } from "next-intl/server"
+import { getTranslations } from "next-intl/server"
 
 import { QuickSearch } from "@/components/home/QuickSearch"
 import { Container } from "@/components/ui/Container"
-import { getActiveAnnoncesCount, getCities, type Brand, type CarModel } from "@/lib/queries/home"
+import { getCities, type Brand, type CarModel } from "@/lib/queries/home"
 
 type Props = {
   brands: Brand[]
@@ -11,17 +11,7 @@ type Props = {
 
 export async function HeroSection({ brands, models }: Props) {
   const t = await getTranslations("home.hero")
-  const locale = await getLocale()
-  const [annoncesCount, cities] = await Promise.all([
-    getActiveAnnoncesCount(),
-    getCities(),
-  ])
-
-  // Real count, formatted with Latin digits (consistent with the listings UI).
-  const nf = new Intl.NumberFormat(
-    locale === "ar" ? "ar-MA-u-nu-latn" : "fr-FR",
-  )
-  const annoncesFmt = nf.format(annoncesCount)
+  const cities = await getCities()
 
   return (
     <section className="relative">
@@ -58,12 +48,7 @@ export async function HeroSection({ brands, models }: Props) {
           page's white background beneath it. */}
       <div className="relative z-10 -mt-16 md:-mt-20 lg:-mt-24 pb-10 md:pb-14">
         <Container>
-          <QuickSearch
-            brands={brands}
-            models={models}
-            cities={cities}
-            count={annoncesFmt}
-          />
+          <QuickSearch brands={brands} models={models} cities={cities} />
         </Container>
       </div>
     </section>

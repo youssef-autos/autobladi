@@ -13,13 +13,11 @@ type Props = {
   brands: Brand[]
   models: CarModel[]
   cities: City[]
-  /** Pre-formatted active-annonce count shown in the "we found X" line. */
-  count?: string
 }
 
 type Condition = "all" | "neuf" | "occasion"
 
-export function QuickSearch({ brands, models, cities, count }: Props) {
+export function QuickSearch({ brands, models, cities }: Props) {
   const t = useTranslations("home.hero")
   const locale = useLocale()
   const router = useRouter()
@@ -151,7 +149,7 @@ export function QuickSearch({ brands, models, cities, count }: Props) {
         <button
           type="submit"
           className={cn(
-            "inline-flex flex-1 items-center justify-center gap-2 rounded-xl h-12 bg-moroccan-gradient text-white text-base font-semibold shadow-moroccan",
+            "inline-flex sm:flex-1 items-center justify-center gap-2 rounded-xl h-12 bg-moroccan-gradient text-white text-base font-semibold shadow-moroccan",
             "hover:brightness-105 transition-all duration-200",
           )}
         >
@@ -165,17 +163,6 @@ export function QuickSearch({ brands, models, cities, count }: Props) {
           {t("advancedSearch")}
         </Link>
       </div>
-
-      {count && (
-        <p className="mt-4 text-center text-sm text-muted-foreground">
-          {t.rich("found", {
-            count,
-            strong: (chunks) => (
-              <span className="font-bold text-moroccan-red-500">{chunks}</span>
-            ),
-          })}
-        </p>
-      )}
     </form>
   )
 }

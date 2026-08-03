@@ -417,16 +417,6 @@ export async function getSiteAnalyticsId(): Promise<string | null> {
   return typeof v === "string" && v.trim() ? v.trim() : null
 }
 
-/** Cheap COUNT(*) head query — no rows transferred. */
-export async function getActiveAnnoncesCount(): Promise<number> {
-  const supabase = await createClient()
-  const { count } = await supabase
-    .from("annonces")
-    .select("id", { count: "exact", head: true })
-    .eq("status", "active")
-  return count ?? 0
-}
-
 export async function getActiveBrands(limit = 500): Promise<Brand[]> {
   const supabase = await createClient()
   const { data } = await supabase
