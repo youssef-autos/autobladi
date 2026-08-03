@@ -2,7 +2,7 @@ import { getLocale, getTranslations } from "next-intl/server"
 
 import { QuickSearch } from "@/components/home/QuickSearch"
 import { Container } from "@/components/ui/Container"
-import { getCities, getHomeCounts, type Brand, type CarModel } from "@/lib/queries/home"
+import { getActiveAnnoncesCount, getCities, type Brand, type CarModel } from "@/lib/queries/home"
 
 type Props = {
   brands: Brand[]
@@ -12,15 +12,16 @@ type Props = {
 export async function HeroSection({ brands, models }: Props) {
   const t = await getTranslations("home.hero")
   const locale = await getLocale()
-  const [counts, cities] = await Promise.all([getHomeCounts(), getCities()])
+  const [annoncesCount, cities] = await Promise.all([
+    getActiveAnnoncesCount(),
+    getCities(),
+  ])
 
-  // Real counts, formatted with Latin digits (consistent with the listings UI).
+  // Real count, formatted with Latin digits (consistent with the listings UI).
   const nf = new Intl.NumberFormat(
     locale === "ar" ? "ar-MA-u-nu-latn" : "fr-FR",
   )
-  const annoncesFmt = nf.format(counts.annonces)
-  const dealersFmt = nf.format(counts.dealers)
-  const citiesFmt = nf.format(counts.cities)
+  const annoncesFmt = nf.format(annoncesCount)
 
   return (
     <section className="relative">
@@ -49,12 +50,6 @@ export async function HeroSection({ brands, models }: Props) {
             <p className="mt-5 max-w-xl text-base md:text-lg text-white/75 leading-relaxed">
               {t("subtitle")}
             </p>
-
-            <dl className="mt-8 flex items-center divide-x divide-white/10 rtl:divide-x-reverse">
-              <Stat value={annoncesFmt} label={t("statsCars")} first />
-              <Stat value={dealersFmt} label={t("statsDealers")} />
-              <Stat value={citiesFmt} label={t("statsCities")} />
-            </dl>
           </div>
         </Container>
       </div>
@@ -72,25 +67,6 @@ export async function HeroSection({ brands, models }: Props) {
         </Container>
       </div>
     </section>
-  )
-}
-
-function Stat({
-  value,
-  label,
-  first,
-}: {
-  value: string
-  label: string
-  first?: boolean
-}) {
-  return (
-    <div className={`flex flex-col ${first ? "pe-5 sm:pe-8" : "px-5 sm:px-8"}`}>
-      <dt className="text-xs text-white/65 mt-1 order-last">{label}</dt>
-      <dd className="font-display text-2xl md:text-3xl font-bold text-moroccan-gold-500 tabular-nums order-first">
-        {value}
-      </dd>
-    </div>
   )
 }
 

@@ -417,42 +417,14 @@ export async function getSiteAnalyticsId(): Promise<string | null> {
   return typeof v === "string" && v.trim() ? v.trim() : null
 }
 
-/**
- * Real platform counts for the hero (active annonces + active dealers).
- * Cheap COUNT(*) head queries — no rows transferred.
- */
-export async function getHomeCounts(): Promise<{
-  annonces: number
-  dealers: number
-  cities: number
-}> {
+/** Cheap COUNT(*) head query — no rows transferred. */
+export async function getActiveAnnoncesCount(): Promise<number> {
   const supabase = await createClient()
-  const [annoncesRes, dealersRes, cityRows] = await Promise.all([
-    supabase
-      .from("annonces")
-      .select("id", { count: "exact", head: true })
-      .eq("status", "active"),
-    supabase
-      .from("professionnels")
-      .select("id", { count: "exact", head: true })
-      .eq("is_active", true),
-    // Distinct cities that actually have an active listing.
-    supabase
-      .from("annonces")
-      .select("city_id")
-      .eq("status", "active")
-      .not("city_id", "is", null),
-  ])
-  const citySet = new Set(
-    ((cityRows.data ?? []) as Array<{ city_id: string | null }>)
-      .map((r) => r.city_id)
-      .filter(Boolean),
-  )
-  return {
-    annonces: annoncesRes.count ?? 0,
-    dealers: dealersRes.count ?? 0,
-    cities: citySet.size,
-  }
+  const { count } = await supabase
+    .from("annonces")
+    .select("id", { count: "exact", head: true })
+    .eq("status", "active")
+  return count ?? 0
 }
 
 export async function getActiveBrands(limit = 500): Promise<Brand[]> {
