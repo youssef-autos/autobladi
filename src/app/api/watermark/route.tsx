@@ -62,10 +62,10 @@ function loadFont(): Buffer | null {
 }
 
 /**
- * Tiled, rotated watermark repeat, avito.ma-style: small brand text at
- * regular intervals across a diagonal grid, instead of one large centered
- * line. The grid is rendered oversized and rotated, then clipped to the
- * image bounds, so tiles still cover every corner post-rotation.
+ * Single centered watermark, avito.ma-style: one small, mostly-transparent
+ * line of brand text across the middle of the image — not a tiled, rotated
+ * repeat. A 4-directional text-shadow acts as a soft dark outline, keeping
+ * it legible (but unobtrusive) over both light and dark parts of the photo.
  */
 async function buildWatermarkOverlay({
   text,
@@ -77,40 +77,18 @@ async function buildWatermarkOverlay({
   height: number
 }): Promise<Buffer> {
   const label = text
+
+  // Size the text to span ~35% of the image width regardless of length,
+  // within sane bounds so very short/long watermark text still looks right.
+  const targetWidth = width * 0.35
+  const estCharWidth = 0.58
+  const fontSize = Math.min(
+    height * 0.11,
+    Math.max(height * 0.035, targetWidth / (label.length * estCharWidth)),
+  )
+  const shadow = Math.max(1, fontSize * 0.045)
+
   const font = loadFont()
-
-  const angle = -22
-  const fontSize = Math.max(14, height * 0.035)
-  const padX = fontSize * 1.6
-  const padY = fontSize * 1.3
-  const cellW = fontSize * label.length * 0.62 + padX * 2
-  const rowH = fontSize + padY * 2
-  const shadow = Math.max(1, fontSize * 0.05)
-
-  // Oversize the rotated grid so its corners still cover the image after
-  // rotation, then clip to the real bounds with overflow: hidden.
-  const innerW = width * 1.6
-  const innerH = height * 1.6
-  const cols = Math.ceil(innerW / cellW) + 1
-  const rows = Math.ceil(innerH / rowH) + 1
-
-  const tileStyle = {
-    display: "flex" as const,
-    width: cellW,
-    justifyContent: "center" as const,
-    padding: `${padY}px ${padX}px`,
-    fontSize,
-    fontWeight: 700,
-    fontFamily: font ? "AutobladiWM" : "sans-serif",
-    color: "rgba(255,255,255,0.45)",
-    whiteSpace: "nowrap" as const,
-    textShadow: [
-      `${shadow}px ${shadow}px 0 rgba(0,0,0,0.28)`,
-      `-${shadow}px -${shadow}px 0 rgba(0,0,0,0.28)`,
-      `${shadow}px -${shadow}px 0 rgba(0,0,0,0.28)`,
-      `-${shadow}px ${shadow}px 0 rgba(0,0,0,0.28)`,
-    ].join(", "),
-  }
 
   const image = new ImageResponse(
     (
@@ -121,25 +99,24 @@ async function buildWatermarkOverlay({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          overflow: "hidden",
         }}
       >
         <div
           style={{
-            width: innerW,
-            height: innerH,
-            display: "flex",
-            flexWrap: "wrap",
-            alignContent: "center",
-            justifyContent: "center",
-            transform: `rotate(${angle}deg)`,
+            fontSize,
+            fontWeight: 700,
+            fontFamily: font ? "AutobladiWM" : "sans-serif",
+            letterSpacing: fontSize * 0.04,
+            color: "rgba(255,255,255,0.5)",
+            textShadow: [
+              `${shadow}px ${shadow}px 0 rgba(0,0,0,0.32)`,
+              `-${shadow}px -${shadow}px 0 rgba(0,0,0,0.32)`,
+              `${shadow}px -${shadow}px 0 rgba(0,0,0,0.32)`,
+              `-${shadow}px ${shadow}px 0 rgba(0,0,0,0.32)`,
+            ].join(", "),
           }}
         >
-          {Array.from({ length: cols * rows }).map((_, i) => (
-            <div key={i} style={tileStyle}>
-              {label}
-            </div>
-          ))}
+          {label}
         </div>
       </div>
     ),
