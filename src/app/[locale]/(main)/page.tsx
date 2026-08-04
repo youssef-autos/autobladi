@@ -22,6 +22,7 @@ import {
 } from "@/lib/queries/home"
 import { localeAlternates } from "@/lib/seo/alternates"
 
+export const dynamic = "force-static"
 export const revalidate = 60
 
 // Independent from the root layout's fallback — same intent, but editable

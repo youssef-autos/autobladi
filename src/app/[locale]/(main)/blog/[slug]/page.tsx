@@ -28,6 +28,7 @@ import {
 } from "@/lib/queries/blog"
 import { localeAlternates } from "@/lib/seo/alternates"
 
+export const dynamic = "force-static"
 export const revalidate = 60
 
 type RouteParams = { locale: string; slug: string }
