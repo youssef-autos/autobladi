@@ -13,7 +13,7 @@ import { getCities } from "@/lib/queries/home"
 import { listShowrooms } from "@/lib/queries/showrooms"
 import { localeAlternates } from "@/lib/seo/alternates"
 import { JsonLd } from "@/components/seo/JsonLd"
-import { itemListSchema } from "@/lib/seo/structured-data"
+import { breadcrumbSchema, collectionSchema, itemListSchema } from "@/lib/seo/structured-data"
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://autobladi.ma"
 
@@ -28,10 +28,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "showrooms" })
+  const title = t("metaTitle")
+  const description = t("metaDescription")
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
     alternates: localeAlternates(locale, `/showrooms`),
+    openGraph: { title, description, type: "website" },
   }
 }
 
@@ -106,6 +109,26 @@ export default async function ShowroomsPage({
             name: d.name,
           })),
         )}
+      />
+      <JsonLd
+        data={collectionSchema({
+          locale,
+          path: "/showrooms",
+          name: t("title"),
+          description: t("subtitle"),
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          {
+            name: locale === "fr" ? "Accueil" : "الرئيسية",
+            url: `${SITE_URL}/${locale}`,
+          },
+          {
+            name: t("title"),
+            url: `${SITE_URL}/${locale}/showrooms`,
+          },
+        ])}
       />
     </section>
   )

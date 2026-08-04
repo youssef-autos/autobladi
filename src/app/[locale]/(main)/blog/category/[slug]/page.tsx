@@ -11,12 +11,20 @@ import { Link } from "@/i18n/navigation"
 import { Container } from "@/components/ui/Container"
 import { EmptyState } from "@/components/ui/EmptyState"
 import { GoldAccent } from "@/components/ui/GoldAccent"
+import { JsonLd } from "@/components/seo/JsonLd"
 import {
   getCategoryBySlug,
   listCategoriesWithCounts,
   listPosts,
 } from "@/lib/queries/blog"
 import { localeAlternates } from "@/lib/seo/alternates"
+import {
+  breadcrumbSchema,
+  collectionSchema,
+  itemListSchema,
+} from "@/lib/seo/structured-data"
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://autobladi.ma"
 
 export const revalidate = 60
 
@@ -41,9 +49,13 @@ export async function generateMetadata({
   if (!category) return { title: "Not found" }
   const t = await getTranslations({ locale, namespace: "blog.category" })
   const name = locale === "fr" ? category.name_fr : category.name_ar
+  const title = t("metaTitle", { name })
+  const description = t("metaDescription", { name })
   return {
-    title: t("metaTitle", { name }),
+    title,
+    description,
     alternates: localeAlternates(locale, `/blog/category/${slug}`),
+    openGraph: { title, description, type: "website" },
   }
 }
 
@@ -119,6 +131,41 @@ export default async function BlogCategoryPage({
 
         <BlogSidebar />
       </div>
+
+      <JsonLd
+        data={collectionSchema({
+          locale,
+          path: `/blog/category/${slug}`,
+          name: t("category.title", { name }),
+          description: t("list.count", { count: result.total }),
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          {
+            name: locale === "fr" ? "Accueil" : "الرئيسية",
+            url: `${SITE_URL}/${locale}`,
+          },
+          {
+            name: locale === "fr" ? "Blog" : "المدونة",
+            url: `${SITE_URL}/${locale}/blog`,
+          },
+          {
+            name,
+            url: `${SITE_URL}/${locale}/blog/category/${slug}`,
+          },
+        ])}
+      />
+      {result.posts.length > 0 && (
+        <JsonLd
+          data={itemListSchema(
+            result.posts.map((p) => ({
+              url: `${SITE_URL}/${locale}/blog/${p.slug}`,
+              name: p.title,
+            })),
+          )}
+        />
+      )}
     </Container>
   )
 }

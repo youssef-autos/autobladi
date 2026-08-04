@@ -37,14 +37,30 @@ export async function generateMetadata({
   const { locale, slug } = await params
   const dealer = await getShowroomBySlug(slug)
   if (!dealer) return { title: "Not found" }
-  const description =
-    dealer.description?.slice(0, 160) ?? `${dealer.name} — autobladi.ma`
+  const isAr = locale === "ar"
+  const cityName = dealer.city ? (isAr ? dealer.city.name_ar : dealer.city.name_fr) : null
+
+  const title = cityName
+    ? isAr
+      ? `${dealer.name} — معرض سيارات في ${cityName}`
+      : `${dealer.name} — Showroom auto à ${cityName}`
+    : isAr
+      ? `${dealer.name} — معرض سيارات`
+      : `${dealer.name} — Showroom auto`
+
+  const description = (
+    dealer.description?.trim() ||
+    (isAr
+      ? `تصفح سيارات ${dealer.name}${cityName ? ` في ${cityName}` : ""} على autobladi.ma${dealer.annonces_count > 0 ? ` — ${dealer.annonces_count} سيارة متوفرة` : ""}.`
+      : `Découvrez les véhicules de ${dealer.name}${cityName ? ` à ${cityName}` : ""} sur autobladi.ma${dealer.annonces_count > 0 ? ` — ${dealer.annonces_count} voitures disponibles` : ""}.`)
+  ).slice(0, 160)
+
   return {
-    title: dealer.name,
+    title,
     description,
     alternates: localeAlternates(locale, `/showroom/${dealer.slug}`),
     openGraph: {
-      title: dealer.name,
+      title,
       description,
       images: dealer.cover_url ? [dealer.cover_url] : undefined,
       type: "website",

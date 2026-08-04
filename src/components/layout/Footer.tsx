@@ -69,6 +69,8 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
               <FooterLink href="/annonces">{t("exploreItems.all")}</FooterLink>
               <FooterLink href="/annonces?sort=popular">{t("exploreItems.popular")}</FooterLink>
               <FooterLink href="/showrooms">{t("exploreItems.dealers")}</FooterLink>
+              <FooterLink href="/marques">{t("exploreItems.brands")}</FooterLink>
+              <FooterLink href="/villes">{t("exploreItems.cities")}</FooterLink>
               <FooterLink href="/estimation">{t("exploreItems.estimation")}</FooterLink>
             </ul>
           </div>

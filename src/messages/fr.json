@@ -2171,7 +2171,15 @@
       "a2": "Les prix varient selon la marque, le modèle, l'année et l'état. Consultez les annonces ci-dessus pour les prix actuels à {city}, ou utilisez l'outil d'estimation gratuit.",
       "q3": "Puis-je vendre ma voiture à {city} sur autobladi ?",
       "a3": "Oui, vous pouvez publier gratuitement une annonce pour vendre votre voiture à {city}, avec la possibilité d'estimer son prix par IA au préalable."
-    }
+    },
+    "metaTitleMarquesHub": "Toutes les marques de voitures au Maroc — autobladi.ma",
+    "metaDescMarquesHub": "Parcourez toutes les marques de voitures disponibles au Maroc : Dacia, Renault, Peugeot, Volkswagen et plus. Trouvez les meilleures annonces par marque sur autobladi.ma.",
+    "marquesHubTitle": "Toutes les marques de voitures",
+    "marquesHubIntro": "Choisissez une marque pour découvrir toutes les annonces de voitures neuves et d'occasion disponibles au Maroc.",
+    "metaTitleVillesHub": "Voitures à vendre par ville au Maroc — autobladi.ma",
+    "metaDescVillesHub": "Parcourez les annonces de voitures par ville au Maroc : Casablanca, Rabat, Marrakech, Tanger et plus. Trouvez les meilleures offres près de chez vous sur autobladi.ma.",
+    "villesHubTitle": "Voitures à vendre par ville",
+    "villesHubIntro": "Choisissez une ville pour découvrir toutes les annonces de voitures neuves et d'occasion disponibles près de chez vous."
   },
   "annonces": {
     "metaTitle": "Voitures à vendre au Maroc — Annonces auto neuves et d'occasion",
@@ -2331,6 +2339,8 @@
       "all": "Toutes les annonces",
       "popular": "Voitures populaires",
       "dealers": "Showrooms",
+      "brands": "Toutes les marques",
+      "cities": "Toutes les villes",
       "estimation": "Estimer un prix"
     },
     "company": "Société",
@@ -2642,6 +2652,7 @@
     },
     "category": {
       "metaTitle": "{name} — Blog autobladi",
+      "metaDescription": "Tous nos articles sur {name} : actualités, conseils et guides automobiles sur autobladi.ma.",
       "title": "Articles dans {name}",
       "back": "Tous les articles"
     },

@@ -34,13 +34,16 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "landing" })
   const subject = `${brand.name} ${model.name}`
   const cityName = locale === "ar" ? city.name_ar : city.name_fr
+  const title = t("metaTitleCity", { brand: subject, city: cityName })
+  const description = t("metaDescCity", { brand: subject, city: cityName })
   return {
-    title: t("metaTitleCity", { brand: subject, city: cityName }),
-    description: t("metaDescCity", { brand: subject, city: cityName }),
+    title,
+    description,
     alternates: localeAlternates(
       locale,
       `/marques/${brand.slug}/modele/${model.slug}/${city.slug}`,
     ),
+    openGraph: { title, description, type: "website" },
   }
 }
 

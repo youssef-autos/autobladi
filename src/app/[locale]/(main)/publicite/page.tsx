@@ -32,13 +32,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "publicite" })
+  const title = t("metaTitle")
+  const description = t("metaDescription")
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
     alternates: localeAlternates(locale, `/publicite`),
     // Page is publicly accessible (linked only from the footer), but we
     // don't want it surfacing alongside core product pages in search.
     robots: { index: false, follow: true },
+    openGraph: { title, description, type: "website" },
   }
 }
 

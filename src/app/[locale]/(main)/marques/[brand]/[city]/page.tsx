@@ -29,10 +29,13 @@ export async function generateMetadata({
   if (!brand || !city) return { title: "Not found" }
   const t = await getTranslations({ locale, namespace: "landing" })
   const cityName = locale === "ar" ? city.name_ar : city.name_fr
+  const title = t("metaTitleCity", { brand: brand.name, city: cityName })
+  const description = t("metaDescCity", { brand: brand.name, city: cityName })
   return {
-    title: t("metaTitleCity", { brand: brand.name, city: cityName }),
-    description: t("metaDescCity", { brand: brand.name, city: cityName }),
+    title,
+    description,
     alternates: localeAlternates(locale, `/marques/${brand.slug}/${city.slug}`),
+    openGraph: { title, description, type: "website" },
   }
 }
 

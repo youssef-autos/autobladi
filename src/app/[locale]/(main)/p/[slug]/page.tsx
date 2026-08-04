@@ -23,9 +23,18 @@ export async function generateMetadata({
   const page = await getPageBySlug(slug)
   if (!page) return {}
   const title = locale === "ar" ? page.title_ar : page.title_fr
+  const rawContent = locale === "ar" ? page.content_ar : page.content_fr
+  const description = (rawContent ?? "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 160)
+  const fullTitle = `${title} — autobladi.ma`
   return {
-    title: `${title} — autobladi.ma`,
+    title: fullTitle,
+    description: description || undefined,
     alternates: localeAlternates(locale, `/p/${slug}`),
+    openGraph: { title: fullTitle, description, type: "website" },
   }
 }
 

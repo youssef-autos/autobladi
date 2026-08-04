@@ -14,7 +14,7 @@ import { ViewToggle } from "@/components/annonces/ViewToggle"
 import { loadAnnoncesSearchParams } from "@/components/annonces/searchParams"
 import { Container } from "@/components/ui/Container"
 import { JsonLd } from "@/components/seo/JsonLd"
-import { itemListSchema } from "@/lib/seo/structured-data"
+import { breadcrumbSchema, collectionSchema, itemListSchema } from "@/lib/seo/structured-data"
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://autobladi.ma"
 import { GoldAccent } from "@/components/ui/GoldAccent"
@@ -38,10 +38,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "annonces" })
+  const title = t("metaTitle")
+  const description = t("metaDescription")
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
     alternates: localeAlternates(locale, `/annonces`),
+    openGraph: { title, description, type: "website" },
   }
 }
 
@@ -214,6 +217,26 @@ export default async function AnnoncesPage({
             name: a.title,
           })),
         )}
+      />
+      <JsonLd
+        data={collectionSchema({
+          locale,
+          path: "/annonces",
+          name: t("metaTitle"),
+          description: t("metaDescription"),
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          {
+            name: locale === "fr" ? "Accueil" : "الرئيسية",
+            url: `${SITE_URL}/${locale}`,
+          },
+          {
+            name: t("pageTitle"),
+            url: `${SITE_URL}/${locale}/annonces`,
+          },
+        ])}
       />
     </section>
   )

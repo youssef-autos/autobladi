@@ -12,7 +12,13 @@ const STATIC_PATHS = [
   "/showrooms",
   "/estimation",
   "/blog",
+  "/marques",
+  "/villes",
+  "/contact",
 ] as const
+// /comparer and /publicite are deliberately excluded: both set
+// `robots: { index: false }` on their own metadata, and listing a noindex
+// URL in the sitemap sends search engines a contradictory signal.
 
 type EntryOpts = {
   path: string // without locale prefix, e.g. "/blog/foo" ("" = home)
@@ -126,6 +132,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   )
 
+  // CMS content pages (/p/[slug])
+  const { data: pages } = await supabase
+    .from("pages")
+    .select("slug, updated_at")
+    .eq("is_published", true)
+  type PageRow = { slug: string; updated_at: string }
+  const pageEntries = ((pages ?? []) as unknown as PageRow[]).flatMap((p) =>
+    entriesFor({
+      path: `/p/${p.slug}`,
+      lastModified: new Date(p.updated_at ?? now),
+      changeFrequency: "monthly",
+      priority: 0.4,
+    }),
+  )
+
   // SEO landing pages: brand + brand×city — only combos with active listings
   // (so we never list an empty page).
   const { data: combos } = await supabase
@@ -178,6 +199,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...catEntries,
     ...annonceEntries,
     ...dealerEntries,
+    ...pageEntries,
     ...brandEntries,
     ...brandCityEntries,
     ...brandModelEntries,
