@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/accordion"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Combobox } from "@/components/ui/combobox"
+import { Field } from "@/components/ui/Field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -395,28 +396,6 @@ function SectionHeading({
   )
 }
 
-function Field({
-  label,
-  error,
-  required,
-  children,
-}: {
-  label: string
-  error?: string
-  required?: boolean
-  children: React.ReactNode
-}) {
-  return (
-    <label className="flex flex-col gap-1.5 text-sm">
-      <span className="font-medium text-foreground">
-        {label}
-        {required && <span className="text-moroccan-red-500"> *</span>}
-      </span>
-      {children}
-      {error && <span className="text-xs text-destructive">{error}</span>}
-    </label>
-  )
-}
 
 /**
  * base-ui's <SelectValue> renders the raw `value` (e.g. a UUID) rather than the

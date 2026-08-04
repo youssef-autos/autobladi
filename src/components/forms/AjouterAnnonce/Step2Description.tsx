@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl"
 
 import { GenerateDescriptionButton } from "@/components/ai/GenerateDescriptionButton"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Field } from "@/components/ui/Field"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
@@ -78,7 +79,7 @@ export function Step2DescriptionPrice({ brands, models }: Props) {
         <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
       </header>
 
-      <Field label={t("carTitle")} hint={t("titleHint")} error={tr(errors.title?.message)}>
+      <Field label={t("carTitle")} help={t("titleHint")} error={tr(errors.title?.message)}>
         <Input className="h-11 rounded-xl" {...form.register("title")} />
       </Field>
 
@@ -177,28 +178,3 @@ export function Step2DescriptionPrice({ brands, models }: Props) {
   )
 }
 
-function Field({
-  label,
-  hint,
-  error,
-  action,
-  children,
-}: {
-  label: string
-  hint?: string
-  error?: string
-  action?: React.ReactNode
-  children: React.ReactNode
-}) {
-  return (
-    <div className="space-y-1.5">
-      <div className="flex items-center justify-between gap-2">
-        <label className="text-sm font-medium text-foreground">{label}</label>
-        {action}
-      </div>
-      {children}
-      {hint && !error && <p className="text-xs text-muted-foreground">{hint}</p>}
-      {error && <p className="text-xs text-destructive">{error}</p>}
-    </div>
-  )
-}

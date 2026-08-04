@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { Field } from "@/components/ui/Field"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import type { AdminUserRow } from "@/lib/queries/admin"
 
@@ -155,17 +156,3 @@ export function UserEditDialog({ open, onOpenChange, user }: Props) {
 const inputCls =
   "w-full h-11 px-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40 focus:border-moroccan-gold-500/60"
 
-function Field({
-  label,
-  children,
-}: {
-  label: string
-  children: React.ReactNode
-}) {
-  return (
-    <label className="block space-y-1.5">
-      <span className="text-sm font-medium text-foreground">{label}</span>
-      {children}
-    </label>
-  )
-}

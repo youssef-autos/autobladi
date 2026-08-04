@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
 
 import { Combobox, type ComboboxOption } from "@/components/ui/combobox"
+import { Field } from "@/components/ui/Field"
 import { Input } from "@/components/ui/input"
 import type { PriceEstimate } from "@/lib/ai/types"
 import {
@@ -326,22 +327,3 @@ function AccidentOption({
   )
 }
 
-function Field({
-  label,
-  error,
-  className,
-  children,
-}: {
-  label: string
-  error?: string
-  className?: string
-  children: React.ReactNode
-}) {
-  return (
-    <div className={cn("flex flex-col gap-1.5 text-sm", className)}>
-      <span className="font-medium text-foreground">{label}</span>
-      {children}
-      {error && <span className="text-xs text-destructive">{error}</span>}
-    </div>
-  )
-}

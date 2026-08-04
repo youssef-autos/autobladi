@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl"
 import { CheckCircle2 } from "lucide-react"
 
 import { submitAdInquiry } from "@/app/[locale]/(main)/publicite/actions"
+import { Field } from "@/components/ui/Field"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import {
   adInquirySchema,
@@ -174,22 +175,3 @@ function inputCls(hasError: boolean) {
   )
 }
 
-function Field({
-  label,
-  error,
-  children,
-}: {
-  label: string
-  error?: string
-  children: React.ReactNode
-}) {
-  return (
-    <label className="block space-y-1.5">
-      <span className="text-sm font-medium text-foreground">{label}</span>
-      {children}
-      {error && (
-        <span className="block text-xs text-moroccan-red-600">{error}</span>
-      )}
-    </label>
-  )
-}

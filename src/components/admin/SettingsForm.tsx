@@ -28,6 +28,7 @@ import {
   type SettingsInput,
 } from "@/app/[locale]/admin/parametres/actions"
 import { uploadSiteLogo } from "@/app/[locale]/admin/parametres/upload-action"
+import { Field } from "@/components/ui/Field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { mediaUrl } from "@/lib/media"
@@ -110,7 +111,6 @@ export function SettingsForm({
         <p className="text-xs text-muted-foreground -mt-1">{t("seoVerificationHelp")}</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Field
-            id="gsc"
             label={t("googleVerification")}
             help={t("googleVerificationHelp")}
           >
@@ -125,7 +125,6 @@ export function SettingsForm({
             />
           </Field>
           <Field
-            id="bing"
             label={t("bingVerification")}
             help={t("bingVerificationHelp")}
           >
@@ -140,7 +139,6 @@ export function SettingsForm({
             />
           </Field>
           <Field
-            id="yandex"
             label={t("yandexVerification")}
             help={t("yandexVerificationHelp")}
           >
@@ -155,7 +153,6 @@ export function SettingsForm({
             />
           </Field>
           <Field
-            id="pinterest"
             label={t("pinterestVerification")}
             help={t("pinterestVerificationHelp")}
           >
@@ -172,7 +169,6 @@ export function SettingsForm({
         </div>
         <div className="mt-3">
           <Field
-            id="custom_head"
             label={t("customHeadCode")}
             help={t("customHeadCodeHelp")}
           >
@@ -189,7 +185,6 @@ export function SettingsForm({
         </div>
         <div className="mt-2 border-t border-border/60 pt-4">
           <Field
-            id="ga_id"
             label={t("googleAnalytics")}
             help={t("googleAnalyticsHelp")}
           >
@@ -295,7 +290,7 @@ export function SettingsForm({
 
       {/* Watermark */}
       <Section title={t("watermark")} icon={Stamp}>
-        <Field id="wm" label={t("watermarkText")} help={t("watermarkHelp")}>
+        <Field label={t("watermarkText")} help={t("watermarkHelp")}>
           <Input
             id="wm"
             value={values.watermark_text}
@@ -312,7 +307,6 @@ export function SettingsForm({
         <p className="text-xs text-muted-foreground -mt-1">{t("durationHelp")}</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Field
-            id="duration"
             label={t("durationGratuit")}
             help={t("durationGratuitHelp")}
           >
@@ -331,7 +325,6 @@ export function SettingsForm({
             />
           </Field>
           <Field
-            id="duration_pro"
             label={t("durationPro")}
             help={t("durationProHelp")}
           >
@@ -355,7 +348,7 @@ export function SettingsForm({
       {/* AI provider for estimation + description generation */}
       <Section title={t("aiProvider")} icon={Sparkles}>
         <p className="text-xs text-muted-foreground -mt-1">{t("aiProviderHelp")}</p>
-        <Field id="ai_provider" label={t("aiProviderLabel")}>
+        <Field label={t("aiProviderLabel")}>
           <select
             id="ai_provider"
             value={values.ai_provider}
@@ -375,7 +368,7 @@ export function SettingsForm({
         </Field>
 
         <div className="mt-2 border-t border-border/60 pt-4 grid grid-cols-1 gap-4">
-          <Field id="ai_gemini_key" label={t("aiGeminiKey")} help={t("aiKeyHelp")}>
+          <Field label={t("aiGeminiKey")} help={t("aiKeyHelp")}>
             <Input
               id="ai_gemini_key"
               type="password"
@@ -388,7 +381,7 @@ export function SettingsForm({
             />
           </Field>
 
-          <Field id="ai_openai_key" label={t("aiOpenaiKey")} help={t("aiKeyHelp")}>
+          <Field label={t("aiOpenaiKey")} help={t("aiKeyHelp")}>
             <Input
               id="ai_openai_key"
               type="password"
@@ -401,7 +394,7 @@ export function SettingsForm({
             />
           </Field>
 
-          <Field id="ai_openai_model" label={t("aiModel")} help={t("aiModelHelp")}>
+          <Field label={t("aiModel")} help={t("aiModelHelp")}>
             <Input
               id="ai_openai_model"
               value={values.ai_openai_model}
@@ -412,7 +405,7 @@ export function SettingsForm({
             />
           </Field>
 
-          <Field id="ai_qwen_key" label={t("aiQwenKey")} help={t("aiQwenKeyHelp")}>
+          <Field label={t("aiQwenKey")} help={t("aiQwenKeyHelp")}>
             <Input
               id="ai_qwen_key"
               type="password"
@@ -425,7 +418,7 @@ export function SettingsForm({
             />
           </Field>
 
-          <Field id="ai_qwen_model" label={t("aiQwenModel")} help={t("aiQwenModelHelp")}>
+          <Field label={t("aiQwenModel")} help={t("aiQwenModelHelp")}>
             <Input
               id="ai_qwen_model"
               value={values.ai_qwen_model}
@@ -441,7 +434,7 @@ export function SettingsForm({
       {/* Contact */}
       <Section title={t("contact")} icon={Mail}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Field id="email" label={t("contactEmail")}>
+          <Field label={t("contactEmail")}>
             <Input
               id="email"
               type="email"
@@ -450,7 +443,7 @@ export function SettingsForm({
               className="h-11 rounded-xl"
             />
           </Field>
-          <Field id="phone" label={t("contactPhone")}>
+          <Field label={t("contactPhone")}>
             <Input
               id="phone"
               type="tel"
@@ -604,24 +597,3 @@ function Section({
   )
 }
 
-function Field({
-  id,
-  label,
-  help,
-  children,
-}: {
-  id: string
-  label: string
-  help?: string
-  children: React.ReactNode
-}) {
-  return (
-    <div className="space-y-1.5">
-      <Label htmlFor={id} className="text-sm font-medium">
-        {label}
-      </Label>
-      {children}
-      {help && <p className="text-xs text-muted-foreground">{help}</p>}
-    </div>
-  )
-}

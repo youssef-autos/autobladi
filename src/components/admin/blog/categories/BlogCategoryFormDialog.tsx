@@ -14,6 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { Field } from "@/components/ui/Field"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import { slugify } from "@/lib/validations/blog-category"
 import type { AdminBlogCategoryRow } from "@/lib/queries/admin"
@@ -123,7 +124,7 @@ function InnerForm({
         />
       </Field>
 
-      <Field label={tForm("slug")} hint={tForm("slugHelp")}>
+      <Field label={tForm("slug")} help={tForm("slugHelp")}>
         <input
           type="text"
           value={slug}
@@ -138,7 +139,7 @@ function InnerForm({
         />
       </Field>
 
-      <Field label={tForm("orderIndex")} hint={tForm("orderIndexHelp")}>
+      <Field label={tForm("orderIndex")} help={tForm("orderIndexHelp")}>
         <input
           type="number"
           value={orderIndex}
@@ -169,20 +170,3 @@ function InnerForm({
 const inputCls =
   "w-full h-11 px-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40 focus:border-moroccan-gold-500/60"
 
-function Field({
-  label,
-  hint,
-  children,
-}: {
-  label: string
-  hint?: string
-  children: React.ReactNode
-}) {
-  return (
-    <label className="block space-y-1.5">
-      <span className="text-sm font-medium text-foreground">{label}</span>
-      {children}
-      {hint && <span className="block text-xs text-muted-foreground">{hint}</span>}
-    </label>
-  )
-}

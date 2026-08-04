@@ -8,6 +8,7 @@ import {
   saveEmailSettings,
   sendTestEmailAction,
 } from "@/app/[locale]/admin/settings/email/actions"
+import { Field } from "@/components/ui/Field"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
 
 type EmailType =
@@ -126,7 +127,7 @@ export function EmailSettingsForm({
 
         <Field
           label={ar ? "From (اسم + إيميل)" : "From (nom + e-mail)"}
-          hint='autobladi <noreply@autobladi.ma>'
+          help='autobladi <noreply@autobladi.ma>'
         >
           <input
             type="text"
@@ -139,7 +140,7 @@ export function EmailSettingsForm({
 
         <Field
           label="Reply-To"
-          hint={ar ? "اختياري — يستقبل ردود المستخدمين" : "Optionnel — reçoit les réponses"}
+          help={ar ? "اختياري — يستقبل ردود المستخدمين" : "Optionnel — reçoit les réponses"}
         >
           <input
             type="email"
@@ -151,7 +152,7 @@ export function EmailSettingsForm({
 
         <Field
           label={ar ? "مفتاح Resend API" : "Clé API Resend"}
-          hint={
+          help={
             resendConfigured
               ? ar
                 ? "مفتاح محفوظ — اتركه فارغاً للإبقاء عليه. يُحفظ بشكل آمن."
@@ -256,22 +257,3 @@ export function EmailSettingsForm({
 const inputCls =
   "w-full h-11 px-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40 focus:border-moroccan-gold-500/60"
 
-function Field({
-  label,
-  hint,
-  children,
-}: {
-  label: string
-  hint?: string
-  children: React.ReactNode
-}) {
-  return (
-    <label className="block space-y-1.5">
-      <span className="text-sm font-medium text-foreground">{label}</span>
-      {children}
-      {hint && (
-        <span className="block text-xs text-muted-foreground">{hint}</span>
-      )}
-    </label>
-  )
-}

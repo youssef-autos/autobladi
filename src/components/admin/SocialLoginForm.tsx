@@ -6,8 +6,8 @@ import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 
 import { saveSocialLogin } from "@/app/[locale]/admin/settings/social-login/actions"
+import { Field } from "@/components/ui/Field"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import type { SocialLoginConfig, ProviderConfig } from "@/lib/queries/social-login"
 
@@ -131,17 +131,3 @@ function ProviderCard({
   )
 }
 
-function Field({
-  label,
-  children,
-}: {
-  label: string
-  children: React.ReactNode
-}) {
-  return (
-    <div className="space-y-1.5">
-      <Label className="text-sm font-medium">{label}</Label>
-      {children}
-    </div>
-  )
-}

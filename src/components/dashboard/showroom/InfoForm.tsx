@@ -11,6 +11,7 @@ import { MapPicker } from "@/components/dashboard/showroom/MapPicker"
 import { OpeningHoursEditor } from "@/components/dashboard/showroom/OpeningHoursEditor"
 import { Card } from "@/components/ui/Card"
 import { Combobox } from "@/components/ui/combobox"
+import { Field } from "@/components/ui/Field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -463,20 +464,3 @@ export function ShowroomInfoForm({ dealer, cities, secteurs }: Props) {
   )
 }
 
-function Field({
-  label,
-  help,
-  children,
-}: {
-  label: string
-  help?: string
-  children: React.ReactNode
-}) {
-  return (
-    <div className="space-y-1.5">
-      <Label className="text-sm font-medium">{label}</Label>
-      {children}
-      {help && <p className="text-xs text-muted-foreground">{help}</p>}
-    </div>
-  )
-}

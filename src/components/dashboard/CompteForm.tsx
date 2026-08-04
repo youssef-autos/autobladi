@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/dialog"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Combobox } from "@/components/ui/combobox"
+import { Field } from "@/components/ui/Field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
@@ -558,22 +559,3 @@ function PasswordField({
   )
 }
 
-function Field({
-  label,
-  help,
-  className,
-  children,
-}: {
-  label: string
-  help?: string
-  className?: string
-  children: React.ReactNode
-}) {
-  return (
-    <div className={cn("space-y-1.5", className)}>
-      <Label className="text-sm font-medium">{label}</Label>
-      {children}
-      {help && <p className="text-xs text-muted-foreground">{help}</p>}
-    </div>
-  )
-}

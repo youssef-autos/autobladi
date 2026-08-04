@@ -11,6 +11,7 @@ import {
 } from "@/app/[locale]/admin/blog/actions"
 import { uploadBlogImage } from "@/app/[locale]/admin/blog/upload-action"
 import { RichTextEditor } from "@/components/admin/RichTextEditor"
+import { Field } from "@/components/ui/Field"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import { Link, useRouter } from "@/i18n/navigation"
 import { mediaUrl } from "@/lib/media"
@@ -222,7 +223,7 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
             />
           </Field>
 
-          <Field label={tForm("slug")} hint={tForm("slugHelp")}>
+          <Field label={tForm("slug")} help={tForm("slugHelp")}>
             <input
               type="text"
               value={slug}
@@ -237,7 +238,7 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
             />
           </Field>
 
-          <Field label={tForm("excerpt")} hint={tForm("excerptHelp")}>
+          <Field label={tForm("excerpt")} help={tForm("excerptHelp")}>
             <textarea
               value={activeExcerpt}
               dir={lang === "ar" ? "rtl" : "ltr"}
@@ -399,7 +400,7 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
 
           {/* Tags — separate lists per language, each shown on the site
               when reading in that language. */}
-          <Field label={tForm("tagsAr")} hint={tForm("tagsHelp")}>
+          <Field label={tForm("tagsAr")} help={tForm("tagsHelp")}>
             <input
               type="text"
               dir="rtl"
@@ -410,7 +411,7 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
             />
           </Field>
 
-          <Field label={tForm("tagsFr")} hint={tForm("tagsHelp")}>
+          <Field label={tForm("tagsFr")} help={tForm("tagsHelp")}>
             <input
               type="text"
               value={tagsTextFr}
@@ -434,24 +435,6 @@ function parseTags(text: string): string[] {
     .map((s) => s.trim())
     .filter(Boolean)
     .slice(0, 20)
-}
-
-function Field({
-  label,
-  hint,
-  children,
-}: {
-  label: string
-  hint?: string
-  children: React.ReactNode
-}) {
-  return (
-    <label className="block space-y-1.5">
-      <span className="text-sm font-medium text-foreground">{label}</span>
-      {children}
-      {hint && <span className="block text-xs text-muted-foreground">{hint}</span>}
-    </label>
-  )
 }
 
 function LangButton({

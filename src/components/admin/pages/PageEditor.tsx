@@ -7,6 +7,7 @@ import { toast } from "sonner"
 
 import { createPage, updatePage } from "@/app/[locale]/admin/pages/actions"
 import { RichTextEditor } from "@/components/admin/RichTextEditor"
+import { Field } from "@/components/ui/Field"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import { Link, useRouter } from "@/i18n/navigation"
 import { slugify } from "@/lib/validations/page"
@@ -112,7 +113,7 @@ export function PageEditor({ mode, initial }: Props) {
             </Field>
           </div>
 
-          <Field label={tForm("slug")} hint={tForm("slugHelp")}>
+          <Field label={tForm("slug")} help={tForm("slugHelp")}>
             <input
               type="text"
               value={slug}
@@ -159,7 +160,7 @@ export function PageEditor({ mode, initial }: Props) {
               checked={showInFooter}
               onChange={setShowInFooter}
             />
-            <Field label={tForm("orderIndex")} hint={tForm("orderIndexHelp")}>
+            <Field label={tForm("orderIndex")} help={tForm("orderIndexHelp")}>
               <input
                 type="number"
                 value={orderIndex}
@@ -179,24 +180,6 @@ export function PageEditor({ mode, initial }: Props) {
 
 const inputCls =
   "w-full h-11 px-3 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40 focus:border-moroccan-gold-500/60"
-
-function Field({
-  label,
-  hint,
-  children,
-}: {
-  label: string
-  hint?: string
-  children: React.ReactNode
-}) {
-  return (
-    <label className="block space-y-1.5">
-      <span className="text-sm font-medium text-foreground">{label}</span>
-      {children}
-      {hint && <span className="block text-xs text-muted-foreground">{hint}</span>}
-    </label>
-  )
-}
 
 function Toggle({
   label,
