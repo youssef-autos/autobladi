@@ -3,14 +3,14 @@
 import { MessageSquare, Star } from "lucide-react"
 import { useFormatter, useTranslations } from "next-intl"
 
-import { ReviewForm } from "@/components/professionnels/ReviewForm"
+import { ReviewForm } from "@/components/showroom/ReviewForm"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { EmptyState } from "@/components/ui/EmptyState"
-import type { ReviewItem } from "@/lib/queries/professionnels"
+import type { ReviewItem } from "@/lib/queries/showrooms"
 import { cn } from "@/lib/utils"
 
 type Props = {
-  professionnelId: string
+  showroomId: string
   averageRating: number
   reviewsCount: number
   reviews: ReviewItem[]
@@ -28,13 +28,13 @@ function initials(name?: string | null): string {
 }
 
 export function ReviewsTab({
-  professionnelId,
+  showroomId,
   averageRating,
   reviewsCount,
   reviews,
   hasAlreadyReviewed,
 }: Props) {
-  const t = useTranslations("professionnels.reviews")
+  const t = useTranslations("showrooms.reviews")
   const format = useFormatter()
 
   // Compute distribution
@@ -49,7 +49,7 @@ export function ReviewsTab({
       {/* Add a review — or, when logged out, the login prompt. Sits between
           the "Avis" heading and the reviews card. */}
       <ReviewForm
-        professionnelId={professionnelId}
+        showroomId={showroomId}
         alreadyReviewed={hasAlreadyReviewed}
       />
 

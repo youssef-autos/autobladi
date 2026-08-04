@@ -4,18 +4,18 @@ import Image from "next/image"
 import { Building2, Calendar, Check, Globe, MapPin, Star } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
 
-import { getDealerSocials } from "@/components/professionnels/socials"
+import { getDealerSocials } from "@/components/showroom/socials"
 import { Container } from "@/components/ui/Container"
-import type { ProfessionnelDetail } from "@/lib/queries/professionnels"
+import type { ShowroomDetail } from "@/lib/queries/showrooms"
 import type { Locale } from "@/i18n/routing"
 
 type Props = {
-  dealer: ProfessionnelDetail
+  dealer: ShowroomDetail
 }
 
-export function ProfessionnelHeader({ dealer }: Props) {
+export function ShowroomHeader({ dealer }: Props) {
   const locale = useLocale() as Locale
-  const t = useTranslations("professionnels")
+  const t = useTranslations("showrooms")
   const cityName = dealer.city
     ? locale === "ar"
       ? dealer.city.name_ar

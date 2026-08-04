@@ -1,6 +1,6 @@
 import type { ComponentType } from "react"
 
-import type { ProfessionnelDetail } from "@/lib/queries/professionnels"
+import type { ShowroomDetail } from "@/lib/queries/showrooms"
 
 type IconProps = { className?: string }
 
@@ -52,7 +52,7 @@ export type SocialLink = {
 }
 
 /** Builds the ordered list of social links a dealer has set. */
-export function getDealerSocials(dealer: ProfessionnelDetail): SocialLink[] {
+export function getDealerSocials(dealer: ShowroomDetail): SocialLink[] {
   const out: SocialLink[] = []
   if (dealer.facebook) out.push({ href: dealer.facebook, label: "Facebook", Icon: FacebookIcon })
   if (dealer.linkedin) out.push({ href: dealer.linkedin, label: "LinkedIn", Icon: LinkedinIcon })

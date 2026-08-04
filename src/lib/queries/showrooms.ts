@@ -3,14 +3,14 @@ import "server-only"
 import { cache } from "react"
 import { createClient } from "@/lib/supabase/server"
 import type { Tables } from "@/types/database.types"
-import type { OpeningHoursMap } from "@/lib/validations/professionnel"
+import type { OpeningHoursMap } from "@/lib/validations/showroom"
 import {
   ANNONCE_CARD_SELECT,
   mapAnnonceCard,
   type AnnonceCardRow,
 } from "@/lib/queries/annonce-card"
 
-export type ProfessionnelListItem = {
+export type ShowroomListItem = {
   id: string
   user_id: string
   name: string
@@ -28,14 +28,14 @@ export type ProfessionnelListItem = {
   created_at: string
 }
 
-type ListRow = Tables<"professionnels"> & {
+type ListRow = Tables<"showrooms"> & {
   cities: { name_ar: string; name_fr: string; slug: string } | null
   profiles: {
     account_type: Tables<"profiles">["account_type"]
   } | null
 }
 
-type ProfessionnelListFilters = {
+type ShowroomListFilters = {
   q?: string
   city?: string
   minRating?: number
@@ -44,8 +44,8 @@ type ProfessionnelListFilters = {
   pageSize?: number
 }
 
-export type ProfessionnelListResult = {
-  items: ProfessionnelListItem[]
+export type ShowroomListResult = {
+  items: ShowroomListItem[]
   total: number
   page: number
   pageSize: number
@@ -54,9 +54,9 @@ export type ProfessionnelListResult = {
 
 const DEFAULT_PAGE_SIZE = 12
 
-export async function listProfessionnels(
-  filters: ProfessionnelListFilters = {},
-): Promise<ProfessionnelListResult> {
+export async function listShowrooms(
+  filters: ShowroomListFilters = {},
+): Promise<ShowroomListResult> {
   const supabase = await createClient()
   const page = Math.max(1, filters.page ?? 1)
   const pageSize = filters.pageSize ?? DEFAULT_PAGE_SIZE
@@ -74,7 +74,7 @@ export async function listProfessionnels(
   }
 
   let query = supabase
-    .from("professionnels")
+    .from("showrooms")
     .select(
       `id, user_id, name, slug, logo_url, cover_url, description, rating,
        reviews_count, is_active, is_verified, created_at,
@@ -124,7 +124,7 @@ export async function listProfessionnels(
     }, new Map<string, number>())
   }
 
-  const items: ProfessionnelListItem[] = rows.map((row) => ({
+  const items: ShowroomListItem[] = rows.map((row) => ({
     id: row.id,
     user_id: row.user_id,
     name: row.name,
@@ -154,7 +154,7 @@ export async function listProfessionnels(
   }
 }
 
-export type ProfessionnelDetail = {
+export type ShowroomDetail = {
   id: string
   user_id: string
   name: string
@@ -191,7 +191,7 @@ export type ProfessionnelDetail = {
   } | null
 }
 
-type DetailRow = Tables<"professionnels"> & {
+type DetailRow = Tables<"showrooms"> & {
   cities: { id: string; name_ar: string; name_fr: string; slug: string } | null
   secteurs: { id: string; name_ar: string; name_fr: string; slug: string } | null
   profiles: {
@@ -203,12 +203,12 @@ type DetailRow = Tables<"professionnels"> & {
 
 // Wrapped in React.cache() — generateMetadata and the page body both call
 // this for the same slug on every request; caching dedupes the DB round-trip.
-export const getProfessionnelBySlug = cache(async function getProfessionnelBySlug(
+export const getShowroomBySlug = cache(async function getShowroomBySlug(
   slug: string,
-): Promise<ProfessionnelDetail | null> {
+): Promise<ShowroomDetail | null> {
   const supabase = await createClient()
   const { data } = await supabase
-    .from("professionnels")
+    .from("showrooms")
     .select(
       `*,
        cities(id, name_ar, name_fr, slug),
@@ -264,15 +264,15 @@ export const getProfessionnelBySlug = cache(async function getProfessionnelBySlu
 })
 
 /**
- * The active showroom (professionnel) owned by a given user, or null. Used on
- * the annonce detail page to link a professional seller to their showroom.
+ * The active showroom owned by a given user, or null. Used on the annonce
+ * detail page to link a professional seller to their showroom.
  */
 export async function getShowroomByUserId(
   userId: string,
 ): Promise<{ slug: string; name: string } | null> {
   const supabase = await createClient()
   const { data } = await supabase
-    .from("professionnels")
+    .from("showrooms")
     .select("slug, name")
     .eq("user_id", userId)
     .eq("is_active", true)
@@ -280,14 +280,14 @@ export async function getShowroomByUserId(
   return data ?? null
 }
 
-export async function getMyProfessionnel(): Promise<ProfessionnelDetail | null> {
+export async function getMyShowroom(): Promise<ShowroomDetail | null> {
   const supabase = await createClient()
   const {
     data: { user },
   } = await supabase.auth.getUser()
   if (!user) return null
   const { data } = await supabase
-    .from("professionnels")
+    .from("showrooms")
     .select(
       `*,
        cities(id, name_ar, name_fr, slug),
@@ -347,20 +347,20 @@ export type ReviewItem = {
   user: { id: string; full_name: string | null; avatar_url: string | null }
 }
 
-type ReviewRow = Tables<"professionnel_reviews"> & {
+type ReviewRow = Tables<"showroom_reviews"> & {
   profiles: { id: string; full_name: string | null; avatar_url: string | null } | null
 }
 
 export async function listReviews(
-  professionnelId: string,
+  showroomId: string,
   limit = 20,
 ): Promise<ReviewItem[]> {
   const supabase = await createClient()
   const { data } = await supabase
-    .from("professionnel_reviews")
+    .from("showroom_reviews")
     .select(`id, rating, comment, created_at,
              profiles(id, full_name, avatar_url)`)
-    .eq("professionnel_id", professionnelId)
+    .eq("showroom_id", showroomId)
     .order("created_at", { ascending: false })
     .limit(limit)
 
@@ -377,7 +377,7 @@ export async function listReviews(
 }
 
 export async function getMyReviewFor(
-  professionnelId: string,
+  showroomId: string,
 ): Promise<ReviewItem | null> {
   const supabase = await createClient()
   const {
@@ -385,10 +385,10 @@ export async function getMyReviewFor(
   } = await supabase.auth.getUser()
   if (!user) return null
   const { data } = await supabase
-    .from("professionnel_reviews")
+    .from("showroom_reviews")
     .select(`id, rating, comment, created_at,
              profiles(id, full_name, avatar_url)`)
-    .eq("professionnel_id", professionnelId)
+    .eq("showroom_id", showroomId)
     .eq("user_id", user.id)
     .maybeSingle()
   if (!data) return null
@@ -403,7 +403,7 @@ export async function getMyReviewFor(
   }
 }
 
-export async function listProfessionnelAnnonces(userId: string) {
+export async function listShowroomAnnonces(userId: string) {
   // We don't expose an owner filter on searchAnnonces yet — do an inline query.
   const supabase = await createClient()
   const { data } = await supabase

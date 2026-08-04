@@ -113,7 +113,7 @@
     "byBrand": "حسب الماركة",
     "byCategory": "حسب الفئة",
     "byCity": "حسب المدينة",
-    "professionnels": "المعارض",
+    "showrooms": "المعارض",
     "estimation": "تقدير الثمن",
     "compare": "المقارنة",
     "blog": "المدونة",
@@ -141,7 +141,7 @@
     "help": "المساعدة",
     "forPros": "للمحترفين"
   },
-  "professionnels": {
+  "showrooms": {
     "metaTitle": "معارض السيارات في المغرب",
     "metaDescription": "اكتشف أبرز معارض السيارات في المغرب — التقييمات، السيارات المتوفرة، ومعلومات التواصل.",
     "detail": {
@@ -703,7 +703,7 @@
     "groups": {
       "manage": "إدارة عامة",
       "annonces": "الإعلانات",
-      "professionnels": "المعارض",
+      "showrooms": "المعارض",
       "users": "المستخدمون",
       "communication": "التواصل",
       "blog": "المدوّنة",
@@ -719,7 +719,7 @@
       "allAnnonces": "كل الإعلانات",
       "pendingAnnonces": "إعلانات قيد المراجعة",
       "reports": "البلاغات",
-      "allProfessionnels": "كل المعارض",
+      "allShowrooms": "كل المعارض",
       "reviews": "التقييمات",
       "usersList": "قائمة المستخدمين",
       "contact": "رسائل التواصل",
@@ -744,7 +744,7 @@
         "totalAnnonces": "إجمالي الإعلانات",
         "activeAnnonces": "إعلانات نشطة",
         "pendingAnnonces": "إعلانات قيد المراجعة",
-        "professionnels": "المعارض",
+        "showrooms": "المعارض",
         "pendingReports": "بلاغات معلّقة",
         "pendingShowrooms": "معارض بانتظار الموافقة"
       },
@@ -890,7 +890,7 @@
         "error": "حدث خطأ"
       }
     },
-    "professionnelsPage": {
+    "showroomsPage": {
       "title": "المعارض",
       "subtitle": "إدارة المعارض ومدى ظهورها على الموقع",
       "search": "ابحث بالاسم أو المالك...",
@@ -2484,8 +2484,8 @@
         "listingsDesc": "في الفلاتر، بين السيارات، أو فوق النتائج",
         "annonce": "صفحات تفاصيل السيارة",
         "annonceDesc": "بجانب معلومات البائع وفوق وأسفل المحتوى",
-        "professionnel": "صفحات المعارض",
-        "professionnelDesc": "أمام مستخدمين قاب قوسين من الشراء",
+        "showroom": "صفحات المعارض",
+        "showroomDesc": "أمام مستخدمين قاب قوسين من الشراء",
         "blog": "المدونة",
         "blogDesc": "محتوى السيارات، نصائح وأخبار السوق",
         "footer": "الفوتر",

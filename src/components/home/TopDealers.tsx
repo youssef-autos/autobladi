@@ -1,7 +1,7 @@
 import { Building2 } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 
-import { ProfessionnelCard } from "@/components/professionnels/ProfessionnelCard"
+import { ShowroomCard } from "@/components/showroom/ShowroomCard"
 import { Container } from "@/components/ui/Container"
 import { EmptyState } from "@/components/ui/EmptyState"
 import { SectionTitle } from "@/components/ui/SectionTitle"
@@ -21,7 +21,7 @@ export async function TopDealers() {
           <ul className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
             {dealers.map((d) => (
               <li key={d.id} className="flex">
-                <ProfessionnelCard dealer={d} className="w-full" />
+                <ShowroomCard dealer={d} className="w-full" />
               </li>
             ))}
           </ul>

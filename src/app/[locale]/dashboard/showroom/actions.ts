@@ -5,22 +5,22 @@ import { revalidatePath } from "next/cache"
 import { createAdminClient } from "@/lib/supabase/admin"
 import { createClient } from "@/lib/supabase/server"
 import {
-  professionnelInfoSchema,
-  type ProfessionnelInfoInput,
-} from "@/lib/validations/professionnel"
+  showroomInfoSchema,
+  type ShowroomInfoInput,
+} from "@/lib/validations/showroom"
 
 export type UpdateResult = { ok: true; slug: string } | { ok: false; error: string }
 
 /**
- * Create a professional showroom from the multi-step setup wizard. Promotes the
- * user to `pro` and inserts their showroom with the details they filled in.
+ * Create a showroom from the multi-step setup wizard. Promotes the user to
+ * `pro` and inserts their showroom with the details they filled in.
  *
  * The row is created INACTIVE (is_active = false): it stays out of the public
- * directory until an admin approves it from the professionnels manager. This is
+ * directory until an admin approves it from the showrooms manager. This is
  * the "submit for approval" step of the creation flow.
  */
-export async function submitProfessionnel(input: unknown): Promise<UpdateResult> {
-  const parsed = professionnelInfoSchema.safeParse(input)
+export async function submitShowroom(input: unknown): Promise<UpdateResult> {
+  const parsed = showroomInfoSchema.safeParse(input)
   if (!parsed.success) {
     const first = parsed.error.issues[0]
     return { ok: false, error: first?.message ?? "validation" }
@@ -36,7 +36,7 @@ export async function submitProfessionnel(input: unknown): Promise<UpdateResult>
 
   // One showroom per user — bail if they already have one.
   const { data: existing } = await admin
-    .from("professionnels")
+    .from("showrooms")
     .select("slug")
     .eq("user_id", user.id)
     .maybeSingle<{ slug: string }>()
@@ -49,9 +49,9 @@ export async function submitProfessionnel(input: unknown): Promise<UpdateResult>
     .eq("id", user.id)
     .eq("account_type", "gratuit")
 
-  const payload: ProfessionnelInfoInput = parsed.data
+  const payload: ShowroomInfoInput = parsed.data
   const { error } = await admin
-    .from("professionnels")
+    .from("showrooms")
     .insert({ ...payload, user_id: user.id, is_active: false } as never)
   if (error) {
     if (error.code === "23505") return { ok: false, error: "slug_taken" }
@@ -63,10 +63,10 @@ export async function submitProfessionnel(input: unknown): Promise<UpdateResult>
   return { ok: true, slug: payload.slug }
 }
 
-export async function updateMyProfessionnel(
+export async function updateMyShowroom(
   input: unknown,
 ): Promise<UpdateResult> {
-  const parsed = professionnelInfoSchema.safeParse(input)
+  const parsed = showroomInfoSchema.safeParse(input)
   if (!parsed.success) {
     const first = parsed.error.issues[0]
     return { ok: false, error: first?.message ?? "validation" }
@@ -80,15 +80,15 @@ export async function updateMyProfessionnel(
 
   // Ensure ownership before update (defense-in-depth alongside RLS)
   const { data: existing } = await supabase
-    .from("professionnels")
+    .from("showrooms")
     .select("id, slug")
     .eq("user_id", user.id)
     .maybeSingle<{ id: string; slug: string }>()
-  if (!existing) return { ok: false, error: "no_professionnel" }
+  if (!existing) return { ok: false, error: "no_showroom" }
 
-  const payload: ProfessionnelInfoInput = parsed.data
+  const payload: ShowroomInfoInput = parsed.data
   const { error } = await supabase
-    .from("professionnels")
+    .from("showrooms")
     .update(payload as never)
     .eq("user_id", user.id)
   if (error) {

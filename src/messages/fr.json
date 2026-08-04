@@ -113,7 +113,7 @@
     "byBrand": "Par marque",
     "byCategory": "Par catégorie",
     "byCity": "Par ville",
-    "professionnels": "Showrooms",
+    "showrooms": "Showrooms",
     "estimation": "Estimation",
     "compare": "Comparer",
     "blog": "Blog",
@@ -141,7 +141,7 @@
     "help": "Aide",
     "forPros": "Pour les pros"
   },
-  "professionnels": {
+  "showrooms": {
     "metaTitle": "Showrooms automobile au Maroc",
     "metaDescription": "Découvrez les meilleurs showrooms automobile au Maroc — avis, voitures disponibles et coordonnées.",
     "detail": {
@@ -703,7 +703,7 @@
     "groups": {
       "manage": "Gestion générale",
       "annonces": "Annonces",
-      "professionnels": "Showrooms",
+      "showrooms": "Showrooms",
       "users": "Utilisateurs",
       "communication": "Communication",
       "blog": "Blog",
@@ -719,7 +719,7 @@
       "allAnnonces": "Toutes les annonces",
       "pendingAnnonces": "Annonces à valider",
       "reports": "Signalements",
-      "allProfessionnels": "Tous les showrooms",
+      "allShowrooms": "Tous les showrooms",
       "reviews": "Avis",
       "usersList": "Liste des utilisateurs",
       "contact": "Messages de contact",
@@ -744,7 +744,7 @@
         "totalAnnonces": "Annonces totales",
         "activeAnnonces": "Annonces actives",
         "pendingAnnonces": "Annonces à valider",
-        "professionnels": "Showrooms",
+        "showrooms": "Showrooms",
         "pendingReports": "Signalements en attente",
         "pendingShowrooms": "Showrooms en attente"
       },
@@ -890,7 +890,7 @@
         "error": "Une erreur est survenue"
       }
     },
-    "professionnelsPage": {
+    "showroomsPage": {
       "title": "Showrooms",
       "subtitle": "Gérez les showrooms et leur visibilité sur le site",
       "search": "Rechercher par nom ou propriétaire...",
@@ -2483,8 +2483,8 @@
         "listingsDesc": "Dans les filtres, entre les annonces ou au-dessus des résultats",
         "annonce": "Pages de détail",
         "annonceDesc": "À côté des coordonnées du vendeur, en haut ou en bas",
-        "professionnel": "Pages showroom",
-        "professionnelDesc": "Devant des utilisateurs prêts à acheter",
+        "showroom": "Pages showroom",
+        "showroomDesc": "Devant des utilisateurs prêts à acheter",
         "blog": "Blog",
         "blogDesc": "Contenu automobile, conseils et actualités du marché",
         "footer": "Pied de page",

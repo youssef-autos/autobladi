@@ -303,7 +303,7 @@ export type Database = {
         }
         Update: Partial<Database["public"]["Tables"]["messages"]["Insert"]>
       }
-      professionnels: {
+      showrooms: {
         Row: {
           id: string
           user_id: string
@@ -364,12 +364,12 @@ export type Database = {
           created_at?: string
           updated_at?: string
         }
-        Update: Partial<Database["public"]["Tables"]["professionnels"]["Insert"]>
+        Update: Partial<Database["public"]["Tables"]["showrooms"]["Insert"]>
       }
-      professionnel_reviews: {
+      showroom_reviews: {
         Row: {
           id: string
-          professionnel_id: string
+          showroom_id: string
           user_id: string
           rating: number
           comment: string | null
@@ -377,14 +377,14 @@ export type Database = {
         }
         Insert: {
           id?: string
-          professionnel_id: string
+          showroom_id: string
           user_id: string
           rating: number
           comment?: string | null
           created_at?: string
         }
         Update: Partial<
-          Database["public"]["Tables"]["professionnel_reviews"]["Insert"]
+          Database["public"]["Tables"]["showroom_reviews"]["Insert"]
         >
       }
       subscription_plans: {

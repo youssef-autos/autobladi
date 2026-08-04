@@ -189,8 +189,8 @@ export default async function PublicitePage({
             />
             <PlacementCard
               icon={Building2}
-              title={t("placements.items.professionnel")}
-              desc={t("placements.items.professionnelDesc")}
+              title={t("placements.items.showroom")}
+              desc={t("placements.items.showroomDesc")}
             />
             <PlacementCard
               icon={MessageCircle}

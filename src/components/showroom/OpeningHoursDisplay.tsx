@@ -3,7 +3,7 @@
 import { Clock } from "lucide-react"
 import { useTranslations } from "next-intl"
 
-import { DAY_KEYS, type OpeningHoursMap } from "@/lib/validations/professionnel"
+import { DAY_KEYS, type OpeningHoursMap } from "@/lib/validations/showroom"
 import { cn } from "@/lib/utils"
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export function OpeningHoursDisplay({ hours, className }: Props) {
-  const t = useTranslations("professionnels.about")
+  const t = useTranslations("showrooms.about")
 
   if (!hours) {
     return (

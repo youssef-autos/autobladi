@@ -24,7 +24,7 @@ export const openingHoursSchema = z.record(z.enum(DAY_KEYS), dayHoursSchema)
 
 export type OpeningHoursMap = Record<DayKey, DayHours>
 
-export const professionnelInfoSchema = z.object({
+export const showroomInfoSchema = z.object({
   name: z.string().min(2).max(120),
   slug: z
     .string()
@@ -54,10 +54,10 @@ export const professionnelInfoSchema = z.object({
   opening_hours: openingHoursSchema.nullable(),
 })
 
-export type ProfessionnelInfoInput = z.infer<typeof professionnelInfoSchema>
+export type ShowroomInfoInput = z.infer<typeof showroomInfoSchema>
 
 export const reviewSchema = z.object({
-  professionnelId: z.uuid(),
+  showroomId: z.uuid(),
   rating: z.number().int().min(1).max(5),
   comment: z.string().max(2000).optional(),
 })

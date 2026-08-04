@@ -5,7 +5,7 @@ import { Building2, Check, Store } from "lucide-react"
 import { useFormatter, useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
 
-import { toggleProfessionnelActive } from "@/app/[locale]/admin/showrooms/actions"
+import { toggleShowroomActive } from "@/app/[locale]/admin/showrooms/actions"
 import { Card } from "@/components/ui/Card"
 import { Link, useRouter } from "@/i18n/navigation"
 import type { PendingShowroomRow } from "@/lib/queries/admin"
@@ -27,7 +27,7 @@ export function PendingShowroomsWidget({ rows, total }: Props) {
   function approve(row: PendingShowroomRow) {
     setPendingId(row.id)
     startTransition(async () => {
-      const res = await toggleProfessionnelActive({ id: row.id, is_active: true })
+      const res = await toggleShowroomActive({ id: row.id, is_active: true })
       if (!res.ok) {
         toast.error(t("toast.error"))
         setPendingId(null)

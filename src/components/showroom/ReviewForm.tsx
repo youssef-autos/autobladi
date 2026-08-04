@@ -12,12 +12,12 @@ import { useUser } from "@/hooks/use-user"
 import { cn } from "@/lib/utils"
 
 type Props = {
-  professionnelId: string
+  showroomId: string
   alreadyReviewed: boolean
 }
 
-export function ReviewForm({ professionnelId, alreadyReviewed }: Props) {
-  const t = useTranslations("professionnels.reviews")
+export function ReviewForm({ showroomId, alreadyReviewed }: Props) {
+  const t = useTranslations("showrooms.reviews")
   const tNav = useTranslations("nav")
   const { user, loading } = useUser()
   const [rating, setRating] = useState(0)
@@ -58,7 +58,7 @@ export function ReviewForm({ professionnelId, alreadyReviewed }: Props) {
     if (rating < 1) return
     startTransition(async () => {
       const result = await addReview({
-        professionnelId,
+        showroomId,
         rating,
         comment: comment.trim() || undefined,
       })

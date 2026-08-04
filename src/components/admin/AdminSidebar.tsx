@@ -120,11 +120,11 @@ function makeGroups(counts: Counts): Group[] {
       ],
     },
     {
-      labelKey: "professionnels",
+      labelKey: "showrooms",
       items: [
         {
           href: "/admin/showrooms",
-          labelKey: "allProfessionnels",
+          labelKey: "allShowrooms",
           icon: Building2,
           badge: counts.pendingShowrooms,
         },

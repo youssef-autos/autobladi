@@ -7,7 +7,7 @@ import {
 
 export const SORT_VALUES = ["popular", "rating", "newest"] as const
 
-export const professionnelsSearchParams = {
+export const showroomsSearchParams = {
   q: parseAsString.withDefault(""),
   city: parseAsString.withDefault(""),
   minRating: parseAsInteger,
@@ -15,7 +15,7 @@ export const professionnelsSearchParams = {
   page: parseAsInteger.withDefault(1),
 }
 
-export type ProfessionnelsFilters = {
+export type ShowroomSearchFilters = {
   q: string
   city: string
   minRating: number | null
@@ -23,6 +23,6 @@ export type ProfessionnelsFilters = {
   page: number
 }
 
-export const loadProfessionnelsSearchParams = createLoader(
-  professionnelsSearchParams,
+export const loadShowroomsSearchParams = createLoader(
+  showroomsSearchParams,
 )

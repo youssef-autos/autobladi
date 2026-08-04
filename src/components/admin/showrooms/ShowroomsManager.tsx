@@ -16,20 +16,20 @@ import { useFormatter, useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
 
 import {
-  deleteProfessionnel,
-  toggleProfessionnelActive,
-  toggleProfessionnelVerified,
+  deleteShowroom,
+  toggleShowroomActive,
+  toggleShowroomVerified,
 } from "@/app/[locale]/admin/showrooms/actions"
 import { Link } from "@/i18n/navigation"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { EmptyState } from "@/components/ui/EmptyState"
-import type { AdminProfessionnelRow } from "@/lib/queries/admin"
+import type { AdminShowroomRow } from "@/lib/queries/admin"
 import type { Locale } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 
 type Props = {
-  professionnels: AdminProfessionnelRow[]
+  showrooms: AdminShowroomRow[]
 }
 
 function initials(name?: string | null): string {
@@ -42,8 +42,8 @@ function initials(name?: string | null): string {
     .join("")
 }
 
-export function ProfessionnelsManager({ professionnels }: Props) {
-  const t = useTranslations("adminPanel.professionnelsPage")
+export function ShowroomsManager({ showrooms }: Props) {
+  const t = useTranslations("adminPanel.showroomsPage")
   const locale = useLocale() as Locale
   const format = useFormatter()
   const [q, setQ] = useState("")
@@ -52,7 +52,7 @@ export function ProfessionnelsManager({ professionnels }: Props) {
   const [, startTransition] = useTransition()
 
   const filtered = useMemo(() => {
-    let rows = professionnels
+    let rows = showrooms
     if (!showInactive) rows = rows.filter((c) => c.is_active)
     if (q.trim()) {
       const needle = q.trim().toLowerCase()
@@ -64,12 +64,12 @@ export function ProfessionnelsManager({ professionnels }: Props) {
       )
     }
     return rows
-  }, [professionnels, q, showInactive])
+  }, [showrooms, q, showInactive])
 
-  function onToggle(row: AdminProfessionnelRow) {
+  function onToggle(row: AdminShowroomRow) {
     setPendingId(row.id)
     startTransition(async () => {
-      const res = await toggleProfessionnelActive({
+      const res = await toggleShowroomActive({
         id: row.id,
         is_active: !row.is_active,
       })
@@ -82,10 +82,10 @@ export function ProfessionnelsManager({ professionnels }: Props) {
     })
   }
 
-  function onToggleVerified(row: AdminProfessionnelRow) {
+  function onToggleVerified(row: AdminShowroomRow) {
     setPendingId(row.id)
     startTransition(async () => {
-      const res = await toggleProfessionnelVerified({
+      const res = await toggleShowroomVerified({
         id: row.id,
         is_verified: !row.is_verified,
       })
@@ -98,11 +98,11 @@ export function ProfessionnelsManager({ professionnels }: Props) {
     })
   }
 
-  function onDelete(row: AdminProfessionnelRow) {
+  function onDelete(row: AdminShowroomRow) {
     if (!window.confirm(t("deleteConfirm", { name: row.name }))) return
     setPendingId(row.id)
     startTransition(async () => {
-      const res = await deleteProfessionnel(row.id)
+      const res = await deleteShowroom(row.id)
       setPendingId(null)
       if (!res.ok) {
         toast.error(t("toast.error"))
@@ -112,7 +112,7 @@ export function ProfessionnelsManager({ professionnels }: Props) {
     })
   }
 
-  const activeCount = professionnels.filter((c) => c.is_active).length
+  const activeCount = showrooms.filter((c) => c.is_active).length
 
   return (
     <div className="space-y-5">
@@ -144,7 +144,7 @@ export function ProfessionnelsManager({ professionnels }: Props) {
       </div>
 
       <p className="text-xs text-muted-foreground">
-        {t("count", { count: professionnels.length })}
+        {t("count", { count: showrooms.length })}
         {" · "}
         <span className="text-moroccan-mint-500">
           {activeCount} {t("active")}
@@ -152,7 +152,7 @@ export function ProfessionnelsManager({ professionnels }: Props) {
       </p>
 
       {/* Table */}
-      {professionnels.length === 0 ? (
+      {showrooms.length === 0 ? (
         <div className="rounded-2xl bg-card border border-border p-12 shadow-card">
           <EmptyState
             icon={Building2}

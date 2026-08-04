@@ -12,13 +12,13 @@ import {
 } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
 
-import { OpeningHoursDisplay } from "@/components/professionnels/OpeningHoursDisplay"
-import type { ProfessionnelDetail } from "@/lib/queries/professionnels"
+import { OpeningHoursDisplay } from "@/components/showroom/OpeningHoursDisplay"
+import type { ShowroomDetail } from "@/lib/queries/showrooms"
 import type { Locale } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 
 type Props = {
-  dealer: ProfessionnelDetail
+  dealer: ShowroomDetail
 }
 
 function CardHeading({
@@ -74,19 +74,19 @@ function ContactButton({
   )
 }
 
-function cityNameFor(dealer: ProfessionnelDetail, locale: Locale) {
+function cityNameFor(dealer: ShowroomDetail, locale: Locale) {
   if (!dealer.city) return null
   return locale === "ar" ? dealer.city.name_ar : dealer.city.name_fr
 }
 
-function secteurNameFor(dealer: ProfessionnelDetail, locale: Locale) {
+function secteurNameFor(dealer: ShowroomDetail, locale: Locale) {
   if (!dealer.secteur) return null
   return locale === "ar" ? dealer.secteur.name_ar : dealer.secteur.name_fr
 }
 
 /** About: description + address + contact (phone, whatsapp, email). */
 export function DealerAbout({ dealer }: Props) {
-  const t = useTranslations("professionnels")
+  const t = useTranslations("showrooms")
   const locale = useLocale() as Locale
   const cityName = cityNameFor(dealer, locale)
   const secteurName = secteurNameFor(dealer, locale)
@@ -153,7 +153,7 @@ export function DealerAbout({ dealer }: Props) {
 
 /** Opening hours. */
 export function DealerHours({ dealer }: Props) {
-  const t = useTranslations("professionnels.about")
+  const t = useTranslations("showrooms.about")
   return (
     <section className="rounded-2xl border border-border bg-card p-5 shadow-card">
       <CardHeading icon={Clock} title={t("hours")} />
@@ -166,7 +166,7 @@ export function DealerHours({ dealer }: Props) {
 
 /** Location map. */
 export function DealerLocation({ dealer }: Props) {
-  const t = useTranslations("professionnels.about")
+  const t = useTranslations("showrooms.about")
   const locale = useLocale() as Locale
   const cityName = cityNameFor(dealer, locale)
   const secteurName = secteurNameFor(dealer, locale)

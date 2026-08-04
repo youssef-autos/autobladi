@@ -21,7 +21,7 @@ import {
   countOtherAnnoncesByUser,
   getAnnonceBySlug,
 } from "@/lib/queries/annonce-detail"
-import { getShowroomByUserId } from "@/lib/queries/professionnels"
+import { getShowroomByUserId } from "@/lib/queries/showrooms"
 import { localeAlternates } from "@/lib/seo/alternates"
 
 export const dynamic = "force-static"

@@ -6,7 +6,7 @@ import { Building2, ImageIcon, Save, Sparkles, Upload } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
 
-import { updateMyProfessionnel } from "@/app/[locale]/dashboard/showroom/actions"
+import { updateMyShowroom } from "@/app/[locale]/dashboard/showroom/actions"
 import { MapPicker } from "@/components/dashboard/showroom/MapPicker"
 import { OpeningHoursEditor } from "@/components/dashboard/showroom/OpeningHoursEditor"
 import { Card } from "@/components/ui/Card"
@@ -17,25 +17,25 @@ import { Textarea } from "@/components/ui/textarea"
 import { createClient } from "@/lib/supabase/client"
 import {
   DEFAULT_HOURS,
-  type ProfessionnelInfoInput,
+  type ShowroomInfoInput,
   type OpeningHoursMap,
-} from "@/lib/validations/professionnel"
-import type { ProfessionnelDetail } from "@/lib/queries/professionnels"
+} from "@/lib/validations/showroom"
+import type { ShowroomDetail } from "@/lib/queries/showrooms"
 import type { City, Secteur } from "@/lib/queries/home"
 import type { Locale } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 
 type Props = {
-  dealer: ProfessionnelDetail
+  dealer: ShowroomDetail
   cities: City[]
   secteurs: Secteur[]
 }
 
 // Storage bucket keeps its original id "concessionnaires" so existing image
 // URLs stay valid (the bucket is internal and never shown to users).
-const PROFESSIONNELS_BUCKET = "concessionnaires"
+const SHOWROOM_BUCKET = "concessionnaires"
 
-async function uploadProfessionnelImage(
+async function uploadShowroomImage(
   file: File,
   kind: "logo" | "cover",
   userId: string,
@@ -44,10 +44,10 @@ async function uploadProfessionnelImage(
   const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg"
   const path = `${userId}/${kind}-${Date.now()}.${ext}`
   const { error } = await supabase.storage
-    .from(PROFESSIONNELS_BUCKET)
+    .from(SHOWROOM_BUCKET)
     .upload(path, file, { contentType: file.type, upsert: false })
   if (error) throw error
-  const { data } = supabase.storage.from(PROFESSIONNELS_BUCKET).getPublicUrl(path)
+  const { data } = supabase.storage.from(SHOWROOM_BUCKET).getPublicUrl(path)
   return data.publicUrl
 }
 
@@ -92,7 +92,7 @@ export function ShowroomInfoForm({ dealer, cities, secteurs }: Props) {
   ) {
     busySetter(true)
     try {
-      const url = await uploadProfessionnelImage(file, kind, dealer.user_id)
+      const url = await uploadShowroomImage(file, kind, dealer.user_id)
       setter(url)
     } catch (err) {
       toast.error(err instanceof Error ? err.message : t("errorTitle"))
@@ -136,7 +136,7 @@ export function ShowroomInfoForm({ dealer, cities, secteurs }: Props) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    const payload: ProfessionnelInfoInput = {
+    const payload: ShowroomInfoInput = {
       name,
       slug: slug.toLowerCase().replace(/\s+/g, "-"),
       description: description.trim() || null,
@@ -159,7 +159,7 @@ export function ShowroomInfoForm({ dealer, cities, secteurs }: Props) {
       opening_hours: hours,
     }
     startTransition(async () => {
-      const result = await updateMyProfessionnel(payload)
+      const result = await updateMyShowroom(payload)
       if (!result.ok) {
         toast.error(t("errorTitle"), { description: result.error })
         return

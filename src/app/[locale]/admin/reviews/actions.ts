@@ -34,7 +34,7 @@ export async function deleteReview(input: unknown): Promise<ReviewResult> {
   if (!ctx) return { ok: false, error: "forbidden" }
 
   const { error } = await ctx.supabase
-    .from("professionnel_reviews")
+    .from("showroom_reviews")
     .delete()
     .eq("id", parsed.data)
   if (error) return { ok: false, error: error.message }

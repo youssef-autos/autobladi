@@ -5,7 +5,7 @@ import { z } from "zod"
 
 import { createClient } from "@/lib/supabase/server"
 
-export type ProfessionnelResult = { ok: true } | { ok: false; error: string }
+export type ShowroomResult = { ok: true } | { ok: false; error: string }
 
 async function adminClient() {
   const supabase = await createClient()
@@ -30,16 +30,16 @@ function revalidate() {
 
 const toggleSchema = z.object({ id: z.uuid(), is_active: z.boolean() })
 
-export async function toggleProfessionnelActive(
+export async function toggleShowroomActive(
   input: unknown,
-): Promise<ProfessionnelResult> {
+): Promise<ShowroomResult> {
   const parsed = toggleSchema.safeParse(input)
   if (!parsed.success) return { ok: false, error: "invalid_input" }
   const ctx = await adminClient()
   if (!ctx) return { ok: false, error: "forbidden" }
 
   const { error } = await ctx.supabase
-    .from("professionnels")
+    .from("showrooms")
     .update({ is_active: parsed.data.is_active } as never)
     .eq("id", parsed.data.id)
   if (error) return { ok: false, error: error.message }
@@ -50,16 +50,16 @@ export async function toggleProfessionnelActive(
 
 const toggleVerifiedSchema = z.object({ id: z.uuid(), is_verified: z.boolean() })
 
-export async function toggleProfessionnelVerified(
+export async function toggleShowroomVerified(
   input: unknown,
-): Promise<ProfessionnelResult> {
+): Promise<ShowroomResult> {
   const parsed = toggleVerifiedSchema.safeParse(input)
   if (!parsed.success) return { ok: false, error: "invalid_input" }
   const ctx = await adminClient()
   if (!ctx) return { ok: false, error: "forbidden" }
 
   const { error } = await ctx.supabase
-    .from("professionnels")
+    .from("showrooms")
     .update({ is_verified: parsed.data.is_verified } as never)
     .eq("id", parsed.data.id)
   if (error) return { ok: false, error: error.message }
@@ -70,16 +70,16 @@ export async function toggleProfessionnelVerified(
 
 const idSchema = z.uuid()
 
-export async function deleteProfessionnel(
+export async function deleteShowroom(
   input: unknown,
-): Promise<ProfessionnelResult> {
+): Promise<ShowroomResult> {
   const parsed = idSchema.safeParse(input)
   if (!parsed.success) return { ok: false, error: "invalid_id" }
   const ctx = await adminClient()
   if (!ctx) return { ok: false, error: "forbidden" }
 
   const { error } = await ctx.supabase
-    .from("professionnels")
+    .from("showrooms")
     .delete()
     .eq("id", parsed.data)
   if (error) return { ok: false, error: error.message }

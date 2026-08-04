@@ -6,7 +6,7 @@ import { CreateShowroomWizard } from "@/components/dashboard/showroom/CreateShow
 import { ShowroomInfoForm } from "@/components/dashboard/showroom/InfoForm"
 import { Link } from "@/i18n/navigation"
 import { createClient } from "@/lib/supabase/server"
-import { getMyProfessionnel } from "@/lib/queries/professionnels"
+import { getMyShowroom } from "@/lib/queries/showrooms"
 import { getCities, getSecteurs } from "@/lib/queries/home"
 
 export const dynamic = "force-dynamic"
@@ -27,7 +27,7 @@ export default async function ShowroomDashboardPage({
   if (!user) redirect(`/${locale}/auth/connexion?returnTo=/${locale}/dashboard/showroom`)
 
   const [dealer, cities, secteurs] = await Promise.all([
-    getMyProfessionnel(),
+    getMyShowroom(),
     getCities(),
     getSecteurs(),
   ])

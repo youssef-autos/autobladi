@@ -30,9 +30,9 @@ type Props = {
  * Dealer card for the public directory (/showrooms): 3:1 cover with an
  * overlapping logo medallion, name + verified badge, city and listing count.
  */
-export function ProfessionnelListCard({ dealer, className }: Props) {
+export function ShowroomListCard({ dealer, className }: Props) {
   const locale = useLocale() as Locale
-  const t = useTranslations("professionnels.list")
+  const t = useTranslations("showrooms.list")
   const cityName = dealer.city
     ? locale === "ar"
       ? dealer.city.name_ar

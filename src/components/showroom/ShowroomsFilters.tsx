@@ -5,7 +5,7 @@ import { Search, X } from "lucide-react"
 import { useLocale, useTranslations } from "next-intl"
 import { useQueryStates } from "nuqs"
 
-import { professionnelsSearchParams } from "@/components/professionnels/searchParams"
+import { showroomsSearchParams } from "@/components/showroom/searchParams"
 import { Combobox, type ComboboxOption } from "@/components/ui/combobox"
 import {
   Select,
@@ -23,10 +23,10 @@ type Props = {
 const RATING_OPTIONS = [4, 3] as const
 const SORT_OPTIONS = ["popular", "rating", "newest"] as const
 
-export function ProfessionnelsFilters({ cities }: Props) {
-  const t = useTranslations("professionnels.list")
+export function ShowroomsFilters({ cities }: Props) {
+  const t = useTranslations("showrooms.list")
   const locale = useLocale() as Locale
-  const [filters, setFilters] = useQueryStates(professionnelsSearchParams, {
+  const [filters, setFilters] = useQueryStates(showroomsSearchParams, {
     shallow: false,
   })
 

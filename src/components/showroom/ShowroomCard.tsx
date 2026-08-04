@@ -20,7 +20,7 @@ type Props = {
  * public listing card: 3:1 cover, overlapping logo medallion, rating + cars
  * count, and a clear CTA.
  */
-export function ProfessionnelCard({ dealer, className }: Props) {
+export function ShowroomCard({ dealer, className }: Props) {
   const locale = useLocale() as Locale
   const t = useTranslations("home.topDealers")
   const cityName = dealer.city

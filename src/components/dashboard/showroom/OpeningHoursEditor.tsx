@@ -7,7 +7,7 @@ import {
   DAY_KEYS,
   type DayKey,
   type OpeningHoursMap,
-} from "@/lib/validations/professionnel"
+} from "@/lib/validations/showroom"
 import { cn } from "@/lib/utils"
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
 
 export function OpeningHoursEditor({ value, onChange }: Props) {
   const t = useTranslations("showroom.hours")
-  const tDays = useTranslations("professionnels.about.days")
+  const tDays = useTranslations("showrooms.about.days")
 
   function patch(day: DayKey, change: Partial<OpeningHoursMap[DayKey]>) {
     onChange({ ...value, [day]: { ...value[day], ...change } })

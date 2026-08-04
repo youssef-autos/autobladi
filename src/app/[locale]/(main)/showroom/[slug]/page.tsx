@@ -7,22 +7,22 @@ import { getTranslations, setRequestLocale } from "next-intl/server"
 import { AdBanner } from "@/components/ads/AdBanner"
 import { JsonLd } from "@/components/seo/JsonLd"
 import { autoDealerSchema, breadcrumbSchema } from "@/lib/seo/structured-data"
-import { ProfessionnelHeader } from "@/components/professionnels/ProfessionnelHeader"
-import { DealerCars } from "@/components/professionnels/DealerCars"
+import { ShowroomHeader } from "@/components/showroom/ShowroomHeader"
+import { DealerCars } from "@/components/showroom/DealerCars"
 import {
   DealerAbout,
   DealerHours,
   DealerLocation,
-} from "@/components/professionnels/DealerInfoSections"
-import { ReviewsTab } from "@/components/professionnels/ReviewsTab"
+} from "@/components/showroom/DealerInfoSections"
+import { ReviewsTab } from "@/components/showroom/ReviewsTab"
 import { Container } from "@/components/ui/Container"
 import { Link } from "@/i18n/navigation"
 import {
-  getProfessionnelBySlug,
+  getShowroomBySlug,
   getMyReviewFor,
-  listProfessionnelAnnonces,
+  listShowroomAnnonces,
   listReviews,
-} from "@/lib/queries/professionnels"
+} from "@/lib/queries/showrooms"
 import { localeAlternates } from "@/lib/seo/alternates"
 
 export const revalidate = 60
@@ -35,7 +35,7 @@ export async function generateMetadata({
   params: Promise<RouteParams>
 }): Promise<Metadata> {
   const { locale, slug } = await params
-  const dealer = await getProfessionnelBySlug(slug)
+  const dealer = await getShowroomBySlug(slug)
   if (!dealer) return { title: "Not found" }
   const description =
     dealer.description?.slice(0, 160) ?? `${dealer.name} — autobladi.ma`
@@ -52,30 +52,30 @@ export async function generateMetadata({
   }
 }
 
-export default async function ProfessionnelDetailPage({
+export default async function ShowroomDetailPage({
   params,
 }: {
   params: Promise<RouteParams>
 }) {
   const { locale, slug } = await params
   setRequestLocale(locale)
-  const dealer = await getProfessionnelBySlug(slug)
+  const dealer = await getShowroomBySlug(slug)
   if (!dealer) notFound()
 
   const [cars, reviews, myReview] = await Promise.all([
-    listProfessionnelAnnonces(dealer.user_id),
+    listShowroomAnnonces(dealer.user_id),
     listReviews(dealer.id),
     getMyReviewFor(dealer.id),
   ])
-  const t = await getTranslations("professionnels")
+  const t = await getTranslations("showrooms")
 
   return (
     <>
-      <ProfessionnelHeader dealer={dealer} />
+      <ShowroomHeader dealer={dealer} />
 
       <Container className="pt-6">
         <Suspense fallback={<div className="h-[120px] md:h-[150px] rounded-2xl bg-muted animate-pulse" />}>
-          <AdBanner placement="professionnel_top" />
+          <AdBanner placement="showroom_top" />
         </Suspense>
       </Container>
 
@@ -96,7 +96,7 @@ export default async function ProfessionnelDetailPage({
             <section>
               <SectionHeading title={t("tabs.reviews")} />
               <ReviewsTab
-                professionnelId={dealer.id}
+                showroomId={dealer.id}
                 averageRating={dealer.rating}
                 reviewsCount={dealer.reviews_count}
                 reviews={reviews}
@@ -106,7 +106,7 @@ export default async function ProfessionnelDetailPage({
 
             {/* Vertical ad slot — fits the narrow info column. */}
             <Suspense fallback={<div className="h-[600px] w-full max-w-[300px] mx-auto rounded-2xl bg-muted animate-pulse" />}>
-              <AdBanner placement="professionnel_sidebar" />
+              <AdBanner placement="showroom_sidebar" />
             </Suspense>
           </div>
 

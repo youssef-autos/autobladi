@@ -48,7 +48,7 @@ function entriesFor({
 
 /**
  * Generates the site's XML sitemap. We hit Supabase for the dynamic
- * branches (annonces, professionnels, blog posts, blog categories) and
+ * branches (annonces, showrooms, blog posts, blog categories) and
  * combine them with the static top-level pages — each with hreflang.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -111,9 +111,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }),
   )
 
-  // Professionnels
+  // Showrooms
   const { data: dealers } = await supabase
-    .from("professionnels")
+    .from("showrooms")
     .select("slug, updated_at")
     .eq("is_active", true)
   type DealerRow = { slug: string; updated_at: string }

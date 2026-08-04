@@ -16,7 +16,7 @@ type Props = {
 }
 
 export function DealerCars({ cars }: Props) {
-  const t = useTranslations("professionnels")
+  const t = useTranslations("showrooms")
   const [filter, setFilter] = useState<Filter>("all")
 
   const counts = {

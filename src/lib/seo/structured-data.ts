@@ -135,7 +135,7 @@ export function vehicleSchema(v: VehicleInput) {
 }
 
 // ---------------------------------------------------------------------------
-// AutoDealer / LocalBusiness — professionnel detail
+// AutoDealer / LocalBusiness — showroom detail
 // ---------------------------------------------------------------------------
 export type AutoDealerInput = {
   locale: string
@@ -256,7 +256,7 @@ export function breadcrumbSchema(items: BreadcrumbItem[]) {
 }
 
 // ---------------------------------------------------------------------------
-// CollectionPage — annonces / professionnels listing pages
+// CollectionPage — annonces / showrooms listing pages
 // ---------------------------------------------------------------------------
 export function collectionSchema(opts: {
   locale: string
@@ -293,7 +293,7 @@ export function faqSchema(items: FaqItem[]) {
 }
 
 // ---------------------------------------------------------------------------
-// ItemList — listing/grid pages (annonces, professionnels) so search engines
+// ItemList — listing/grid pages (annonces, showrooms) so search engines
 // understand the page as an ordered collection of items.
 // ---------------------------------------------------------------------------
 export type ItemListEntry = { url: string; name: string }

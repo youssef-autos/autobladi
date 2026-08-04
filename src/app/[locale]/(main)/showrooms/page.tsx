@@ -2,15 +2,15 @@ import type { Metadata } from "next"
 import { Building2 } from "lucide-react"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 
-import { ProfessionnelListCard } from "@/components/professionnels/ProfessionnelListCard"
-import { ProfessionnelsFilters } from "@/components/professionnels/ProfessionnelsFilters"
-import { loadProfessionnelsSearchParams } from "@/components/professionnels/searchParams"
+import { ShowroomListCard } from "@/components/showroom/ShowroomListCard"
+import { ShowroomsFilters } from "@/components/showroom/ShowroomsFilters"
+import { loadShowroomsSearchParams } from "@/components/showroom/searchParams"
 import { PaginationControls } from "@/components/annonces/PaginationControls"
 import { Container } from "@/components/ui/Container"
 import { EmptyState } from "@/components/ui/EmptyState"
 import { GoldAccent } from "@/components/ui/GoldAccent"
 import { getCities } from "@/lib/queries/home"
-import { listProfessionnels } from "@/lib/queries/professionnels"
+import { listShowrooms } from "@/lib/queries/showrooms"
 import { localeAlternates } from "@/lib/seo/alternates"
 import { JsonLd } from "@/components/seo/JsonLd"
 import { itemListSchema } from "@/lib/seo/structured-data"
@@ -27,7 +27,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
-  const t = await getTranslations({ locale, namespace: "professionnels" })
+  const t = await getTranslations({ locale, namespace: "showrooms" })
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
@@ -35,7 +35,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function ProfessionnelsPage({
+export default async function ShowroomsPage({
   params,
   searchParams,
 }: {
@@ -44,12 +44,12 @@ export default async function ProfessionnelsPage({
 }) {
   const { locale } = await params
   setRequestLocale(locale)
-  const t = await getTranslations("professionnels.list")
+  const t = await getTranslations("showrooms.list")
 
-  const filters = await loadProfessionnelsSearchParams(searchParams)
+  const filters = await loadShowroomsSearchParams(searchParams)
   const [cities, result] = await Promise.all([
     getCities(),
-    listProfessionnels({
+    listShowrooms({
       q: filters.q || undefined,
       city: filters.city || undefined,
       minRating: filters.minRating ?? undefined,
@@ -69,7 +69,7 @@ export default async function ProfessionnelsPage({
           <p className="text-muted-foreground">{t("subtitle")}</p>
         </header>
 
-        <ProfessionnelsFilters cities={cities} />
+        <ShowroomsFilters cities={cities} />
 
         <p className="mt-6 mb-4 text-sm text-muted-foreground">
           {t("resultsCount", { count: result.total })}
@@ -87,7 +87,7 @@ export default async function ProfessionnelsPage({
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4 items-stretch">
             {result.items.map((dealer) => (
               <li key={dealer.id} className="flex">
-                <ProfessionnelListCard dealer={dealer} className="w-full" />
+                <ShowroomListCard dealer={dealer} className="w-full" />
               </li>
             ))}
           </ul>

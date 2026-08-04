@@ -14,7 +14,7 @@ import {
   LinkedinIcon,
   YoutubeIcon,
 } from "@/components/layout/SocialIcons"
-import { TikTokIcon } from "../professionnels/socials"
+import { TikTokIcon } from "../showroom/socials"
 
 export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
   const t = await getTranslations("footer")

@@ -168,8 +168,8 @@ export const AD_SLOTS: Record<string, AdSlotConfig> = {
   },
 
   // ---- Showroom detail --------------------------------------------------
-  professionnel_top: {
-    id: "professionnel_top",
+  showroom_top: {
+    id: "showroom_top",
     label: "Showroom — Haut",
     enabled: true,
     device: "both",
@@ -178,8 +178,8 @@ export const AD_SLOTS: Record<string, AdSlotConfig> = {
     sizes: { desktop: { width: 728, height: 90 }, mobile: { width: 320, height: 100 } },
     lazy: false,
   },
-  professionnel_sidebar: {
-    id: "professionnel_sidebar",
+  showroom_sidebar: {
+    id: "showroom_sidebar",
     label: "Showroom — Colonne latérale",
     enabled: true,
     device: "desktop",

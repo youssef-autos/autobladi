@@ -20,7 +20,7 @@ import {
 import { useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
 
-import { submitProfessionnel } from "@/app/[locale]/dashboard/showroom/actions"
+import { submitShowroom } from "@/app/[locale]/dashboard/showroom/actions"
 import { MapPicker } from "@/components/dashboard/showroom/MapPicker"
 import { OpeningHoursEditor } from "@/components/dashboard/showroom/OpeningHoursEditor"
 import { Combobox } from "@/components/ui/combobox"
@@ -31,9 +31,9 @@ import { useRouter } from "@/i18n/navigation"
 import { createClient } from "@/lib/supabase/client"
 import {
   DEFAULT_HOURS,
-  type ProfessionnelInfoInput,
+  type ShowroomInfoInput,
   type OpeningHoursMap,
-} from "@/lib/validations/professionnel"
+} from "@/lib/validations/showroom"
 import type { City, Secteur } from "@/lib/queries/home"
 import type { Locale } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
@@ -47,7 +47,7 @@ type Props = {
 // Storage bucket keeps its original id "concessionnaires" so existing image
 // URLs stay valid. Images are uploaded under the user id, so they can be
 // stored before the showroom row exists.
-const PROFESSIONNELS_BUCKET = "concessionnaires"
+const SHOWROOM_BUCKET = "concessionnaires"
 
 const STEP_KEYS = ["design", "info", "contact", "preview"] as const
 type StepKey = (typeof STEP_KEYS)[number]
@@ -74,10 +74,10 @@ async function uploadImage(
   const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg"
   const path = `${userId}/${kind}-${Date.now()}.${ext}`
   const { error } = await supabase.storage
-    .from(PROFESSIONNELS_BUCKET)
+    .from(SHOWROOM_BUCKET)
     .upload(path, file, { contentType: file.type, upsert: false })
   if (error) throw error
-  return supabase.storage.from(PROFESSIONNELS_BUCKET).getPublicUrl(path).data.publicUrl
+  return supabase.storage.from(SHOWROOM_BUCKET).getPublicUrl(path).data.publicUrl
 }
 
 export function CreateShowroomWizard({ userId, cities, secteurs }: Props) {
@@ -176,7 +176,7 @@ export function CreateShowroomWizard({ userId, cities, secteurs }: Props) {
       toast.error(tc("slugRequired"))
       return
     }
-    const payload: ProfessionnelInfoInput = {
+    const payload: ShowroomInfoInput = {
       name: name.trim(),
       slug: effectiveSlug,
       description: description.trim() || null,
@@ -199,7 +199,7 @@ export function CreateShowroomWizard({ userId, cities, secteurs }: Props) {
       opening_hours: hours,
     }
     startTransition(async () => {
-      const res = await submitProfessionnel(payload)
+      const res = await submitShowroom(payload)
       if (!res.ok) {
         if (res.error === "slug_taken") {
           setStep(1)

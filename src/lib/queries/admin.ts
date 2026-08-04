@@ -16,7 +16,7 @@ export type AdminCounts = {
   totalAnnonces: number
   activeAnnonces: number
   pendingAnnonces: number
-  professionnels: number
+  showrooms: number
   pendingShowrooms: number
   pendingReports: number
 }
@@ -34,7 +34,7 @@ export async function getAdminCounts(): Promise<AdminCounts> {
     totalRes,
     activeRes,
     pendingAnnRes,
-    concRes,
+    showroomsRes,
     pendingShowroomsRes,
     reportsRes,
   ] = await Promise.all([
@@ -52,9 +52,9 @@ export async function getAdminCounts(): Promise<AdminCounts> {
       .from("annonces")
       .select("id", { count: "exact", head: true })
       .eq("status", "pending"),
-    supabase.from("professionnels").select("id", { count: "exact", head: true }),
+    supabase.from("showrooms").select("id", { count: "exact", head: true }),
     supabase
-      .from("professionnels")
+      .from("showrooms")
       .select("id", { count: "exact", head: true })
       .eq("is_active", false),
     supabase
@@ -68,7 +68,7 @@ export async function getAdminCounts(): Promise<AdminCounts> {
     totalAnnonces: totalRes.count ?? 0,
     activeAnnonces: activeRes.count ?? 0,
     pendingAnnonces: pendingAnnRes.count ?? 0,
-    professionnels: concRes.count ?? 0,
+    showrooms: showroomsRes.count ?? 0,
     pendingShowrooms: pendingShowroomsRes.count ?? 0,
     pendingReports: reportsRes.count ?? 0,
   }
@@ -215,9 +215,9 @@ export async function listAllAnnoncesAdmin(
 }
 
 // ---------------------------------------------------------------------------
-// Professionnels — admin list joined with city + owner + annonces count
+// Showrooms — admin list joined with city + owner + annonces count
 // ---------------------------------------------------------------------------
-export type AdminProfessionnelRow = {
+export type AdminShowroomRow = {
   id: string
   name: string
   slug: string
@@ -232,26 +232,26 @@ export type AdminProfessionnelRow = {
   annonces_count: number
 }
 
-type RawProfessionnel = Tables<"professionnels"> & {
+type RawShowroom = Tables<"showrooms"> & {
   cities: { name_ar: string; name_fr: string } | null
   profiles: { id: string; full_name: string | null; avatar_url: string | null } | null
 }
 
-export async function listAllProfessionnelsAdmin(): Promise<
-  AdminProfessionnelRow[]
+export async function listAllShowroomsAdmin(): Promise<
+  AdminShowroomRow[]
 > {
   const supabase = await createClient()
   const { data } = await supabase
-    .from("professionnels")
+    .from("showrooms")
     .select(`
       id, user_id, name, slug, logo_url, rating, reviews_count, is_active, is_verified, created_at,
       cities(name_ar, name_fr),
       profiles(id, full_name, avatar_url)
     `)
     .order("created_at", { ascending: false })
-  const rows = (data ?? []) as unknown as RawProfessionnel[]
+  const rows = (data ?? []) as unknown as RawShowroom[]
 
-  // Count active annonces per owner (professionnels & annonces both key on user_id)
+  // Count active annonces per owner (showrooms & annonces both key on user_id)
   const { data: annonceRows } = await supabase
     .from("annonces")
     .select("user_id")
@@ -292,7 +292,7 @@ export type PendingShowroomRow = {
 }
 
 type RawPendingShowroom = Pick<
-  Tables<"professionnels">,
+  Tables<"showrooms">,
   "id" | "name" | "slug" | "logo_url" | "created_at"
 > & {
   cities: { name_ar: string; name_fr: string } | null
@@ -304,7 +304,7 @@ export async function listPendingShowroomsAdmin(
 ): Promise<PendingShowroomRow[]> {
   const supabase = await createClient()
   const { data } = await supabase
-    .from("professionnels")
+    .from("showrooms")
     .select(`
       id, name, slug, logo_url, created_at,
       cities(name_ar, name_fr),
@@ -326,7 +326,7 @@ export async function listPendingShowroomsAdmin(
 }
 
 // ---------------------------------------------------------------------------
-// Professionnel reviews — moderation (admins may delete abusive reviews)
+// Showroom reviews — moderation (admins may delete abusive reviews)
 // ---------------------------------------------------------------------------
 export type AdminReviewRow = {
   id: string
@@ -337,18 +337,18 @@ export type AdminReviewRow = {
   author: { id: string; full_name: string | null; avatar_url: string | null } | null
 }
 
-type RawReviewRow = Tables<"professionnel_reviews"> & {
-  professionnels: { id: string; name: string; slug: string; logo_url: string | null } | null
+type RawReviewRow = Tables<"showroom_reviews"> & {
+  showrooms: { id: string; name: string; slug: string; logo_url: string | null } | null
   profiles: { id: string; full_name: string | null; avatar_url: string | null } | null
 }
 
 export async function listReviewsAdmin(): Promise<AdminReviewRow[]> {
   const supabase = await createClient()
   const { data, error } = await supabase
-    .from("professionnel_reviews")
+    .from("showroom_reviews")
     .select(`
       id, rating, comment, created_at,
-      professionnels(id, name, slug, logo_url),
+      showrooms(id, name, slug, logo_url),
       profiles!user_id(id, full_name, avatar_url)
     `)
     .order("created_at", { ascending: false })
@@ -359,7 +359,7 @@ export async function listReviewsAdmin(): Promise<AdminReviewRow[]> {
     rating: r.rating,
     comment: r.comment,
     created_at: r.created_at,
-    dealer: r.professionnels,
+    dealer: r.showrooms,
     author: r.profiles,
   }))
 }

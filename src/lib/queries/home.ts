@@ -35,7 +35,7 @@ export async function getLatestAnnonces(limit = 8): Promise<AnnonceCardData[]> {
 }
 
 export type DealerCardData = Pick<
-  Tables<"professionnels">,
+  Tables<"showrooms">,
   "id" | "name" | "slug" | "logo_url" | "cover_url" | "rating" | "reviews_count"
 > & {
   city: { name_ar: string; name_fr: string } | null
@@ -57,7 +57,7 @@ type DealerRow = {
 export async function getTopDealers(limit = 6): Promise<DealerCardData[]> {
   const supabase = await createClient()
   const { data } = await supabase
-    .from("professionnels")
+    .from("showrooms")
     .select(
       `id, user_id, name, slug, logo_url, cover_url, rating, reviews_count,
        cities(name_ar, name_fr)`,

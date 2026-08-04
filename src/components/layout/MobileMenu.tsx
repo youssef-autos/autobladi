@@ -50,7 +50,7 @@ export function MobileMenu({
   const items: NavItem[] = [
     { href: "/", label: t("home"), icon: Home },
     { href: "/annonces", label: t("annonces"), icon: Car },
-    { href: "/showrooms", label: t("professionnels"), icon: Building2 },
+    { href: "/showrooms", label: t("showrooms"), icon: Building2 },
     { href: "/estimation", label: t("estimation"), icon: Calculator },
     { href: "/comparer", label: t("compare"), icon: GitCompare },
     { href: "/blog", label: t("blog"), icon: Newspaper },

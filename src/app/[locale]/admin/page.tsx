@@ -75,8 +75,8 @@ export default async function AdminDashboardPage({
       urgent: counts.pendingAnnonces > 0,
     },
     {
-      label: t("stats.professionnels"),
-      value: counts.professionnels,
+      label: t("stats.showrooms"),
+      value: counts.showrooms,
       icon: Building2,
       accent: "default",
       href: "/admin/showrooms",
