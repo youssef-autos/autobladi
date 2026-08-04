@@ -1,5 +1,6 @@
 import "server-only"
 
+import { cache } from "react"
 import { createClient } from "@/lib/supabase/server"
 import type { Tables } from "@/types/database.types"
 import type { OpeningHoursMap } from "@/lib/validations/professionnel"
@@ -200,7 +201,9 @@ type DetailRow = Tables<"professionnels"> & {
   } | null
 }
 
-export async function getProfessionnelBySlug(
+// Wrapped in React.cache() — generateMetadata and the page body both call
+// this for the same slug on every request; caching dedupes the DB round-trip.
+export const getProfessionnelBySlug = cache(async function getProfessionnelBySlug(
   slug: string,
 ): Promise<ProfessionnelDetail | null> {
   const supabase = await createClient()
@@ -258,7 +261,7 @@ export async function getProfessionnelBySlug(
     annonces_count: count ?? 0,
     owner: row.profiles,
   }
-}
+})
 
 /**
  * The active showroom (professionnel) owned by a given user, or null. Used on

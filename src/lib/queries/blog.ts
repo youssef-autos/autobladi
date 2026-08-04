@@ -1,5 +1,6 @@
 import "server-only"
 
+import { cache } from "react"
 import { getLocale } from "next-intl/server"
 
 import { createClient } from "@/lib/supabase/server"
@@ -214,7 +215,9 @@ export async function getFeaturedPost(): Promise<BlogPostCard | null> {
 // ---------------------------------------------------------------------------
 // Detail
 // ---------------------------------------------------------------------------
-export async function getPostBySlug(
+// Wrapped in React.cache() — generateMetadata and the page body both call
+// this for the same slug on every request; caching dedupes the DB round-trip.
+export const getPostBySlug = cache(async function getPostBySlug(
   slug: string,
 ): Promise<BlogPostDetail | null> {
   const supabase = await createClient()
@@ -232,7 +235,7 @@ export async function getPostBySlug(
     content: localizedContent(row, locale),
     meta_description: pick(locale, row.meta_description, row.meta_description_fr),
   }
-}
+})
 
 // ---------------------------------------------------------------------------
 // Related (same category, excluding current)

@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import { useEffect, useState } from "react"
 import {
   Camera,
   CalendarDays,
@@ -60,9 +61,20 @@ export function CarCard({ annonce, className }: Props) {
     ? fuelLabels[annonce.fuel_type]?.[locale] ?? annonce.fuel_type
     : null
 
-  const publishedRelative = annonce.published_at
-    ? format.relativeTime(new Date(annonce.published_at), new Date())
-    : null
+  // "Now" differs between the server-render instant and the client-hydration
+  // instant, so computing relative time during render can make the server
+  // and client text disagree (hydration mismatch). Default to null (matches
+  // between both passes) and fill in the real value right after mount.
+  const [publishedRelative, setPublishedRelative] = useState<string | null>(null)
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPublishedRelative(
+      annonce.published_at
+        ? format.relativeTime(new Date(annonce.published_at), new Date())
+        : null,
+    )
+  }, [annonce.published_at, format])
 
   return (
     <Card

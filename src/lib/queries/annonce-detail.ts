@@ -1,5 +1,6 @@
 import "server-only"
 
+import { cache } from "react"
 import { createClient } from "@/lib/supabase/server"
 import {
   ANNONCE_CARD_SELECT,
@@ -143,7 +144,11 @@ function mapDetail(row: AnnonceDetailRow): AnnonceDetail {
   }
 }
 
-export async function getAnnonceBySlug(slug: string): Promise<AnnonceDetail | null> {
+// Wrapped in React.cache() — generateMetadata and the page body both call
+// this for the same slug on every request; caching dedupes the DB round-trip.
+export const getAnnonceBySlug = cache(async function getAnnonceBySlug(
+  slug: string,
+): Promise<AnnonceDetail | null> {
   const supabase = await createClient()
   const { data } = await supabase
     .from("annonces")
@@ -153,7 +158,7 @@ export async function getAnnonceBySlug(slug: string): Promise<AnnonceDetail | nu
     .maybeSingle()
   if (!data) return null
   return mapDetail(data as unknown as AnnonceDetailRow)
-}
+})
 
 export async function getSimilarAnnonces(
   source: AnnonceDetail,

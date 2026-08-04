@@ -32,6 +32,10 @@ export function ShareMenu({ url, title, shareText, className, compact }: Props) 
   const [canShare, setCanShare] = useState(false)
 
   useEffect(() => {
+    // navigator.share is a browser-only API; canShare defaults to false for
+    // SSR, then this corrects it right after mount. No effect-free way to
+    // read it safely.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCanShare(typeof navigator.share === "function")
   }, [])
 

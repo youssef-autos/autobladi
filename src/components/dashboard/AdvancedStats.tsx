@@ -54,6 +54,10 @@ export function AdvancedStats() {
   }, [])
 
   useEffect(() => {
+    // load() sets the loading flag synchronously before its fetch, by design
+    // (the spinner should show immediately). Standard fetch-on-mount-and-on-
+    // change effect.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     load(days)
   }, [days, load])
 

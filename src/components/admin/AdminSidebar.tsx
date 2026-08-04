@@ -197,6 +197,11 @@ export function AdminSidebar({ profile, counts, logoUrl }: Props) {
   // deliberately runs post-mount rather than during the initial render).
   useEffect(() => {
     try {
+      // localStorage is unavailable during SSR; this corrects the SSR-safe
+      // default (expanded) to the persisted preference right after mount.
+      // No effect-free alternative exists for reading a browser-only API
+      // without risking a hydration mismatch.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCollapsed(localStorage.getItem(COLLAPSE_KEY) === "1")
     } catch {
       // Storage unavailable (private mode, etc.) — default expanded is fine.
@@ -228,14 +233,17 @@ export function AdminSidebar({ profile, counts, logoUrl }: Props) {
   )
 
   // Navigating into a different group auto-expands it (without collapsing
-  // groups the admin opened manually).
-  useEffect(() => {
-    if (activeKey) {
-      setOpenGroups((prev) =>
-        prev[activeKey] ? prev : { ...prev, [activeKey]: true },
-      )
+  // groups the admin opened manually) — adjusted during render rather than
+  // in an effect (React's "adjusting state when a prop changes" pattern),
+  // since activeKey is derivable identically on server and client and
+  // doesn't need to wait for a post-mount effect.
+  const [lastActiveKey, setLastActiveKey] = useState(activeKey)
+  if (activeKey !== lastActiveKey) {
+    setLastActiveKey(activeKey)
+    if (activeKey && !openGroups[activeKey]) {
+      setOpenGroups((prev) => ({ ...prev, [activeKey]: true }))
     }
-  }, [activeKey])
+  }
 
   // Flat, searchable index of every item with its resolved (translated)
   // label — lets the admin jump straight to any page by typing a few
