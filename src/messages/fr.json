@@ -250,7 +250,13 @@
       "desc": "Peut-être supprimé ou pas encore activé",
       "back": "Tous les showrooms"
     },
-    "verified": "Vérifié"
+    "verified": "Vérifié",
+    "detailFaq": {
+      "q1": "Comment contacter ce showroom ?",
+      "a1": "Utilisez le bouton d'appel ou WhatsApp directement sur la page du showroom — le contact se fait sans intermédiaire.",
+      "q2": "Les showrooms sur autobladi.ma sont-ils vérifiés ?",
+      "a2": "Chaque showroom est examiné par notre équipe avant d'apparaître publiquement dans l'annuaire."
+    }
   },
   "showroom": {
     "title": "Mon showroom",
@@ -2248,7 +2254,13 @@
     },
     "page": "Page {page} sur {total}",
     "previous": "Précédent",
-    "next": "Suivant"
+    "next": "Suivant",
+    "faq": {
+      "q1": "Comment filtrer les annonces par ville ou par prix ?",
+      "a1": "Utilisez les filtres à côté des résultats : ville, marque, budget, et état (neuf ou occasion).",
+      "q2": "Est-ce gratuit de publier une annonce ?",
+      "a2": "Oui, la publication est gratuite, avec un compte professionnel disponible pour les showrooms."
+    }
   },
   "home": {
     "hero": {

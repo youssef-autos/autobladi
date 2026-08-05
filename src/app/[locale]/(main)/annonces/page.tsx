@@ -14,7 +14,7 @@ import { ViewToggle } from "@/components/annonces/ViewToggle"
 import { loadAnnoncesSearchParams } from "@/components/annonces/searchParams"
 import { Container } from "@/components/ui/Container"
 import { JsonLd } from "@/components/seo/JsonLd"
-import { breadcrumbSchema, collectionSchema, itemListSchema } from "@/lib/seo/structured-data"
+import { breadcrumbSchema, collectionSchema, faqSchema, itemListSchema } from "@/lib/seo/structured-data"
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://autobladi.ma"
 import { GoldAccent } from "@/components/ui/GoldAccent"
@@ -236,6 +236,12 @@ export default async function AnnoncesPage({
             name: t("pageTitle"),
             url: `${SITE_URL}/${locale}/annonces`,
           },
+        ])}
+      />
+      <JsonLd
+        data={faqSchema([
+          { question: t("faq.q1"), answer: t("faq.a1") },
+          { question: t("faq.q2"), answer: t("faq.a2") },
         ])}
       />
     </section>

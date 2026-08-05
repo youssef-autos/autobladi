@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server"
 
 import { AdBanner } from "@/components/ads/AdBanner"
 import { JsonLd } from "@/components/seo/JsonLd"
-import { autoDealerSchema, breadcrumbSchema } from "@/lib/seo/structured-data"
+import { autoDealerSchema, breadcrumbSchema, faqSchema } from "@/lib/seo/structured-data"
 import { ShowroomHeader } from "@/components/showroom/ShowroomHeader"
 import { DealerCars } from "@/components/showroom/DealerCars"
 import {
@@ -195,6 +195,13 @@ export default async function ShowroomDetailPage({
             name: dealer.name,
             url: `${SITE_URL}/${locale}/showroom/${dealer.slug}`,
           },
+        ])}
+      />
+
+      <JsonLd
+        data={faqSchema([
+          { question: t("detailFaq.q1"), answer: t("detailFaq.a1") },
+          { question: t("detailFaq.q2"), answer: t("detailFaq.a2") },
         ])}
       />
     </>
