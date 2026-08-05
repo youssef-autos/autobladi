@@ -5,7 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server"
 import { EstimationPanel } from "@/components/estimation/EstimationPanel"
 import { Container } from "@/components/ui/Container"
 import { GoldAccent } from "@/components/ui/GoldAccent"
-import { getActiveBrands, getActiveModels } from "@/lib/queries/home"
+import { getActiveBrands, getActiveModels, getCities } from "@/lib/queries/home"
 import type { Locale } from "@/i18n/routing"
 import { localeAlternates } from "@/lib/seo/alternates"
 import { JsonLd as JsonLdScript } from "@/components/seo/JsonLd"
@@ -44,9 +44,10 @@ export default async function EstimationPage({
   setRequestLocale(locale)
   const t = await getTranslations("estimation")
 
-  const [brands, models] = await Promise.all([
+  const [brands, models, cities] = await Promise.all([
     getActiveBrands(),
     getActiveModels(),
+    getCities(),
   ])
 
   return (
@@ -77,6 +78,7 @@ export default async function EstimationPage({
           <EstimationPanel
             brands={brands}
             models={models}
+            cities={cities}
             locale={locale as Locale}
           />
 

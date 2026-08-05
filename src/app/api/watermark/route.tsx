@@ -18,25 +18,11 @@ const ALLOWED_TYPES = new Set(["image/jpeg", "image/jpg", "image/png", "image/we
 const MAIN = { width: 1200, height: 900 }
 const THUMB = { width: 400, height: 300 }
 
-/** Accepts either a plain JSON string ("AutoBladi.ma") or {text: "..."}. */
-function extractWatermarkText(raw: unknown): string {
-  if (typeof raw === "string" && raw.length > 0) return raw
-  if (raw && typeof raw === "object" && "text" in raw) {
-    const t = (raw as { text: unknown }).text
-    if (typeof t === "string" && t.length > 0) return t
-  }
-  return "AutoBladi.ma"
-}
-
-async function getWatermarkText(): Promise<string> {
-  const supabase = await createClient()
-  const { data } = await supabase
-    .from("site_settings")
-    .select("value")
-    .eq("key", "watermark_text")
-    .maybeSingle<{ value: unknown }>()
-  return extractWatermarkText(data?.value)
-}
+// Fixed brand watermark — not admin-configurable. "AUTOBLADI" renders large,
+// ".MA" smaller and baseline-aligned to its bottom-right, like a wordmark
+// with a trademark-style extension.
+const WORD = "AUTOBLADI"
+const EXT = ".MA"
 
 // Serverless hosts (Vercel/Lambda) ship almost no fonts, and sharp's SVG
 // compositing (librsvg) does not reliably honor a CSS @font-face embedded as
@@ -62,33 +48,39 @@ function loadFont(): Buffer | null {
 }
 
 /**
- * Single centered watermark, avito.ma-style: one small, mostly-transparent
- * line of brand text across the middle of the image — not a tiled, rotated
- * repeat. A 4-directional text-shadow acts as a soft dark outline, keeping
- * it legible (but unobtrusive) over both light and dark parts of the photo.
+ * Single centered watermark: a discreet "AUTOBLADI.MA" logotype across the
+ * middle of the image — not a tiled, rotated repeat. "AUTOBLADI" renders
+ * large, ".MA" smaller and sharing its baseline (bottom-right of the word).
+ * A soft, low-contrast text-shadow keeps it faintly readable over both
+ * light and dark parts of the photo while staying blended into the paint.
  */
 async function buildWatermarkOverlay({
-  text,
   width,
   height,
 }: {
-  text: string
   width: number
   height: number
 }): Promise<Buffer> {
-  const label = text
-
-  // Size the text to span ~35% of the image width regardless of length,
-  // within sane bounds so very short/long watermark text still looks right.
+  // Size the text to span ~35% of the image width, within sane bounds.
   const targetWidth = width * 0.35
-  const estCharWidth = 0.58
+  const estCharWidth = 0.6
   const fontSize = Math.min(
     height * 0.11,
-    Math.max(height * 0.035, targetWidth / (label.length * estCharWidth)),
+    Math.max(height * 0.035, targetWidth / (WORD.length * estCharWidth)),
   )
-  const shadow = Math.max(1, fontSize * 0.045)
+  const extFontSize = fontSize * 0.45
+  const shadow = Math.max(1, fontSize * 0.035)
+  const shadowColor = "rgba(0,0,0,0.18)"
+  const textColor = "rgba(255,255,255,0.2)"
+  const textShadow = [
+    `${shadow}px ${shadow}px 0 ${shadowColor}`,
+    `-${shadow}px -${shadow}px 0 ${shadowColor}`,
+    `${shadow}px -${shadow}px 0 ${shadowColor}`,
+    `-${shadow}px ${shadow}px 0 ${shadowColor}`,
+  ].join(", ")
 
   const font = loadFont()
+  const fontFamily = font ? "AutobladiWM" : "sans-serif"
 
   const image = new ImageResponse(
     (
@@ -101,22 +93,33 @@ async function buildWatermarkOverlay({
           justifyContent: "center",
         }}
       >
-        <div
-          style={{
-            fontSize,
-            fontWeight: 700,
-            fontFamily: font ? "AutobladiWM" : "sans-serif",
-            letterSpacing: fontSize * 0.04,
-            color: "rgba(255,255,255,0.5)",
-            textShadow: [
-              `${shadow}px ${shadow}px 0 rgba(0,0,0,0.32)`,
-              `-${shadow}px -${shadow}px 0 rgba(0,0,0,0.32)`,
-              `${shadow}px -${shadow}px 0 rgba(0,0,0,0.32)`,
-              `-${shadow}px ${shadow}px 0 rgba(0,0,0,0.32)`,
-            ].join(", "),
-          }}
-        >
-          {label}
+        <div style={{ display: "flex", alignItems: "flex-end" }}>
+          <div
+            style={{
+              fontSize,
+              fontWeight: 700,
+              fontFamily,
+              textTransform: "uppercase",
+              letterSpacing: fontSize * 0.04,
+              color: textColor,
+              textShadow,
+            }}
+          >
+            {WORD}
+          </div>
+          <div
+            style={{
+              fontSize: extFontSize,
+              fontWeight: 700,
+              fontFamily,
+              textTransform: "uppercase",
+              marginLeft: fontSize * 0.05,
+              color: textColor,
+              textShadow,
+            }}
+          >
+            {EXT}
+          </div>
         </div>
       </div>
     ),
@@ -132,12 +135,12 @@ async function buildWatermarkOverlay({
   return Buffer.from(await image.arrayBuffer())
 }
 
-async function processImage(buffer: ArrayBuffer, watermark: string) {
+async function processImage(buffer: ArrayBuffer) {
   const input = Buffer.from(buffer)
 
   const [mainOverlay, thumbOverlay] = await Promise.all([
-    buildWatermarkOverlay({ text: watermark, width: MAIN.width, height: MAIN.height }),
-    buildWatermarkOverlay({ text: watermark, width: THUMB.width, height: THUMB.height }),
+    buildWatermarkOverlay({ width: MAIN.width, height: MAIN.height }),
+    buildWatermarkOverlay({ width: THUMB.width, height: THUMB.height }),
   ])
 
   const [main, thumb] = await Promise.all([
@@ -191,8 +194,7 @@ export async function POST(req: NextRequest) {
   let processed
   try {
     const buffer = await file.arrayBuffer()
-    const watermark = await getWatermarkText()
-    processed = await processImage(buffer, watermark)
+    processed = await processImage(buffer)
   } catch (err) {
     console.error("watermark processing failed", err)
     return NextResponse.json({ error: "Processing failed" }, { status: 500 })

@@ -15,7 +15,6 @@ import {
   Save,
   Search,
   Sparkles,
-  Stamp,
   Upload,
   X,
   Zap,
@@ -286,20 +285,6 @@ export function SettingsForm({
             </a>
           ))}
         </div>
-      </Section>
-
-      {/* Watermark */}
-      <Section title={t("watermark")} icon={Stamp}>
-        <Field label={t("watermarkText")} help={t("watermarkHelp")}>
-          <Input
-            id="wm"
-            value={values.watermark_text}
-            onChange={(e) => update("watermark_text", e.target.value)}
-            className="h-11 rounded-xl"
-            maxLength={100}
-            required
-          />
-        </Field>
       </Section>
 
       {/* Annonce duration — split by account type */}

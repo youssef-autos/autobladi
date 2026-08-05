@@ -5,17 +5,18 @@ import { useState } from "react"
 import { EstimationForm } from "@/components/estimation/EstimationForm"
 import { EstimationResult } from "@/components/estimation/EstimationResult"
 import type { PriceEstimate } from "@/lib/ai/types"
-import type { Brand, CarModel } from "@/lib/queries/home"
+import type { Brand, CarModel, City } from "@/lib/queries/home"
 import type { EstimationFormValues } from "@/lib/validations/estimation"
 import type { Locale } from "@/i18n/routing"
 
 type Props = {
   brands: Brand[]
   models: CarModel[]
+  cities: City[]
   locale: Locale
 }
 
-export function EstimationPanel({ brands, models, locale }: Props) {
+export function EstimationPanel({ brands, models, cities, locale }: Props) {
   const [result, setResult] = useState<PriceEstimate | null>(null)
   const [values, setValues] = useState<EstimationFormValues | null>(null)
   const [loading, setLoading] = useState(false)
@@ -25,6 +26,7 @@ export function EstimationPanel({ brands, models, locale }: Props) {
       <EstimationForm
         brands={brands}
         models={models}
+        cities={cities}
         onLoadingChange={setLoading}
         onResult={(r, v) => {
           setResult(r)

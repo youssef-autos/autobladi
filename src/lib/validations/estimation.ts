@@ -9,6 +9,7 @@ export const CONDITION_OPTIONS = ["neuf", "excellent", "very_good", "good", "fai
 export const estimationFormSchema = z.object({
   brandId: z.uuid("estimation.validation.required"),
   modelId: z.uuid("estimation.validation.required"),
+  cityId: z.uuid().optional(),
   year: z
     .number({ error: "estimation.validation.year" })
     .int()

@@ -17,13 +17,17 @@ import {
   estimationFormSchema,
   type EstimationFormValues,
 } from "@/lib/validations/estimation"
-import type { Brand, CarModel } from "@/lib/queries/home"
+import type { Brand, CarModel, City } from "@/lib/queries/home"
 import type { Locale } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
+
+const CURRENT_YEAR = new Date().getFullYear()
+const MIN_YEAR = 1990
 
 type Props = {
   brands: Brand[]
   models: CarModel[]
+  cities: City[]
   onResult: (result: PriceEstimate, values: EstimationFormValues) => void
   onLoadingChange: (loading: boolean) => void
 }
@@ -31,6 +35,7 @@ type Props = {
 export function EstimationForm({
   brands,
   models,
+  cities,
   onResult,
   onLoadingChange,
 }: Props) {
@@ -46,6 +51,7 @@ export function EstimationForm({
     defaultValues: {
       brandId: "",
       modelId: "",
+      cityId: undefined,
       year: new Date().getFullYear() - 2,
       mileage: 50000,
       fuelType: "essence",
@@ -76,6 +82,24 @@ export function EstimationForm({
     () => CONDITION_OPTIONS.map((c) => ({ value: c, label: t(`conditions.${c}`) })),
     [t],
   )
+  const yearItems = useMemo<ComboboxOption[]>(() => {
+    const years: ComboboxOption[] = []
+    for (let y = CURRENT_YEAR; y >= MIN_YEAR; y--) {
+      years.push({ value: String(y), label: String(y) })
+    }
+    return years
+  }, [])
+  const cityItems = useMemo<ComboboxOption[]>(() => {
+    const collator = new Intl.Collator(locale, { sensitivity: "base" })
+    return [...cities]
+      .sort((a, b) =>
+        collator.compare(
+          locale === "ar" ? a.name_ar : a.name_fr,
+          locale === "ar" ? b.name_ar : b.name_fr,
+        ),
+      )
+      .map((c) => ({ value: c.id, label: locale === "ar" ? c.name_ar : c.name_fr }))
+  }, [cities, locale])
 
   const tr = (key?: string) =>
     key?.startsWith("estimation.validation.")
@@ -89,6 +113,7 @@ export function EstimationForm({
         const payload = {
           brandId: values.brandId,
           modelId: values.modelId,
+          cityId: values.cityId,
           year: values.year,
           mileage: values.mileage,
           fuelType: values.fuelType,
@@ -176,13 +201,18 @@ export function EstimationForm({
         </Field>
 
         <Field label={t("year")} error={tr(errors.year?.message)}>
-          <Input
-            type="number"
-            inputMode="numeric"
-            min={1990}
-            max={new Date().getFullYear() + 1}
-            className="h-11 rounded-xl"
-            {...form.register("year", { valueAsNumber: true })}
+          <Controller
+            control={form.control}
+            name="year"
+            render={({ field }) => (
+              <Combobox
+                items={yearItems}
+                value={String(field.value)}
+                onValueChange={(v) => v && field.onChange(Number(v))}
+                placeholder={t("selectPlaceholder")}
+                emptyText={t("noResults")}
+              />
+            )}
           />
         </Field>
 
@@ -230,6 +260,24 @@ export function EstimationForm({
           />
         </Field>
       </div>
+
+      {/* City (optional) — grounds the AI's market-demand note in a real place
+          instead of a generic nationwide line. */}
+      <Field label={t("city")} help={t("cityHelp")}>
+        <Controller
+          control={form.control}
+          name="cityId"
+          render={({ field }) => (
+            <Combobox
+              items={cityItems}
+              value={field.value ?? ""}
+              onValueChange={(v) => field.onChange(v || undefined)}
+              placeholder={t("cityPlaceholder")}
+              emptyText={t("noResults")}
+            />
+          )}
+        />
+      </Field>
 
       {/* Accident history */}
       <fieldset className="space-y-2.5">

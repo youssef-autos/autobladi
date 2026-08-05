@@ -13,6 +13,7 @@ const FUEL = ["essence", "diesel", "hybrid", "electric", "lpg"] as const
 const schema = z.object({
   brandId: z.uuid(),
   modelId: z.uuid(),
+  cityId: z.uuid().optional(),
   year: z.number().int().min(1900).max(2100),
   mileage: z.number().int().nonnegative(),
   fuelType: z.enum(FUEL),
@@ -45,6 +46,20 @@ async function resolveRefs(
   return { brand: brand.data, model: model.data }
 }
 
+async function resolveCityName(
+  cityId: string,
+  language: "ar" | "fr",
+): Promise<string | null> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from("cities")
+    .select("name_fr, name_ar")
+    .eq("id", cityId)
+    .maybeSingle<{ name_fr: string; name_ar: string }>()
+  if (!data) return null
+  return language === "ar" ? data.name_ar : data.name_fr
+}
+
 export async function POST(req: NextRequest) {
   const supabase = await createClient()
   const {
@@ -72,6 +87,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unknown brand/model" }, { status: 400 })
   }
 
+  const cityName = parsed.data.cityId
+    ? await resolveCityName(parsed.data.cityId, parsed.data.language)
+    : null
+
   let estimate
   try {
     estimate = await estimatePrice({
@@ -83,6 +102,7 @@ export async function POST(req: NextRequest) {
       condition: parsed.data.condition,
       conditionGrade: parsed.data.conditionGrade,
       hadAccident: parsed.data.hadAccident,
+      city: cityName ?? undefined,
       language: parsed.data.language,
     })
   } catch (err) {
@@ -95,7 +115,7 @@ export async function POST(req: NextRequest) {
     user_id: user?.id ?? null,
     brand_id: parsed.data.brandId,
     model_id: parsed.data.modelId,
-    city_id: null,
+    city_id: parsed.data.cityId ?? null,
     year: parsed.data.year,
     mileage: parsed.data.mileage,
     fuel_type: parsed.data.fuelType,

@@ -15,7 +15,6 @@ export type SettingsInput = {
   pinterest_verification: string
   custom_head_code: string
   google_analytics_id: string
-  watermark_text: string
   annonce_duration_days: number
   annonce_duration_days_pro: number
   ai_provider: "gemini" | "openai" | "qwen"
@@ -42,7 +41,6 @@ const inputSchema = z.object({
   pinterest_verification: z.string().max(200),
   custom_head_code: z.string().max(5000),
   google_analytics_id: z.string().max(30),
-  watermark_text: z.string().min(1).max(100),
   annonce_duration_days: z.number().int().min(1).max(365),
   annonce_duration_days_pro: z.number().int().min(1).max(365),
   ai_provider: z.enum(["gemini", "openai", "qwen"]),
@@ -92,7 +90,6 @@ export async function saveSettings(input: unknown): Promise<SettingsResult> {
     { key: "pinterest_verification", value: v.pinterest_verification },
     { key: "custom_head_code", value: v.custom_head_code },
     { key: "google_analytics_id", value: v.google_analytics_id },
-    { key: "watermark_text", value: v.watermark_text },
     { key: "annonce_duration_days", value: v.annonce_duration_days },
     { key: "annonce_duration_days_pro", value: v.annonce_duration_days_pro },
     { key: "contact_email", value: v.contact_email },

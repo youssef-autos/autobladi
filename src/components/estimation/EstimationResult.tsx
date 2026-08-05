@@ -1,6 +1,6 @@
 "use client"
 
-import { Loader2, RotateCcw, Send, Sparkles, TrendingUp } from "lucide-react"
+import { Lightbulb, Loader2, RotateCcw, Send, Sparkles, TrendingUp } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { useRouter } from "@/i18n/navigation"
@@ -8,7 +8,6 @@ import type { PriceEstimate } from "@/lib/ai/types"
 import { formatPrice } from "@/lib/utils/format"
 import type { Locale } from "@/i18n/routing"
 import type { EstimationFormValues } from "@/lib/validations/estimation"
-import { cn } from "@/lib/utils"
 
 type Props = {
   result: PriceEstimate | null
@@ -104,13 +103,16 @@ export function EstimationResult({ result, loading, values, locale, onReset }: P
           </p>
         </div>
 
-        {/* Reasoning */}
-        <Block label={t("result.reasoningLabel")}>{result.reasoning}</Block>
-
-        {/* Market context */}
-        <Block label={t("result.marketLabel")} muted>
-          {result.marketContext}
-        </Block>
+        {/* AI explanation — the natural-language "why" behind the estimate */}
+        <div className="rounded-2xl border border-border bg-moroccan-sand-50/60 p-5">
+          <p className="mb-2 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-moroccan-gold-700">
+            <Lightbulb className="size-3.5" aria-hidden="true" />
+            {t("result.explanationLabel")}
+          </p>
+          <p className="text-sm leading-relaxed text-foreground whitespace-pre-wrap">
+            {result.explanation}
+          </p>
+        </div>
 
         {/* Actions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
@@ -141,31 +143,5 @@ function Pane({ children }: { children: React.ReactNode }) {
     <aside className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-moroccan/30 min-h-[400px] flex flex-col">
       {children}
     </aside>
-  )
-}
-
-function Block({
-  label,
-  muted,
-  children,
-}: {
-  label: string
-  muted?: boolean
-  children: React.ReactNode
-}) {
-  return (
-    <section>
-      <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1.5">
-        {label}
-      </p>
-      <p
-        className={cn(
-          "text-sm leading-relaxed whitespace-pre-wrap",
-          muted ? "text-muted-foreground" : "text-foreground",
-        )}
-      >
-        {children}
-      </p>
-    </section>
   )
 }

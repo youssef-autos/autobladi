@@ -77,7 +77,6 @@ export default async function AdminParametresPage({
     pinterest_verification: toString(map.get("pinterest_verification"), ""),
     custom_head_code: toString(map.get("custom_head_code"), ""),
     google_analytics_id: toString(map.get("google_analytics_id"), ""),
-    watermark_text: toString(map.get("watermark_text"), "autobladi.ma"),
     annonce_duration_days: toNumber(map.get("annonce_duration_days"), 60),
     annonce_duration_days_pro: toNumber(map.get("annonce_duration_days_pro"), 90),
     ai_provider:

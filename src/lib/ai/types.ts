@@ -42,12 +42,18 @@ export type PriceEstimateInput = {
   conditionGrade?: ConditionGrade
   /** Whether the car has previously been in a traffic accident. */
   hadAccident?: boolean
+  /** City name, when the user provided one — grounds local-demand claims. */
+  city?: string
   language: AiLanguage
 }
 
 export type PriceEstimate = {
   priceMin: number
   priceMax: number
-  reasoning: string
-  marketContext: string
+  /**
+   * One natural-language paragraph: restates the price, explains the factors
+   * that shaped it (year, mileage, condition, accident history), and notes
+   * market demand — city-specific only when a city was actually provided.
+   */
+  explanation: string
 }

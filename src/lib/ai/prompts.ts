@@ -70,6 +70,7 @@ function arabicEstimatePrompt(v: PriceEstimateInput): string {
     v.hadAccident === undefined
       ? ""
       : `\n- تاريخ الحوادث: ${v.hadAccident ? "سبق أن تعرّضت لحادث سير" : "لم تتعرّض لأي حادث (خالية من الحوادث)"}`
+  const cityLine = v.city ? `\n- المدينة: ${v.city}` : ""
 
   return `أنت خبير في سوق السيارات المغربي. قدّم تقديراً لسعر سيارة في السوق المغربية الحالية:
 
@@ -78,14 +79,19 @@ function arabicEstimatePrompt(v: PriceEstimateInput): string {
 - السنة: ${v.year}
 - الكيلومتراج: ${v.mileage} كم
 - الوقود: ${v.fuelType}
-${conditionLine}${accidentLine}
+${conditionLine}${accidentLine}${cityLine}
 
-استرشد بأسعار السوق المغربية الحالية. أعد JSON صارم فقط بدون أي نص آخر أو ترميز markdown. يجب أن يكون "reasoning" و "marketContext" باللغة العربية حصراً:
+استرشد بأسعار السوق المغربية الحالية. أعد JSON صارم فقط بدون أي نص آخر أو ترميز markdown. يجب أن يكون "explanation" باللغة العربية حصراً، على شكل فقرة واحدة طبيعية ومتصلة (4-5 جمل) يفهمها أي مستخدم عادي، بالترتيب التالي:
+1. ابدأ بإعادة صياغة السعر المقدَّر بأسلوب طبيعي (مثال: "تم تقدير قيمة سيارتك بـ ... درهم").
+2. اذكر تأثير سنة الصنع وعدد الكيلومترات (قارن الكيلومتراج بما هو معتاد لسيارة بهذا العمر: أقل من المتوسط، في المتوسط، أو أعلى منه).
+3. اذكر تأثير الحالة العامة، وتاريخ الحوادث إن وُجد.
+4. اختم بملاحظة عن الطلب في السوق${v.city ? ` خاصة بمدينة ${v.city}` : " على المستوى الوطني — لا تذكر اسم مدينة محددة لأنه لم يُحدَّد"}.
+لا تخترع أي رقم أو معطى لم يُذكر أعلاه (مثل عدد الملاك السابقين).
+
 {
   "priceMin": <رقم بالدرهم>,
   "priceMax": <رقم بالدرهم>,
-  "reasoning": "<شرح قصير بالعربية في 2-3 أسطر>",
-  "marketContext": "<معلومة عن السوق بالعربية في سطر واحد>"
+  "explanation": "<فقرة طبيعية ومتصلة بالعربية، 4-5 جمل>"
 }`
 }
 
@@ -98,6 +104,7 @@ function frenchEstimatePrompt(v: PriceEstimateInput): string {
     v.hadAccident === undefined
       ? ""
       : `\n- Historique d'accident : ${v.hadAccident ? "A déjà subi un accident de la route" : "N'a subi aucun accident (sans accident)"}`
+  const cityLine = v.city ? `\n- Ville : ${v.city}` : ""
 
   return `Tu es un expert du marché automobile marocain. Donne une estimation du prix d'une voiture sur le marché marocain actuel :
 
@@ -106,14 +113,19 @@ function frenchEstimatePrompt(v: PriceEstimateInput): string {
 - Année : ${v.year}
 - Kilométrage : ${v.mileage} km
 - Carburant : ${v.fuelType}
-${conditionLine}${accidentLine}
+${conditionLine}${accidentLine}${cityLine}
 
-Base-toi sur les prix actuels du marché marocain. Réponds UNIQUEMENT avec un JSON strict, sans aucun autre texte ni markdown. Les champs "reasoning" et "marketContext" doivent être rédigés exclusivement en français :
+Base-toi sur les prix actuels du marché marocain. Réponds UNIQUEMENT avec un JSON strict, sans aucun autre texte ni markdown. Le champ "explanation" doit être rédigé exclusivement en français, sous forme d'UN SEUL paragraphe naturel et fluide (4-5 phrases) compréhensible par n'importe quel utilisateur, structuré ainsi :
+1. Commence par reformuler le prix estimé naturellement (ex. "Votre voiture a été estimée à ... DH").
+2. Mentionne l'impact de l'année et du kilométrage (compare le kilométrage à ce qui est habituel pour une voiture de cet âge : en dessous, dans la moyenne, ou au-dessus).
+3. Mentionne l'impact de l'état général et de l'historique d'accident s'il est précisé.
+4. Termine par une note sur la demande du marché${v.city ? ` spécifique à la ville de ${v.city}` : " au niveau national — ne mentionne aucune ville précise puisqu'aucune n'a été indiquée"}.
+N'invente aucun chiffre ni fait non mentionné ci-dessus (par exemple le nombre de propriétaires précédents).
+
 {
   "priceMin": <nombre en dirhams>,
   "priceMax": <nombre en dirhams>,
-  "reasoning": "<explication courte en français, 2-3 lignes>",
-  "marketContext": "<information sur le marché en français, une ligne>"
+  "explanation": "<paragraphe naturel et fluide en français, 4-5 phrases>"
 }`
 }
 
@@ -137,8 +149,7 @@ export function isPriceEstimate(value: unknown): value is PriceEstimate {
   return (
     typeof v.priceMin === "number" &&
     typeof v.priceMax === "number" &&
-    typeof v.reasoning === "string" &&
-    typeof v.marketContext === "string"
+    typeof v.explanation === "string"
   )
 }
 
