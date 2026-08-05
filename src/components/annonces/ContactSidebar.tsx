@@ -9,6 +9,7 @@ import { FavoriteButton } from "@/components/annonces/FavoriteButton"
 import { MessageDialog } from "@/components/annonces/MessageDialog"
 import { ReportDialog } from "@/components/annonces/ReportDialog"
 import { ShareMenu } from "@/components/annonces/ShareMenu"
+import { useCompare } from "@/hooks/use-compare"
 import { trackAdEvent } from "@/lib/track-ad-event"
 import { formatPhone } from "@/lib/utils/format"
 import { cn } from "@/lib/utils"
@@ -34,8 +35,11 @@ export function ContactSidebar({
 }: Props) {
   const t = useTranslations("annonceDetail.contact")
   const tShare = useTranslations("annonceDetail.share")
+  const tCompare = useTranslations("compare")
   const locale = useLocale()
   const [revealed, setRevealed] = useState(false)
+  const { has, toggle, max } = useCompare()
+  const inCompare = has(annonceSlug)
 
   const phone = formatPhone(contactPhone)
   const wa = contactWhatsapp ? contactWhatsapp.replace(/\D/g, "") : null
@@ -52,7 +56,12 @@ export function ContactSidebar({
   }
 
   function handleCompare() {
-    toast.success(t("compare"))
+    const res = toggle(annonceSlug)
+    if (res === "full") {
+      toast.error(tCompare("maxReached", { max }))
+      return
+    }
+    toast.success(res === "added" ? tCompare("added") : tCompare("removed"))
   }
 
   return (
@@ -103,10 +112,18 @@ export function ContactSidebar({
         <button
           type="button"
           onClick={handleCompare}
-          className="inline-flex items-center justify-center gap-1.5 h-10 rounded-xl border border-border bg-background text-sm font-medium text-foreground hover:bg-moroccan-sand-50"
+          aria-pressed={inCompare}
+          className={cn(
+            "inline-flex items-center justify-center gap-1.5 h-10 rounded-xl border text-sm font-medium transition-colors",
+            inCompare
+              ? "border-moroccan-mint-500/50 bg-moroccan-mint-500/10 text-moroccan-mint-600"
+              : "border-border bg-background text-foreground hover:bg-moroccan-sand-50",
+          )}
         >
           <GitCompare className="size-4" aria-hidden="true" />
-          <span className="hidden sm:inline">{t("compare").split(" ")[0]}</span>
+          <span className="hidden sm:inline">
+            {inCompare ? tCompare("inCompare") : t("compare").split(" ")[0]}
+          </span>
         </button>
       </div>
 
