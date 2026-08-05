@@ -14,7 +14,6 @@ import {
   LinkedinIcon,
   YoutubeIcon,
 } from "@/components/layout/SocialIcons"
-import { TikTokIcon } from "../showroom/socials"
 
 export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
   const t = await getTranslations("footer")
@@ -55,9 +54,6 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
               </SocialLink>
               <SocialLink href="https://www.linkedin.com/company/autobladima" label="LinkedIn">
                 <LinkedinIcon className="size-4" />
-              </SocialLink>
-              <SocialLink href="https://tiktok.com/autobladi.ma/" label="tiktok">
-                <TikTokIcon className="size-4" />
               </SocialLink>
             </div>
           </div>
