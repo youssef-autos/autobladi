@@ -256,44 +256,6 @@
   background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0L25 15L40 20L25 25L20 40L15 25L0 20L15 15Z' fill='%23e5c547' fill-opacity='0.03'/%3E%3C/svg%3E");
 }
 
-/* ============================================================
- * Auth hero — gentle ambient motion for decorative orbs
- * ============================================================ */
-@keyframes authFloat {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(0, -18px, 0) scale(1.05);
-  }
-}
-
-@keyframes authDrift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(14px, 12px, 0) scale(1.08);
-  }
-}
-
-.auth-orb-a {
-  animation: authFloat 9s ease-in-out infinite;
-}
-
-.auth-orb-b {
-  animation: authDrift 11s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .auth-orb-a,
-  .auth-orb-b {
-    animation: none;
-  }
-}
-
 /* ---------------------------------------------------------------------------
  * Ad slots — device-correct reserved space (prevents Cumulative Layout Shift).
  *

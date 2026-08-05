@@ -15,24 +15,8 @@
     "back": "رجوع"
   },
   "auth": {
-    "hero": {
-      "badge": "منصة مغربية 100%",
-      "headline": "سيّارتك القادمة تبدأ من هنا",
-      "subline": "آلاف السيارات الجديدة والمستعملة، معارض احترافية، وتقدير فوري للأسعار — كل ذلك في مكان واحد.",
-      "features": {
-        "ai": "تقدير فوري للأسعار بالذكاء الاصطناعي",
-        "secure": "تواصل مباشر وآمن بين البائع والمشتري",
-        "dealers": "معارض في كل مدن المغرب"
-      },
-      "stats": {
-        "cars": "+10 آلاف",
-        "carsLabel": "سيارة معروضة",
-        "dealers": "+300",
-        "dealersLabel": "معرض احترافي",
-        "cities": "+40",
-        "citiesLabel": "مدينة مغربية"
-      }
-    },
+    "showPassword": "إظهار كلمة المرور",
+    "hidePassword": "إخفاء كلمة المرور",
     "social": {
       "or": "أو",
       "google": "المتابعة بجوجل",
@@ -40,36 +24,45 @@
       "error": "تعذّر تسجيل الدخول الاجتماعي"
     },
     "signIn": {
-      "title": "مرحباً بعودتك",
-      "subtitle": "سجّل دخولك لإدارة إعلاناتك ورسائلك",
+      "title": "مرحباً بك",
+      "subtitle": "سجّل دخولك إلى مساحة autobladi.ma الخاصة بك",
       "email": "البريد الإلكتروني",
-      "emailPlaceholder": "you@autobladi.ma",
+      "emailPlaceholder": "بريدك الإلكتروني",
       "password": "كلمة المرور",
-      "passwordPlaceholder": "••••••••",
+      "passwordPlaceholder": "كلمة المرور الخاصة بك",
       "submit": "تسجيل الدخول",
       "submitting": "جاري تسجيل الدخول...",
       "forgotPassword": "نسيت كلمة المرور؟",
       "noAccount": "ليس لديك حساب؟",
-      "createAccount": "أنشئ حساباً جديداً",
+      "createAccount": "إنشاء حساب",
       "errorInvalid": "بريد إلكتروني أو كلمة مرور غير صحيحين",
       "errorGeneric": "تعذّر تسجيل الدخول. حاول مرة أخرى."
     },
     "signUp": {
       "title": "أنشئ حسابك",
-      "subtitle": "انضم إلى autobladi.ma وابدأ بيع وشراء السيارات",
+      "subtitle": "انضم إلى مجتمع autobladi.ma",
+      "steps": {
+        "info": "المعلومات",
+        "security": "الأمان",
+        "end": "الإنهاء"
+      },
+      "orFillForm": "أو املأ الاستمارة",
       "fullName": "الاسم الكامل",
       "fullNamePlaceholder": "محمد العلوي",
       "email": "البريد الإلكتروني",
-      "emailPlaceholder": "you@autobladi.ma",
+      "emailPlaceholder": "بريدك الإلكتروني",
       "phone": "رقم الهاتف",
-      "phonePlaceholder": "+212 6 00 00 00 00",
+      "phonePlaceholder": "06 00 00 00 00",
       "password": "كلمة المرور",
       "passwordPlaceholder": "8 أحرف على الأقل",
       "confirmPassword": "تأكيد كلمة المرور",
+      "confirmPasswordPlaceholder": "أكّد كلمة المرور",
       "terms": "أوافق على الشروط والأحكام وسياسة الخصوصية",
+      "back": "رجوع",
+      "next": "التالي",
       "submit": "إنشاء الحساب",
       "submitting": "جاري إنشاء الحساب...",
-      "hasAccount": "لديك حساب بالفعل؟",
+      "hasAccount": "لديك حساب؟",
       "signIn": "تسجيل الدخول",
       "successTitle": "تحقّق من بريدك الإلكتروني",
       "successMessage": "أرسلنا رابط تأكيد إلى {email}. افتحه لتفعيل حسابك.",

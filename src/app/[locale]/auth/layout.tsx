@@ -1,6 +1,6 @@
 import { setRequestLocale } from "next-intl/server"
 
-import { AuthSplitLayout } from "@/components/auth/AuthSplitLayout"
+import { AuthShell } from "@/components/auth/AuthShell"
 import { getSiteLogos } from "@/lib/queries/home"
 
 // SEO: sign-in/sign-up flows should never be indexed
@@ -18,5 +18,5 @@ export default async function AuthLayout({
   const { locale } = await params
   setRequestLocale(locale)
   const logos = await getSiteLogos().catch(() => ({ light: null, dark: null }))
-  return <AuthSplitLayout logoUrl={logos.light}>{children}</AuthSplitLayout>
+  return <AuthShell logoUrl={logos.light}>{children}</AuthShell>
 }

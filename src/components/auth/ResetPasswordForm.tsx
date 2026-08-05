@@ -5,17 +5,16 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { useLocale, useTranslations } from "next-intl"
-import { CheckCircle2 } from "lucide-react"
+import { CheckCircle2, LockKeyhole } from "lucide-react"
 
 import { updatePassword } from "@/app/[locale]/auth/actions"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { Field } from "@/components/ui/Field"
+import { PasswordInput } from "@/components/ui/PasswordInput"
 import {
   resetPasswordSchema,
   type ResetPasswordInput,
 } from "@/lib/validations/auth"
-import { cn } from "@/lib/utils"
 
 export function ResetPasswordForm() {
   const t = useTranslations("auth.resetPassword")
@@ -65,45 +64,33 @@ export function ResetPasswordForm() {
 
   return (
     <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-      <header className="mb-6 space-y-1">
-        <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
+      <header className="mb-6 flex flex-col items-center gap-3 text-center">
+        <span className="grid size-12 place-items-center rounded-full bg-moroccan-red-50 text-moroccan-red-600">
+          <LockKeyhole className="size-6" aria-hidden="true" />
+        </span>
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold">{t("title")}</h1>
+          <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
+        </div>
       </header>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>
-        <div className="space-y-1.5">
-          <Label htmlFor="password">{t("newPassword")}</Label>
-          <Input
-            id="password"
-            type="password"
-            aria-invalid={!!errors.password}
-            className={cn(
-              "h-11 rounded-xl border-border bg-background",
-              errors.password && "border-destructive"
-            )}
-            {...form.register("password")}
-          />
-          {errors.password?.message && (
-            <p className="text-sm text-destructive">{tr(errors.password.message)}</p>
-          )}
-        </div>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5" noValidate>
+        <Field
+          label={t("newPassword")}
+          error={errors.password?.message ? tr(errors.password.message) : undefined}
+        >
+          <PasswordInput aria-invalid={!!errors.password} {...form.register("password")} />
+        </Field>
 
-        <div className="space-y-1.5">
-          <Label htmlFor="confirmPassword">{t("confirmPassword")}</Label>
-          <Input
-            id="confirmPassword"
-            type="password"
+        <Field
+          label={t("confirmPassword")}
+          error={errors.confirmPassword?.message ? tr(errors.confirmPassword.message) : undefined}
+        >
+          <PasswordInput
             aria-invalid={!!errors.confirmPassword}
-            className={cn(
-              "h-11 rounded-xl border-border bg-background",
-              errors.confirmPassword && "border-destructive"
-            )}
             {...form.register("confirmPassword")}
           />
-          {errors.confirmPassword?.message && (
-            <p className="text-sm text-destructive">{tr(errors.confirmPassword.message)}</p>
-          )}
-        </div>
+        </Field>
 
         {serverError && (
           <p className="rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">

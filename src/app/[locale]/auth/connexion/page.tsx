@@ -13,12 +13,12 @@ export default async function SignInPage({
   const { locale } = await params
   setRequestLocale(locale)
   const social = await getSocialLoginEnabled()
+  const socialLogin = social.facebook || social.google
+    ? <SocialLoginButtons facebook={social.facebook} google={social.google} />
+    : null
   return (
     <Suspense fallback={null}>
-      <div className="space-y-5">
-        <SignInForm />
-        <SocialLoginButtons facebook={social.facebook} google={social.google} />
-      </div>
+      <SignInForm socialLogin={socialLogin} />
     </Suspense>
   )
 }

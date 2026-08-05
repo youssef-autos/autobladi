@@ -1,20 +1,26 @@
 "use client"
 
-import { useState, useTransition } from "react"
+import { useState, useTransition, type ReactNode } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { LogIn, Mail } from "lucide-react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useLocale, useTranslations } from "next-intl"
 
 import { signIn } from "@/app/[locale]/auth/actions"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
+import { Field } from "@/components/ui/Field"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { PasswordInput } from "@/components/ui/PasswordInput"
 import { signInSchema, type SignInInput } from "@/lib/validations/auth"
-import { cn } from "@/lib/utils"
 
-export function SignInForm() {
+type Props = {
+  /** Rendered between the header and the form fields (OAuth buttons + divider). */
+  socialLogin?: ReactNode
+}
+
+export function SignInForm({ socialLogin }: Props) {
   const t = useTranslations("auth.signIn")
   const tValidation = useTranslations("validation")
   const locale = useLocale()
@@ -57,55 +63,56 @@ export function SignInForm() {
 
   return (
     <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-      <header className="mb-6 space-y-1">
-        <h1 className="text-2xl font-bold">{t("title")}</h1>
-        <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
+      <header className="mb-6 flex flex-col items-center gap-3 text-center">
+        <span className="grid size-12 place-items-center rounded-full bg-moroccan-red-50 text-moroccan-red-600">
+          <LogIn className="size-6" aria-hidden="true" />
+        </span>
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold">{t("title")}</h1>
+          <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
+        </div>
       </header>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>
-        <div className="space-y-1.5">
-          <Label htmlFor="email">{t("email")}</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder={t("emailPlaceholder")}
-            aria-invalid={!!errors.email}
-            className={cn(
-              "h-11 rounded-xl border-border bg-background",
-              errors.email && "border-destructive"
-            )}
-            {...form.register("email")}
-          />
-          {errors.email?.message && (
-            <p className="text-sm text-destructive">{tr(errors.email.message)}</p>
-          )}
-        </div>
+      {socialLogin && <div className="mb-6">{socialLogin}</div>}
 
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="password">{t("password")}</Label>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5" noValidate>
+        <Field
+          label={t("email")}
+          error={errors.email?.message ? tr(errors.email.message) : undefined}
+        >
+          <div className="relative">
+            <Mail
+              className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+              aria-hidden="true"
+            />
+            <Input
+              type="email"
+              placeholder={t("emailPlaceholder")}
+              aria-invalid={!!errors.email}
+              className="h-11 rounded-xl border-border bg-background ps-9"
+              {...form.register("email")}
+            />
+          </div>
+        </Field>
+
+        <Field
+          label={t("password")}
+          error={errors.password?.message ? tr(errors.password.message) : undefined}
+          action={
             <Link
               href={`/${locale}/auth/mot-de-passe-oublie`}
               className="text-xs text-moroccan-red-500 hover:underline"
             >
               {t("forgotPassword")}
             </Link>
-          </div>
-          <Input
-            id="password"
-            type="password"
+          }
+        >
+          <PasswordInput
             placeholder={t("passwordPlaceholder")}
             aria-invalid={!!errors.password}
-            className={cn(
-              "h-11 rounded-xl border-border bg-background",
-              errors.password && "border-destructive"
-            )}
             {...form.register("password")}
           />
-          {errors.password?.message && (
-            <p className="text-sm text-destructive">{tr(errors.password.message)}</p>
-          )}
-        </div>
+        </Field>
 
         {serverError && (
           <p className="rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">

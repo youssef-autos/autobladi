@@ -10,9 +10,11 @@ import { createClient } from "@/lib/supabase/client"
 type Props = {
   facebook: boolean
   google: boolean
+  /** Overrides the default "or" divider text below the buttons. */
+  dividerLabel?: string
 }
 
-export function SocialLoginButtons({ facebook, google }: Props) {
+export function SocialLoginButtons({ facebook, google, dividerLabel }: Props) {
   const t = useTranslations("auth.social")
   const locale = useLocale()
   const [pending, setPending] = useState<"facebook" | "google" | null>(null)
@@ -40,12 +42,6 @@ export function SocialLoginButtons({ facebook, google }: Props) {
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center gap-3 text-xs text-muted-foreground">
-        <span className="h-px flex-1 bg-border" />
-        {t("or")}
-        <span className="h-px flex-1 bg-border" />
-      </div>
-
       <div className="grid gap-2">
         {google && (
           <button
@@ -77,6 +73,12 @@ export function SocialLoginButtons({ facebook, google }: Props) {
             {t("facebook")}
           </button>
         )}
+      </div>
+
+      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+        <span className="h-px flex-1 bg-border" />
+        {dividerLabel ?? t("or")}
+        <span className="h-px flex-1 bg-border" />
       </div>
     </div>
   )

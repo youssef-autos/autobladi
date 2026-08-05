@@ -1,4 +1,4 @@
-import { setRequestLocale } from "next-intl/server"
+import { getTranslations, setRequestLocale } from "next-intl/server"
 
 import { SignUpForm } from "@/components/auth/SignUpForm"
 import { SocialLoginButtons } from "@/components/auth/SocialLoginButtons"
@@ -11,11 +11,18 @@ export default async function SignUpPage({
 }) {
   const { locale } = await params
   setRequestLocale(locale)
-  const social = await getSocialLoginEnabled()
-  return (
-    <div className="space-y-5">
-      <SignUpForm />
-      <SocialLoginButtons facebook={social.facebook} google={social.google} />
-    </div>
-  )
+  const [social, t] = await Promise.all([
+    getSocialLoginEnabled(),
+    getTranslations("auth.signUp"),
+  ])
+  const socialLogin = social.facebook || social.google
+    ? (
+      <SocialLoginButtons
+        facebook={social.facebook}
+        google={social.google}
+        dividerLabel={t("orFillForm")}
+      />
+    )
+    : null
+  return <SignUpForm socialLogin={socialLogin} />
 }

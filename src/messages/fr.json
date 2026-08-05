@@ -15,24 +15,8 @@
     "back": "Retour"
   },
   "auth": {
-    "hero": {
-      "badge": "Plateforme 100% marocaine",
-      "headline": "Votre prochaine voiture commence ici",
-      "subline": "Des milliers de voitures neuves et d'occasion, des showrooms et une estimation instantanée des prix — le tout au même endroit.",
-      "features": {
-        "ai": "Estimation instantanée des prix par IA",
-        "secure": "Contact direct et sécurisé entre vendeur et acheteur",
-        "dealers": "Des showrooms dans tout le Maroc"
-      },
-      "stats": {
-        "cars": "10K+",
-        "carsLabel": "voitures en ligne",
-        "dealers": "300+",
-        "dealersLabel": "showrooms",
-        "cities": "40+",
-        "citiesLabel": "villes marocaines"
-      }
-    },
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
     "social": {
       "or": "ou",
       "google": "Continuer avec Google",
@@ -40,37 +24,46 @@
       "error": "Échec de la connexion sociale"
     },
     "signIn": {
-      "title": "Heureux de vous revoir",
-      "subtitle": "Connectez-vous pour gérer vos annonces et messages",
-      "email": "Adresse e-mail",
-      "emailPlaceholder": "vous@autobladi.ma",
+      "title": "Bienvenue",
+      "subtitle": "Connectez-vous à votre espace autobladi.ma",
+      "email": "Email",
+      "emailPlaceholder": "Votre adresse email",
       "password": "Mot de passe",
-      "passwordPlaceholder": "••••••••",
+      "passwordPlaceholder": "Votre mot de passe",
       "submit": "Se connecter",
       "submitting": "Connexion en cours...",
       "forgotPassword": "Mot de passe oublié ?",
       "noAccount": "Vous n'avez pas de compte ?",
-      "createAccount": "Créer un compte",
+      "createAccount": "Inscrivez-vous",
       "errorInvalid": "E-mail ou mot de passe incorrect",
       "errorGeneric": "Connexion impossible. Réessayez."
     },
     "signUp": {
       "title": "Créez votre compte",
-      "subtitle": "Rejoignez autobladi.ma et commencez à acheter ou vendre",
+      "subtitle": "Rejoignez la communauté autobladi.ma",
+      "steps": {
+        "info": "INFO",
+        "security": "SÉCURITÉ",
+        "end": "FIN"
+      },
+      "orFillForm": "OU REMPLIR LE FORMULAIRE",
       "fullName": "Nom complet",
       "fullNamePlaceholder": "Mohamed Alaoui",
-      "email": "Adresse e-mail",
-      "emailPlaceholder": "vous@autobladi.ma",
+      "email": "Email",
+      "emailPlaceholder": "Votre adresse email",
       "phone": "Téléphone",
-      "phonePlaceholder": "+212 6 00 00 00 00",
+      "phonePlaceholder": "06 00 00 00 00",
       "password": "Mot de passe",
-      "passwordPlaceholder": "8 caractères minimum",
+      "passwordPlaceholder": "8 caractères min.",
       "confirmPassword": "Confirmer le mot de passe",
+      "confirmPasswordPlaceholder": "Confirmez",
       "terms": "J'accepte les conditions d'utilisation et la politique de confidentialité",
+      "back": "Retour",
+      "next": "Suivant",
       "submit": "Créer le compte",
       "submitting": "Création en cours...",
-      "hasAccount": "Vous avez déjà un compte ?",
-      "signIn": "Se connecter",
+      "hasAccount": "Déjà un compte ?",
+      "signIn": "Connectez-vous",
       "successTitle": "Vérifiez votre boîte mail",
       "successMessage": "Un lien de confirmation a été envoyé à {email}. Ouvrez-le pour activer votre compte.",
       "errorEmailExists": "Cette adresse e-mail est déjà utilisée",
