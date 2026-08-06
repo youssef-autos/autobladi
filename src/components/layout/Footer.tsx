@@ -59,7 +59,7 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
           </div>
 
           {/* Column 2 — Explore */}
-          <div className="space-y-4">
+          <div className="space-y-4 max-md:pt-8 max-md:border-t max-md:border-white/10">
             <FooterHeading>{t("explore")}</FooterHeading>
             <ul className="space-y-2.5 text-sm">
               <FooterLink href="/annonces">{t("exploreItems.all")}</FooterLink>
@@ -68,11 +68,13 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
               <FooterLink href="/marques">{t("exploreItems.brands")}</FooterLink>
               <FooterLink href="/villes">{t("exploreItems.cities")}</FooterLink>
               <FooterLink href="/estimation">{t("exploreItems.estimation")}</FooterLink>
+              <FooterLink href="/comparer">{t("exploreItems.comparer")}</FooterLink>
+              <FooterLink href="/blog">{t("exploreItems.blog")}</FooterLink>
             </ul>
           </div>
 
           {/* Column 3 — Company */}
-          <div className="space-y-4">
+          <div className="space-y-4 max-md:pt-8 max-md:border-t max-md:border-white/10">
             <FooterHeading>{t("company")}</FooterHeading>
             <ul className="space-y-2.5 text-sm">
               {/* CMS-managed pages (À propos, CGU, Confidentialité, …) */}
@@ -85,7 +87,7 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
           </div>
 
           {/* Column 4 — Contact */}
-          <div className="space-y-4">
+          <div className="space-y-4 max-md:pt-8 max-md:border-t max-md:border-white/10">
             <FooterHeading>{t("contact")}</FooterHeading>
 
             {/* Page links */}
@@ -124,7 +126,7 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
 
       {/* Bottom strip */}
       <div className="border-t border-white/10">
-        <Container className="py-5 text-xs text-white/50 text-center">
+        <Container className="py-5 text-xs text-white/60 text-center">
           © {year} autobladi.ma — {t("rights")}
         </Container>
       </div>
@@ -168,7 +170,7 @@ function SocialLink({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="inline-flex items-center justify-center size-8 rounded-full bg-white/5 text-white/70 hover:bg-moroccan-gold-500/10 hover:text-moroccan-gold-500 transition-colors"
+      className="inline-flex items-center justify-center size-8 rounded-full bg-moroccan-gold-500/10 text-moroccan-gold-500/80 hover:bg-moroccan-gold-500/20 hover:text-moroccan-gold-500 transition-colors"
     >
       {children}
     </a>

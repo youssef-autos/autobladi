@@ -2348,26 +2348,18 @@
       "dealers": "المعارض",
       "brands": "كل الماركات",
       "cities": "كل المدن",
-      "estimation": "تقدير الثمن"
+      "estimation": "تقدير الثمن",
+      "comparer": "المقارنة",
+      "blog": "المدونة"
     },
     "company": "الشركة",
     "companyItems": {
-      "about": "من نحن",
       "contact": "اتصل بنا",
-      "terms": "شروط الاستخدام",
-      "privacy": "سياسة الخصوصية",
       "publicite": "أعلن معنا"
     },
     "contact": "للتواصل معنا",
-    "phone": "0667172040",
-    "email": "contact@autobladi.ma",
     "address": "الدار البيضاء، المغرب",
-    "newsletter": "اشترك في النشرة",
-    "newsletterDesc": "أحدث الإعلانات والعروض مباشرة في بريدك",
-    "newsletterPlaceholder": "بريدك الإلكتروني",
-    "subscribe": "اشترك",
-    "rights": "جميع الحقوق محفوظة",
-    "follow": "تابعنا"
+    "rights": "جميع الحقوق محفوظة"
   },
   "compare": {
     "metaTitle": "مقارنة السيارات — autobladi.ma",

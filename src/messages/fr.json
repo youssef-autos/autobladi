@@ -2347,26 +2347,18 @@
       "dealers": "Showrooms",
       "brands": "Toutes les marques",
       "cities": "Toutes les villes",
-      "estimation": "Estimer un prix"
+      "estimation": "Estimer un prix",
+      "comparer": "Comparer",
+      "blog": "Blog"
     },
     "company": "Société",
     "companyItems": {
-      "about": "À propos",
       "contact": "Contact",
-      "terms": "Conditions d'utilisation",
-      "privacy": "Politique de confidentialité",
       "publicite": "Publicité"
     },
     "contact": "Contact",
-    "phone": "0667172040",
-    "email": "contact@autobladi.ma",
     "address": "Casablanca, Maroc",
-    "newsletter": "Newsletter",
-    "newsletterDesc": "Recevez les dernières annonces et offres dans votre boîte mail",
-    "newsletterPlaceholder": "Votre adresse e-mail",
-    "subscribe": "S'abonner",
-    "rights": "Tous droits réservés",
-    "follow": "Suivez-nous"
+    "rights": "Tous droits réservés"
   },
   "compare": {
     "metaTitle": "Comparer des voitures — autobladi.ma",
