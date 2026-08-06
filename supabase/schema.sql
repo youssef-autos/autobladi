@@ -10,6 +10,8 @@
 --   • subscriptions/plans     — removed (migration 039)
 --   • featured listings       — removed (migration 041)
 --   • concessionnaires        — renamed to "professionnels" (migration 032)
+--   • professionnels          — renamed to "showrooms" (post-044, applied
+--                                directly to the live DB via the SQL Editor)
 --
 -- HOW TO USE ON A NEW PROJECT
 --   1. Create a fresh Supabase project.
@@ -46,10 +48,15 @@
 --      on public.profiles (email_unsubscribe_token)
 --      where email_unsubscribe_token is not null;
 --
---  Also note: the review-aggregate function is named
---  recompute_professionnel_rating() here; the live DB still carries the
---  pre-rename name recompute_concessionnaire_rating(). Both behave
---  identically — only fresh installs get the clearer name.
+--  Also note: this file's showrooms / showroom_reviews tables, their
+--  showroom_id columns, and recompute_showroom_rating() reflect the
+--  "professionnels → showrooms" rename above. That rename was applied
+--  directly to the live database via the SQL Editor, outside migration
+--  files — if its trigger function was never explicitly renamed in that
+--  pass, the live DB may still be running it under an older name
+--  (recompute_professionnel_rating() or recompute_concessionnaire_rating()).
+--  Re-running this file is still safe (it only creates the new-named
+--  function) but won't clean up a stale old one.
 -- ----------------------------------------------------------------------------
 -- ============================================================================
 
@@ -438,9 +445,9 @@ create table if not exists public.messages (
 
 
 -- ============================================================================
--- 9. PROFESSIONNELS (showrooms) + reviews
+-- 9. SHOWROOMS + reviews
 -- ============================================================================
-create table if not exists public.professionnels (
+create table if not exists public.showrooms (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null unique references public.profiles(id) on delete cascade,
   name text not null,
@@ -471,9 +478,9 @@ create table if not exists public.professionnels (
   updated_at timestamptz not null default now()
 );
 
-create table if not exists public.professionnel_reviews (
+create table if not exists public.showroom_reviews (
   id uuid primary key default gen_random_uuid(),
-  professionnel_id uuid not null references public.professionnels(id) on delete cascade,
+  showroom_id uuid not null references public.showrooms(id) on delete cascade,
   user_id uuid not null references public.profiles(id) on delete cascade,
   rating integer not null check (rating between 1 and 5),
   comment text,
@@ -481,12 +488,12 @@ create table if not exists public.professionnel_reviews (
 );
 
 -- One review per user per showroom.
-create unique index if not exists ux_reviews_user_per_professionnel
-  on public.professionnel_reviews (professionnel_id, user_id);
+create unique index if not exists ux_reviews_user_per_showroom
+  on public.showroom_reviews (showroom_id, user_id);
 
--- Keep professionnels.rating / reviews_count denormalised so listings can
+-- Keep showrooms.rating / reviews_count denormalised so listings can
 -- sort and filter without a per-row sub-query.
-create or replace function public.recompute_professionnel_rating()
+create or replace function public.recompute_showroom_rating()
 returns trigger
 language plpgsql
 security definer
@@ -495,19 +502,19 @@ as $$
 declare
   target_id uuid;
 begin
-  target_id := coalesce(new.professionnel_id, old.professionnel_id);
+  target_id := coalesce(new.showroom_id, old.showroom_id);
   if target_id is null then
     return coalesce(new, old);
   end if;
 
-  update public.professionnels p
+  update public.showrooms p
      set rating = coalesce(sub.avg_rating, 0),
          reviews_count = coalesce(sub.cnt, 0)
     from (
       select avg(rating)::numeric(3,2) as avg_rating,
              count(*) as cnt
-        from public.professionnel_reviews
-       where professionnel_id = target_id
+        from public.showroom_reviews
+       where showroom_id = target_id
     ) as sub
    where p.id = target_id;
 
@@ -515,20 +522,20 @@ begin
 end;
 $$;
 
-drop trigger if exists trg_review_aggregate_insert on public.professionnel_reviews;
+drop trigger if exists trg_review_aggregate_insert on public.showroom_reviews;
 create trigger trg_review_aggregate_insert
-  after insert on public.professionnel_reviews
-  for each row execute function public.recompute_professionnel_rating();
+  after insert on public.showroom_reviews
+  for each row execute function public.recompute_showroom_rating();
 
-drop trigger if exists trg_review_aggregate_update on public.professionnel_reviews;
+drop trigger if exists trg_review_aggregate_update on public.showroom_reviews;
 create trigger trg_review_aggregate_update
-  after update on public.professionnel_reviews
-  for each row execute function public.recompute_professionnel_rating();
+  after update on public.showroom_reviews
+  for each row execute function public.recompute_showroom_rating();
 
-drop trigger if exists trg_review_aggregate_delete on public.professionnel_reviews;
+drop trigger if exists trg_review_aggregate_delete on public.showroom_reviews;
 create trigger trg_review_aggregate_delete
-  after delete on public.professionnel_reviews
-  for each row execute function public.recompute_professionnel_rating();
+  after delete on public.showroom_reviews
+  for each row execute function public.recompute_showroom_rating();
 
 
 -- ============================================================================
@@ -857,9 +864,9 @@ create trigger annonces_set_updated_at
   before update on public.annonces
   for each row execute function public.set_updated_at();
 
-drop trigger if exists professionnels_set_updated_at on public.professionnels;
-create trigger professionnels_set_updated_at
-  before update on public.professionnels
+drop trigger if exists showrooms_set_updated_at on public.showrooms;
+create trigger showrooms_set_updated_at
+  before update on public.showrooms
   for each row execute function public.set_updated_at();
 
 drop trigger if exists blog_posts_set_updated_at on public.blog_posts;
@@ -914,9 +921,9 @@ create index if not exists idx_conversations_user1     on public.conversations (
 create index if not exists idx_conversations_user2     on public.conversations (user2_id, last_message_at desc);
 
 -- showrooms
-create index if not exists idx_professionnels_city     on public.professionnels (city_id);
-create index if not exists idx_professionnels_slug     on public.professionnels (slug);
-create index if not exists idx_reviews_professionnel   on public.professionnel_reviews (professionnel_id);
+create index if not exists idx_showrooms_city          on public.showrooms (city_id);
+create index if not exists idx_showrooms_slug          on public.showrooms (slug);
+create index if not exists idx_reviews_showroom        on public.showroom_reviews (showroom_id);
 
 -- blog / misc
 create index if not exists idx_estimations_user        on public.estimations (user_id);
@@ -972,8 +979,8 @@ alter table public.annonce_images        enable row level security;
 alter table public.favorites             enable row level security;
 alter table public.conversations         enable row level security;
 alter table public.messages              enable row level security;
-alter table public.professionnels        enable row level security;
-alter table public.professionnel_reviews enable row level security;
+alter table public.showrooms             enable row level security;
+alter table public.showroom_reviews      enable row level security;
 alter table public.estimations           enable row level security;
 alter table public.blog_categories       enable row level security;
 alter table public.blog_posts            enable row level security;
@@ -1083,22 +1090,22 @@ drop policy if exists "messages_receiver_update" on public.messages;
 create policy "messages_receiver_update" on public.messages for update using (receiver_id = auth.uid()) with check (receiver_id = auth.uid());
 
 -- ---------------------------------------------------------------------------
--- professionnels
+-- showrooms
 -- ---------------------------------------------------------------------------
-drop policy if exists "dealers_public_read" on public.professionnels;
-create policy "dealers_public_read" on public.professionnels for select
+drop policy if exists "dealers_public_read" on public.showrooms;
+create policy "dealers_public_read" on public.showrooms for select
   using (is_active or user_id = auth.uid() or public.is_admin());
-drop policy if exists "dealers_owner_write" on public.professionnels;
-create policy "dealers_owner_write" on public.professionnels for all using (user_id = auth.uid()) with check (user_id = auth.uid());
-drop policy if exists "dealers_admin_all" on public.professionnels;
-create policy "dealers_admin_all" on public.professionnels for all using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "dealers_owner_write" on public.showrooms;
+create policy "dealers_owner_write" on public.showrooms for all using (user_id = auth.uid()) with check (user_id = auth.uid());
+drop policy if exists "dealers_admin_all" on public.showrooms;
+create policy "dealers_admin_all" on public.showrooms for all using (public.is_admin()) with check (public.is_admin());
 
-drop policy if exists "reviews_public_read" on public.professionnel_reviews;
-create policy "reviews_public_read" on public.professionnel_reviews for select using (true);
-drop policy if exists "reviews_author_write" on public.professionnel_reviews;
-create policy "reviews_author_write" on public.professionnel_reviews for all using (user_id = auth.uid()) with check (user_id = auth.uid());
-drop policy if exists "reviews_admin_all" on public.professionnel_reviews;
-create policy "reviews_admin_all" on public.professionnel_reviews for all using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "reviews_public_read" on public.showroom_reviews;
+create policy "reviews_public_read" on public.showroom_reviews for select using (true);
+drop policy if exists "reviews_author_write" on public.showroom_reviews;
+create policy "reviews_author_write" on public.showroom_reviews for all using (user_id = auth.uid()) with check (user_id = auth.uid());
+drop policy if exists "reviews_admin_all" on public.showroom_reviews;
+create policy "reviews_admin_all" on public.showroom_reviews for all using (public.is_admin()) with check (public.is_admin());
 
 -- ---------------------------------------------------------------------------
 -- estimations — anonymous estimates allowed (user_id null)
@@ -1324,8 +1331,8 @@ insert into public.ad_placements (name, slug, width, height, description, device
   ('Annonce — Top banner',        'annonce_top',           728,  90, 'Bannière en haut de la page de détail',               'desktop'),
   ('Annonce — Sidebar',           'annonce_sidebar',       300, 250, 'Encart latéral sur la page de détail',                'desktop'),
   ('Annonce — Bottom banner',     'annonce_bottom',        728,  90, 'Bannière en bas de la page de détail',                'desktop'),
-  ('Professionnel — Top banner',  'professionnel_top',     970, 150, 'Bannière en haut de la page d''un professionnel',      'desktop'),
-  ('Professionnel — Sidebar',     'professionnel_sidebar', 300, 600, 'Encart latéral sur la page d''un professionnel',       'desktop'),
+  ('Showroom — Top banner',       'showroom_top',          970, 150, 'Bannière en haut de la page d''un showroom',           'desktop'),
+  ('Showroom — Sidebar',          'showroom_sidebar',      300, 600, 'Encart latéral sur la page d''un showroom',            'desktop'),
   ('Blog — Top banner',           'blog_top',              970, 150, 'Bannière en haut du blog',                            'desktop'),
   ('Blog — Sidebar',              'blog_sidebar',          300, 600, 'Encart latéral du blog',                              'desktop'),
   ('Footer — Banner',             'footer_banner',         970, 120, 'Bannière en pied de page (toutes pages)',             'desktop'),
@@ -1338,7 +1345,7 @@ insert into public.ad_placements (name, slug, width, height, description, device
   ('Annonce — Top (Mobile)',       'annonce_top_mobile',       300, 250, 'Bannière en haut de la page de détail sur mobile',      'mobile'),
   ('Annonce — Bottom (Mobile)',    'annonce_bottom_mobile',    300, 250, 'Bannière en bas de la page de détail sur mobile',       'mobile'),
   ('Blog — Top (Mobile)',          'blog_top_mobile',          300, 250, 'Bannière en haut du blog sur mobile',                  'mobile'),
-  ('Professionnel — Top (Mobile)', 'professionnel_top_mobile', 300, 250, 'Bannière en haut de la page professionnelle sur mobile','mobile')
+  ('Showroom — Top (Mobile)',      'showroom_top_mobile',     300, 250, 'Bannière en haut de la page showroom sur mobile',      'mobile')
 on conflict (slug) do nothing;
 
 -- --- Singleton settings rows ----------------------------------------------
