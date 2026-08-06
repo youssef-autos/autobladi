@@ -2456,42 +2456,40 @@
   },
   "publicite": {
     "metaTitle": "Annoncez sur autobladi.ma",
-    "metaDescription": "Placez votre marque devant des milliers de Marocains à la recherche d'une voiture. Emplacements premium, ciblage local et rapports transparents sur autobladi.ma.",
+    "metaDescription": "Présentez votre marque aux Marocains à la recherche d'une voiture. Emplacements premium, ciblage précis et suivi transparent sur autobladi.ma.",
     "hero": {
       "eyebrow": "Annoncez avec autobladi.ma",
-      "title": "Votre marque devant ceux qui vont acheter une voiture",
-      "subtitle": "autobladi.ma connecte les Marocains qui achètent et vendent une voiture. Une audience à forte intention d'achat — pas des impressions perdues.",
-      "trust": "Une plateforme marocaine spécialisée dans l'automobile",
-      "cta": "Réservez votre emplacement",
+      "title": "Votre marque, devant les prochains acheteurs de voiture",
+      "subtitle": "autobladi.ma réunit les Marocains qui achètent et vendent une voiture — une audience en recherche active, pas des impressions perdues.",
+      "trust": "Plateforme marocaine, entièrement dédiée à l'automobile",
+      "cta": "Demander un emplacement",
       "ctaSecondary": "Voir les emplacements"
     },
-    "audience": {
-      "title": "Notre audience en chiffres",
-      "subtitle": "Moyenne mensuelle approximative, mise à jour régulièrement",
-      "visitsLabel": "Visites / mois",
-      "visitsValue": "+250K",
-      "annoncesLabel": "Annonces actives",
-      "annoncesValue": "+10K",
-      "dealersLabel": "Showrooms",
-      "dealersValue": "+300",
-      "citiesLabel": "Villes couvertes",
-      "citiesValue": "+40"
+    "trust": {
+      "placementsTitle": "{count} emplacements publicitaires",
+      "placementsDesc": "Répartis sur l'accueil, les annonces, les showrooms et le blog",
+      "intentTitle": "Audience en recherche active",
+      "intentDesc": "Des visiteurs qui comparent et s'apprêtent à acheter, pas du trafic de passage",
+      "safeTitle": "Espace maîtrisé",
+      "safeDesc": "Contenu modéré, sans désordre publicitaire autour de votre marque",
+      "responseTitle": "Réponse sous 24h",
+      "responseDesc": "Un interlocuteur dédié pour cadrer votre campagne rapidement"
     },
     "why": {
       "title": "Pourquoi autobladi.ma",
-      "subtitle": "Quatre raisons qui font travailler votre budget publicitaire à plein",
-      "audienceTitle": "Audience à forte intention",
-      "audienceDesc": "Nos visiteurs cherchent réellement une voiture — votre pub devant une décision, pas un simple scroll.",
-      "localTitle": "Couverture nationale",
-      "localDesc": "Présence dans toutes les grandes villes : Casablanca, Rabat, Marrakech, Tanger et plus.",
-      "premiumTitle": "Emplacements premium et sûrs",
-      "premiumDesc": "Des positions visibles dans un contenu de confiance, loin du désordre publicitaire.",
-      "transparentTitle": "Résultats transparents",
-      "transparentDesc": "Rapports mensuels d'impressions et de clics — vous savez où va chaque dirham."
+      "subtitle": "Quatre raisons qui font travailler votre budget publicitaire efficacement",
+      "targetingTitle": "Ciblage précis",
+      "targetingDesc": "Choisissez vos emplacements selon la page et le format qui correspondent à votre objectif.",
+      "directTitle": "Campagnes gérées en direct",
+      "directDesc": "Vos publicités sont gérées directement avec notre équipe, sans réseau publicitaire imposé.",
+      "trackingTitle": "Suivi de performance",
+      "trackingDesc": "Impressions et clics suivis pour chaque emplacement, pour évaluer clairement vos résultats.",
+      "localTitle": "Ancrage local",
+      "localDesc": "Une équipe basée au Maroc, qui connaît le marché automobile local."
     },
     "placements": {
       "title": "Où apparaît votre publicité",
-      "subtitle": "15 emplacements stratégiques sur l'accueil, les pages annonces, les showrooms et le blog",
+      "subtitle": "Le détail de nos {count} emplacements, page par page",
       "items": {
         "home": "Page d'accueil",
         "homeDesc": "Haut, milieu et bas de la page — visibilité maximale",
@@ -2515,17 +2513,17 @@
       "step2Title": "Nous proposons un plan",
       "step2Desc": "Les emplacements, formats et tarifs adaptés à votre campagne.",
       "step3Title": "On lance et on mesure",
-      "step3Desc": "Votre publicité est diffusée, avec des rapports de performance réguliers."
+      "step3Desc": "Votre publicité est diffusée, avec un suivi clair des performances."
     },
     "form": {
-      "title": "Réservez votre emplacement",
+      "title": "Demander un emplacement publicitaire",
       "subtitle": "Remplissez le formulaire, nous répondons sous 24 heures ouvrées.",
       "name": "Nom complet",
       "namePlaceholder": "Mohamed El Alaoui",
       "email": "E-mail",
       "emailPlaceholder": "vous@entreprise.com",
       "phone": "Téléphone",
-      "phonePlaceholder": "+212 6 00 00 00 00",
+      "phonePlaceholder": "06 00 00 00 00",
       "company": "Entreprise (optionnel)",
       "companyPlaceholder": "Nom de votre entreprise",
       "message": "Votre message",
@@ -2540,8 +2538,6 @@
     "contact": {
       "title": "Ou contactez-nous directement",
       "subtitle": "Notre équipe commerciale répond à toutes vos questions.",
-      "email": "contact@autobladi.ma",
-      "phone": "+212 5 22 00 00 00",
       "note": "Réponse sous un jour ouvré"
     },
     "validation": {

@@ -3,10 +3,13 @@ import {
   ArrowRight,
   BarChart3,
   Building2,
+  Clock,
   Eye,
+  Filter,
   Globe2,
+  Handshake,
+  LayoutGrid,
   Mail,
-  MapPin,
   Megaphone,
   MessageCircle,
   Newspaper,
@@ -20,6 +23,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server"
 import { AdInquiryForm } from "@/components/publicite/AdInquiryForm"
 import { Container } from "@/components/ui/Container"
 import { GoldAccent } from "@/components/ui/GoldAccent"
+import { getAllAdSlots } from "@/config/ads.config"
 import { getSiteContact } from "@/lib/queries/home"
 import { localeAlternates } from "@/lib/seo/alternates"
 
@@ -55,11 +59,18 @@ export default async function PublicitePage({
   const t = await getTranslations("publicite")
   const contact = await getSiteContact()
 
-  const stats = [
-    { icon: Eye, value: t("audience.visitsValue"), label: t("audience.visitsLabel") },
-    { icon: Newspaper, value: t("audience.annoncesValue"), label: t("audience.annoncesLabel") },
-    { icon: Building2, value: t("audience.dealersValue"), label: t("audience.dealersLabel") },
-    { icon: MapPin, value: t("audience.citiesValue"), label: t("audience.citiesLabel") },
+  // Real, verifiable count of live ad slots — never a marketing guess.
+  const placementCount = getAllAdSlots().filter((s) => s.enabled).length
+
+  const trustItems = [
+    {
+      icon: LayoutGrid,
+      title: t("trust.placementsTitle", { count: placementCount }),
+      desc: t("trust.placementsDesc"),
+    },
+    { icon: Target, title: t("trust.intentTitle"), desc: t("trust.intentDesc") },
+    { icon: ShieldCheck, title: t("trust.safeTitle"), desc: t("trust.safeDesc") },
+    { icon: Clock, title: t("trust.responseTitle"), desc: t("trust.responseDesc") },
   ]
 
   return (
@@ -105,23 +116,22 @@ export default async function PublicitePage({
         </Container>
       </section>
 
-      {/* ── Stats band (overlaps hero) ───────────────────────── */}
+      {/* ── Trust strip (overlaps hero) ──────────────────────── */}
       <Container className="relative z-10 -mt-10 md:-mt-12">
-        <div className="rounded-2xl border border-border bg-card shadow-card p-5 md:p-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-y divide-border sm:divide-y-0 md:divide-x rtl:md:divide-x-reverse">
-            {stats.map((s) => (
-              <div key={s.label} className="flex flex-col items-center text-center px-3 py-3 md:py-1">
-                <s.icon className="size-5 text-moroccan-gold-600 mb-1.5" aria-hidden="true" />
-                <p className="font-display text-2xl md:text-3xl font-bold text-foreground leading-none">
-                  {s.value}
-                </p>
-                <p className="text-xs text-muted-foreground mt-1.5">{s.label}</p>
+        <div className="rounded-2xl border border-border bg-card shadow-card p-6 md:p-7">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-5 sm:gap-y-6">
+            {trustItems.map((item) => (
+              <div key={item.title} className="flex items-start gap-3">
+                <span className="inline-flex items-center justify-center size-10 rounded-xl bg-moroccan-gold-500/10 text-moroccan-gold-600 shrink-0">
+                  <item.icon className="size-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="text-sm font-bold text-foreground leading-snug">{item.title}</p>
+                  <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{item.desc}</p>
+                </div>
               </div>
             ))}
           </div>
-          <p className="text-center text-[11px] text-muted-foreground mt-4">
-            {t("audience.subtitle")}
-          </p>
         </div>
       </Container>
 
@@ -138,24 +148,24 @@ export default async function PublicitePage({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             <WhyCard
-              icon={Target}
-              title={t("why.audienceTitle")}
-              desc={t("why.audienceDesc")}
+              icon={Filter}
+              title={t("why.targetingTitle")}
+              desc={t("why.targetingDesc")}
+            />
+            <WhyCard
+              icon={Handshake}
+              title={t("why.directTitle")}
+              desc={t("why.directDesc")}
+            />
+            <WhyCard
+              icon={BarChart3}
+              title={t("why.trackingTitle")}
+              desc={t("why.trackingDesc")}
             />
             <WhyCard
               icon={Globe2}
               title={t("why.localTitle")}
               desc={t("why.localDesc")}
-            />
-            <WhyCard
-              icon={ShieldCheck}
-              title={t("why.premiumTitle")}
-              desc={t("why.premiumDesc")}
-            />
-            <WhyCard
-              icon={BarChart3}
-              title={t("why.transparentTitle")}
-              desc={t("why.transparentDesc")}
             />
           </div>
         </Container>
@@ -170,7 +180,7 @@ export default async function PublicitePage({
             </h2>
             <GoldAccent className="mx-auto" />
             <p className="text-sm text-muted-foreground">
-              {t("placements.subtitle")}
+              {t("placements.subtitle", { count: placementCount })}
             </p>
           </header>
 
