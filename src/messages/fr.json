@@ -88,6 +88,7 @@
       "submitting": "Mise à jour...",
       "successTitle": "Mot de passe mis à jour",
       "successMessage": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe",
+      "signInLink": "Se connecter",
       "errorInvalidLink": "Lien invalide ou expiré"
     }
   },
@@ -151,7 +152,7 @@
       "filterNew": "Neuf",
       "filterUsed": "Occasion",
       "proCtaTitle": "Vous gérez un showroom ?",
-      "proCtaText": "Créez votre showroom sur autobladi.ma et présentez tout votre stock à des milliers d'acheteurs chaque mois.",
+      "proCtaText": "Créez votre showroom sur autobladi.ma et présentez tout votre stock aux acheteurs qui recherchent activement une voiture.",
       "proCtaButton": "Devenir partenaire",
       "callAction": "Appeler"
     },
@@ -472,7 +473,7 @@
       "subtitle": "Gérez et modifiez vos annonces",
       "addNew": "Publier une annonce",
       "empty": "Vous n'avez pas encore d'annonces",
-      "emptyDesc": "Publiez votre première annonce pour atteindre des milliers d'acheteurs",
+      "emptyDesc": "Publiez votre première annonce pour la rendre visible aux acheteurs intéressés",
       "columns": {
         "annonce": "Annonce",
         "price": "Prix",
@@ -679,11 +680,11 @@
     },
     "why": {
       "title": "Pourquoi choisir l'estimation autobladi",
-      "subtitle": "Trois avantages qui font de notre estimation la référence au Maroc",
+      "subtitle": "Trois avantages de notre estimation par intelligence artificielle",
       "freeTitle": "100 % gratuit",
       "freeDesc": "Sans inscription, utilisez le service autant que vous voulez",
       "instantTitle": "Résultat instantané (IA)",
-      "instantDesc": "Gemini analyse des milliers de points de données en quelques secondes",
+      "instantDesc": "Gemini analyse les caractéristiques de votre véhicule en quelques secondes",
       "localTitle": "Spécialisé Maroc",
       "localDesc": "Prix alignés sur le marché actuel, en dirhams marocains"
     }
@@ -2183,11 +2184,11 @@
   },
   "annonces": {
     "metaTitle": "Voitures à vendre au Maroc — Annonces auto neuves et d'occasion",
-    "metaDescription": "Parcourez des milliers d'annonces de voitures à vendre au Maroc : occasion et neuf dans toutes les villes, prix à jour, photos et détails. Recherchez par marque, ville et prix sur autobladi.ma.",
+    "metaDescription": "Parcourez les annonces de voitures à vendre au Maroc : occasion et neuf, prix à jour, photos et détails. Recherchez par marque, ville et prix sur autobladi.ma.",
     "browseByBrand": "Parcourir par marque",
     "browseByCity": "Parcourir par ville",
     "pageTitle": "Voitures disponibles",
-    "pageSubtitle": "Parcourez des milliers de voitures au Maroc",
+    "pageSubtitle": "Toutes les annonces disponibles au Maroc",
     "resultsCount": "{count} voiture(s)",
     "saveSearch": "Enregistrer la recherche",
     "saveSearchToast": "Enregistrez cette recherche dans votre compte. Fonctionnalité bientôt disponible.",
@@ -2294,7 +2295,7 @@
       "title": "Pourquoi choisir autobladi.ma ?",
       "subtitle": "Tout ce qu'il faut pour acheter ou vendre votre voiture en toute confiance, partout au Maroc.",
       "realPhotosTitle": "Photos authentiques",
-      "realPhotosDesc": "Un filigrane protège chaque annonce et garantit des photos réelles, jamais volées.",
+      "realPhotosDesc": "Un filigrane protège chaque annonce contre le vol de photos.",
       "directContactTitle": "Contact direct & sécurisé",
       "directContactDesc": "Échangez avec le vendeur via notre messagerie intégrée, par téléphone ou WhatsApp.",
       "estimationTitle": "Estimation par IA",
