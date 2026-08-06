@@ -12,7 +12,6 @@ import {
   ImageIcon,
   MapPin,
   Send,
-  Sparkles,
   Star,
   Store,
   Upload,
@@ -51,7 +50,6 @@ type Props = {
 const SHOWROOM_BUCKET = "concessionnaires"
 
 const STEP_KEYS = ["design", "info", "contact", "preview"] as const
-type StepKey = (typeof STEP_KEYS)[number]
 
 /** Build a URL-safe slug from a (latin) name; empty for non-latin scripts. */
 function slugify(s: string): string {

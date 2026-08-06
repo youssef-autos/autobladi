@@ -74,27 +74,26 @@ function AdsenseCard({ initial }: { initial: string }) {
         </Badge>
       </div>
 
-      <label className="block text-xs font-medium text-muted-foreground mb-1">
-        {t("label")}
-      </label>
-      <div className="flex flex-col sm:flex-row gap-2">
-        <input
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder="ca-pub-XXXXXXXXXXXXXXXX"
-          dir="ltr"
-          className="sm:flex-1 h-10 px-3 rounded-lg border border-border bg-background text-sm font-mono focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40"
-        />
-        <button
-          type="button"
-          onClick={onSave}
-          disabled={pending}
-          className="inline-flex items-center justify-center gap-2 h-10 px-4 rounded-lg bg-moroccan-gold-600 text-white text-sm font-medium hover:bg-moroccan-gold-700 disabled:opacity-50"
-        >
-          <Save className="size-4" />
-          {pending ? t("saving") : t("save")}
-        </button>
-      </div>
+      <SettingsField label={t("label")}>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <input
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder="ca-pub-XXXXXXXXXXXXXXXX"
+            dir="ltr"
+            className="sm:flex-1 h-10 px-3 rounded-lg border border-border bg-background text-sm font-mono focus:outline-none focus:ring-2 focus:ring-moroccan-gold-500/40"
+          />
+          <button
+            type="button"
+            onClick={onSave}
+            disabled={pending}
+            className="inline-flex items-center justify-center gap-2 h-10 px-4 rounded-lg bg-moroccan-gold-600 text-white text-sm font-medium hover:bg-moroccan-gold-700 disabled:opacity-50"
+          >
+            <Save className="size-4" />
+            {pending ? t("saving") : t("save")}
+          </button>
+        </div>
+      </SettingsField>
       <p className="mt-2 text-[11px] text-muted-foreground leading-relaxed">{t("help")}</p>
     </section>
   )
@@ -176,16 +175,16 @@ function SlotCard({ slot }: { slot: AdSlotSettingsRow }) {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {/* Name */}
-        <Field label={t("fields.name")} className="sm:col-span-2 lg:col-span-1">
+        <SettingsField label={t("fields.name")} className="sm:col-span-2 lg:col-span-1">
           <input
             value={form.name}
             onChange={(e) => set("name", e.target.value)}
             className={inputCls}
           />
-        </Field>
+        </SettingsField>
 
         {/* Device */}
-        <Field label={t("columns.device")}>
+        <SettingsField label={t("columns.device")}>
           <div className="flex gap-1">
             <DeviceOption
               active={form.device === "both"}
@@ -206,10 +205,10 @@ function SlotCard({ slot }: { slot: AdSlotSettingsRow }) {
               label={t("device.mobile")}
             />
           </div>
-        </Field>
+        </SettingsField>
 
         {/* Provider */}
-        <Field label={t("fields.provider")}>
+        <SettingsField label={t("fields.provider")}>
           <select
             value={form.default_provider}
             onChange={(e) =>
@@ -220,30 +219,30 @@ function SlotCard({ slot }: { slot: AdSlotSettingsRow }) {
             <option value="adsense">{t("provider.adsense")}</option>
             <option value="direct">{t("provider.direct")}</option>
           </select>
-        </Field>
+        </SettingsField>
 
         {/* Desktop size */}
-        <Field label={t("fields.desktopSize")}>
+        <SettingsField label={t("fields.desktopSize")}>
           <SizePair
             w={form.width}
             h={form.height}
             onW={(v) => set("width", v)}
             onH={(v) => set("height", v)}
           />
-        </Field>
+        </SettingsField>
 
         {/* Mobile size */}
-        <Field label={t("fields.mobileSize")}>
+        <SettingsField label={t("fields.mobileSize")}>
           <SizePair
             w={form.width_mobile}
             h={form.height_mobile}
             onW={(v) => set("width_mobile", v)}
             onH={(v) => set("height_mobile", v)}
           />
-        </Field>
+        </SettingsField>
 
         {/* AdSense unit id */}
-        <Field
+        <SettingsField
           label={t("fields.adsenseUnit")}
           className="sm:col-span-2 lg:col-span-1"
         >
@@ -254,7 +253,7 @@ function SlotCard({ slot }: { slot: AdSlotSettingsRow }) {
             dir="ltr"
             className={cn(inputCls, "font-mono")}
           />
-        </Field>
+        </SettingsField>
       </div>
 
       {/* Footer: lazy + save */}
@@ -285,7 +284,7 @@ function SlotCard({ slot }: { slot: AdSlotSettingsRow }) {
 // ---------------------------------------------------------------------------
 // Small building blocks
 // ---------------------------------------------------------------------------
-function Field({
+function SettingsField({
   label,
   className,
   children,

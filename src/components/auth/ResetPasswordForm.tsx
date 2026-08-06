@@ -56,7 +56,7 @@ export function ResetPasswordForm() {
           href={`/${locale}/auth/connexion`}
           className="inline-block text-sm font-medium text-moroccan-red-500 hover:underline"
         >
-          {locale === "ar" ? "تسجيل الدخول" : "Se connecter"}
+          {t("signInLink")}
         </Link>
       </div>
     )
