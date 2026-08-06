@@ -71,7 +71,7 @@ async function buildWatermarkOverlay({
   const extFontSize = fontSize * 0.45
   const shadow = Math.max(1, fontSize * 0.035)
   const shadowColor = "rgba(0,0,0,0.18)"
-  const textColor = "rgba(255,255,255,0.2)"
+  const textColor = "rgba(255,255,255,0.1)"
   const textShadow = [
     `${shadow}px ${shadow}px 0 ${shadowColor}`,
     `-${shadow}px -${shadow}px 0 ${shadowColor}`,
