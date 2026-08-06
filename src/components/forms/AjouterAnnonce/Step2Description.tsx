@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Controller, useFormContext } from "react-hook-form"
 import { useLocale } from "next-intl"
 import { useTranslations } from "next-intl"
@@ -37,6 +37,7 @@ export function Step2DescriptionPrice({ brands, models }: Props) {
   const brandId = form.watch("brandId")
   const modelId = form.watch("modelId")
   const year = form.watch("year")
+  const contactPhone = form.watch("contactPhone")
   const userEditedTitle = form.formState.dirtyFields.title
 
   const autoTitle = useMemo(() => {
@@ -51,6 +52,18 @@ export function Step2DescriptionPrice({ brands, models }: Props) {
       form.setValue("title", autoTitle, { shouldDirty: false })
     }
   }, [autoTitle, userEditedTitle, form])
+
+  // "Same as phone" for WhatsApp — avoids retyping an identical number.
+  const [sameAsPhone, setSameAsPhone] = useState(false)
+  const { setValue } = form
+  useEffect(() => {
+    if (sameAsPhone) {
+      setValue("contactWhatsapp", contactPhone || null, {
+        shouldDirty: true,
+        shouldValidate: true,
+      })
+    }
+  }, [sameAsPhone, contactPhone, setValue])
 
   const aiInput = useMemo<DescriptionInput | null>(() => {
     if (!brandId || !modelId || !year) return null
@@ -157,22 +170,38 @@ export function Step2DescriptionPrice({ brands, models }: Props) {
         <Field label={t("contactPhone")} error={tr(errors.contactPhone?.message)}>
           <Input
             type="tel"
-            placeholder="+212 6 00 00 00 00"
+            placeholder={t("phonePlaceholder")}
             className="h-11 rounded-xl"
             {...form.register("contactPhone")}
           />
         </Field>
 
-        <Field label={t("contactWhatsapp")} error={tr(errors.contactWhatsapp?.message)}>
+        <div className="space-y-1.5">
+          <span className="flex items-center justify-between gap-2">
+            <span className="text-sm font-medium text-foreground">{t("contactWhatsapp")}</span>
+            <label className="flex items-center gap-1.5 text-xs font-normal text-muted-foreground cursor-pointer">
+              <Checkbox
+                checked={sameAsPhone}
+                onCheckedChange={(v) => setSameAsPhone(v === true)}
+              />
+              {t("sameAsPhone")}
+            </label>
+          </span>
           <Input
             type="tel"
-            placeholder="+212 6 00 00 00 00"
-            className="h-11 rounded-xl"
+            placeholder={t("phonePlaceholder")}
+            disabled={sameAsPhone}
+            className={cn("h-11 rounded-xl", sameAsPhone && "opacity-60")}
             {...form.register("contactWhatsapp", {
               setValueAs: (v: string) => (v === "" ? null : v),
             })}
           />
-        </Field>
+          {tr(errors.contactWhatsapp?.message) ? (
+            <span className="block text-xs text-destructive">
+              {tr(errors.contactWhatsapp?.message)}
+            </span>
+          ) : null}
+        </div>
       </div>
     </div>
   )

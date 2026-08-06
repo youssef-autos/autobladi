@@ -1938,6 +1938,8 @@
       "priceOnRequestHint": "Le prix restera visible pour vous dans votre tableau de bord, mais les acheteurs devront vous contacter pour le connaître.",
       "contactPhone": "Téléphone de contact",
       "contactWhatsapp": "WhatsApp (facultatif)",
+      "phonePlaceholder": "06 00 00 00 00",
+      "sameAsPhone": "Même numéro que le téléphone",
       "proBadge": "Fonction Pro",
       "videoUrl": "Lien vidéo (facultatif)",
       "videoUrlHint": "Collez un lien vidéo YouTube, Facebook ou TikTok — il s'affichera sur la page de l'annonce."
