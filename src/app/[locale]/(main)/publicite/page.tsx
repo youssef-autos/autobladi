@@ -27,7 +27,8 @@ import { getAllAdSlots } from "@/config/ads.config"
 import { getSiteContact } from "@/lib/queries/home"
 import { localeAlternates } from "@/lib/seo/alternates"
 
-export const dynamic = "force-dynamic"
+export const dynamic = "force-static"
+export const revalidate = 60
 
 export async function generateMetadata({
   params,

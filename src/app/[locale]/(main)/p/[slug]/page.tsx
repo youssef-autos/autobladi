@@ -10,7 +10,8 @@ import { getPageBySlug } from "@/lib/queries/pages"
 import { localeAlternates } from "@/lib/seo/alternates"
 import { breadcrumbSchema } from "@/lib/seo/structured-data"
 
-export const dynamic = "force-dynamic"
+export const dynamic = "force-static"
+export const revalidate = 60
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://autobladi.ma"
 
