@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Cairo, Outfit, Tajawal } from "next/font/google"
+import { Harmattan, Outfit } from "next/font/google"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
 import { getMessages, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
@@ -24,21 +24,15 @@ import { cn } from "@/lib/utils"
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://autobladi.ma"
 
-const cairo = Cairo({
-  variable: "--font-cairo",
+const harmattan = Harmattan({
+  variable: "--font-harmattan",
   subsets: ["arabic", "latin"],
-  display: "swap",
-})
-
-const tajawal = Tajawal({
-  variable: "--font-tajawal",
-  subsets: ["arabic", "latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 })
 
 // Matches the Latin/French typeface used on autohouse.ma — Arabic keeps
-// Cairo/Tajawal untouched.
+// Harmattan untouched.
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
@@ -224,8 +218,7 @@ export default async function LocaleLayout({
       lang={locale}
       dir={dir}
       className={cn(
-        cairo.variable,
-        tajawal.variable,
+        harmattan.variable,
         outfit.variable,
         "h-full antialiased overflow-x-hidden",
       )}

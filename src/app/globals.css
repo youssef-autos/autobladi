@@ -75,9 +75,8 @@
    * Fonts
    * ============================================================ */
   --font-sans: var(--font-outfit);
-  --font-arabic: var(--font-cairo), var(--font-tajawal);
-  --font-cairo: var(--font-cairo);
-  --font-tajawal: var(--font-tajawal);
+  --font-arabic: var(--font-harmattan);
+  --font-harmattan: var(--font-harmattan);
   --font-display: var(--font-outfit);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-outfit);
@@ -187,7 +186,7 @@
     @apply font-sans;
   }
   html[lang="ar"] {
-    font-family: var(--font-cairo), var(--font-tajawal), system-ui, sans-serif;
+    font-family: var(--font-harmattan), system-ui, sans-serif;
   }
   html[lang="fr"] {
     font-family: var(--font-outfit), system-ui, sans-serif;
@@ -222,15 +221,23 @@
 }
 
 /* ============================================================
- * Arabic display headings → Cairo
- * `font-display`/`font-heading` map to Playfair Display, which has no Arabic
- * glyphs; its Next.js metric fallback is a serif system font (Times) that DOES
- * carry Arabic, so Arabic titles render serif. Force them to Cairo (the clean
- * geometric look of the home hero "ابحث عن سيارة الأحلام"). Unlayered so it
- * beats the Tailwind utilities layer. French headings keep Playfair.
+ * Arabic display headings → Harmattan
+ * `--font-display`/`--font-heading` are *aliases* for `--font-outfit` in the
+ * theme block above. Tailwind resolves that alias at build time for every
+ * class that consumes it — the literal `font-display` utility, and arbitrary
+ * variants like `[&_h3]:font-display` (used on raw HTML from blog/CMS
+ * content) — baking a direct `font-family: var(--font-outfit)` into each
+ * compiled rule instead of `var(--font-display)`. Redefining
+ * `--font-display`/`--font-heading` here would therefore do nothing; the
+ * only variable actually read at runtime by those rules is `--font-outfit`
+ * itself, so that's what has to change for Arabic. Next.js sets the real
+ * `--font-outfit` value via a plain class on <html> (`.outfit_xxx__variable`,
+ * specificity 0,1,0) injected by a stylesheet that loads *after* this one —
+ * source order alone would lose, so `html[lang="ar"]` (0,1,1) is used here
+ * to out-specificity it instead.
  * ============================================================ */
-[lang="ar"] :is(.font-display, .font-heading) {
-  font-family: var(--font-cairo), var(--font-tajawal), system-ui, sans-serif;
+html[lang="ar"] {
+  --font-outfit: var(--font-harmattan);
 }
 
 /* ============================================================
