@@ -2679,5 +2679,11 @@
     "errors": {
       "send": "Impossible d'envoyer le message"
     }
+  },
+  "cookieConsent": {
+    "message": "Nous utilisons des cookies pour mesurer l'audience du site et afficher des publicités pertinentes.",
+    "learnMore": "En savoir plus",
+    "decline": "Refuser",
+    "acceptAll": "Accepter"
   }
 }

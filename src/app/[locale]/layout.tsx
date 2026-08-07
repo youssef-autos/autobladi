@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next"
 import { Cairo, Outfit, Tajawal } from "next/font/google"
-import Script from "next/script"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
-import { setRequestLocale } from "next-intl/server"
+import { getMessages, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { DirectionProvider } from "@base-ui/react/direction-provider"
 
+import { CookieConsent } from "@/components/layout/CookieConsent"
 import { JsonLd } from "@/components/seo/JsonLd"
 import { FavoritesProvider } from "@/hooks/use-favorites"
 import { Toaster } from "@/components/ui/sonner"
@@ -211,10 +211,11 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale)
   const dir = locale === "ar" ? "rtl" : "ltr"
-  const [gaId, adsenseClientId, verify] = await Promise.all([
+  const [gaId, adsenseClientId, verify, messages] = await Promise.all([
     getSiteAnalyticsId(),
     getAdsenseClientId(),
     getSiteVerification(),
+    getMessages(),
   ])
   const adsenseEnabled = adsenseClientId.startsWith("ca-pub-")
 
@@ -233,31 +234,17 @@ export default async function LocaleLayout({
         <head dangerouslySetInnerHTML={{ __html: verify.customHead }} />
       )}
       <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden">
-        {gaId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="ga-init" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`}
-            </Script>
-          </>
-        )}
-        {/* Google AdSense loader — injected once, only when a publisher id is set. */}
-        {adsenseEnabled && (
-          <Script
-            id="adsbygoogle-init"
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
-            strategy="afterInteractive"
-            crossOrigin="anonymous"
-          />
-        )}
         <JsonLd data={organizationSchema()} />
         <DirectionProvider direction={dir}>
           <NuqsAdapter>
-            <NextIntlClientProvider>
+            <NextIntlClientProvider messages={messages}>
               <FavoritesProvider>{children}</FavoritesProvider>
+              {/* GA + AdSense only load once the visitor has accepted cookies. */}
+              <CookieConsent
+                gaId={gaId}
+                adsenseClientId={adsenseClientId}
+                adsenseEnabled={adsenseEnabled}
+              />
             </NextIntlClientProvider>
           </NuqsAdapter>
         </DirectionProvider>
