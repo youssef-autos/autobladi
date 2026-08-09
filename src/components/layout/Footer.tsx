@@ -55,6 +55,9 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
               <SocialLink href="https://www.linkedin.com/company/autobladima" label="LinkedIn">
                 <LinkedinIcon className="size-4" />
               </SocialLink>
+              <SocialLink href="https://www.whatsapp.com/channel/0029VbD7RhtBfxnzjdMQ4T1z" label="whatsapp">
+                <LinkedinIcon className="size-4" />
+              </SocialLink>
             </div>
           </div>
 
