@@ -112,11 +112,12 @@ export async function publishAnnonce(input: unknown): Promise<PublishResult> {
     return { ok: false, error: insertError?.message ?? "insert_failed" }
   }
 
+  const hasMainImage = v.images.some((img) => img.is_main)
   const imagesPayload = v.images.map((img, idx) => ({
     annonce_id: created.id,
     url: img.url,
     thumbnail_url: img.thumbnail_url,
-    is_main: img.is_main || idx === 0,
+    is_main: hasMainImage ? img.is_main : idx === 0,
     order_index: idx,
   }))
 
@@ -226,11 +227,12 @@ export async function updateAnnonce(
 
   // Replace images wholesale (simplest correct approach for an edit).
   await supabase.from("annonce_images").delete().eq("annonce_id", id)
+  const hasMainImage = v.images.some((img) => img.is_main)
   const imagesPayload = v.images.map((img, idx) => ({
     annonce_id: id,
     url: img.url,
     thumbnail_url: img.thumbnail_url,
-    is_main: img.is_main || idx === 0,
+    is_main: hasMainImage ? img.is_main : idx === 0,
     order_index: idx,
   }))
   const { error: imagesError } = await supabase
