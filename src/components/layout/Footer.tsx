@@ -1,17 +1,16 @@
 import { Suspense } from "react"
-import { Mail, MapPin, Phone } from "lucide-react"
 import { getLocale, getTranslations } from "next-intl/server"
 
 import { AdBanner } from "@/components/ads/AdBanner"
 import { Container } from "@/components/ui/Container"
 import { Link } from "@/i18n/navigation"
 import { Logo } from "@/components/layout/Logo"
-import { getSiteContact } from "@/lib/queries/home"
 import { listFooterPages } from "@/lib/queries/pages"
 import {
   FacebookIcon,
   InstagramIcon,
   LinkedinIcon,
+  WhatsappIcon,
   YoutubeIcon,
 } from "@/components/layout/SocialIcons"
 
@@ -19,10 +18,7 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
   const t = await getTranslations("footer")
   const locale = await getLocale()
   const year = new Date().getFullYear()
-  const [footerPages, contact] = await Promise.all([
-    listFooterPages(),
-    getSiteContact(),
-  ])
+  const footerPages = await listFooterPages()
 
   return (
     <footer className="mt-auto bg-brand-dark text-white/80">
@@ -55,8 +51,8 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
               <SocialLink href="https://www.linkedin.com/company/autobladima" label="LinkedIn">
                 <LinkedinIcon className="size-4" />
               </SocialLink>
-              <SocialLink href="https://www.whatsapp.com/channel/0029VbD7RhtBfxnzjdMQ4T1z" label="whatsapp">
-                <LinkedinIcon className="size-4" />
+              <SocialLink href="https://www.whatsapp.com/channel/0029VbD7RhtBfxnzjdMQ4T1z" label="WhatsApp">
+                <WhatsappIcon className="size-4" />
               </SocialLink>
             </div>
           </div>
@@ -97,31 +93,6 @@ export async function Footer({ logoUrl }: { logoUrl?: string | null }) {
             <ul className="space-y-2.5 text-sm">
               <FooterLink href="/contact">{t("companyItems.contact")}</FooterLink>
               <FooterLink href="/publicite">{t("companyItems.publicite")}</FooterLink>
-            </ul>
-
-            <ul className="space-y-2.5 text-sm">
-              {contact.phone && (
-                <li className="flex items-center gap-2 text-white/60">
-                  <Phone className="size-4 shrink-0 text-moroccan-gold-500" aria-hidden="true" />
-                  <a
-                    href={`tel:${contact.phone.replace(/\s/g, "")}`}
-                    className="hover:text-white transition-colors"
-                    dir="ltr"
-                  >
-                    {contact.phone}
-                  </a>
-                </li>
-              )}
-              <li className="flex items-center gap-2 text-white/60">
-                <Mail className="size-4 shrink-0 text-moroccan-gold-500" aria-hidden="true" />
-                <a href={`mailto:${contact.email}`} className="hover:text-white transition-colors break-all">
-                  {contact.email}
-                </a>
-              </li>
-              <li className="flex items-center gap-2 text-white/60">
-                <MapPin className="size-4 shrink-0 text-moroccan-gold-500" aria-hidden="true" />
-                {t("address")}
-              </li>
             </ul>
           </div>
         </div>
