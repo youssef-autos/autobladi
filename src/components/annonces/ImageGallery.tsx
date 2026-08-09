@@ -195,7 +195,7 @@ export function ImageGallery({ images, title, condition }: Props) {
               >
                 <Image
                   src={img.thumbnail_url ?? img.url}
-                  alt=""
+                  alt={t("thumbnailAlt", { title, number: idx + 1 })}
                   fill
                   sizes="120px"
                   className="object-cover"

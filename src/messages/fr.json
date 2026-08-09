@@ -2006,6 +2006,7 @@
     "negotiable": "Négociable",
     "viewAllPhotos": "Voir toutes les photos ({count})",
     "imageCounter": "{current} / {total}",
+    "thumbnailAlt": "{title} — photo {number}",
     "closeLightbox": "Fermer",
     "previousImage": "Précédente",
     "nextImage": "Suivante",
