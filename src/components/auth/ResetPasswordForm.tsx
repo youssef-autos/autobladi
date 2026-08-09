@@ -19,6 +19,7 @@ import {
 export function ResetPasswordForm() {
   const t = useTranslations("auth.resetPassword")
   const tValidation = useTranslations("validation")
+  const tRoot = useTranslations()
   const locale = useLocale()
   const [pending, startTransition] = useTransition()
   const [done, setDone] = useState(false)
@@ -29,8 +30,12 @@ export function ResetPasswordForm() {
     defaultValues: { password: "", confirmPassword: "" },
   })
 
-  const tr = (key?: string) =>
-    key ? (key.startsWith("validation.") ? tValidation(key.slice("validation.".length)) : key) : ""
+  const tr = (key?: string) => {
+    if (!key) return ""
+    if (key.startsWith("validation.")) return tValidation(key.slice("validation.".length))
+    if (key.startsWith("auth.")) return tRoot(key)
+    return key
+  }
 
   function onSubmit(values: ResetPasswordInput) {
     setServerError(null)

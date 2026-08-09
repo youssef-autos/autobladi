@@ -38,6 +38,7 @@ const STEP_FIELDS: (keyof SignUpInput)[][] = [
 export function SignUpForm({ socialLogin }: Props) {
   const t = useTranslations("auth.signUp")
   const tValidation = useTranslations("validation")
+  const tRoot = useTranslations()
   const locale = useLocale()
   const router = useRouter()
   const [pending, startTransition] = useTransition()
@@ -83,8 +84,12 @@ export function SignUpForm({ socialLogin }: Props) {
   }
 
   const errors = form.formState.errors
-  const tr = (key?: string) =>
-    key ? (key.startsWith("validation.") ? tValidation(key.slice("validation.".length)) : key) : ""
+  const tr = (key?: string) => {
+    if (!key) return ""
+    if (key.startsWith("validation.")) return tValidation(key.slice("validation.".length))
+    if (key.startsWith("auth.")) return tRoot(key)
+    return key
+  }
 
   async function goNext() {
     // Guards against a double-invocation firing two overlapping calls (e.g. a
@@ -276,9 +281,7 @@ export function SignUpForm({ socialLogin }: Props) {
 
         {serverError && (
           <p className="rounded-xl bg-destructive/10 px-4 py-3 text-sm text-destructive">
-            {serverError.startsWith("auth.") || serverError.startsWith("validation.")
-              ? tr(serverError)
-              : serverError}
+            {tr(serverError)}
           </p>
         )}
 
