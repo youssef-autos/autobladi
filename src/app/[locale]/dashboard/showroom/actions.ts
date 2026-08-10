@@ -105,38 +105,46 @@ export async function updateMyShowroom(
   return { ok: true, slug: payload.slug }
 }
 
-// Google's Maps app share links (maps.app.goo.gl) carry no coordinates
-// themselves — only a redirect to the real, coordinate-bearing URL. The
-// redirect can't be followed client-side (CORS), so we do it here. The
-// hostname allowlist is what keeps this from being an open SSRF proxy.
-const ALLOWED_MAPS_SHORT_LINK_HOSTS = new Set(["maps.app.goo.gl"])
+export type AddressResult = { label: string; lat: number; lng: number }
 
-export async function resolveMapsShortLink(
-  url: string,
-): Promise<{ ok: true; url: string } | { ok: false }> {
+/**
+ * Address search backing the map picker. Proxied through the server (rather
+ * than called from the browser) so we can send a proper identifying
+ * User-Agent, as OpenStreetMap's Nominatim usage policy asks for.
+ */
+export async function searchAddress(query: string): Promise<AddressResult[]> {
   const supabase = await createClient()
   const {
     data: { user },
   } = await supabase.auth.getUser()
-  if (!user) return { ok: false }
+  if (!user) return []
 
-  let parsed: URL
-  try {
-    parsed = new URL(url)
-  } catch {
-    return { ok: false }
-  }
-  if (parsed.protocol !== "https:" || !ALLOWED_MAPS_SHORT_LINK_HOSTS.has(parsed.hostname)) {
-    return { ok: false }
-  }
+  const q = query.trim()
+  if (q.length < 3) return []
+
+  const url = new URL("https://nominatim.openstreetmap.org/search")
+  url.searchParams.set("q", q)
+  url.searchParams.set("format", "jsonv2")
+  url.searchParams.set("limit", "5")
+  // This marketplace only serves Morocco — scoping results avoids noise
+  // from identically-named streets/cities elsewhere.
+  url.searchParams.set("countrycodes", "ma")
 
   try {
-    const res = await fetch(parsed.toString(), {
-      redirect: "follow",
+    const res = await fetch(url, {
+      headers: { "User-Agent": "autobladi.ma (showroom location picker)" },
       signal: AbortSignal.timeout(8000),
     })
-    return { ok: true, url: res.url }
+    if (!res.ok) return []
+    const data = (await res.json()) as Array<{
+      display_name: string
+      lat: string
+      lon: string
+    }>
+    return data
+      .map((d) => ({ label: d.display_name, lat: Number(d.lat), lng: Number(d.lon) }))
+      .filter((d) => Number.isFinite(d.lat) && Number.isFinite(d.lng))
   } catch {
-    return { ok: false }
+    return []
   }
 }

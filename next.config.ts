@@ -7,7 +7,10 @@ const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  // geolocation=(self): the showroom location picker's "use my current
+  // location" button needs it for the site's own pages; still denied to any
+  // third-party/embedded content.
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self)" },
   { key: "X-DNS-Prefetch-Control", value: "on" },
 ]
 
