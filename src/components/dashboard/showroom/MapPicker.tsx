@@ -1,9 +1,11 @@
 "use client"
 
-import { useState } from "react"
-import { Code2, ExternalLink, LocateFixed, MapPin } from "lucide-react"
+import { useRef, useState } from "react"
+import { ClipboardPaste, ExternalLink, LocateFixed, MapPin } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
+
+import { resolveMapsShortLink } from "@/app/[locale]/dashboard/showroom/actions"
 
 type Props = {
   latitude: number | null
@@ -20,9 +22,19 @@ function isValidCoord(lat: number, lng: number): boolean {
   )
 }
 
+function isMapsShortLink(input: string): boolean {
+  try {
+    const u = new URL(input)
+    return u.protocol === "https:" && u.hostname === "maps.app.goo.gl"
+  } catch {
+    return false
+  }
+}
+
 /**
- * Pull lat/lng out of a pasted Google Maps "Embed a map" <iframe> snippet (or,
- * leniently, a plain share link / bare "lat,lng" text).
+ * Pull lat/lng out of a pasted Google Maps link, "Embed a map" <iframe>
+ * snippet, or bare "lat,lng" text. Short share links (maps.app.goo.gl) carry
+ * no coordinates and must be resolved server-side first — see applyPaste.
  */
 function parseLatLng(input: string): { lat: number; lng: number } | null {
   const embedMatch = input.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i)
@@ -38,8 +50,12 @@ function parseLatLng(input: string): { lat: number; lng: number } | null {
   }
 
   const patterns = [
-    /@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/, // .../@lat,lng,zoom
-    /!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/, // place links
+    // Place pin (from the "data=" blob) first: on place links the "@lat,lng"
+    // further down is only the map's *viewport* center, which Google often
+    // offsets from the actual pin by hundreds of meters (e.g. to leave room
+    // for the details panel) — !3d/!4d is the precise, geocoded location.
+    /!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/,
+    /@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/, // .../@lat,lng,zoom — viewport fallback
     /[?&](?:q|query|ll|center|destination|daddr)=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/,
     /^(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)$/, // bare "lat, lng"
   ]
@@ -58,13 +74,16 @@ const round6 = (n: number) => Number(n.toFixed(6))
 
 /**
  * Easy location picker: one-tap "use my current location" (browser GPS) or
- * paste Google Maps' "Embed a map" HTML snippet — both auto-fill the
- * lat/lng the rest of the app already stores and renders from.
+ * paste a Google Maps link (including short maps.app.goo.gl links) or its
+ * "Embed a map" HTML snippet — all auto-fill the lat/lng the rest of the
+ * app already stores and renders from.
  */
 export function MapPicker({ latitude, longitude, onChange }: Props) {
   const t = useTranslations("showroom.info")
   const [pasteValue, setPasteValue] = useState("")
   const [locating, setLocating] = useState(false)
+  const [resolving, setResolving] = useState(false)
+  const pasteRequestId = useRef(0)
 
   const hasCoords = latitude != null && longitude != null
   const previewSrc = hasCoords
@@ -94,18 +113,41 @@ export function MapPicker({ latitude, longitude, onChange }: Props) {
     )
   }
 
-  function applyPaste(value: string) {
+  async function applyPaste(value: string) {
     setPasteValue(value)
-    const parsed = parseLatLng(value)
+    const trimmed = value.trim()
+    if (!trimmed) return
+
+    const parsed = parseLatLng(trimmed)
     if (parsed) {
       onChange(round6(parsed.lat), round6(parsed.lng))
       toast.success(t("pasteSuccess"))
+      return
+    }
+
+    if (!isMapsShortLink(trimmed)) {
+      toast.error(t("pasteError"))
+      return
+    }
+
+    const requestId = ++pasteRequestId.current
+    setResolving(true)
+    const result = await resolveMapsShortLink(trimmed)
+    if (pasteRequestId.current !== requestId) return // a newer paste superseded this one
+    setResolving(false)
+
+    const resolved = result.ok ? parseLatLng(result.url) : null
+    if (resolved) {
+      onChange(round6(resolved.lat), round6(resolved.lng))
+      toast.success(t("pasteSuccess"))
+    } else {
+      toast.error(t("pasteError"))
     }
   }
 
   return (
     <div className="space-y-4">
-      {/* Easiest: current location + paste an embed snippet */}
+      {/* Easiest: current location + paste a link or embed snippet */}
       <div className="space-y-2.5">
         <button
           type="button"
@@ -119,18 +161,20 @@ export function MapPicker({ latitude, longitude, onChange }: Props) {
 
         <div className="space-y-1.5">
           <label className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Code2 className="size-3.5" aria-hidden="true" />
+            <ClipboardPaste className="size-3.5" aria-hidden="true" />
             {t("pasteLabel")}
           </label>
           <textarea
             value={pasteValue}
             onChange={(e) => applyPaste(e.target.value)}
-            placeholder='<iframe src="https://www.google.com/maps/embed?pb=…" …></iframe>'
+            placeholder="https://maps.app.goo.gl/…"
             dir="ltr"
-            rows={3}
+            rows={2}
             className="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm font-mono resize-y focus:outline-none focus:border-moroccan-red-500/40"
           />
-          <p className="text-[11px] text-muted-foreground">{t("pasteHelp")}</p>
+          <p className="text-[11px] text-muted-foreground">
+            {resolving ? t("pasteResolving") : t("pasteHelp")}
+          </p>
         </div>
       </div>
 

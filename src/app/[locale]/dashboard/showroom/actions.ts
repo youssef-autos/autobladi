@@ -104,3 +104,39 @@ export async function updateMyShowroom(
   revalidatePath("/dashboard/showroom")
   return { ok: true, slug: payload.slug }
 }
+
+// Google's Maps app share links (maps.app.goo.gl) carry no coordinates
+// themselves — only a redirect to the real, coordinate-bearing URL. The
+// redirect can't be followed client-side (CORS), so we do it here. The
+// hostname allowlist is what keeps this from being an open SSRF proxy.
+const ALLOWED_MAPS_SHORT_LINK_HOSTS = new Set(["maps.app.goo.gl"])
+
+export async function resolveMapsShortLink(
+  url: string,
+): Promise<{ ok: true; url: string } | { ok: false }> {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return { ok: false }
+
+  let parsed: URL
+  try {
+    parsed = new URL(url)
+  } catch {
+    return { ok: false }
+  }
+  if (parsed.protocol !== "https:" || !ALLOWED_MAPS_SHORT_LINK_HOSTS.has(parsed.hostname)) {
+    return { ok: false }
+  }
+
+  try {
+    const res = await fetch(parsed.toString(), {
+      redirect: "follow",
+      signal: AbortSignal.timeout(8000),
+    })
+    return { ok: true, url: res.url }
+  } catch {
+    return { ok: false }
+  }
+}
