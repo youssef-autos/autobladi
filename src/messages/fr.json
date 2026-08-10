@@ -1916,9 +1916,16 @@
       "engineSize": "Cylindrée",
       "engineSizePlaceholder": "1.6L, 2.0L...",
       "origine": "Origine du véhicule",
+      "firstOwner": "Premier propriétaire",
+      "accidentFree": "Sans accident",
+      "unspecified": "Non précisé",
+      "yes": "Oui",
+      "no": "Non",
       "optionsTitle": "Équipements",
       "sections": {
-        "mainInfo": "Informations principales"
+        "mainInfo": "Informations principales",
+        "motor": "Moteur & transmission",
+        "history": "Historique du véhicule"
       },
       "selectPlaceholder": "Sélectionner"
     },

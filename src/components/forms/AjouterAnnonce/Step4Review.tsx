@@ -68,8 +68,6 @@ export function Step4Review({ brands, models, cities }: Props) {
               {v.origine && (
                 <Row k={tStep1("origine")} val={origineLabel(v.origine, locale)} />
               )}
-              {/* Only shown when editing an older listing that still has this
-                  data — the publish form no longer collects it. */}
               {v.fuelType && <Row k={tStep1("fuelType")} val={tFuel(v.fuelType)} />}
               {v.transmission && (
                 <Row k={tStep1("transmission")} val={transmissionLabel(v.transmission, locale)} />
@@ -78,6 +76,12 @@ export function Step4Review({ brands, models, cities }: Props) {
               {v.seats != null && <Row k={tStep1("seats")} val={v.seats} />}
               {v.enginePower != null && <Row k={tStep1("enginePower")} val={`${v.enginePower} ch`} />}
               {v.engineSize && <Row k={tStep1("engineSize")} val={v.engineSize} />}
+              {v.firstOwner != null && (
+                <Row k={tStep1("firstOwner")} val={v.firstOwner ? tStep1("yes") : tStep1("no")} />
+              )}
+              {v.accidentFree != null && (
+                <Row k={tStep1("accidentFree")} val={v.accidentFree ? tStep1("yes") : tStep1("no")} />
+              )}
             </dl>
 
             {v.options.length > 0 && (

@@ -58,6 +58,8 @@ const stepFields: Record<number, Array<keyof AnnonceFormValues>> = {
     "seats",
     "color",
     "origine",
+    "firstOwner",
+    "accidentFree",
     "options",
   ],
   2: ["title", "description", "price", "contactPhone"],

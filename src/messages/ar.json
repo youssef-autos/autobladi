@@ -1917,9 +1917,16 @@
       "engineSize": "حجم المحرك",
       "engineSizePlaceholder": "1.6L, 2.0L...",
       "origine": "أصل السيارة",
+      "firstOwner": "مالك أول",
+      "accidentFree": "بدون حوادث",
+      "unspecified": "غير محدد",
+      "yes": "نعم",
+      "no": "لا",
       "optionsTitle": "الخيارات المتوفرة",
       "sections": {
-        "mainInfo": "المعلومات الأساسية"
+        "mainInfo": "المعلومات الأساسية",
+        "motor": "المحرك وناقل الحركة",
+        "history": "تاريخ السيارة"
       },
       "selectPlaceholder": "اختر"
     },

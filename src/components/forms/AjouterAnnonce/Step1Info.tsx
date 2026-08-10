@@ -5,7 +5,14 @@ import { useLocale, useTranslations } from "next-intl"
 
 import { EQUIPMENT_GROUPS } from "@/lib/equipments"
 import { MAX_YEAR, MIN_YEAR } from "@/lib/validations/annonce"
-import { COLORS, ORIGINES, colorLabel, origineLabel } from "@/lib/vehicle-options"
+import {
+  COLORS,
+  ORIGINES,
+  TRANSMISSIONS,
+  colorLabel,
+  origineLabel,
+  transmissionLabel,
+} from "@/lib/vehicle-options"
 import {
   Accordion,
   AccordionItem,
@@ -39,6 +46,13 @@ type Props = {
 // Most recent first — that's the model year sellers are overwhelmingly listing.
 const YEARS = Array.from({ length: MAX_YEAR - MIN_YEAR + 1 }, (_, i) => MAX_YEAR - i)
 
+// Matches the annonces.fuel_type Postgres enum.
+const FUEL_TYPES = ["essence", "diesel", "hybrid", "electric", "lpg"] as const
+
+// Matches the doors/seats bounds in step1Schema.
+const DOORS_OPTIONS = [2, 3, 4, 5, 6, 7, 8]
+const SEATS_OPTIONS = [2, 3, 4, 5, 6, 7, 8, 9]
+
 export function Step1Vehicle({
   brands,
   models,
@@ -47,6 +61,7 @@ export function Step1Vehicle({
 }: Props) {
   const t = useTranslations("ajouter.step1")
   const tValidation = useTranslations("ajouter.validation")
+  const tFuel = useTranslations("annonces.fuel")
   const locale = useLocale() as Locale
   const form = useFormContext<AnnonceFormValues>()
   const errors = form.formState.errors
@@ -298,6 +313,173 @@ export function Step1Vehicle({
         </div>
       </section>
 
+      {/* Moteur & transmission */}
+      <section className="space-y-4">
+        <SectionHeading title={t("sections.motor")} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Carburant */}
+          <Field label={t("fuelType")}>
+            <Controller
+              control={form.control}
+              name="fuelType"
+              render={({ field }) => (
+                <Select
+                  value={field.value ?? ""}
+                  onValueChange={(v) =>
+                    field.onChange((v || null) as AnnonceFormValues["fuelType"])
+                  }
+                >
+                  <SelectTrigger className="h-11 w-full rounded-xl">
+                    <TriggerLabel
+                      value={field.value}
+                      label={field.value ? tFuel(field.value) : undefined}
+                      placeholder={selectPlaceholder}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">{selectPlaceholder}</SelectItem>
+                    {FUEL_TYPES.map((f) => (
+                      <SelectItem key={f} value={f}>
+                        {tFuel(f)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          </Field>
+
+          {/* Boîte de vitesses */}
+          <Field label={t("transmission")}>
+            <Controller
+              control={form.control}
+              name="transmission"
+              render={({ field }) => (
+                <Select
+                  value={field.value ?? ""}
+                  onValueChange={(v) =>
+                    field.onChange((v || null) as AnnonceFormValues["transmission"])
+                  }
+                >
+                  <SelectTrigger className="h-11 w-full rounded-xl">
+                    <TriggerLabel
+                      value={field.value}
+                      label={field.value ? transmissionLabel(field.value, locale) : undefined}
+                      placeholder={selectPlaceholder}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">{selectPlaceholder}</SelectItem>
+                    {TRANSMISSIONS.map((opt) => (
+                      <SelectItem key={opt.key} value={opt.key}>
+                        {locale === "ar" ? opt.ar : opt.fr}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          </Field>
+
+          {/* Portes */}
+          <Field label={t("doors")}>
+            <Controller
+              control={form.control}
+              name="doors"
+              render={({ field }) => (
+                <Select
+                  value={field.value != null ? String(field.value) : ""}
+                  onValueChange={(v) => field.onChange(v ? Number(v) : null)}
+                >
+                  <SelectTrigger className="h-11 w-full rounded-xl">
+                    <TriggerLabel
+                      value={field.value}
+                      label={field.value != null ? String(field.value) : undefined}
+                      placeholder={selectPlaceholder}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">{selectPlaceholder}</SelectItem>
+                    {DOORS_OPTIONS.map((d) => (
+                      <SelectItem key={d} value={String(d)}>
+                        {d}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          </Field>
+
+          {/* Places */}
+          <Field label={t("seats")}>
+            <Controller
+              control={form.control}
+              name="seats"
+              render={({ field }) => (
+                <Select
+                  value={field.value != null ? String(field.value) : ""}
+                  onValueChange={(v) => field.onChange(v ? Number(v) : null)}
+                >
+                  <SelectTrigger className="h-11 w-full rounded-xl">
+                    <TriggerLabel
+                      value={field.value}
+                      label={field.value != null ? String(field.value) : undefined}
+                      placeholder={selectPlaceholder}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">{selectPlaceholder}</SelectItem>
+                    {SEATS_OPTIONS.map((s) => (
+                      <SelectItem key={s} value={String(s)}>
+                        {s}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          </Field>
+        </div>
+      </section>
+
+      {/* Historique du véhicule */}
+      <section className="space-y-4">
+        <SectionHeading title={t("sections.history")} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Controller
+            control={form.control}
+            name="firstOwner"
+            render={({ field }) => (
+              <TriStateField
+                name="firstOwner"
+                label={t("firstOwner")}
+                value={field.value}
+                onChange={field.onChange}
+                unspecifiedLabel={t("unspecified")}
+                yesLabel={t("yes")}
+                noLabel={t("no")}
+              />
+            )}
+          />
+          <Controller
+            control={form.control}
+            name="accidentFree"
+            render={({ field }) => (
+              <TriStateField
+                name="accidentFree"
+                label={t("accidentFree")}
+                value={field.value}
+                onChange={field.onChange}
+                unspecifiedLabel={t("unspecified")}
+                yesLabel={t("yes")}
+                noLabel={t("no")}
+              />
+            )}
+          />
+        </div>
+      </section>
+
       {/* Équipements */}
       <fieldset className="space-y-4">
         <SectionHeading title={t("optionsTitle")} as="legend" />
@@ -393,6 +575,61 @@ function SectionHeading({
     <Tag className="block text-base font-semibold text-foreground pb-2 border-b border-border">
       {title}
     </Tag>
+  )
+}
+
+/**
+ * Yes / No / unspecified — for boolean-nullable facts (first owner, accident
+ * history) where defaulting a silent "No" would misrepresent the car.
+ */
+function TriStateField({
+  name,
+  label,
+  value,
+  onChange,
+  unspecifiedLabel,
+  yesLabel,
+  noLabel,
+}: {
+  name: string
+  label: string
+  value: boolean | null
+  onChange: (value: boolean | null) => void
+  unspecifiedLabel: string
+  yesLabel: string
+  noLabel: string
+}) {
+  const current = value === null ? "unset" : value ? "yes" : "no"
+  const options = [
+    ["unset", unspecifiedLabel],
+    ["yes", yesLabel],
+    ["no", noLabel],
+  ] as const
+
+  return (
+    <Field label={label}>
+      <RadioGroup
+        value={current}
+        onValueChange={(v) => v && onChange(v === "unset" ? null : v === "yes")}
+        className="grid grid-cols-3 gap-2"
+      >
+        {options.map(([v, text]) => (
+          <Label
+            key={v}
+            htmlFor={`${name}-${v}`}
+            className={cn(
+              "flex items-center justify-center gap-2 rounded-xl border bg-background px-3 py-2.5 cursor-pointer text-sm font-medium",
+              current === v
+                ? "border-moroccan-red-500 bg-moroccan-red-50/40"
+                : "border-border",
+            )}
+          >
+            <RadioGroupItem value={v} id={`${name}-${v}`} />
+            {text}
+          </Label>
+        ))}
+      </RadioGroup>
+    </Field>
   )
 }
 
