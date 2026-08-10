@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ExternalLink, Link2, LocateFixed, MapPin } from "lucide-react"
+import { Code2, ExternalLink, LocateFixed, MapPin } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 
@@ -11,9 +11,32 @@ type Props = {
   onChange: (lat: number | null, lng: number | null) => void
 }
 
-/** Pull lat/lng out of a Google Maps URL (or bare "lat,lng" text). */
+function isValidCoord(lat: number, lng: number): boolean {
+  return (
+    Number.isFinite(lat) &&
+    Number.isFinite(lng) &&
+    Math.abs(lat) <= 90 &&
+    Math.abs(lng) <= 180
+  )
+}
+
+/**
+ * Pull lat/lng out of a pasted Google Maps "Embed a map" <iframe> snippet (or,
+ * leniently, a plain share link / bare "lat,lng" text).
+ */
 function parseLatLng(input: string): { lat: number; lng: number } | null {
-  const s = input.trim()
+  const embedMatch = input.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i)
+  const s = (embedMatch ? embedMatch[1] : input).trim()
+
+  // The embed URL's "pb=" parameter encodes position as !2d{lng}!3d{lat} —
+  // longitude first, unlike every other pattern below.
+  const embedCoords = s.match(/!2d(-?\d+(?:\.\d+)?)!3d(-?\d+(?:\.\d+)?)/)
+  if (embedCoords) {
+    const lng = Number(embedCoords[1])
+    const lat = Number(embedCoords[2])
+    if (isValidCoord(lat, lng)) return { lat, lng }
+  }
+
   const patterns = [
     /@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/, // .../@lat,lng,zoom
     /!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/, // place links
@@ -25,14 +48,7 @@ function parseLatLng(input: string): { lat: number; lng: number } | null {
     if (m) {
       const lat = Number(m[1])
       const lng = Number(m[2])
-      if (
-        Number.isFinite(lat) &&
-        Number.isFinite(lng) &&
-        Math.abs(lat) <= 90 &&
-        Math.abs(lng) <= 180
-      ) {
-        return { lat, lng }
-      }
+      if (isValidCoord(lat, lng)) return { lat, lng }
     }
   }
   return null
@@ -42,8 +58,8 @@ const round6 = (n: number) => Number(n.toFixed(6))
 
 /**
  * Easy location picker: one-tap "use my current location" (browser GPS) or
- * paste a Google Maps link / coordinates — both auto-fill the fields. The two
- * number inputs stay available for manual/advanced entry.
+ * paste Google Maps' "Embed a map" HTML snippet — both auto-fill the
+ * lat/lng the rest of the app already stores and renders from.
  */
 export function MapPicker({ latitude, longitude, onChange }: Props) {
   const t = useTranslations("showroom.info")
@@ -89,7 +105,7 @@ export function MapPicker({ latitude, longitude, onChange }: Props) {
 
   return (
     <div className="space-y-4">
-      {/* Easiest: current location + paste a link */}
+      {/* Easiest: current location + paste an embed snippet */}
       <div className="space-y-2.5">
         <button
           type="button"
@@ -103,59 +119,20 @@ export function MapPicker({ latitude, longitude, onChange }: Props) {
 
         <div className="space-y-1.5">
           <label className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Link2 className="size-3.5" aria-hidden="true" />
+            <Code2 className="size-3.5" aria-hidden="true" />
             {t("pasteLabel")}
           </label>
-          <input
-            type="text"
+          <textarea
             value={pasteValue}
             onChange={(e) => applyPaste(e.target.value)}
-            placeholder="https://maps.google.com/…  ·  33.5731, -7.5898"
+            placeholder='<iframe src="https://www.google.com/maps/embed?pb=…" …></iframe>'
             dir="ltr"
-            className="h-11 w-full rounded-xl border border-input bg-background px-3 text-sm focus:outline-none focus:border-moroccan-red-500/40"
+            rows={3}
+            className="w-full rounded-xl border border-input bg-background px-3 py-2.5 text-sm font-mono resize-y focus:outline-none focus:border-moroccan-red-500/40"
           />
           <p className="text-[11px] text-muted-foreground">{t("pasteHelp")}</p>
         </div>
       </div>
-
-      {/* Advanced: manual coordinates */}
-      <details className="group">
-        <summary className="cursor-pointer text-xs font-medium text-muted-foreground hover:text-foreground select-none">
-          {t("manualCoords")}
-        </summary>
-        <div className="grid grid-cols-2 gap-3 mt-3">
-          <label className="flex flex-col gap-1.5 text-sm">
-            <span className="text-xs text-muted-foreground">{t("lat")}</span>
-            <input
-              type="number"
-              inputMode="decimal"
-              step="0.000001"
-              value={latitude ?? ""}
-              onChange={(e) => {
-                const v = e.target.value === "" ? null : Number(e.target.value)
-                onChange(v, longitude)
-              }}
-              dir="ltr"
-              className="h-11 rounded-xl border border-input bg-background px-3 text-sm focus:outline-none focus:border-moroccan-red-500/40"
-            />
-          </label>
-          <label className="flex flex-col gap-1.5 text-sm">
-            <span className="text-xs text-muted-foreground">{t("lng")}</span>
-            <input
-              type="number"
-              inputMode="decimal"
-              step="0.000001"
-              value={longitude ?? ""}
-              onChange={(e) => {
-                const v = e.target.value === "" ? null : Number(e.target.value)
-                onChange(latitude, v)
-              }}
-              dir="ltr"
-              className="h-11 rounded-xl border border-input bg-background px-3 text-sm focus:outline-none focus:border-moroccan-red-500/40"
-            />
-          </label>
-        </div>
-      </details>
 
       <a
         href={googleMapsUrl}
