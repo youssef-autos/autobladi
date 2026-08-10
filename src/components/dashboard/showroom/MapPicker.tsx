@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { ExternalLink, Loader2, LocateFixed, Search } from "lucide-react"
+import { Check, ExternalLink, Loader2, LocateFixed, Search } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import type * as Leaflet from "leaflet"
@@ -17,6 +17,28 @@ type Props = {
 }
 
 const round6 = (n: number) => Number(n.toFixed(6))
+
+function isValidCoord(lat: number, lng: number): boolean {
+  return (
+    Number.isFinite(lat) &&
+    Number.isFinite(lng) &&
+    Math.abs(lat) <= 90 &&
+    Math.abs(lng) <= 180
+  )
+}
+
+// Accepts exactly the "latitude, longitude" format this component itself
+// displays — not an arbitrary Google Maps URL/HTML blob. That's the whole
+// point: unlike parsing a pasted link (unreliable — Google's share links
+// don't consistently encode coordinates the same way), this format is one
+// we define and control, so it can never be ambiguous or wrong.
+function parsePosition(input: string): { lat: number; lng: number } | null {
+  const m = input.trim().match(/^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/)
+  if (!m) return null
+  const lat = Number(m[1])
+  const lng = Number(m[2])
+  return isValidCoord(lat, lng) ? { lat, lng } : null
+}
 
 // Wide view of Morocco — shown until the seller has (or picks) an exact spot.
 const MOROCCO_CENTER: [number, number] = [31.5, -6.5]
@@ -52,6 +74,20 @@ export function MapPicker({ latitude, longitude, onChange }: Props) {
   const [query, setQuery] = useState("")
   const [searching, setSearching] = useState(false)
   const [results, setResults] = useState<AddressResult[] | null>(null)
+  const [positionInput, setPositionInput] = useState(
+    latitude != null && longitude != null ? `${latitude}, ${longitude}` : "",
+  )
+  // Keep the editable position field in sync with the map/search/GPS —
+  // adjusted during render (React's recommended pattern for this, see
+  // https://react.dev/learn/you-might-not-need-an-effect) rather than in an
+  // effect, so typing in the field itself isn't fighting an extra render.
+  const [syncedLat, setSyncedLat] = useState(latitude)
+  const [syncedLng, setSyncedLng] = useState(longitude)
+  if (syncedLat !== latitude || syncedLng !== longitude) {
+    setSyncedLat(latitude)
+    setSyncedLng(longitude)
+    setPositionInput(latitude != null && longitude != null ? `${latitude}, ${longitude}` : "")
+  }
 
   function placeMarker(lat: number, lng: number, { fromUser }: { fromUser: boolean }) {
     const L = leafletRef.current
@@ -184,6 +220,16 @@ export function MapPicker({ latitude, longitude, onChange }: Props) {
     setResults(null)
   }
 
+  function applyPositionInput() {
+    const parsed = parsePosition(positionInput)
+    if (!parsed) {
+      toast.error(t("positionInvalid"))
+      return
+    }
+    onChange(round6(parsed.lat), round6(parsed.lng))
+    toast.success(t("positionApplied"))
+  }
+
   const hasCoords = latitude != null && longitude != null
   const googleMapsUrl = hasCoords
     ? `https://www.google.com/maps?q=${latitude},${longitude}`
@@ -259,24 +305,44 @@ export function MapPicker({ latitude, longitude, onChange }: Props) {
         <div ref={containerRef} className="absolute inset-0" />
       </div>
 
-      {hasCoords && (
-        <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-muted-foreground">
-          <span className="font-mono" dir="ltr">
-            {t("currentPosition")} {latitude}, {longitude}
-          </span>
-          {googleMapsUrl && (
-            <a
-              href={googleMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 font-medium text-moroccan-red-500 hover:underline"
-            >
-              <ExternalLink className="size-3.5" aria-hidden="true" />
-              {t("verifyOnMaps")}
-            </a>
-          )}
+      <div className="space-y-1.5">
+        <label className="text-xs text-muted-foreground">{t("positionLabel")}</label>
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value={positionInput}
+            onChange={(e) => setPositionInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault()
+                applyPositionInput()
+              }
+            }}
+            placeholder="33.235066, -8.520584"
+            dir="ltr"
+            className="h-10 flex-1 min-w-0 rounded-xl border border-input bg-background px-3 text-sm font-mono focus:outline-none focus:border-moroccan-red-500/40"
+          />
+          <button
+            type="button"
+            onClick={applyPositionInput}
+            aria-label={t("positionApplyLabel")}
+            className="inline-flex items-center justify-center size-10 rounded-xl border border-input bg-background hover:bg-moroccan-sand-50 transition-colors shrink-0"
+          >
+            <Check className="size-4" aria-hidden="true" />
+          </button>
         </div>
-      )}
+        {hasCoords && googleMapsUrl && (
+          <a
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-moroccan-red-500 hover:underline"
+          >
+            <ExternalLink className="size-3.5" aria-hidden="true" />
+            {t("verifyOnMaps")}
+          </a>
+        )}
+      </div>
     </div>
   )
 }
