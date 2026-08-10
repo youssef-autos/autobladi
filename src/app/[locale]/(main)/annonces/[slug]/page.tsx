@@ -179,27 +179,34 @@ export default async function AnnonceDetailPage({
       {/* Spacer so the fixed bar never hides the last content on mobile */}
       <div className="h-20 lg:hidden" aria-hidden="true" />
 
-      <JsonLd
-        data={vehicleSchema({
-          locale,
-          slug: annonce.slug,
-          title: annonce.title,
-          description: annonce.description,
-          brandName: annonce.brand?.name ?? null,
-          modelName: annonce.model?.name ?? null,
-          year: annonce.year,
-          mileage: annonce.mileage,
-          fuelType: annonce.fuel_type,
-          transmission: annonce.transmission,
-          color: annonce.color,
-          doors: annonce.doors,
-          price: annonce.price,
-          sellerName: annonce.seller?.full_name ?? null,
-          cityName: annonce.city?.name_fr ?? null,
-          images: annonce.images.map((i) => i.url),
-          publishedAt: annonce.published_at,
-        })}
-      />
+      {/* Vehicle is a schema.org Product subtype, so Google's Product
+          rich-result validator requires offers/review/aggregateRating on
+          any page using it — a bar "Prix sur demande" listings can't clear
+          honestly (no price to publish, no per-listing review system).
+          Only emit it when there's a real price to back the offer. */}
+      {annonce.price != null && (
+        <JsonLd
+          data={vehicleSchema({
+            locale,
+            slug: annonce.slug,
+            title: annonce.title,
+            description: annonce.description,
+            brandName: annonce.brand?.name ?? null,
+            modelName: annonce.model?.name ?? null,
+            year: annonce.year,
+            mileage: annonce.mileage,
+            fuelType: annonce.fuel_type,
+            transmission: annonce.transmission,
+            color: annonce.color,
+            doors: annonce.doors,
+            price: annonce.price,
+            sellerName: annonce.seller?.full_name ?? null,
+            cityName: annonce.city?.name_fr ?? null,
+            images: annonce.images.map((i) => i.url),
+            publishedAt: annonce.published_at,
+          })}
+        />
+      )}
 
       <JsonLd
         data={breadcrumbSchema([
