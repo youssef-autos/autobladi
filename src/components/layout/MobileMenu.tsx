@@ -105,7 +105,7 @@ export function MobileMenu({
           <ul className="flex flex-col">
             <li>
               <Link
-                href="/dashboard/favorites"
+                href="/dashboard/favoris"
                 onClick={() => setOpen(false)}
                 className="flex items-center gap-3 px-5 py-3 text-sm font-medium text-foreground hover:bg-moroccan-sand-50 transition-colors"
               >
