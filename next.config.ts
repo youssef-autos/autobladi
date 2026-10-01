@@ -67,20 +67,17 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["lucide-react", "date-fns", "recharts"],
   },
   images: {
-    // The Next 16 image optimizer refuses to fetch upstream images that
-    // resolve to a "private" IP. On IPv6-only / DNS64+NAT64 dev networks
-    // (e.g. some phone hotspots), public hosts resolve to a 64:ff9b:: NAT64
-    // address that the guard misclassifies as private, so optimized images
-    // fail to load locally. Skip optimization in development — the browser
-    // then loads the storage URL directly. Production keeps optimization.
-    unoptimized: process.env.NODE_ENV === "development",
-    // Only optimize images from our own Supabase storage. Allowing any host
-    // (`**`) would turn the Next image optimizer into an open proxy that
-    // anyone could abuse to fetch/transform arbitrary remote images at our
-    // bandwidth/CPU cost. All app images (car photos, avatars, brand logos,
-    // ad creatives, blog covers) are uploaded to Supabase storage, so this
-    // covers every case. If you later need an external CDN, add its exact
-    // hostname here — never re-add the `**` wildcard.
+    // Vercel meters Next's built-in Image Optimization API as "Image
+    // Transformations" and bills/throttles once the plan's included quota is
+    // used up — this site hit that limit. Annonce photos are already
+    // resized + WebP-compressed server-side at upload time (see
+    // src/app/api/watermark/route.tsx), so the optimizer was mostly doing
+    // redundant, metered re-work rather than anything load-bearing. Serving
+    // images as-is removes that cost entirely, in dev and production alike.
+    unoptimized: true,
+    // Kept even though the optimizer is off: if this is ever re-enabled,
+    // only our own Supabase storage should be fetchable through it — `**`
+    // would turn it into an open proxy anyone could abuse at our expense.
     remotePatterns: [
       { protocol: "https", hostname: "**.supabase.co" },
     ],
