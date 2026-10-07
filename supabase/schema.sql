@@ -607,21 +607,6 @@ create table if not exists public.blog_comments (
   created_at timestamptz not null default now()
 );
 
--- Public view counter — SECURITY DEFINER so an anonymous request can bump it.
-create or replace function public.increment_blog_view(p_post_id uuid)
-returns void
-language plpgsql
-security definer
-set search_path = public
-as $$
-begin
-  update public.blog_posts
-     set views_count = coalesce(views_count, 0) + 1
-   where id = p_post_id
-     and is_published = true;
-end;
-$$;
-
 -- Cached comments_count counts APPROVED comments only.
 create or replace function public.refresh_blog_comments_count(p_post_id uuid)
 returns void

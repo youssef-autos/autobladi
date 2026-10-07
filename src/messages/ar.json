@@ -1116,6 +1116,8 @@
         "date": "التاريخ",
         "actions": "إجراءات"
       },
+      "viewsLabel": "المشاهدات",
+      "commentsLabel": "التعليقات",
       "edit": "تعديل",
       "delete": "حذف",
       "publish": "نشر",

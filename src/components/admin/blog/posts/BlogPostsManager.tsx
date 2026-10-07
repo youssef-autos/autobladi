@@ -235,11 +235,17 @@ export function BlogPostsManager({ posts }: Props) {
                     {/* Stats */}
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3 text-xs text-muted-foreground tabular-nums">
-                        <span className="inline-flex items-center gap-1">
+                        <span
+                          className="inline-flex items-center gap-1"
+                          title={t("viewsLabel")}
+                        >
                           <Eye className="size-3.5" />
                           {post.views_count}
                         </span>
-                        <span className="inline-flex items-center gap-1">
+                        <span
+                          className="inline-flex items-center gap-1"
+                          title={t("commentsLabel")}
+                        >
                           <MessageSquare className="size-3.5" />
                           {post.comments_count}
                         </span>

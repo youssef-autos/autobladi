@@ -1115,6 +1115,8 @@
         "date": "Date",
         "actions": "Actions"
       },
+      "viewsLabel": "Vues",
+      "commentsLabel": "Commentaires",
       "edit": "Modifier",
       "delete": "Supprimer",
       "publish": "Publier",
