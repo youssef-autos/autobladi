@@ -170,7 +170,7 @@ export default async function BlogIndexPage({
               <BlogPagination
                 page={result.page}
                 totalPages={result.totalPages}
-                basePath={`/${locale}/blog`}
+                basePath="/blog"
                 preserveParams={{ q }}
               />
             </section>

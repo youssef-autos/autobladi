@@ -124,7 +124,7 @@ export default async function BlogCategoryPage({
           <BlogPagination
             page={result.page}
             totalPages={result.totalPages}
-            basePath={`/${locale}/blog/category/${slug}`}
+            basePath={`/blog/category/${slug}`}
             preserveParams={{ q }}
           />
         </div>
