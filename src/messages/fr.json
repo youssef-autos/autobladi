@@ -1040,6 +1040,7 @@
         "published": "Page publiée",
         "unpublished": "Page dépubliée",
         "slugTaken": "Ce lien est déjà utilisé",
+        "contentTooLong": "Contenu trop volumineux — une image a probablement été collée directement au lieu d'être téléchargée. Retirez-la et réinsérez-la avec le bouton d'image.",
         "error": "Une erreur est survenue"
       },
       "form": {
@@ -1129,6 +1130,7 @@
         "published": "Article publié",
         "unpublished": "Article dépublié",
         "slugTaken": "Ce slug est déjà utilisé",
+        "contentTooLong": "Contenu trop volumineux — une image a probablement été collée directement au lieu d'être téléchargée. Retirez-la et réinsérez-la avec le bouton \"Insérer une image\".",
         "error": "Une erreur est survenue"
       },
       "form": {

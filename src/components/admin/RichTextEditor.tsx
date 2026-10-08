@@ -9,6 +9,14 @@ type Props = {
   dir?: "rtl" | "ltr"
   height?: number
   placeholder?: string
+  /**
+   * Uploads a locally-picked/pasted/dropped image and returns its hosted
+   * URL. Without this, TinyMCE falls back to embedding images as base64
+   * directly in the content — a single photo can easily add 100KB+ of
+   * text, which silently blows past the content length limit and makes
+   * saving fail with no indication why.
+   */
+  onImageUpload?: (file: File) => Promise<string>
 }
 
 export function RichTextEditor({
@@ -17,6 +25,7 @@ export function RichTextEditor({
   dir = "rtl",
   height = 450,
   placeholder,
+  onImageUpload,
 }: Props) {
   const editorRef = useRef<unknown>(null)
 
@@ -84,7 +93,16 @@ export function RichTextEditor({
           blockquote { border-left: 4px solid #d4a00e; padding-left: 1rem; margin-left: 0; color: #555; }
         `,
         image_advtab: true,
-        automatic_uploads: false,
+        automatic_uploads: !!onImageUpload,
+        paste_data_images: !!onImageUpload,
+        images_upload_handler: onImageUpload
+          ? (blobInfo: { blob: () => Blob; filename: () => string }) => {
+              const blob = blobInfo.blob()
+              return onImageUpload(
+                new File([blob], blobInfo.filename(), { type: blob.type }),
+              )
+            }
+          : undefined,
         file_picker_types: "image",
         promotion: false,
         branding: false,

@@ -100,6 +100,14 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
     }
   }
 
+  async function uploadForEditor(file: File): Promise<string> {
+    const fd = new FormData()
+    fd.append("file", file)
+    const res = await uploadBlogImage(fd)
+    if (!res.ok) throw new Error(res.error)
+    return mediaUrl(res.url)
+  }
+
   async function handleInlineUpload(file: File) {
     setUploadingInline(true)
     try {
@@ -151,9 +159,9 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
         ? await updateBlogPost({ ...payload, id: initial!.id })
         : await createBlogPost(payload)
       if (!res.ok) {
-        toast.error(
-          res.error === "slug_taken" ? t("toast.slugTaken") : t("toast.error"),
-        )
+        if (res.error === "slug_taken") toast.error(t("toast.slugTaken"))
+        else if (res.error === "content_too_long") toast.error(t("toast.contentTooLong"))
+        else toast.error(t("toast.error"))
         return
       }
       toast.success(isEdit ? t("toast.updated") : t("toast.created"))
@@ -284,6 +292,7 @@ export function BlogPostEditor({ mode, categories, initial }: Props) {
               dir={lang === "ar" ? "rtl" : "ltr"}
               height={500}
               placeholder={tForm("contentPlaceholder")}
+              onImageUpload={uploadForEditor}
             />
             <div className="flex items-center justify-between gap-2 flex-wrap">
               <p className="text-xs text-muted-foreground">

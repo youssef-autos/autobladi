@@ -6,7 +6,7 @@ export { slugify }
 
 const contentField = z
   .string()
-  .max(100000)
+  .max(100000, "content_too_long")
   .nullable()
   .optional()
   .transform((v) => (v && v.trim() ? v : null))

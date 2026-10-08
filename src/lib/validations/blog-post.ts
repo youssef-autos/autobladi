@@ -12,11 +12,15 @@ const nullableTrimmed = (max: number) =>
     .optional()
     .transform((v) => (v && v.trim() ? v.trim() : null))
 
-// Markdown body — kept as-is (don't trim interior whitespace).
+// Markdown body — kept as-is (don't trim interior whitespace). The cap
+// mainly exists to catch an image pasted straight into the editor instead
+// of uploaded (base64-encodes to 100KB+ of text for a single photo) — the
+// upload handler wired into RichTextEditor should prevent that case, but
+// the message stays specific so a hit here is still diagnosable.
 const nullableMarkdown = () =>
   z
     .string()
-    .max(100000)
+    .max(100000, "content_too_long")
     .nullable()
     .optional()
     .transform((v) => (v && v.trim() ? v : null))

@@ -6,10 +6,12 @@ import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 
 import { createPage, updatePage } from "@/app/[locale]/admin/pages/actions"
+import { uploadBlogImage } from "@/app/[locale]/admin/blog/upload-action"
 import { RichTextEditor } from "@/components/admin/RichTextEditor"
 import { Field } from "@/components/ui/Field"
 import { MoroccanButton } from "@/components/ui/MoroccanButton"
 import { Link, useRouter } from "@/i18n/navigation"
+import { mediaUrl } from "@/lib/media"
 import { slugify } from "@/lib/validations/page"
 import type { Tables } from "@/types/database.types"
 
@@ -41,6 +43,14 @@ export function PageEditor({ mode, initial }: Props) {
     if (!slugTouched) setSlug(slugify(v))
   }
 
+  async function uploadForEditor(file: File): Promise<string> {
+    const fd = new FormData()
+    fd.append("file", file)
+    const res = await uploadBlogImage(fd)
+    if (!res.ok) throw new Error(res.error)
+    return mediaUrl(res.url)
+  }
+
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const payload = {
@@ -58,9 +68,9 @@ export function PageEditor({ mode, initial }: Props) {
         ? await updatePage({ ...payload, id: initial!.id })
         : await createPage(payload)
       if (!res.ok) {
-        toast.error(
-          res.error === "slug_taken" ? t("toast.slugTaken") : t("toast.error"),
-        )
+        if (res.error === "slug_taken") toast.error(t("toast.slugTaken"))
+        else if (res.error === "content_too_long") toast.error(t("toast.contentTooLong"))
+        else toast.error(t("toast.error"))
         return
       }
       toast.success(isEdit ? t("toast.updated") : t("toast.created"))
@@ -134,6 +144,7 @@ export function PageEditor({ mode, initial }: Props) {
               onChange={setContentFr}
               dir="ltr"
               placeholder={tForm("contentPlaceholder")}
+              onImageUpload={uploadForEditor}
             />
           </Field>
 
@@ -143,6 +154,7 @@ export function PageEditor({ mode, initial }: Props) {
               onChange={setContentAr}
               dir="rtl"
               placeholder={tForm("contentPlaceholder")}
+              onImageUpload={uploadForEditor}
             />
           </Field>
         </div>
